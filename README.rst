@@ -1,6 +1,6 @@
 Models
 ------
-MEMBER
+member
 ~~~~~~
 * display name
 * instrument
@@ -10,7 +10,7 @@ MEMBER
 * dob
 * date of join
 
-VENUE
+venue
 ~~~~~
 * name
 * image
@@ -21,7 +21,7 @@ VENUE
 * phone
 * website
 
-GIG
+gig
 ~~~
 * -> venue
 * date
@@ -32,13 +32,13 @@ GIG
 * ages
 * notes
 
-SETLIST
+setlist
 ~~~~~~~
 * -> gig
 * -> songs
 * song order ???
 
-SONG
+song
 ~~~~
 * -> lead singer (member)
 * notes for FOH
@@ -46,24 +46,25 @@ SONG
 * year released
 * album
 
-PHOTO
+photo
 ~~~~~
 * -> gig
 
-VIDEO
+video
 ~~~~~
 * -> gig
 * embed url ?
 
-todo:
+
+To-Dos:
 -----
 * How to model setlist relationship, vis-a-vis songs and song order
 * Import existing gig and venue data
 * Publish calendar/rss feed
 * Embed videos by url?
-* Photo galleries?
+* Photo galleries? https://django-photologue.readthedocs.org/en/latest/
 
-components:
+Components:
 -----------
 * videos
 * dates

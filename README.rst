@@ -60,7 +60,7 @@ To-Dos:
 -----
 * How to model setlist relationship, vis-a-vis songs and song order
 * Import existing gig and venue data
-* Publish calendar/rss feed
+* Publish calendar/rss feed https://bitbucket.org/IanLewis/django-ical
 * Embed videos by url?
 * Photo galleries? https://django-photologue.readthedocs.org/en/latest/
 

@@ -1,0 +1,629 @@
+2013-07-19 09:50:50,565 [DEBUG] django.db.backends: (0.007) SHOW TABLES; args=()
+2013-07-19 09:50:50,653 [DEBUG] django.db.backends: (0.087) CREATE TABLE `django_admin_log` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `action_time` datetime NOT NULL,
+    `user_id` integer NOT NULL,
+    `content_type_id` integer,
+    `object_id` longtext,
+    `object_repr` varchar(200) NOT NULL,
+    `action_flag` smallint UNSIGNED NOT NULL,
+    `change_message` longtext NOT NULL
+)
+;; args=()
+2013-07-19 09:50:50,691 [DEBUG] django.db.backends: (0.037) CREATE TABLE `auth_permission` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `name` varchar(50) NOT NULL,
+    `content_type_id` integer NOT NULL,
+    `codename` varchar(100) NOT NULL,
+    UNIQUE (`content_type_id`, `codename`)
+)
+;; args=()
+2013-07-19 09:50:50,711 [DEBUG] django.db.backends: (0.020) CREATE TABLE `auth_group_permissions` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `group_id` integer NOT NULL,
+    `permission_id` integer NOT NULL,
+    UNIQUE (`group_id`, `permission_id`)
+)
+;; args=()
+2013-07-19 09:50:50,759 [DEBUG] django.db.backends: (0.048) ALTER TABLE `auth_group_permissions` ADD CONSTRAINT `permission_id_refs_id_6ba0f519` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`);; args=()
+2013-07-19 09:50:50,784 [DEBUG] django.db.backends: (0.025) CREATE TABLE `auth_group` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `name` varchar(80) NOT NULL UNIQUE
+)
+;; args=()
+2013-07-19 09:50:50,809 [DEBUG] django.db.backends: (0.024) ALTER TABLE `auth_group_permissions` ADD CONSTRAINT `group_id_refs_id_f4b32aac` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`);; args=()
+2013-07-19 09:50:50,841 [DEBUG] django.db.backends: (0.032) CREATE TABLE `auth_user_groups` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` integer NOT NULL,
+    `group_id` integer NOT NULL,
+    UNIQUE (`user_id`, `group_id`)
+)
+;; args=()
+2013-07-19 09:50:50,878 [DEBUG] django.db.backends: (0.036) ALTER TABLE `auth_user_groups` ADD CONSTRAINT `group_id_refs_id_274b862c` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`);; args=()
+2013-07-19 09:50:50,906 [DEBUG] django.db.backends: (0.028) CREATE TABLE `auth_user_user_permissions` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` integer NOT NULL,
+    `permission_id` integer NOT NULL,
+    UNIQUE (`user_id`, `permission_id`)
+)
+;; args=()
+2013-07-19 09:50:50,933 [DEBUG] django.db.backends: (0.026) ALTER TABLE `auth_user_user_permissions` ADD CONSTRAINT `permission_id_refs_id_35d9ac25` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`);; args=()
+2013-07-19 09:50:50,953 [DEBUG] django.db.backends: (0.020) CREATE TABLE `auth_user` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `password` varchar(128) NOT NULL,
+    `last_login` datetime NOT NULL,
+    `is_superuser` bool NOT NULL,
+    `username` varchar(30) NOT NULL UNIQUE,
+    `first_name` varchar(30) NOT NULL,
+    `last_name` varchar(30) NOT NULL,
+    `email` varchar(75) NOT NULL,
+    `is_staff` bool NOT NULL,
+    `is_active` bool NOT NULL,
+    `date_joined` datetime NOT NULL
+)
+;; args=()
+2013-07-19 09:50:50,972 [DEBUG] django.db.backends: (0.019) ALTER TABLE `django_admin_log` ADD CONSTRAINT `user_id_refs_id_c0d12874` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);; args=()
+2013-07-19 09:50:50,994 [DEBUG] django.db.backends: (0.022) ALTER TABLE `auth_user_groups` ADD CONSTRAINT `user_id_refs_id_40c41112` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);; args=()
+2013-07-19 09:50:51,032 [DEBUG] django.db.backends: (0.037) ALTER TABLE `auth_user_user_permissions` ADD CONSTRAINT `user_id_refs_id_4dc23c39` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);; args=()
+2013-07-19 09:50:51,053 [DEBUG] django.db.backends: (0.021) CREATE TABLE `django_content_type` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `name` varchar(100) NOT NULL,
+    `app_label` varchar(100) NOT NULL,
+    `model` varchar(100) NOT NULL,
+    UNIQUE (`app_label`, `model`)
+)
+;; args=()
+2013-07-19 09:50:51,076 [DEBUG] django.db.backends: (0.023) ALTER TABLE `django_admin_log` ADD CONSTRAINT `content_type_id_refs_id_93d2d1f8` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`);; args=()
+2013-07-19 09:50:51,105 [DEBUG] django.db.backends: (0.028) ALTER TABLE `auth_permission` ADD CONSTRAINT `content_type_id_refs_id_d043b34a` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`);; args=()
+2013-07-19 09:50:51,135 [DEBUG] django.db.backends: (0.030) CREATE TABLE `django_session` (
+    `session_key` varchar(40) NOT NULL PRIMARY KEY,
+    `session_data` longtext NOT NULL,
+    `expire_date` datetime NOT NULL
+)
+;; args=()
+2013-07-19 09:50:51,153 [DEBUG] django.db.backends: (0.018) CREATE TABLE `django_site` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `domain` varchar(100) NOT NULL,
+    `name` varchar(50) NOT NULL
+)
+;; args=()
+2013-07-19 09:50:51,172 [DEBUG] django.db.backends: (0.018) CREATE TABLE `south_migrationhistory` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `app_name` varchar(255) NOT NULL,
+    `migration` varchar(255) NOT NULL,
+    `applied` datetime NOT NULL
+)
+;; args=()
+2013-07-19 09:50:51,182 [DEBUG] django.db.backends: (0.009) CREATE TABLE `social_auth_usersocialauth` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` integer NOT NULL,
+    `provider` varchar(32) NOT NULL,
+    `uid` varchar(255) NOT NULL,
+    `extra_data` longtext NOT NULL,
+    UNIQUE (`provider`, `uid`)
+)
+;; args=()
+2013-07-19 09:50:51,202 [DEBUG] django.db.backends: (0.020) ALTER TABLE `social_auth_usersocialauth` ADD CONSTRAINT `user_id_refs_id_e6cbdf29` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);; args=()
+2013-07-19 09:50:51,220 [DEBUG] django.db.backends: (0.017) CREATE TABLE `social_auth_nonce` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `server_url` varchar(255) NOT NULL,
+    `timestamp` integer NOT NULL,
+    `salt` varchar(40) NOT NULL,
+    UNIQUE (`server_url`, `timestamp`, `salt`)
+)
+;; args=()
+2013-07-19 09:50:51,236 [DEBUG] django.db.backends: (0.015) CREATE TABLE `social_auth_association` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `server_url` varchar(255) NOT NULL,
+    `handle` varchar(255) NOT NULL,
+    `secret` varchar(255) NOT NULL,
+    `issued` integer NOT NULL,
+    `lifetime` integer NOT NULL,
+    `assoc_type` varchar(64) NOT NULL,
+    UNIQUE (`server_url`, `handle`)
+)
+;; args=()
+2013-07-19 09:50:51,246 [DEBUG] django.db.backends: (0.010) CREATE TABLE `accounts_userprofile` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` integer NOT NULL UNIQUE,
+    `newsletter_subscribe` bool NOT NULL,
+    `picture` varchar(100) NOT NULL
+)
+;; args=()
+2013-07-19 09:50:51,276 [DEBUG] django.db.backends: (0.030) ALTER TABLE `accounts_userprofile` ADD CONSTRAINT `user_id_refs_id_a240fa0c` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);; args=()
+2013-07-19 09:50:51,294 [DEBUG] django.db.backends: (0.017) CREATE TABLE `registration_registrationprofile` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` integer NOT NULL UNIQUE,
+    `activation_key` varchar(40) NOT NULL
+)
+;; args=()
+2013-07-19 09:50:51,312 [DEBUG] django.db.backends: (0.018) ALTER TABLE `registration_registrationprofile` ADD CONSTRAINT `user_id_refs_id_954d2985` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);; args=()
+2013-07-19 09:50:51,317 [DEBUG] django.db.backends: (0.002) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'logentry'  AND `django_content_type`.`app_label` = 'admin' ); args=('logentry', u'admin')
+2013-07-19 09:50:51,318 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735157268864_x1; args=()
+2013-07-19 09:50:51,318 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('log entry', 'admin', 'logentry'); args=[u'log entry', u'admin', 'logentry']
+2013-07-19 09:50:51,322 [DEBUG] django.db.backends: (0.003) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (1) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(1,)
+2013-07-19 09:50:51,324 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add log entry', 1, 'add_logentry'), ('Can change log entry', 1, 'change_logentry'), ('Can delete log entry', 1, 'delete_logentry'); args=(u'Can add log entry', 1, u'add_logentry', u'Can change log entry', 1, u'change_logentry', u'Can delete log entry', 1, u'delete_logentry')
+2013-07-19 09:50:51,326 [DEBUG] django.db.backends: (0.001) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'admin'  ORDER BY `django_content_type`.`name` ASC; args=(u'admin',)
+2013-07-19 09:50:51,327 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'permission'  AND `django_content_type`.`app_label` = 'auth' ); args=('permission', u'auth')
+2013-07-19 09:50:51,327 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735157268864_x1; args=()
+2013-07-19 09:50:51,328 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('permission', 'auth', 'permission'); args=[u'permission', u'auth', 'permission']
+2013-07-19 09:50:51,329 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'group'  AND `django_content_type`.`app_label` = 'auth' ); args=('group', u'auth')
+2013-07-19 09:50:51,329 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735157268864_x1; args=()
+2013-07-19 09:50:51,330 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('group', 'auth', 'group'); args=[u'group', u'auth', 'group']
+2013-07-19 09:50:51,331 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'user'  AND `django_content_type`.`app_label` = 'auth' ); args=('user', u'auth')
+2013-07-19 09:50:51,331 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735157268864_x1; args=()
+2013-07-19 09:50:51,332 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('user', 'auth', 'user'); args=[u'user', u'auth', 'user']
+2013-07-19 09:50:51,334 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (2, 3, 4) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(2, 3, 4)
+2013-07-19 09:50:51,335 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add permission', 2, 'add_permission'), ('Can change permission', 2, 'change_permission'), ('Can delete permission', 2, 'delete_permission'), ('Can add group', 3, 'add_group'), ('Can change group', 3, 'change_group'), ('Can delete group', 3, 'delete_group'), ('Can add user', 4, 'add_user'), ('Can change user', 4, 'change_user'), ('Can delete user', 4, 'delete_user'); args=(u'Can add permission', 2, u'add_permission', u'Can change permission', 2, u'change_permission', u'Can delete permission', 2, u'delete_permission', u'Can add group', 3, u'add_group', u'Can change group', 3, u'change_group', u'Can delete group', 3, u'delete_group', u'Can add user', 4, u'add_user', u'Can change user', 4, u'change_user', u'Can delete user', 4, u'delete_user')
+2013-07-19 09:50:51,336 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'auth'  ORDER BY `django_content_type`.`name` ASC; args=(u'auth',)
+2013-07-19 09:50:51,338 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'contenttype'  AND `django_content_type`.`app_label` = 'contenttypes' ); args=('contenttype', u'contenttypes')
+2013-07-19 09:50:51,339 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735157268864_x1; args=()
+2013-07-19 09:50:51,339 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('content type', 'contenttypes', 'contenttype'); args=[u'content type', u'contenttypes', 'contenttype']
+2013-07-19 09:50:51,341 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (5) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(5,)
+2013-07-19 09:50:51,341 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add content type', 5, 'add_contenttype'), ('Can change content type', 5, 'change_contenttype'), ('Can delete content type', 5, 'delete_contenttype'); args=(u'Can add content type', 5, u'add_contenttype', u'Can change content type', 5, u'change_contenttype', u'Can delete content type', 5, u'delete_contenttype')
+2013-07-19 09:50:51,343 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'contenttypes'  ORDER BY `django_content_type`.`name` ASC; args=(u'contenttypes',)
+2013-07-19 09:50:51,344 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'session'  AND `django_content_type`.`app_label` = 'sessions' ); args=('session', u'sessions')
+2013-07-19 09:50:51,344 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735157268864_x1; args=()
+2013-07-19 09:50:51,345 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('session', 'sessions', 'session'); args=[u'session', u'sessions', 'session']
+2013-07-19 09:50:51,346 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (6) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(6,)
+2013-07-19 09:50:51,347 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add session', 6, 'add_session'), ('Can change session', 6, 'change_session'), ('Can delete session', 6, 'delete_session'); args=(u'Can add session', 6, u'add_session', u'Can change session', 6, u'change_session', u'Can delete session', 6, u'delete_session')
+2013-07-19 09:50:51,349 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'sessions'  ORDER BY `django_content_type`.`name` ASC; args=(u'sessions',)
+2013-07-19 09:50:51,350 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'site'  AND `django_content_type`.`app_label` = 'sites' ); args=('site', u'sites')
+2013-07-19 09:50:51,350 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735157268864_x1; args=()
+2013-07-19 09:50:51,351 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('site', 'sites', 'site'); args=[u'site', u'sites', 'site']
+2013-07-19 09:50:51,352 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (7) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(7,)
+2013-07-19 09:50:51,353 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add site', 7, 'add_site'), ('Can change site', 7, 'change_site'), ('Can delete site', 7, 'delete_site'); args=(u'Can add site', 7, u'add_site', u'Can change site', 7, u'change_site', u'Can delete site', 7, u'delete_site')
+2013-07-19 09:50:51,354 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'sites'  ORDER BY `django_content_type`.`name` ASC; args=(u'sites',)
+2013-07-19 09:50:51,356 [DEBUG] django.db.backends: (0.001) SELECT (1) AS `a` FROM `django_site` WHERE `django_site`.`id` = 1  LIMIT 1; args=(1,)
+2013-07-19 09:50:51,357 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_site` (`id`, `domain`, `name`) VALUES (1, 'example.com', 'example.com'); args=(1, 'example.com', 'example.com')
+2013-07-19 09:50:51,360 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'migrationhistory'  AND `django_content_type`.`app_label` = 'south' ); args=('migrationhistory', u'south')
+2013-07-19 09:50:51,360 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735157268864_x1; args=()
+2013-07-19 09:50:51,361 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('migration history', 'south', 'migrationhistory'); args=[u'migration history', u'south', 'migrationhistory']
+2013-07-19 09:50:51,362 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (8) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(8,)
+2013-07-19 09:50:51,363 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add migration history', 8, 'add_migrationhistory'), ('Can change migration history', 8, 'change_migrationhistory'), ('Can delete migration history', 8, 'delete_migrationhistory'); args=(u'Can add migration history', 8, u'add_migrationhistory', u'Can change migration history', 8, u'change_migrationhistory', u'Can delete migration history', 8, u'delete_migrationhistory')
+2013-07-19 09:50:51,364 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'south'  ORDER BY `django_content_type`.`name` ASC; args=(u'south',)
+2013-07-19 09:50:51,365 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'usersocialauth'  AND `django_content_type`.`app_label` = 'social_auth' ); args=('usersocialauth', 'social_auth')
+2013-07-19 09:50:51,366 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735157268864_x1; args=()
+2013-07-19 09:50:51,366 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('user social auth', 'social_auth', 'usersocialauth'); args=[u'user social auth', 'social_auth', 'usersocialauth']
+2013-07-19 09:50:51,368 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'nonce'  AND `django_content_type`.`app_label` = 'social_auth' ); args=('nonce', 'social_auth')
+2013-07-19 09:50:51,368 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735157268864_x1; args=()
+2013-07-19 09:50:51,368 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('nonce', 'social_auth', 'nonce'); args=[u'nonce', 'social_auth', 'nonce']
+2013-07-19 09:50:51,370 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'association'  AND `django_content_type`.`app_label` = 'social_auth' ); args=('association', 'social_auth')
+2013-07-19 09:50:51,370 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735157268864_x1; args=()
+2013-07-19 09:50:51,370 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('association', 'social_auth', 'association'); args=[u'association', 'social_auth', 'association']
+2013-07-19 09:50:51,372 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (9, 10, 11) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(9, 10, 11)
+2013-07-19 09:50:51,373 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add user social auth', 9, 'add_usersocialauth'), ('Can change user social auth', 9, 'change_usersocialauth'), ('Can delete user social auth', 9, 'delete_usersocialauth'), ('Can add nonce', 10, 'add_nonce'), ('Can change nonce', 10, 'change_nonce'), ('Can delete nonce', 10, 'delete_nonce'), ('Can add association', 11, 'add_association'), ('Can change association', 11, 'change_association'), ('Can delete association', 11, 'delete_association'); args=(u'Can add user social auth', 9, u'add_usersocialauth', u'Can change user social auth', 9, u'change_usersocialauth', u'Can delete user social auth', 9, u'delete_usersocialauth', u'Can add nonce', 10, u'add_nonce', u'Can change nonce', 10, u'change_nonce', u'Can delete nonce', 10, u'delete_nonce', u'Can add association', 11, u'add_association', u'Can change association', 11, u'change_association', u'Can delete association', 11, u'delete_association')
+2013-07-19 09:50:51,375 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'social_auth'  ORDER BY `django_content_type`.`name` ASC; args=('social_auth',)
+2013-07-19 09:50:51,380 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'userprofile'  AND `django_content_type`.`app_label` = 'accounts' ); args=('userprofile', u'accounts')
+2013-07-19 09:50:51,381 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735157268864_x1; args=()
+2013-07-19 09:50:51,381 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('user profile', 'accounts', 'userprofile'); args=[u'user profile', u'accounts', 'userprofile']
+2013-07-19 09:50:51,383 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (12) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(12,)
+2013-07-19 09:50:51,384 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add user profile', 12, 'add_userprofile'), ('Can change user profile', 12, 'change_userprofile'), ('Can delete user profile', 12, 'delete_userprofile'); args=(u'Can add user profile', 12, u'add_userprofile', u'Can change user profile', 12, u'change_userprofile', u'Can delete user profile', 12, u'delete_userprofile')
+2013-07-19 09:50:51,385 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'accounts'  ORDER BY `django_content_type`.`name` ASC; args=(u'accounts',)
+2013-07-19 09:50:51,388 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'registrationprofile'  AND `django_content_type`.`app_label` = 'registration' ); args=('registrationprofile', u'registration')
+2013-07-19 09:50:51,389 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735157268864_x1; args=()
+2013-07-19 09:50:51,389 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('registration profile', 'registration', 'registrationprofile'); args=[u'registration profile', u'registration', 'registrationprofile']
+2013-07-19 09:50:51,391 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (13) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(13,)
+2013-07-19 09:50:51,392 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add registration profile', 13, 'add_registrationprofile'), ('Can change registration profile', 13, 'change_registrationprofile'), ('Can delete registration profile', 13, 'delete_registrationprofile'); args=(u'Can add registration profile', 13, u'add_registrationprofile', u'Can change registration profile', 13, u'change_registrationprofile', u'Can delete registration profile', 13, u'delete_registrationprofile')
+2013-07-19 09:50:51,393 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'registration'  ORDER BY `django_content_type`.`name` ASC; args=(u'registration',)
+2013-07-19 09:50:51,416 [DEBUG] django.db.backends: (0.021) CREATE INDEX `django_admin_log_6340c63c` ON `django_admin_log` (`user_id`);; args=()
+2013-07-19 09:50:51,428 [DEBUG] django.db.backends: (0.012) CREATE INDEX `django_admin_log_37ef4eb4` ON `django_admin_log` (`content_type_id`);; args=()
+2013-07-19 09:50:51,455 [DEBUG] django.db.backends: (0.027) CREATE INDEX `auth_permission_37ef4eb4` ON `auth_permission` (`content_type_id`);; args=()
+2013-07-19 09:50:51,486 [DEBUG] django.db.backends: (0.030) CREATE INDEX `auth_group_permissions_5f412f9a` ON `auth_group_permissions` (`group_id`);; args=()
+2013-07-19 09:50:51,515 [DEBUG] django.db.backends: (0.029) CREATE INDEX `auth_group_permissions_83d7f98b` ON `auth_group_permissions` (`permission_id`);; args=()
+2013-07-19 09:50:51,536 [DEBUG] django.db.backends: (0.021) CREATE INDEX `auth_user_groups_6340c63c` ON `auth_user_groups` (`user_id`);; args=()
+2013-07-19 09:50:51,549 [DEBUG] django.db.backends: (0.013) CREATE INDEX `auth_user_groups_5f412f9a` ON `auth_user_groups` (`group_id`);; args=()
+2013-07-19 09:50:51,563 [DEBUG] django.db.backends: (0.013) CREATE INDEX `auth_user_user_permissions_6340c63c` ON `auth_user_user_permissions` (`user_id`);; args=()
+2013-07-19 09:50:51,576 [DEBUG] django.db.backends: (0.013) CREATE INDEX `auth_user_user_permissions_83d7f98b` ON `auth_user_user_permissions` (`permission_id`);; args=()
+2013-07-19 09:50:51,589 [DEBUG] django.db.backends: (0.013) CREATE INDEX `django_session_b7b81f0c` ON `django_session` (`expire_date`);; args=()
+2013-07-19 09:50:51,607 [DEBUG] django.db.backends: (0.017) CREATE INDEX `social_auth_usersocialauth_6340c63c` ON `social_auth_usersocialauth` (`user_id`);; args=()
+2013-07-19 09:50:51,621 [DEBUG] django.db.backends: (0.014) CREATE INDEX `social_auth_nonce_d80b9c9a` ON `social_auth_nonce` (`timestamp`);; args=()
+2013-07-19 09:50:51,642 [DEBUG] django.db.backends: (0.021) CREATE INDEX `social_auth_association_93d95bdf` ON `social_auth_association` (`issued`);; args=()
+2013-07-19 09:50:51,643 [DEBUG] django.db.backends: (0.000) SET foreign_key_checks=0; args=()
+2013-07-19 09:50:51,664 [DEBUG] django.db.backends: (0.000) SELECT (1) AS `a` FROM `django_site` WHERE `django_site`.`id` = 1  LIMIT 1; args=(1,)
+2013-07-19 09:50:51,665 [DEBUG] django.db.backends: (0.000) UPDATE `django_site` SET `domain` = 'app.tivixlabs.com', `name` = 'app.tivixlabs.com' WHERE `django_site`.`id` = 1 ; args=(u'app.tivixlabs.com', u'app.tivixlabs.com', 1)
+2013-07-19 09:50:51,668 [DEBUG] django.db.backends: (0.001) SELECT (1) AS `a` FROM `auth_user` WHERE `auth_user`.`id` = 1  LIMIT 1; args=(1,)
+2013-07-19 09:50:51,668 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES (1, 'sha1$f845f$aecde55c9ba5e88a646728071c2ae54f4b47684f', '2013-01-01 00:00:02', 1, 'admin', '', '', 'admin@tivix.com', 1, 1, '2013-01-01 00:00:01'); args=(1, u'sha1$f845f$aecde55c9ba5e88a646728071c2ae54f4b47684f', u'2013-01-01 00:00:02', True, u'admin', u'', u'', u'admin@tivix.com', True, True, u'2013-01-01 00:00:01')
+2013-07-19 09:50:51,670 [DEBUG] django.db.backends: (0.000) DELETE FROM `auth_user_user_permissions` WHERE `auth_user_user_permissions`.`user_id` = 1 ; args=(1,)
+2013-07-19 09:50:51,671 [DEBUG] django.db.backends: (0.000) DELETE FROM `auth_user_groups` WHERE `auth_user_groups`.`user_id` = 1 ; args=(1,)
+2013-07-19 09:50:51,689 [DEBUG] django.db.backends: (0.000) SET foreign_key_checks=1; args=()
+2013-07-19 09:50:51,690 [DEBUG] django.db.backends: (0.000) SHOW INDEX FROM `django_site`; args=()
+2013-07-19 09:50:51,691 [DEBUG] django.db.backends: (0.001) 
+            SELECT column_name, referenced_table_name, referenced_column_name
+            FROM information_schema.key_column_usage
+            WHERE table_name = 'django_site'
+                AND table_schema = DATABASE()
+                AND referenced_table_name IS NOT NULL
+                AND referenced_column_name IS NOT NULL; args=['django_site']
+2013-07-19 09:50:51,691 [DEBUG] django.db.backends: (0.000) SHOW INDEX FROM `auth_user`; args=()
+2013-07-19 09:50:51,692 [DEBUG] django.db.backends: (0.000) 
+            SELECT column_name, referenced_table_name, referenced_column_name
+            FROM information_schema.key_column_usage
+            WHERE table_name = 'auth_user'
+                AND table_schema = DATABASE()
+                AND referenced_table_name IS NOT NULL
+                AND referenced_column_name IS NOT NULL; args=[u'auth_user']
+2013-07-19 09:50:52,239 [DEBUG] django.db.backends: (0.001) SELECT `south_migrationhistory`.`id`, `south_migrationhistory`.`app_name`, `south_migrationhistory`.`migration`, `south_migrationhistory`.`applied` FROM `south_migrationhistory` WHERE `south_migrationhistory`.`applied` IS NOT NULL ORDER BY `south_migrationhistory`.`applied` ASC; args=()
+2013-07-19 09:50:52,241 [DEBUG] django.db.backends: (0.000) SELECT `south_migrationhistory`.`id`, `south_migrationhistory`.`app_name`, `south_migrationhistory`.`migration`, `south_migrationhistory`.`applied` FROM `south_migrationhistory` WHERE (`south_migrationhistory`.`app_name` = 'social_auth'  AND `south_migrationhistory`.`migration` = '0001_initial' ); args=('social_auth', '0001_initial')
+2013-07-19 09:50:52,242 [DEBUG] django.db.backends: (0.000) INSERT INTO `south_migrationhistory` (`app_name`, `migration`, `applied`) VALUES ('social_auth', '0001_initial', '2013-07-19 09:50:52'); args=['social_auth', '0001_initial', u'2013-07-19 09:50:52']
+2013-07-19 09:50:52,244 [DEBUG] django.db.backends: (0.000) SELECT `south_migrationhistory`.`id`, `south_migrationhistory`.`app_name`, `south_migrationhistory`.`migration`, `south_migrationhistory`.`applied` FROM `south_migrationhistory` WHERE (`south_migrationhistory`.`app_name` = 'social_auth'  AND `south_migrationhistory`.`migration` = '0002_auto__add_unique_nonce_timestamp_salt_server_url__add_unique_associati' ); args=('social_auth', '0002_auto__add_unique_nonce_timestamp_salt_server_url__add_unique_associati')
+2013-07-19 09:50:52,245 [DEBUG] django.db.backends: (0.000) INSERT INTO `south_migrationhistory` (`app_name`, `migration`, `applied`) VALUES ('social_auth', '0002_auto__add_unique_nonce_timestamp_salt_server_url__add_unique_associati', '2013-07-19 09:50:52'); args=['social_auth', '0002_auto__add_unique_nonce_timestamp_salt_server_url__add_unique_associati', u'2013-07-19 09:50:52']
+2013-07-19 09:50:52,250 [DEBUG] django.db.backends: (0.000) SELECT `south_migrationhistory`.`id`, `south_migrationhistory`.`app_name`, `south_migrationhistory`.`migration`, `south_migrationhistory`.`applied` FROM `south_migrationhistory` WHERE `south_migrationhistory`.`applied` IS NOT NULL ORDER BY `south_migrationhistory`.`applied` ASC; args=()
+2013-07-19 09:50:52,252 [DEBUG] django.db.backends: (0.000) SELECT `south_migrationhistory`.`id`, `south_migrationhistory`.`app_name`, `south_migrationhistory`.`migration`, `south_migrationhistory`.`applied` FROM `south_migrationhistory` WHERE (`south_migrationhistory`.`app_name` = 'django_extensions'  AND `south_migrationhistory`.`migration` = '0001_empty' ); args=('django_extensions', '0001_empty')
+2013-07-19 09:50:52,253 [DEBUG] django.db.backends: (0.000) INSERT INTO `south_migrationhistory` (`app_name`, `migration`, `applied`) VALUES ('django_extensions', '0001_empty', '2013-07-19 09:50:52'); args=['django_extensions', '0001_empty', u'2013-07-19 09:50:52']
+2013-07-19 09:52:04,813 [INFO] marketing.views: this homepage rocks!!!
+2013-07-19 09:52:04,872 [DEBUG] django.db.backends: (0.001) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user`; args=()
+2013-07-24 17:29:47,576 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:29:47,652 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:30:24,118 [DEBUG] django.db.backends: (0.003) SHOW TABLES; args=()
+2013-07-24 17:30:24,154 [DEBUG] django.db.backends: (0.035) CREATE TABLE `django_admin_log` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `action_time` datetime NOT NULL,
+    `user_id` integer NOT NULL,
+    `content_type_id` integer,
+    `object_id` longtext,
+    `object_repr` varchar(200) NOT NULL,
+    `action_flag` smallint UNSIGNED NOT NULL,
+    `change_message` longtext NOT NULL
+)
+;; args=()
+2013-07-24 17:30:24,173 [DEBUG] django.db.backends: (0.018) CREATE TABLE `auth_permission` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `name` varchar(50) NOT NULL,
+    `content_type_id` integer NOT NULL,
+    `codename` varchar(100) NOT NULL,
+    UNIQUE (`content_type_id`, `codename`)
+)
+;; args=()
+2013-07-24 17:30:24,185 [DEBUG] django.db.backends: (0.011) CREATE TABLE `auth_group_permissions` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `group_id` integer NOT NULL,
+    `permission_id` integer NOT NULL,
+    UNIQUE (`group_id`, `permission_id`)
+)
+;; args=()
+2013-07-24 17:30:24,204 [DEBUG] django.db.backends: (0.019) ALTER TABLE `auth_group_permissions` ADD CONSTRAINT `permission_id_refs_id_6ba0f519` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`);; args=()
+2013-07-24 17:30:24,216 [DEBUG] django.db.backends: (0.011) CREATE TABLE `auth_group` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `name` varchar(80) NOT NULL UNIQUE
+)
+;; args=()
+2013-07-24 17:30:24,237 [DEBUG] django.db.backends: (0.021) ALTER TABLE `auth_group_permissions` ADD CONSTRAINT `group_id_refs_id_f4b32aac` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`);; args=()
+2013-07-24 17:30:24,246 [DEBUG] django.db.backends: (0.009) CREATE TABLE `auth_user_groups` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` integer NOT NULL,
+    `group_id` integer NOT NULL,
+    UNIQUE (`user_id`, `group_id`)
+)
+;; args=()
+2013-07-24 17:30:24,265 [DEBUG] django.db.backends: (0.019) ALTER TABLE `auth_user_groups` ADD CONSTRAINT `group_id_refs_id_274b862c` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`);; args=()
+2013-07-24 17:30:24,277 [DEBUG] django.db.backends: (0.011) CREATE TABLE `auth_user_user_permissions` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` integer NOT NULL,
+    `permission_id` integer NOT NULL,
+    UNIQUE (`user_id`, `permission_id`)
+)
+;; args=()
+2013-07-24 17:30:24,294 [DEBUG] django.db.backends: (0.017) ALTER TABLE `auth_user_user_permissions` ADD CONSTRAINT `permission_id_refs_id_35d9ac25` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`);; args=()
+2013-07-24 17:30:24,312 [DEBUG] django.db.backends: (0.017) CREATE TABLE `auth_user` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `password` varchar(128) NOT NULL,
+    `last_login` datetime NOT NULL,
+    `is_superuser` bool NOT NULL,
+    `username` varchar(30) NOT NULL UNIQUE,
+    `first_name` varchar(30) NOT NULL,
+    `last_name` varchar(30) NOT NULL,
+    `email` varchar(75) NOT NULL,
+    `is_staff` bool NOT NULL,
+    `is_active` bool NOT NULL,
+    `date_joined` datetime NOT NULL
+)
+;; args=()
+2013-07-24 17:30:24,326 [DEBUG] django.db.backends: (0.014) ALTER TABLE `django_admin_log` ADD CONSTRAINT `user_id_refs_id_c0d12874` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);; args=()
+2013-07-24 17:30:24,342 [DEBUG] django.db.backends: (0.015) ALTER TABLE `auth_user_groups` ADD CONSTRAINT `user_id_refs_id_40c41112` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);; args=()
+2013-07-24 17:30:24,360 [DEBUG] django.db.backends: (0.018) ALTER TABLE `auth_user_user_permissions` ADD CONSTRAINT `user_id_refs_id_4dc23c39` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);; args=()
+2013-07-24 17:30:24,372 [DEBUG] django.db.backends: (0.012) CREATE TABLE `django_content_type` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `name` varchar(100) NOT NULL,
+    `app_label` varchar(100) NOT NULL,
+    `model` varchar(100) NOT NULL,
+    UNIQUE (`app_label`, `model`)
+)
+;; args=()
+2013-07-24 17:30:24,388 [DEBUG] django.db.backends: (0.016) ALTER TABLE `django_admin_log` ADD CONSTRAINT `content_type_id_refs_id_93d2d1f8` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`);; args=()
+2013-07-24 17:30:24,402 [DEBUG] django.db.backends: (0.013) ALTER TABLE `auth_permission` ADD CONSTRAINT `content_type_id_refs_id_d043b34a` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`);; args=()
+2013-07-24 17:30:24,425 [DEBUG] django.db.backends: (0.022) CREATE TABLE `django_session` (
+    `session_key` varchar(40) NOT NULL PRIMARY KEY,
+    `session_data` longtext NOT NULL,
+    `expire_date` datetime NOT NULL
+)
+;; args=()
+2013-07-24 17:30:24,435 [DEBUG] django.db.backends: (0.010) CREATE TABLE `django_site` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `domain` varchar(100) NOT NULL,
+    `name` varchar(50) NOT NULL
+)
+;; args=()
+2013-07-24 17:30:24,443 [DEBUG] django.db.backends: (0.007) CREATE TABLE `south_migrationhistory` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `app_name` varchar(255) NOT NULL,
+    `migration` varchar(255) NOT NULL,
+    `applied` datetime NOT NULL
+)
+;; args=()
+2013-07-24 17:30:24,456 [DEBUG] django.db.backends: (0.013) CREATE TABLE `social_auth_usersocialauth` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` integer NOT NULL,
+    `provider` varchar(32) NOT NULL,
+    `uid` varchar(255) NOT NULL,
+    `extra_data` longtext NOT NULL,
+    UNIQUE (`provider`, `uid`)
+)
+;; args=()
+2013-07-24 17:30:24,472 [DEBUG] django.db.backends: (0.016) ALTER TABLE `social_auth_usersocialauth` ADD CONSTRAINT `user_id_refs_id_e6cbdf29` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);; args=()
+2013-07-24 17:30:24,485 [DEBUG] django.db.backends: (0.012) CREATE TABLE `social_auth_nonce` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `server_url` varchar(255) NOT NULL,
+    `timestamp` integer NOT NULL,
+    `salt` varchar(40) NOT NULL,
+    UNIQUE (`server_url`, `timestamp`, `salt`)
+)
+;; args=()
+2013-07-24 17:30:24,494 [DEBUG] django.db.backends: (0.009) CREATE TABLE `social_auth_association` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `server_url` varchar(255) NOT NULL,
+    `handle` varchar(255) NOT NULL,
+    `secret` varchar(255) NOT NULL,
+    `issued` integer NOT NULL,
+    `lifetime` integer NOT NULL,
+    `assoc_type` varchar(64) NOT NULL,
+    UNIQUE (`server_url`, `handle`)
+)
+;; args=()
+2013-07-24 17:30:24,504 [DEBUG] django.db.backends: (0.009) CREATE TABLE `accounts_userprofile` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` integer NOT NULL UNIQUE,
+    `newsletter_subscribe` bool NOT NULL,
+    `picture` varchar(100) NOT NULL
+)
+;; args=()
+2013-07-24 17:30:24,519 [DEBUG] django.db.backends: (0.015) ALTER TABLE `accounts_userprofile` ADD CONSTRAINT `user_id_refs_id_a240fa0c` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);; args=()
+2013-07-24 17:30:24,528 [DEBUG] django.db.backends: (0.009) CREATE TABLE `registration_registrationprofile` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` integer NOT NULL UNIQUE,
+    `activation_key` varchar(40) NOT NULL
+)
+;; args=()
+2013-07-24 17:30:24,545 [DEBUG] django.db.backends: (0.016) ALTER TABLE `registration_registrationprofile` ADD CONSTRAINT `user_id_refs_id_954d2985` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);; args=()
+2013-07-24 17:30:24,548 [DEBUG] django.db.backends: (0.001) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'logentry'  AND `django_content_type`.`app_label` = 'admin' ); args=('logentry', u'admin')
+2013-07-24 17:30:24,548 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735329341824_x1; args=()
+2013-07-24 17:30:24,549 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('log entry', 'admin', 'logentry'); args=[u'log entry', u'admin', 'logentry']
+2013-07-24 17:30:24,551 [DEBUG] django.db.backends: (0.001) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (1) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(1,)
+2013-07-24 17:30:24,553 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add log entry', 1, 'add_logentry'), ('Can change log entry', 1, 'change_logentry'), ('Can delete log entry', 1, 'delete_logentry'); args=(u'Can add log entry', 1, u'add_logentry', u'Can change log entry', 1, u'change_logentry', u'Can delete log entry', 1, u'delete_logentry')
+2013-07-24 17:30:24,554 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'admin'  ORDER BY `django_content_type`.`name` ASC; args=(u'admin',)
+2013-07-24 17:30:24,556 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'permission'  AND `django_content_type`.`app_label` = 'auth' ); args=('permission', u'auth')
+2013-07-24 17:30:24,556 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735329341824_x1; args=()
+2013-07-24 17:30:24,556 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('permission', 'auth', 'permission'); args=[u'permission', u'auth', 'permission']
+2013-07-24 17:30:24,558 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'group'  AND `django_content_type`.`app_label` = 'auth' ); args=('group', u'auth')
+2013-07-24 17:30:24,559 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735329341824_x1; args=()
+2013-07-24 17:30:24,559 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('group', 'auth', 'group'); args=[u'group', u'auth', 'group']
+2013-07-24 17:30:24,561 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'user'  AND `django_content_type`.`app_label` = 'auth' ); args=('user', u'auth')
+2013-07-24 17:30:24,561 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735329341824_x1; args=()
+2013-07-24 17:30:24,561 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('user', 'auth', 'user'); args=[u'user', u'auth', 'user']
+2013-07-24 17:30:24,565 [DEBUG] django.db.backends: (0.002) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (2, 3, 4) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(2, 3, 4)
+2013-07-24 17:30:24,566 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add permission', 2, 'add_permission'), ('Can change permission', 2, 'change_permission'), ('Can delete permission', 2, 'delete_permission'), ('Can add group', 3, 'add_group'), ('Can change group', 3, 'change_group'), ('Can delete group', 3, 'delete_group'), ('Can add user', 4, 'add_user'), ('Can change user', 4, 'change_user'), ('Can delete user', 4, 'delete_user'); args=(u'Can add permission', 2, u'add_permission', u'Can change permission', 2, u'change_permission', u'Can delete permission', 2, u'delete_permission', u'Can add group', 3, u'add_group', u'Can change group', 3, u'change_group', u'Can delete group', 3, u'delete_group', u'Can add user', 4, u'add_user', u'Can change user', 4, u'change_user', u'Can delete user', 4, u'delete_user')
+2013-07-24 17:30:24,567 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'auth'  ORDER BY `django_content_type`.`name` ASC; args=(u'auth',)
+2013-07-24 17:30:24,570 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'contenttype'  AND `django_content_type`.`app_label` = 'contenttypes' ); args=('contenttype', u'contenttypes')
+2013-07-24 17:30:24,570 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735329341824_x1; args=()
+2013-07-24 17:30:24,571 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('content type', 'contenttypes', 'contenttype'); args=[u'content type', u'contenttypes', 'contenttype']
+2013-07-24 17:30:24,572 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (5) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(5,)
+2013-07-24 17:30:24,573 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add content type', 5, 'add_contenttype'), ('Can change content type', 5, 'change_contenttype'), ('Can delete content type', 5, 'delete_contenttype'); args=(u'Can add content type', 5, u'add_contenttype', u'Can change content type', 5, u'change_contenttype', u'Can delete content type', 5, u'delete_contenttype')
+2013-07-24 17:30:24,575 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'contenttypes'  ORDER BY `django_content_type`.`name` ASC; args=(u'contenttypes',)
+2013-07-24 17:30:24,576 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'session'  AND `django_content_type`.`app_label` = 'sessions' ); args=('session', u'sessions')
+2013-07-24 17:30:24,576 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735329341824_x1; args=()
+2013-07-24 17:30:24,577 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('session', 'sessions', 'session'); args=[u'session', u'sessions', 'session']
+2013-07-24 17:30:24,579 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (6) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(6,)
+2013-07-24 17:30:24,580 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add session', 6, 'add_session'), ('Can change session', 6, 'change_session'), ('Can delete session', 6, 'delete_session'); args=(u'Can add session', 6, u'add_session', u'Can change session', 6, u'change_session', u'Can delete session', 6, u'delete_session')
+2013-07-24 17:30:24,581 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'sessions'  ORDER BY `django_content_type`.`name` ASC; args=(u'sessions',)
+2013-07-24 17:30:24,582 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'site'  AND `django_content_type`.`app_label` = 'sites' ); args=('site', u'sites')
+2013-07-24 17:30:24,583 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735329341824_x1; args=()
+2013-07-24 17:30:24,583 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('site', 'sites', 'site'); args=[u'site', u'sites', 'site']
+2013-07-24 17:30:24,585 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (7) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(7,)
+2013-07-24 17:30:24,586 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add site', 7, 'add_site'), ('Can change site', 7, 'change_site'), ('Can delete site', 7, 'delete_site'); args=(u'Can add site', 7, u'add_site', u'Can change site', 7, u'change_site', u'Can delete site', 7, u'delete_site')
+2013-07-24 17:30:24,587 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'sites'  ORDER BY `django_content_type`.`name` ASC; args=(u'sites',)
+2013-07-24 17:30:24,589 [DEBUG] django.db.backends: (0.000) SELECT (1) AS `a` FROM `django_site` WHERE `django_site`.`id` = 1  LIMIT 1; args=(1,)
+2013-07-24 17:30:24,589 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_site` (`id`, `domain`, `name`) VALUES (1, 'example.com', 'example.com'); args=(1, 'example.com', 'example.com')
+2013-07-24 17:30:24,593 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'migrationhistory'  AND `django_content_type`.`app_label` = 'south' ); args=('migrationhistory', u'south')
+2013-07-24 17:30:24,593 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735329341824_x1; args=()
+2013-07-24 17:30:24,594 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('migration history', 'south', 'migrationhistory'); args=[u'migration history', u'south', 'migrationhistory']
+2013-07-24 17:30:24,596 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (8) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(8,)
+2013-07-24 17:30:24,596 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add migration history', 8, 'add_migrationhistory'), ('Can change migration history', 8, 'change_migrationhistory'), ('Can delete migration history', 8, 'delete_migrationhistory'); args=(u'Can add migration history', 8, u'add_migrationhistory', u'Can change migration history', 8, u'change_migrationhistory', u'Can delete migration history', 8, u'delete_migrationhistory')
+2013-07-24 17:30:24,598 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'south'  ORDER BY `django_content_type`.`name` ASC; args=(u'south',)
+2013-07-24 17:30:24,599 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'usersocialauth'  AND `django_content_type`.`app_label` = 'social_auth' ); args=('usersocialauth', 'social_auth')
+2013-07-24 17:30:24,600 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735329341824_x1; args=()
+2013-07-24 17:30:24,600 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('user social auth', 'social_auth', 'usersocialauth'); args=[u'user social auth', 'social_auth', 'usersocialauth']
+2013-07-24 17:30:24,601 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'nonce'  AND `django_content_type`.`app_label` = 'social_auth' ); args=('nonce', 'social_auth')
+2013-07-24 17:30:24,602 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735329341824_x1; args=()
+2013-07-24 17:30:24,602 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('nonce', 'social_auth', 'nonce'); args=[u'nonce', 'social_auth', 'nonce']
+2013-07-24 17:30:24,604 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'association'  AND `django_content_type`.`app_label` = 'social_auth' ); args=('association', 'social_auth')
+2013-07-24 17:30:24,604 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735329341824_x1; args=()
+2013-07-24 17:30:24,604 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('association', 'social_auth', 'association'); args=[u'association', 'social_auth', 'association']
+2013-07-24 17:30:24,606 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (9, 10, 11) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(9, 10, 11)
+2013-07-24 17:30:24,607 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add user social auth', 9, 'add_usersocialauth'), ('Can change user social auth', 9, 'change_usersocialauth'), ('Can delete user social auth', 9, 'delete_usersocialauth'), ('Can add nonce', 10, 'add_nonce'), ('Can change nonce', 10, 'change_nonce'), ('Can delete nonce', 10, 'delete_nonce'), ('Can add association', 11, 'add_association'), ('Can change association', 11, 'change_association'), ('Can delete association', 11, 'delete_association'); args=(u'Can add user social auth', 9, u'add_usersocialauth', u'Can change user social auth', 9, u'change_usersocialauth', u'Can delete user social auth', 9, u'delete_usersocialauth', u'Can add nonce', 10, u'add_nonce', u'Can change nonce', 10, u'change_nonce', u'Can delete nonce', 10, u'delete_nonce', u'Can add association', 11, u'add_association', u'Can change association', 11, u'change_association', u'Can delete association', 11, u'delete_association')
+2013-07-24 17:30:24,609 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'social_auth'  ORDER BY `django_content_type`.`name` ASC; args=('social_auth',)
+2013-07-24 17:30:24,614 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'userprofile'  AND `django_content_type`.`app_label` = 'accounts' ); args=('userprofile', u'accounts')
+2013-07-24 17:30:24,614 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735329341824_x1; args=()
+2013-07-24 17:30:24,614 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('user profile', 'accounts', 'userprofile'); args=[u'user profile', u'accounts', 'userprofile']
+2013-07-24 17:30:24,616 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (12) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(12,)
+2013-07-24 17:30:24,617 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add user profile', 12, 'add_userprofile'), ('Can change user profile', 12, 'change_userprofile'), ('Can delete user profile', 12, 'delete_userprofile'); args=(u'Can add user profile', 12, u'add_userprofile', u'Can change user profile', 12, u'change_userprofile', u'Can delete user profile', 12, u'delete_userprofile')
+2013-07-24 17:30:24,618 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'accounts'  ORDER BY `django_content_type`.`name` ASC; args=(u'accounts',)
+2013-07-24 17:30:24,621 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'registrationprofile'  AND `django_content_type`.`app_label` = 'registration' ); args=('registrationprofile', u'registration')
+2013-07-24 17:30:24,621 [DEBUG] django.db.backends: (0.000) SAVEPOINT s140735329341824_x1; args=()
+2013-07-24 17:30:24,622 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_content_type` (`name`, `app_label`, `model`) VALUES ('registration profile', 'registration', 'registrationprofile'); args=[u'registration profile', u'registration', 'registrationprofile']
+2013-07-24 17:30:24,624 [DEBUG] django.db.backends: (0.000) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (13) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(13,)
+2013-07-24 17:30:24,624 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add registration profile', 13, 'add_registrationprofile'), ('Can change registration profile', 13, 'change_registrationprofile'), ('Can delete registration profile', 13, 'delete_registrationprofile'); args=(u'Can add registration profile', 13, u'add_registrationprofile', u'Can change registration profile', 13, u'change_registrationprofile', u'Can delete registration profile', 13, u'delete_registrationprofile')
+2013-07-24 17:30:24,626 [DEBUG] django.db.backends: (0.000) SELECT `django_content_type`.`id`, `django_content_type`.`name`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'registration'  ORDER BY `django_content_type`.`name` ASC; args=(u'registration',)
+2013-07-24 17:30:24,643 [DEBUG] django.db.backends: (0.015) CREATE INDEX `django_admin_log_6340c63c` ON `django_admin_log` (`user_id`);; args=()
+2013-07-24 17:30:24,656 [DEBUG] django.db.backends: (0.013) CREATE INDEX `django_admin_log_37ef4eb4` ON `django_admin_log` (`content_type_id`);; args=()
+2013-07-24 17:30:24,673 [DEBUG] django.db.backends: (0.017) CREATE INDEX `auth_permission_37ef4eb4` ON `auth_permission` (`content_type_id`);; args=()
+2013-07-24 17:30:24,685 [DEBUG] django.db.backends: (0.012) CREATE INDEX `auth_group_permissions_5f412f9a` ON `auth_group_permissions` (`group_id`);; args=()
+2013-07-24 17:30:24,699 [DEBUG] django.db.backends: (0.013) CREATE INDEX `auth_group_permissions_83d7f98b` ON `auth_group_permissions` (`permission_id`);; args=()
+2013-07-24 17:30:24,712 [DEBUG] django.db.backends: (0.013) CREATE INDEX `auth_user_groups_6340c63c` ON `auth_user_groups` (`user_id`);; args=()
+2013-07-24 17:30:24,729 [DEBUG] django.db.backends: (0.016) CREATE INDEX `auth_user_groups_5f412f9a` ON `auth_user_groups` (`group_id`);; args=()
+2013-07-24 17:30:24,742 [DEBUG] django.db.backends: (0.013) CREATE INDEX `auth_user_user_permissions_6340c63c` ON `auth_user_user_permissions` (`user_id`);; args=()
+2013-07-24 17:30:24,755 [DEBUG] django.db.backends: (0.013) CREATE INDEX `auth_user_user_permissions_83d7f98b` ON `auth_user_user_permissions` (`permission_id`);; args=()
+2013-07-24 17:30:24,766 [DEBUG] django.db.backends: (0.010) CREATE INDEX `django_session_b7b81f0c` ON `django_session` (`expire_date`);; args=()
+2013-07-24 17:30:24,785 [DEBUG] django.db.backends: (0.018) CREATE INDEX `social_auth_usersocialauth_6340c63c` ON `social_auth_usersocialauth` (`user_id`);; args=()
+2013-07-24 17:30:24,795 [DEBUG] django.db.backends: (0.010) CREATE INDEX `social_auth_nonce_d80b9c9a` ON `social_auth_nonce` (`timestamp`);; args=()
+2013-07-24 17:30:24,818 [DEBUG] django.db.backends: (0.022) CREATE INDEX `social_auth_association_93d95bdf` ON `social_auth_association` (`issued`);; args=()
+2013-07-24 17:30:24,819 [DEBUG] django.db.backends: (0.000) SET foreign_key_checks=0; args=()
+2013-07-24 17:30:24,842 [DEBUG] django.db.backends: (0.000) SELECT (1) AS `a` FROM `django_site` WHERE `django_site`.`id` = 1  LIMIT 1; args=(1,)
+2013-07-24 17:30:24,843 [DEBUG] django.db.backends: (0.000) UPDATE `django_site` SET `domain` = 'app.tivixlabs.com', `name` = 'app.tivixlabs.com' WHERE `django_site`.`id` = 1 ; args=(u'app.tivixlabs.com', u'app.tivixlabs.com', 1)
+2013-07-24 17:30:24,845 [DEBUG] django.db.backends: (0.000) SELECT (1) AS `a` FROM `auth_user` WHERE `auth_user`.`id` = 1  LIMIT 1; args=(1,)
+2013-07-24 17:30:24,845 [DEBUG] django.db.backends: (0.000) INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES (1, 'sha1$f845f$aecde55c9ba5e88a646728071c2ae54f4b47684f', '2013-01-01 00:00:02', 1, 'admin', '', '', 'admin@tivix.com', 1, 1, '2013-01-01 00:00:01'); args=(1, u'sha1$f845f$aecde55c9ba5e88a646728071c2ae54f4b47684f', u'2013-01-01 00:00:02', True, u'admin', u'', u'', u'admin@tivix.com', True, True, u'2013-01-01 00:00:01')
+2013-07-24 17:30:24,847 [DEBUG] django.db.backends: (0.000) DELETE FROM `auth_user_user_permissions` WHERE `auth_user_user_permissions`.`user_id` = 1 ; args=(1,)
+2013-07-24 17:30:24,848 [DEBUG] django.db.backends: (0.000) DELETE FROM `auth_user_groups` WHERE `auth_user_groups`.`user_id` = 1 ; args=(1,)
+2013-07-24 17:30:24,867 [DEBUG] django.db.backends: (0.000) SET foreign_key_checks=1; args=()
+2013-07-24 17:30:24,868 [DEBUG] django.db.backends: (0.001) SHOW INDEX FROM `auth_user`; args=()
+2013-07-24 17:30:24,870 [DEBUG] django.db.backends: (0.001) 
+            SELECT column_name, referenced_table_name, referenced_column_name
+            FROM information_schema.key_column_usage
+            WHERE table_name = 'auth_user'
+                AND table_schema = DATABASE()
+                AND referenced_table_name IS NOT NULL
+                AND referenced_column_name IS NOT NULL; args=[u'auth_user']
+2013-07-24 17:30:24,870 [DEBUG] django.db.backends: (0.000) SHOW INDEX FROM `django_site`; args=()
+2013-07-24 17:30:24,870 [DEBUG] django.db.backends: (0.000) 
+            SELECT column_name, referenced_table_name, referenced_column_name
+            FROM information_schema.key_column_usage
+            WHERE table_name = 'django_site'
+                AND table_schema = DATABASE()
+                AND referenced_table_name IS NOT NULL
+                AND referenced_column_name IS NOT NULL; args=['django_site']
+2013-07-24 17:30:25,468 [DEBUG] django.db.backends: (0.001) SELECT `south_migrationhistory`.`id`, `south_migrationhistory`.`app_name`, `south_migrationhistory`.`migration`, `south_migrationhistory`.`applied` FROM `south_migrationhistory` WHERE `south_migrationhistory`.`applied` IS NOT NULL ORDER BY `south_migrationhistory`.`applied` ASC; args=()
+2013-07-24 17:30:25,469 [DEBUG] django.db.backends: (0.000) SELECT `south_migrationhistory`.`id`, `south_migrationhistory`.`app_name`, `south_migrationhistory`.`migration`, `south_migrationhistory`.`applied` FROM `south_migrationhistory` WHERE (`south_migrationhistory`.`app_name` = 'social_auth'  AND `south_migrationhistory`.`migration` = '0001_initial' ); args=('social_auth', '0001_initial')
+2013-07-24 17:30:25,470 [DEBUG] django.db.backends: (0.000) INSERT INTO `south_migrationhistory` (`app_name`, `migration`, `applied`) VALUES ('social_auth', '0001_initial', '2013-07-24 17:30:25'); args=['social_auth', '0001_initial', u'2013-07-24 17:30:25']
+2013-07-24 17:30:25,471 [DEBUG] django.db.backends: (0.000) SELECT `south_migrationhistory`.`id`, `south_migrationhistory`.`app_name`, `south_migrationhistory`.`migration`, `south_migrationhistory`.`applied` FROM `south_migrationhistory` WHERE (`south_migrationhistory`.`app_name` = 'social_auth'  AND `south_migrationhistory`.`migration` = '0002_auto__add_unique_nonce_timestamp_salt_server_url__add_unique_associati' ); args=('social_auth', '0002_auto__add_unique_nonce_timestamp_salt_server_url__add_unique_associati')
+2013-07-24 17:30:25,472 [DEBUG] django.db.backends: (0.000) INSERT INTO `south_migrationhistory` (`app_name`, `migration`, `applied`) VALUES ('social_auth', '0002_auto__add_unique_nonce_timestamp_salt_server_url__add_unique_associati', '2013-07-24 17:30:25'); args=['social_auth', '0002_auto__add_unique_nonce_timestamp_salt_server_url__add_unique_associati', u'2013-07-24 17:30:25']
+2013-07-24 17:30:25,476 [DEBUG] django.db.backends: (0.001) SELECT `south_migrationhistory`.`id`, `south_migrationhistory`.`app_name`, `south_migrationhistory`.`migration`, `south_migrationhistory`.`applied` FROM `south_migrationhistory` WHERE `south_migrationhistory`.`applied` IS NOT NULL ORDER BY `south_migrationhistory`.`applied` ASC; args=()
+2013-07-24 17:30:25,478 [DEBUG] django.db.backends: (0.000) SELECT `south_migrationhistory`.`id`, `south_migrationhistory`.`app_name`, `south_migrationhistory`.`migration`, `south_migrationhistory`.`applied` FROM `south_migrationhistory` WHERE (`south_migrationhistory`.`app_name` = 'django_extensions'  AND `south_migrationhistory`.`migration` = '0001_empty' ); args=('django_extensions', '0001_empty')
+2013-07-24 17:30:25,478 [DEBUG] django.db.backends: (0.000) INSERT INTO `south_migrationhistory` (`app_name`, `migration`, `applied`) VALUES ('django_extensions', '0001_empty', '2013-07-24 17:30:25'); args=['django_extensions', '0001_empty', u'2013-07-24 17:30:25']
+2013-07-24 17:30:32,439 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:30:32,452 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '6dd3be6ac4ff68e3177bfad4a496c5aa'  AND `django_session`.`expire_date` > '2013-07-24 17:30:32' ); args=('6dd3be6ac4ff68e3177bfad4a496c5aa', u'2013-07-24 17:30:32')
+2013-07-24 17:30:32,454 [DEBUG] django.db.backends: (0.000) SELECT (1) AS `a` FROM `django_session` WHERE `django_session`.`session_key` = 'sge79b38ruy0qxyi73msuirjb409ff70'  LIMIT 1; args=(u'sge79b38ruy0qxyi73msuirjb409ff70',)
+2013-07-24 17:30:32,455 [DEBUG] django.db.backends: (0.000) SAVEPOINT s4507455488_x1; args=()
+2013-07-24 17:30:32,456 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES ('sge79b38ruy0qxyi73msuirjb409ff70', 'NzM1N2E4MGE5NjE2Y2E5YWE1ZWIwMDc0NjE5NGZmZWNkZmU3OWQ4ZjqAAn1xAS4=', '2013-08-07 17:30:32'); args=(u'sge79b38ruy0qxyi73msuirjb409ff70', u'NzM1N2E4MGE5NjE2Y2E5YWE1ZWIwMDc0NjE5NGZmZWNkZmU3OWQ4ZjqAAn1xAS4=', u'2013-08-07 17:30:32')
+2013-07-24 17:31:05,882 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:31:05,885 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '6dd3be6ac4ff68e3177bfad4a496c5aa'  AND `django_session`.`expire_date` > '2013-07-24 17:31:05' ); args=('6dd3be6ac4ff68e3177bfad4a496c5aa', u'2013-07-24 17:31:05')
+2013-07-24 17:31:05,887 [DEBUG] django.db.backends: (0.000) SELECT (1) AS `a` FROM `django_session` WHERE `django_session`.`session_key` = 'e96tcbgk10o6og3ndzpwand42vdeo6mo'  LIMIT 1; args=(u'e96tcbgk10o6og3ndzpwand42vdeo6mo',)
+2013-07-24 17:31:05,888 [DEBUG] django.db.backends: (0.000) SAVEPOINT s4507455488_x1; args=()
+2013-07-24 17:31:05,888 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES ('e96tcbgk10o6og3ndzpwand42vdeo6mo', 'NzM1N2E4MGE5NjE2Y2E5YWE1ZWIwMDc0NjE5NGZmZWNkZmU3OWQ4ZjqAAn1xAS4=', '2013-08-07 17:31:05'); args=(u'e96tcbgk10o6og3ndzpwand42vdeo6mo', u'NzM1N2E4MGE5NjE2Y2E5YWE1ZWIwMDc0NjE5NGZmZWNkZmU3OWQ4ZjqAAn1xAS4=', u'2013-08-07 17:31:05')
+2013-07-24 17:31:05,894 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:31:05,916 [DEBUG] django.db.backends: (0.000) SAVEPOINT s4507455488_x1; args=()
+2013-07-24 17:31:05,919 [DEBUG] django.db.backends: (0.001) SELECT (1) AS `a` FROM `django_session` WHERE `django_session`.`session_key` = 'e96tcbgk10o6og3ndzpwand42vdeo6mo'  LIMIT 1; args=(u'e96tcbgk10o6og3ndzpwand42vdeo6mo',)
+2013-07-24 17:31:05,919 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '6dd3be6ac4ff68e3177bfad4a496c5aa'  AND `django_session`.`expire_date` > '2013-07-24 17:31:05' ); args=('6dd3be6ac4ff68e3177bfad4a496c5aa', u'2013-07-24 17:31:05')
+2013-07-24 17:31:05,921 [DEBUG] django.db.backends: (0.001) UPDATE `django_session` SET `session_data` = 'NzM1N2E4MGE5NjE2Y2E5YWE1ZWIwMDc0NjE5NGZmZWNkZmU3OWQ4ZjqAAn1xAS4=', `expire_date` = '2013-08-07 17:31:05' WHERE `django_session`.`session_key` = 'e96tcbgk10o6og3ndzpwand42vdeo6mo' ; args=(u'NzM1N2E4MGE5NjE2Y2E5YWE1ZWIwMDc0NjE5NGZmZWNkZmU3OWQ4ZjqAAn1xAS4=', u'2013-08-07 17:31:05', u'e96tcbgk10o6og3ndzpwand42vdeo6mo')
+2013-07-24 17:31:05,923 [DEBUG] django.db.backends: (0.000) SELECT (1) AS `a` FROM `django_session` WHERE `django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  LIMIT 1; args=(u'8lz7q8wkjx13lx3jv8fxhm1vxluxo97c',)
+2013-07-24 17:31:05,924 [DEBUG] django.db.backends: (0.000) SAVEPOINT s4515823616_x1; args=()
+2013-07-24 17:31:05,925 [DEBUG] django.db.backends: (0.000) INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES ('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', 'NzM1N2E4MGE5NjE2Y2E5YWE1ZWIwMDc0NjE5NGZmZWNkZmU3OWQ4ZjqAAn1xAS4=', '2013-08-07 17:31:05'); args=(u'8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'NzM1N2E4MGE5NjE2Y2E5YWE1ZWIwMDc0NjE5NGZmZWNkZmU3OWQ4ZjqAAn1xAS4=', u'2013-08-07 17:31:05')
+2013-07-24 17:31:05,931 [DEBUG] django.db.backends: (0.000) SAVEPOINT s4515823616_x1; args=()
+2013-07-24 17:31:05,932 [DEBUG] django.db.backends: (0.000) SELECT (1) AS `a` FROM `django_session` WHERE `django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  LIMIT 1; args=(u'8lz7q8wkjx13lx3jv8fxhm1vxluxo97c',)
+2013-07-24 17:31:05,934 [DEBUG] django.db.backends: (0.001) UPDATE `django_session` SET `session_data` = 'NzM1N2E4MGE5NjE2Y2E5YWE1ZWIwMDc0NjE5NGZmZWNkZmU3OWQ4ZjqAAn1xAS4=', `expire_date` = '2013-08-07 17:31:05' WHERE `django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c' ; args=(u'NzM1N2E4MGE5NjE2Y2E5YWE1ZWIwMDc0NjE5NGZmZWNkZmU3OWQ4ZjqAAn1xAS4=', u'2013-08-07 17:31:05', u'8lz7q8wkjx13lx3jv8fxhm1vxluxo97c')
+2013-07-24 17:32:08,983 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:32:08,986 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:32:08' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:32:08')
+2013-07-24 17:32:08,997 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:32:29,665 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:32:29,668 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:32:29' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:32:29')
+2013-07-24 17:32:29,674 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:32:39,759 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:32:39,762 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:32:39' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:32:39')
+2013-07-24 17:32:39,773 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:32:46,096 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:32:46,100 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:32:46' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:32:46')
+2013-07-24 17:32:46,108 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:34:45,401 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:34:45,404 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:34:45' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:34:45')
+2013-07-24 17:35:07,629 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:35:07,632 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:35:07' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:35:07')
+2013-07-24 17:35:07,638 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:40:26,836 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:40:26,839 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:40:26' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:40:26')
+2013-07-24 17:40:26,845 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:40:29,623 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:40:29,626 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:40:29' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:40:29')
+2013-07-24 17:40:29,633 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:46:33,545 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:46:33,551 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:46:33' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:46:33')
+2013-07-24 17:46:33,553 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:46:33,558 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:46:33' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:46:33')
+2013-07-24 17:48:44,752 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:48:44,755 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:48:44' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:48:44')
+2013-07-24 17:48:44,759 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:49:24,802 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:49:24,805 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:49:24' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:49:24')
+2013-07-24 17:49:24,816 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:49:52,991 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:49:52,995 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:49:52' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:49:52')
+2013-07-24 17:51:24,585 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:51:24,588 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:51:24' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:51:24')
+2013-07-24 17:53:36,775 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:53:36,778 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:53:36' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:53:36')
+2013-07-24 17:54:21,080 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:54:21,084 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:54:21' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:54:21')
+2013-07-24 17:54:35,271 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:54:35,274 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:54:35' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:54:35')
+2013-07-24 17:54:44,406 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:54:44,410 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:54:44' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:54:44')
+2013-07-24 17:55:33,051 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:55:33,055 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:55:33' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:55:33')
+2013-07-24 17:58:00,705 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:58:00,709 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:58:00' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:58:00')
+2013-07-24 17:59:16,684 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:59:16,687 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:59:16' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:59:16')
+2013-07-24 17:59:34,664 [INFO] marketing.views: this homepage rocks!!!
+2013-07-24 17:59:34,669 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-24 17:59:34' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-24 17:59:34')
+2013-07-25 09:07:54,636 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 09:07:54,823 [DEBUG] django.db.backends: (0.025) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 09:07:54' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 09:07:54')
+2013-07-25 09:08:22,072 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 09:08:22,087 [DEBUG] django.db.backends: (0.002) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 09:08:22' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 09:08:22')
+2013-07-25 09:11:53,130 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 09:11:53,143 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 09:11:53' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 09:11:53')
+2013-07-25 11:17:32,746 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:17:32,924 [DEBUG] django.db.backends: (0.022) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:17:32' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:17:32')
+2013-07-25 11:17:47,096 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:17:47,106 [DEBUG] django.db.backends: (0.002) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:17:47' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:17:47')
+2013-07-25 11:32:02,920 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:32:02,927 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:32:02,934 [DEBUG] django.db.backends: (0.002) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:32:02' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:32:02')
+2013-07-25 11:32:02,944 [DEBUG] django.db.backends: (0.005) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:32:02' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:32:02')
+2013-07-25 11:33:49,334 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:33:49,341 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:33:49' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:33:49')
+2013-07-25 11:33:49,346 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:33:49,351 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:33:49' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:33:49')
+2013-07-25 11:34:12,905 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:34:12,912 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:34:12' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:34:12')
+2013-07-25 11:34:12,917 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:34:12,925 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:34:12' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:34:12')
+2013-07-25 11:34:29,055 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:34:29,059 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:34:29' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:34:29')
+2013-07-25 11:34:29,065 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:34:29,070 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:34:29' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:34:29')
+2013-07-25 11:35:15,491 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:35:15,496 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:35:15' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:35:15')
+2013-07-25 11:35:15,501 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:35:15,505 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:35:15' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:35:15')
+2013-07-25 11:41:33,943 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:41:33,947 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:41:33' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:41:33')
+2013-07-25 11:41:33,954 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:49:35,801 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:49:35,804 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:49:35' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:49:35')
+2013-07-25 11:49:35,810 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:49:43,596 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:49:43,600 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:49:43' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:49:43')
+2013-07-25 11:49:43,606 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:50:36,489 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:50:36,494 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:50:36,500 [DEBUG] django.db.backends: (0.001) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:50:36' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:50:36')
+2013-07-25 11:50:36,503 [DEBUG] django.db.backends: (0.004) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:50:36' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:50:36')
+2013-07-25 11:50:40,175 [INFO] marketing.views: this homepage rocks!!!
+2013-07-25 11:50:40,178 [DEBUG] django.db.backends: (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = '8lz7q8wkjx13lx3jv8fxhm1vxluxo97c'  AND `django_session`.`expire_date` > '2013-07-25 11:50:40' ); args=('8lz7q8wkjx13lx3jv8fxhm1vxluxo97c', u'2013-07-25 11:50:40')

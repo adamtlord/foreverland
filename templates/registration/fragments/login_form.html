@@ -1,0 +1,14 @@
+{% load custom_tags %}
+<fieldset>
+	<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+		{% csrf_token %}
+
+		{% for field in form %}
+			{% render_form_field field %}
+		{% endfor %}
+
+		<input type="submit" class="btn btn-primary" value="Login" />
+		<input type="hidden" name="next" value="{{ next }}" />
+	</form>
+</fieldset>
+<p><a href="{% url 'auth_password_reset' %}">Forgot</a> your password?  <a href="{% url 'registration_register' %}">Need an account</a>?</p>

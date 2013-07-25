@@ -1,0 +1,27 @@
+{% extends "registration/registration_base.html" %}
+{% load custom_tags %}
+{% block title %}Register for an account{% endblock %}
+{% block registration_body %}
+
+<div class="row">
+
+	<!-- if no sidebar necessary, remove this div-->
+	<div class="span3">
+        <p><span class="label label-warning">attention</span> All fields required</p>
+    </div>
+
+    <div class="span9">
+	    <form class="form-stacked" method='post' action=''>{% csrf_token %}
+	    	<fieldset>
+		        {% for field in form %}
+		        	{% render_form_field field %}
+		        {% endfor %}
+	        </fieldset>
+	        <div class="actions">
+	        	<input type="submit" class="btn btn-primary" value="Sign up" />
+	        	<button type="reset" class="btn">Clear</button>
+	        </div>
+	    </form>
+	</div>
+</div>
+{% endblock %}

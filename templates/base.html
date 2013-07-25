@@ -1,0 +1,41 @@
+{% load compress %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+        <title>{% block title %}ForeverlandSF{% endblock %}</title>
+
+        <meta name="keywords" content="" />
+        <meta name="description" content="{% block meta_description %}{% endblock %}" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0;" />
+
+        {% if not is_dev %}
+            {% compress css %}
+                <link rel="stylesheet" type="text/less" href="{{ STATIC_URL }}global/css/main.css">
+            {% endcompress %}
+        {% else %}
+            <link rel="stylesheet" type="text/less" href="{{ STATIC_URL }}global/css/main.css">
+        {% endif %}
+
+        {% compress js %}
+            <script src="{{ STATIC_URL }}global/js/jquery.min.js"></script>
+            <script src="{{ STATIC_URL }}global/js/bootstrap.min.js"></script>
+        {% endcompress %}
+
+        {% block header_includes %}{% endblock %}
+
+    </head>
+
+    <body>
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
+        <footer>
+            {% include 'fragments/footer.html' %}
+        </footer>
+        {% block footer_scripts %}{% endblock %}
+    </body>
+</html>

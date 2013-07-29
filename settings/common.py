@@ -10,7 +10,7 @@ PROJECT_NAME = 'foreverland'
 # Other settings
 ####
 ADMINS = (
-    ('Alerts', 'dev@tivix.com'),
+    ('Alerts', 'adam@foreverlandsf.com'),
 )
 SITE_ID = 1
 TIME_ZONE = 'America/Los_Angeles'  # changed to UTC
@@ -81,7 +81,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.transaction.TransactionMiddleware',
 
     # 'userswitch.middleware.UserSwitchMiddleware',
-    'social_auth.middleware.SocialAuthExceptionMiddleware',
+    # 'social_auth.middleware.SocialAuthExceptionMiddleware',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS = [
@@ -111,7 +111,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'south',
-    'social_auth',
+    # 'social_auth',
     'registration',
     'compressor',
     #'indexer',
@@ -121,6 +121,7 @@ INSTALLED_APPS = [
     'storages',
 
     'marketing',
+    'members',
     'accounts',
     'common',
 ]

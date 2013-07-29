@@ -1,0 +1,6 @@
+*.pyc
+*.DS_Store
+settings/local.py
+logs/*.log
+logs/*.log.*
+logs/*.pid

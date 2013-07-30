@@ -4,3 +4,5 @@ settings/local.py
 logs/*.log
 logs/*.log.*
 logs/*.pid
+
+*.pyc

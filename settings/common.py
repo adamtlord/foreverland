@@ -122,6 +122,8 @@ INSTALLED_APPS = [
 
     'marketing',
     'members',
+    'shows',
+    'songs',
     'accounts',
     'common',
 ]

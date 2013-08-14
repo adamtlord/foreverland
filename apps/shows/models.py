@@ -24,7 +24,7 @@ class Show(models.Model):
     # Open to the public/Display on public calendar?
     public = models.BooleanField(default=True)
     # Public Information
-    venue = models.ForeignKey('Venue')
+    venue = models.ForeignKey(Venue)
     date = models.DateTimeField()
     doors_time = models.TimeField(blank=True, null=True)
     ticket_price = models.CharField(max_length=100, blank=True, null=True)

@@ -100,7 +100,6 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = [
-    # 'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.humanize',
@@ -111,19 +110,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'south',
-    # 'social_auth',
     'registration',
     'compressor',
-    #'indexer',
     'imagekit',
     'django_common',
-    # 'endless_pagination',
     'storages',
 
     'marketing',
     'members',
     'shows',
     'songs',
+    'media',
     'accounts',
     'common',
 ]
@@ -154,33 +151,10 @@ SEND_EMAIL_AFTER_ACTIVATION = True  # default: True
 AUTOMATIC_ACTIVATION_AFTER_REGISTRATION = True  # default: True
 
 AUTHENTICATION_BACKENDS = [
-    #'social_auth.backends.twitter.TwitterBackend',
-    #'social_auth.backends.facebook.FacebookBackend',
     'django_common.auth_backends.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
-
-SOCIAL_AUTH_PIPELINE = (
-    'social_auth.backends.pipeline.social.social_auth_user',
-    # Pipeline associate_by_email is disabled by default because it can
-    # be a dangerouse behavior that could lead to accounts take over, see:
-    # http://django-social-auth.readthedocs.org/en/latest/pipeline.html
-    #'social_auth.backends.pipeline.associate.associate_by_email',
-    'social_auth.backends.pipeline.user.get_username',
-    'social_auth.backends.pipeline.user.create_user',
-    'social_auth.backends.pipeline.social.associate_user',
-    'social_auth.backends.pipeline.social.load_extra_data',
-    'social_auth.backends.pipeline.user.update_user_details',
-
-    # Custom pipelines
-    'accounts.social_pipelines.create_profile',
-)
-
-# To enable social authentication just add backend specific settings here
-# (FaceBook etc.), see: http://django-social-auth.readthedocs.org/en/latest/backends/index.html
-# and enable chosen backends in AUTHENTICATION_BACKENDS above, then link it
-# in templates: http://django-social-auth.readthedocs.org/en/latest/configuration.html#linking-in-your-templates
 
 JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc_'
 

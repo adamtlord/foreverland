@@ -6,3 +6,15 @@ logs/*.log.*
 logs/*.pid
 
 *.pyc
+
+*.pyc
+
+*.log
+
+logs/project.log
+
+settings/common.pyc
+
+static/.DS_Store
+
+static/.DS_Store

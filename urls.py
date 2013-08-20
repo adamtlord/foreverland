@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     (r'^members/', include('members.urls')),
     (r'^shows/', include('shows.urls')),
     (r'^songs/', include('songs.urls')),
+    (r'^media/', include('media.urls')),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

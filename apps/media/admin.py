@@ -4,7 +4,7 @@ from media.models import Album, Tag, Image
 
 class AlbumAdmin(admin.ModelAdmin):
     search_fields = ["title"]
-    list_display = ["title"]
+    list_display = ["title", "images", "public"]
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -12,9 +12,8 @@ class TagAdmin(admin.ModelAdmin):
 
 
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ["__unicode__", "title", "tags_", "size", "albums_",
-        "thumbnail", "created"]
-    list_filter = ["albums"]
+    list_display = ["__unicode__", "title", "size", "tags_", "albums_", "thumbnail_", "created"]
+    list_filter = ["tags", "albums"]
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user

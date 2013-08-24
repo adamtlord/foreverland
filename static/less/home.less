@@ -1,0 +1,51 @@
+#video_background {
+	position: fixed;
+	top:0;
+	right: 0;
+	bottom: 0;
+	left:0;
+	min-width: 100%;
+	min-height:100%;
+	width: auto;
+	height: auto;
+	z-index: -1000;
+	overflow: hidden;
+}
+#video_pattern { 
+	background-image: url(../images/vidpattern.png); 
+	position: fixed; 
+	opacity: 0.25; 
+	left: 0px; 
+	top: 0px; 
+	width: 100%; 
+	height: 100%; 
+	z-index: -999; 
+}
+.background { 
+	background: url(../images/vidpattern.png) rgba(0,0,0,0.25); 
+}
+.video-wrap {
+	margin:60px auto;
+	width:960px;
+	height:540px;
+	min-height:200px;
+}
+
+.promo-shot {
+	width:960px;
+	height:666px;
+	margin:0 auto;
+	.off, .on {
+		position:absolute;
+		width:960px;
+		height:666px;
+		margin:0 auto;
+	}
+	.on img {
+		.opacity(0);
+		.transition(opacity 1s ease)
+	}
+	&.in .on img {
+		.opacity(100);
+	}
+}

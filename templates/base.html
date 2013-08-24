@@ -14,12 +14,11 @@
 
         {% if not is_dev %}
             {% compress css %}
-                <link rel="stylesheet" type="text/less" href="{{ STATIC_URL }}global/css/main.css">
+                <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}global/css/main.css">
             {% endcompress %}
         {% else %}
-            <link rel="stylesheet" type="text/less" href="{{ STATIC_URL }}global/css/main.css">
+            <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}global/css/main.css">
         {% endif %}
-
         {% compress js %}
             <script src="{{ STATIC_URL }}global/js/jquery.min.js"></script>
             <script src="{{ STATIC_URL }}global/js/bootstrap.min.js"></script>
@@ -30,9 +29,14 @@
     </head>
 
     <body>
-        <div class="container">
-            {% block body %}{% endblock %}
+        <div id="topbrand">
+                <h1>Foreverland</h1>
+                <h3>The Electrifying 14-Piece Tribute to Michael Jackson</h3>
+            <div class="co">
+                <h1>Foreverland</h1>
+            </div>
         </div>
+        {% block body %}{% endblock %}
         <footer>
             {% include 'fragments/footer.html' %}
         </footer>

@@ -88,3 +88,35 @@ class Image(models.Model):
         return "<img border='0' alt='' src='%s/%s' height='40' />" % (
                                                                         (MEDIA_URL, self.image.name))
     thumbnail_.allow_tags = True
+
+
+class Video(models.Model):
+    YOUTUBE = 'yt'
+    FACEBOOK = 'fb'
+    VIMEO = 'vm'
+    OTHER = 'o'
+    EMBED_TYPES = (
+        (YOUTUBE, 'YouTube'),
+        (FACEBOOK, 'Facebook'),
+        (VIMEO, 'Vimeo'),
+        (OTHER, 'other')
+    )
+    title = models.CharField(max_length=60, blank=True, null=True)
+    url = models.URLField()
+    embed_type = models.CharField(max_length=10, blank=True, null=True, choices=EMBED_TYPES, default=YOUTUBE)
+    tags = models.ManyToManyField(Tag, blank=True)
+    show = models.ManyToManyField(Show, blank=True)
+    albums = models.ManyToManyField(Album, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return self.title
+
+    def tags_(self):
+        lst = [x[1] for x in self.tags.values_list()]
+        return str(join(lst, ', '))
+
+    def albums_(self):
+        lst = [x[1] for x in self.albums.values_list()]
+        return str(join(lst, ', '))
+

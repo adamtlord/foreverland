@@ -1,20 +1,11 @@
 from django.shortcuts import render
-import logging
 
-from marketing.forms import TestForm
-
-
-logger = logging.getLogger(__name__)
+from members.models import Member
 
 
 def homepage(request, template='marketing/homepage.html'):
     """Returns homepage.html for the root url"""
-    logger.info('this homepage rocks!!!')
-    return render(request, template, {})
-
-
-def examples(request, template='marketing/examples.html'):
-    """Sample view that can get deleted once developement starts"""
-    logger.debug('take a look on this, awesome example!')
-    form = TestForm()
-    return render(request, template, {'form': form})
+    members = Member.objects.filter(active=True).order_by('last_name')
+    d = {}
+    d['members'] = members
+    return render(request, template, d)

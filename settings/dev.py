@@ -29,6 +29,8 @@ CACHES = {
 LOGGING['loggers']['']['level'] = 'DEBUG'
 LOGGING['loggers']['django.request']['level'] = 'DEBUG'
 
+TEMPLATE_DEBUG = True
+
 extend_list_avoid_repeats(INSTALLED_APPS, [
     'django_extensions'
 ])

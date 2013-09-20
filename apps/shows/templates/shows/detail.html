@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+
+{% block body %}
+<div class="content">
+	<div class="container">
+        <h3>{{ show.date }} at {{ show.venue }}</h3>
+        {% if show.doors_time %}<p>Doors at {{ show.doors_time }}</p>{% endif %}
+        <p><a href="{{ show.ticket_url }}">Tickets are ${{ show.ticket_price }}</a></p>
+    </div>
+</div>
+{% endblock %}

@@ -2,10 +2,14 @@
 {% load custom_tags %}
 
 {% block body %}
-    <div class="content">
+<div class="content">
+	<div class="container">
         <h2>Upcoming Shows</h2>
+        <ul>
         {% for show in shows %}
-            <h3>{{ show.date }} at {{ show.venue }}</h3>
+            <li>{{ show.date }} at {{ show.venue }} <a href="{% url 'show' show.id %}">Details</a></li>
         {% endfor %}
+    	</ul>
     </div>
+</div>
 {% endblock %}

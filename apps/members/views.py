@@ -8,3 +8,4 @@ def list_members(request, template='members/members_list.html'):
     d = {}
     d['members'] = members
     return render(request, template, d)
+

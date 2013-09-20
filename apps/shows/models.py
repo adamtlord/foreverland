@@ -24,7 +24,7 @@ class Show(models.Model):
     # Open to the public/Display on public calendar?
     public = models.BooleanField(default=True)
     # Public Information
-    venue = models.ForeignKey(Venue)
+    venue = models.ForeignKey(Venue, related_name='venue')
     date = models.DateTimeField()
     doors_time = models.TimeField(blank=True, null=True)
     ticket_price = models.CharField(max_length=100, blank=True, null=True)
@@ -45,4 +45,4 @@ class Show(models.Model):
     to_account = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
     def __unicode__(self):
-        return '%s %s' % (self.date.strftime('%d/%m/%y'), self.venue)
+        return '%s %s' % (self.date.strftime('%m/%d/%y'), self.venue)

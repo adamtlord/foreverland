@@ -1,29 +1,17 @@
 h1, h2, h3, h4, h5, h6 {
+	font-family:@optimus-font-family;
 	.headingTextShadow();
 	small {
-		font-family: @sansFontFamily;
+		font-family: @font-family-sans-serif;
 		vertical-align:middle;
 	}
 }
-h1 { font-size: @baseFontSize * 4; }
-h2 { font-size: @baseFontSize * 3.25; }
-h3 { 
-	font-size: @baseFontSize * 2.25; 
-	small {
-		font-size:14px;
-	}
+h4, h5, h6 {
+	font-family: @font-family-sans-serif;
+	text-transform: uppercase;
+	font-weight:700;
 }
-h4 { font-size: @baseFontSize * 1.5; }
-h5 { font-size: @baseFontSize; }
-h6 { font-size: @baseFontSize * 0.85; }
 
-a:hover,
-a:focus {
-	color: @linkColorHover;
-	text-decoration: underline;
-}
 body {
 	.textShadow();
-	background: url(../images/dark_wall_@2X.png) top left repeat;
-	background-size:300px 300px;
 }

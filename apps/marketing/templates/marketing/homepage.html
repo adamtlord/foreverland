@@ -1,57 +1,101 @@
 {% extends 'base.html' %}
+{% block bodyclass %}home{% endblock %}
+{% block topnav %}
+	<div id="topbrand" class="home">
+	    <h1>Foreverland</h1>
+	    <h3>The Electrifying 14-Piece Tribute to Michael Jackson</h3>
+	</div>
+{% endblock %}
 {% block body %}
-<video id="video_background" preload="true" autoplay="true" loop="true" loop="loop" muted="muted" volume="0">
-	<source src="{{ STATIC_URL }}global/video/flbg.webmsd.webm" type="video/webm">
-	<source src="{{ STATIC_URL }}global/video/flbg.oggtheora.ogv" type="video/ogg ogv"> 
-	<source src="{{ STATIC_URL }}global/video/flbg.mp4.mp4" type="video/mp4"> 
-</video>
 <div class="container">
 	<div class="row">
 		<div class="span12">
 			<div class="video-wrap">
-				<div style="width:100%; height:100%; background:#333;position:relative;"><h4 style="position:absolute;top:43%;left:0;right:0;text-align:center; padding:20px; background:#444">Video</h4></div>
-				<!-- <iframe width="100%" height="100%" src="//www.youtube.com/embed/wS_1L0VIp-Q?rel=0" frameborder="0" allowfullscreen></iframe> -->
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span12">
-			<div class="promo-shot">
-				<div class="off"><img src="{{ STATIC_URL }}global/images/promoshot-off.jpg" /></div>
-				<div class="on"><img src="{{ STATIC_URL }}global/images/promoshot-on.jpg" /></div>
+				<iframe width="100%" height="100%" src="//www.youtube.com/embed/1vZmT_rbg5c?rel=0" frameborder="0" allowfullscreen></iframe>
 			</div>
 		</div>
 	</div>
 </div>
-		<!-- <div class="row background">
-			<div class="span3">
-				<h3><i class="icon-sun"></i> Sunshine</h3>
-				<p><strong>Odio est labore iPhone</strong>, blog photo booth tousled selvage cray seitan single-origin coffee bespoke. Nisi elit fixie, vinyl bespoke meggings laborum commodo duis Portland tumblr vegan gluten-free. Hella tattooed ethical proident esse, narwhal roof party Odd Future mlkshk put a bird on it cray deserunt dolore seitan next level. Vegan pickled minim esse enim, assumenda irure odio umami craft beer Etsy consequat master cleanse meggings narwhal. Duis YOLO deep v laborum. Trust fund farm-to-table lo-fi, next level wolf scenester quis try-hard eiusmod. Placeat tempor cillum asymmetrical, cliche fashion axe pickled brunch. <a href="#">And a link.</a></p>
-			</div>
-			<div class="span3">
-				<h3><i class="icon-moon"></i> Moonlight</h3>
-				<p>Ennui officia disrupt fingerstache. Church-key butcher cillum, +1 sustainable polaroid duis craft beer next level authentic irony jean shorts. Aliquip cillum Banksy aute fashion axe id, raw denim 8-bit. DIY fingerstache pickled yr aute lomo, Brooklyn craft beer cred sartorial. Banjo sustainable polaroid, sapiente bitters fanny pack thundercats. Meggings organic anim, shoreditch food truck tousled plaid pop-up vegan chambray street art 3 wolf moon. Lomo delectus craft beer, dolore odio keytar enim do incididunt beard.</p>
-			</div>
-			<div class="span3">
-				<h3><i class="icon-smile"></i> Good Times</h3>
-				<p>Sriracha you probably haven't heard of them twee cray id officia, nostrud bitters vegan fanny pack put a bird on it. Meggings umami leggings, Wes Anderson mollit sapiente High Life anim. Pinterest intelligentsia narwhal, semiotics swag flexitarian viral consectetur roof party mlkshk keytar 90's enim literally selfies. Pickled ugh letterpress seitan veniam. Consequat kale chips authentic, YOLO farm-to-table bitters ethnic sriracha. Craft beer McSweeney's dreamcatcher ethical seitan. Vice magna Tonx, iPhone art party kitsch letterpress forage food truck Cosby sweater you probably haven't heard of them pug chillwave aliqua salvia. <a href="#">And a link.</a></p>
-			</div>
-			<div class="span3">
-				<h3><i class="icon-thumbs-up"></i> Boogie</h3>
-				<p>Odd Future single-origin coffee Williamsburg direct trade whatever asymmetrical chillwave, ullamco commodo DIY flannel intelligentsia wayfarers jean shorts. Wes Anderson flexitarian selvage post-ironic, lomo dolore incididunt fashion axe mollit. Commodo jean shorts scenester aliquip, cardigan 8-bit reprehenderit helvetica PBR Cosby sweater pariatur nesciunt american apparel Marfa. Ea laborum wayfarers Portland messenger bag. Occaecat put a bird on it typewriter VHS 3 wolf moon food truck. Williamsburg deep v Pinterest elit Neutra Marfa wayfarers ut, fanny pack messenger bag put a bird on it dolor viral Portland. Magna Cosby sweater messenger bag, mumblecore McSweeney's intelligentsia in veniam hella. <a href="#">And a link.</a></p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="span12">
-				<h1>This is an h1 headline</h1>
-				<h2>This is an h2 headline</h2>
-				<h3>This is an h3 headline</h3>
-				<h4>This is an h4 headline</h4>
-			</div>
-		</div> -->
-	</div>
+<div class="container">
+	<h3>Three equal columns</h3>
+      <p>Get three equal-width columns <strong>starting at desktops and scaling to large desktops</strong>. On mobile devices, tablets and below, the columns will automatically stack.</p>
+      <div class="row">
+        <div class="col-md-4">.col-md-4</div>
+        <div class="col-md-4">.col-md-4</div>
+        <div class="col-md-4">.col-md-4</div>
+      </div>
+
+      <h3>Three unequal columns</h3>
+      <p>Get three columns <strong>starting at desktops and scaling to large desktops</strong> of various widths. Remember, grid columns should add up to twelve for a single horizontal block. More than that, and columns start stacking no matter the viewport.</p>
+      <div class="row">
+        <div class="col-md-3">.col-md-3</div>
+        <div class="col-md-6">.col-md-6</div>
+        <div class="col-md-3">.col-md-3</div>
+      </div>
+
+      <h3>Two columns</h3>
+      <p>Get two columns <strong>starting at desktops and scaling to large desktops</strong>.</p>
+      <div class="row">
+        <div class="col-md-8">.col-md-8</div>
+        <div class="col-md-4">.col-md-4</div>
+      </div>
+
+      <h3>Full width, single column</h3>
+      <p class="text-warning">No grid classes are necessary for full-width elements.</p>
+
+      <hr>
+
+      <h3>Two columns with two nested columns</h3>
+      <p>Per the documentation, nesting is easy—just put a row of columns within an existing row. This gives you two columns <strong>starting at desktops and scaling to large desktops</strong>, with another two (equal widths) within the larger column.</p>
+      <p>At mobile device sizes, tablets and down, these columns and their nested columns will stack.</p>
+      <div class="row">
+        <div class="col-md-8">
+          .col-md-8
+          <div class="row">
+            <div class="col-md-6">.col-md-6</div>
+            <div class="col-md-6">.col-md-6</div>
+          </div>
+        </div>
+        <div class="col-md-4">.col-md-4</div>
+      </div>
+
+      <hr>
+
+      <h3>Mixed: mobile and desktop</h3>
+      <p>The Bootstrap 3 grid system has four tiers of classes: xs (phones), sm (tablets), md (desktops), and lg (larger desktops). You can use nearly any combination of these classes to create more dynamic and flexible layouts.</p>
+      <p>Each tier of classes scales up, meaning if you plan on setting the same widths for xs and sm, you only need to specify xs.</p>
+      <div class="row">
+        <div class="col-xs-12 col-md-8">.col-xs-12 .col-md-8</div>
+        <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+        <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+        <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-md-6">.col-xs-6 .col-md-6</div>
+        <div class="col-xs-6 col-md-6">.col-xs-6 .col-md-6</div>
+      </div>
+
+      <hr>
+
+      <h3>Mixed: mobile, tablet, and desktop</h3>
+      <p></p>
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-lg-8">.col-xs-12 .col-lg-8</div>
+        <div class="col-xs-6 col-sm-4 col-lg-4">.col-xs-6 .col-lg-4</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-4 col-lg-4">.col-xs-6 .col-sm-4 .col-lg-4</div>
+        <div class="col-xs-6 col-sm-4 col-lg-4">.col-xs-6 .col-sm-4 .col-lg-4</div>
+        <div class="col-xs-6 col-sm-4 col-lg-4">.col-xs-6 .col-sm-4 .col-lg-4</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-lg-6">.col-xs-6 .col-sm-6 .col-lg-6</div>
+        <div class="col-xs-6 col-sm-6 col-lg-6">.col-xs-6 .col-sm-6 .col-lg-6</div>
+      </div>
 </div>
-<!-- <div id="video_pattern"></div> -->
 <script>
 	$(document).ready(function(){
 		var w = $(window);

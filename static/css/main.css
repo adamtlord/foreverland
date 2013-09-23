@@ -6022,8 +6022,14 @@ footer p {
   margin-bottom: 0;
   font-size: 12px;
 }
+.space {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
 #topbrand {
-  margin: 80px 0;
+  margin: 80px;
+  left: 0;
+  right: 0;
   text-align: center;
 }
 #topbrand h1 {
@@ -6031,37 +6037,24 @@ footer p {
   margin-bottom: -20px;
   line-height: 1;
   letter-spacing: -3px;
-  text-shadow: 2px 2px 25px #000000, 0px 10px 50px rgba(255, 255, 255, 0.4);
+  text-shadow: 2px 2px 10px #000000, 0px 10px 50px rgba(255, 255, 255, 0.4);
 }
 #topbrand h3 {
   font-size: 38px;
   margin: 0;
 }
-#topbrand .co {
-  top: -100px;
-  position: fixed;
-  margin: 0;
-  left: 0;
-  right: 0;
-  z-index: 1030;
-  background: rgba(18, 18, 18, 0.8);
-  -webkit-transition: top 0.5s ease;
-  transition: top 0.5s ease;
+#video-wrap,
+#video-wrap iframe {
+  height: 400px;
 }
-#topbrand .co h1 {
-  font-size: 24px;
-  color: #ffffff;
-  margin: 0 20px;
-  letter-spacing: 0;
-  text-shadow: none;
+#next_show {
+  background: url('../images/vidpattern.png') rgba(34, 34, 34, 0.9);
+  text-align: center;
+  padding: 10px 0;
 }
-#topbrand .co h3 {
+.home .navbar-brand {
   display: none;
 }
-#topbrand.af .co {
-  top: 0;
-}
-.video-wrap,
-.video-wrap iframe {
-  min-height: 536px;
+.home .navbar-nav {
+  float: none;
 }

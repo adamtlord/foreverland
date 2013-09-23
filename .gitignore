@@ -19,3 +19,5 @@ node_modules
 *.pyc
 
 *.pyc
+
+/static/js/.DS_Store

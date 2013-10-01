@@ -67,16 +67,16 @@ DATABASES = {
            'init_command': 'SET storage_engine=INNODB',
         }
     },
-    'legacy': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fllegacy',
-        'HOST': 'localhost',
-        'USER': 'root',
-        'PASSWORD': '',
-        'OPTIONS': {
-          'init_command': 'SET storage_engine=INNODB',
-        }
-    }
+    # 'legacy': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'fllegacy',
+    #     'HOST': 'localhost',
+    #     'USER': 'root',
+    #     'PASSWORD': '',
+    #     'OPTIONS': {
+    #       'init_command': 'SET storage_engine=INNODB',
+    #     }
+    # }
 }
 
 MIDDLEWARE_CLASSES = [
@@ -133,7 +133,7 @@ INSTALLED_APPS = [
     'media',
     'accounts',
     'common',
-    'legacy',
+    # 'legacy',
 ]
 
 TEMPLATE_LOADERS = [

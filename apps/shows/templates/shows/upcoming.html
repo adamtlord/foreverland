@@ -9,14 +9,11 @@
             	{% if show.venue.website %}<a href="http://{{ show.venue.website }}">{% endif %}<img src="../uploads/{{show.venue.venue_image}}">{% if show.venue.website %}</a>{% endif %}
             	<div class="show">
             		<h4>
-            			{% if show.ticket_url %}
-            				<a href="{{ show.ticket_url }}" target="_blank" rel="tooltip" title="Buy Tickets">
-            					{{ show.date|date:"M. j" }} at {{ show.venue }}
-        					<span class="glyphicon glyphicon-shopping-cart"></span></a>
-        				{% else %}
-        					{{ show.date|date:"M. j" }} at {{ show.venue }}
-    					{% endif %}
+    					{{ show.date|date:"M. j" }} at {% if show.venue.website %}<a href="http://{{ show.venue.website }}">{% endif %}{{ show.venue }}{% if show.venue.website %}</a>{% endif %}
         				<small class="pull-right">{{ show.date|date:"g:i a"}}</small>
+            			{% if show.ticket_url %}
+        					<a href="{{ show.ticket_url }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-shopping-cart"></span> Buy Tickets</a>
+    					{% endif %}
         			</h4>
         			{% if show.ages %}{{ show.ages }}<br>{% endif %}
         			{% if show.doors_time %}Doors at {{ show.doors_time }}<br>{% endif %}
@@ -32,9 +29,10 @@
 		</div>
 {% endblock %}
 {% block require_js %}
-	 <script type="text/javascript">
-	    require(['{{ STATIC_URL }}global/js/common.js'], function () {
-	        require(['shows']);
-	    });
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPix6hEAwxnKAEdTyKbBFIBz7iT2bFEHo&sensor=false"></script>
+	<script type="text/javascript">
+		require(['{{ STATIC_URL }}global/js/common.js'], function () {
+			require(['shows']);
+		});
 	</script>
 {% endblock %}

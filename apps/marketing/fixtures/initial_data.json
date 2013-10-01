@@ -2,8 +2,8 @@
 "pk": 1,
 "model": "sites.site",
 "fields": {
-    "domain": "foreverlandsf.com",
-    "name": "foreverlandsf.com"
+    "domain": "foreverland.com",
+    "name": "foreverland.com"
 }
 }, {
 "pk": 1,
@@ -21,88 +21,6 @@
     "password": "sha1$f845f$aecde55c9ba5e88a646728071c2ae54f4b47684f",
     "email": "admin@tivix.com",
     "date_joined": "2013-01-01 00:00:01"
-}
-}, {
-"pk": 1,
-"model": "shows.venue",
-"fields": {
-    "website": "http://www.bimbos365club.com/",
-    "city": "San Francisco",
-    "venue_name": "Bimbo's 365 Club",
-    "address1": "1025 Columbs Ave.",
-    "address2": "",
-    "phone": "415-474-0365",
-    "state": "CA",
-    "contact": "Steve Fogliani",
-    "country": "U.S.A.",
-    "venue_image": "venues/bimbos.gif",
-    "notes": "",
-    "zip_code": "94133"
-}
-}, {
-"pk": 2,
-"model": "shows.venue",
-"fields": {
-    "website": "http://donquixotesmusic.info/",
-    "city": "Felton",
-    "venue_name": "Don Quixote's International Music Hall",
-    "address1": "6275 Highway 9",
-    "address2": "",
-    "phone": "831-603-2294",
-    "state": "CA",
-    "contact": "Tom Miller",
-    "country": "U.S.A.",
-    "venue_image": "venues/dqs.jpg",
-    "notes": "",
-    "zip_code": "95018"
-}
-}, {
-"pk": 1,
-"model": "shows.show",
-"fields": {
-    "other_cost": null,
-    "gross": null,
-    "to_account": null,
-    "venue": 1,
-    "ages": "21+",
-    "ticket_url": "http://www.ticketfly.com/purchase/event/300101",
-    "sound_cost": null,
-    "commission": null,
-    "ads_cost": null,
-    "opener": "Sinister Dexter",
-    "notes": "It's the Annual Halloween Thriller Ballz!",
-    "print_ship_cost": null,
-    "date": "2013-10-24T22:00:00",
-    "payout": null,
-    "net": null,
-    "doors_time": "20:00:00",
-    "public": true,
-    "ticket_price": "25",
-    "in_ears_cost": null
-}
-}, {
-"pk": 2,
-"model": "shows.show",
-"fields": {
-    "other_cost": null,
-    "gross": null,
-    "to_account": null,
-    "venue": 2,
-    "ages": "All ages",
-    "ticket_url": "",
-    "sound_cost": null,
-    "commission": null,
-    "ads_cost": null,
-    "opener": "",
-    "notes": "",
-    "print_ship_cost": null,
-    "date": "2013-10-30T20:00:00",
-    "payout": null,
-    "net": null,
-    "doors_time": null,
-    "public": true,
-    "ticket_price": "15",
-    "in_ears_cost": null
 }
 }, {
 "pk": 1,
@@ -327,14 +245,5 @@
     "join_date": null,
     "active": true,
     "middle_name": "Leuschner"
-}
-}, {
-"pk": 1,
-"model": "marketing.testimonial",
-"fields": {
-    "quote": "I laughed, I cried, it was better than CATS. I'd see it again and again. Fan 4 Lyfe.",
-    "featured": true,
-    "show": null,
-    "source": "Some Dude"
 }
 }]

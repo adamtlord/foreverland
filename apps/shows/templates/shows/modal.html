@@ -12,8 +12,12 @@
 			{% if show.ages %}Ages: {{ show.ages }}<br>{% endif %}
 			{% if show.opener %}Opener: {{ show.opener }}<br>{% endif %}
 			{% if show.notes %}{{ show.notes }}<br>{% endif %}
-			{% if show.venue.address1 %}{{ show.venue.address1 }}, {% endif %}{{ show.venue.city }} {{ show.venue.state }}
-			<div id="map-canvas" style="width:100%; height:140px">Loading Map</div>
+			{% if show.venue.address1 %}{{ show.venue.address1 }}, {% endif %}{{ show.venue.city }} {{ show.venue.state }}<br>
+			<a href="http://maps.google.com/maps?saddr=&daddr={{ show.venue}}+{{ show.venue.address1 }}+{{ show.venue.address2 }}+{{ show.venue.city }}+{{show.venue.state}}+{{show.venue.zip_code}}" target="_blank" class="btn btn-default">Get Directions</a>
+			<div id="map-canvas">Loading Map
+				<input id="venue_address" type="hidden" value="{{ show.venue.ltlng }}">
+			</div>
+
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

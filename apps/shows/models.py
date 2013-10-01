@@ -15,6 +15,7 @@ class Venue(models.Model):
     website = models.URLField(max_length=200, blank=True, null=True)
     contact = models.CharField(max_length=100, blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
+    ltlng = models.CharField(max_length=100, blank=True, null=True)
 
     def __unicode__(self):
         return self.venue_name

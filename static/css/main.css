@@ -6601,3 +6601,8 @@ ul.shows li h4 a {
 ul.shows li h4 a:hover {
   color: #006cff;
 }
+#map-canvas {
+  width: 100%;
+  height: 300px;
+  margin: 12px 0;
+}

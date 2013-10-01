@@ -6,18 +6,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Foreverland</a>
+            <a class="navbar-brand" href="{% url 'homepage' %}">Foreverland</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Shows</a></li>
-                <li><a href="#">Videos</a></li>
-                <li><a href="#">Photos</a></li>
-                <li><a href="#">Songs</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Quotes</a></li>
-                <li><a href="#">Booking</a></li>
+                <li><a href="{% url 'homepage' %}">Home</a></li>
+                <li><a href="{% url 'upcoming_shows' %}">Shows</a></li>
+                <li><a href="{% url 'video' %}">Videos</a></li>
+                <li><a href="{% url 'photos' %}">Photos</a></li>
+                <li><a href="{% url 'songs' %}">Songs</a></li>
+                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                <li><a href="{% url 'quotes' %}">Quotes</a></li>
+                <li><a href="{% url 'booking' %}">Booking</a></li>
             </ul>
         </div>
     </div>

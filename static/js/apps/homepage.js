@@ -2,6 +2,7 @@ define([
     'jquery',
     'underscore',
     'bootstrap',
+    'jquery.flexslider',
 ],
 
 function ($) {
@@ -9,15 +10,16 @@ function ($) {
     var nvo = 0;
     function setHeights(){
         var v = $('#video_wrap iframe');
-        var vh = Math.floor(0.5625 * w.width());
+        var vh = Math.floor(0.5625 * v.width());
         var ch = $('#bio .carousel').height();
         var bt = $('#bio section');
         var bth = bt.height();
         v.css('min-height', vh + 'px');
-        bt.css({
-            'height': ch + 'px',
-            'padding-top': (ch - bth) / 2 + 'px'
-        });
+        if(w.width() > 992){
+            bt.css('height', ch + 'px');
+        }else {
+            bt.css('height', 'auto');
+        }
         nvo = $('#home_nav').offset().top;
     }
     function setFixed(){
@@ -26,8 +28,11 @@ function ($) {
     }
     $(function() {
         // Hompage specific js goes here, if not already in a module
-        $('.carousel').carousel({
-            pause: false
+        $('.flexslider').flexslider({
+            slideshowSpeed: 4000,
+            random:true,
+            controlNav: false,
+            directionNav:false
         });
         setHeights();
         var resetHeights = _.debounce(setHeights, 300);

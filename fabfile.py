@@ -181,6 +181,10 @@ def r():
 runserver = r  # alias
 
 
+def deletepycs():
+    local('find . -name "*.pyc" -exec rm -rf {} \;')
+
+
 def freshdb():
     if not settings.IS_DEV:
         raise Exception('This command is to only run on DEV')

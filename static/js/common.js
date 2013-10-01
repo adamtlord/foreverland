@@ -10,9 +10,12 @@ require.config({
         'jquery': 'lib/require-jquery',
         'bootstrap': 'lib/bootstrap',
         'underscore': 'lib/underscore',
+        'jquery.flexslider': 'lib/jquery.flexslider',
 
         // apps - one page applications, each requires a separate build file
         'homepage': 'apps/homepage',
+        'shows': 'apps/shows',
+        'show': 'apps/show',
     },
 
     // The shim is needed for any libs that are not AMD modules
@@ -22,5 +25,6 @@ require.config({
         'underscore': { exports: '_' },
         // jQuery plugins
         'bootstrap': { deps: ['jquery'] },
+        'jquery.flexslider': { deps: ['jquery'] }
     }
 });

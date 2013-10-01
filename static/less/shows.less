@@ -1,0 +1,34 @@
+ul.shows {
+	list-style-type:none;
+	padding:0;
+	margin:20px 0;
+	li {
+		padding-left:90px;
+		.clearfix;
+		margin-bottom:20px;
+		img {
+			max-width:80px;
+			height:80px;
+			margin-left:-90px;
+			float:left;
+		}
+		.show {
+			.bg-texture;
+			padding:10px;
+			min-height:80px;
+		}
+		h4 {
+			margin-top:0;
+			margin-bottom:5px;
+			small {
+				color:@gray-lighter;
+			}
+			a {
+				color:@white;
+				&:hover {
+					color:@blue;
+				}
+			}
+		}
+	}
+}

@@ -16,8 +16,8 @@ node_modules
 .DS_Store
 *.pyc
 
-*.pyc
-
-*.pyc
-
 /static/js/.DS_Store
+settings_siteone.py
+settings_sitetwo.py
+siteone.wsgi
+sitetwo.wsgi

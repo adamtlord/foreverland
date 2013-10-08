@@ -6,244 +6,227 @@
     "name": "foreverland.com"
 }
 }, {
-"pk": 1,
-"model": "auth.user",
-"fields": {
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "is_active": true,
-    "is_superuser": true,
-    "is_staff": true,
-    "last_login": "2013-01-01 00:00:02",
-    "groups": [],
-    "user_permissions": [],
-    "password": "sha1$f845f$aecde55c9ba5e88a646728071c2ae54f4b47684f",
-    "email": "admin@tivix.com",
-    "date_joined": "2013-01-01 00:00:01"
-}
+    "pk": 1,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Adam",
+        "last_name": "Lord",
+        "middle_name": "Tuckerman",
+        "dob": "1980-09-07",
+        "section": "r",
+        "display_last": "Lord",
+        "display_first": "Adam",
+        "instrument": "Bass",
+        "join_date": "2009-03-24",
+        "active": true
+    }
 }, {
-"pk": 1,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Adam",
-    "last_name": "Lord",
-    "display_first": "Adam",
-    "display_last": "Lord",
-    "dob": "1980-09-07",
-    "section": "r",
-    "instrument": "Bass",
-    "join_date": "2009-03-24",
-    "active": true,
-    "middle_name": "Tuckerman"
-}
+    "pk": 2,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Alex",
+        "last_name": "deCarville",
+        "middle_name": "Mervin",
+        "dob": null,
+        "section": "r",
+        "display_last": "deCarville",
+        "display_first": "Alex",
+        "instrument": "Drums",
+        "join_date": "2012-03-18",
+        "active": true
+    }
 }, {
-"pk": 2,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Alex",
-    "last_name": "deCarville",
-    "display_first": "Alex",
-    "display_last": "deCarville",
-    "dob": null,
-    "section": "r",
-    "instrument": "Drums",
-    "join_date": "2012-03-18",
-    "active": true,
-    "middle_name": "Mervin"
-}
+    "pk": 3,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Nils",
+        "last_name": "Erickson",
+        "middle_name": "",
+        "dob": null,
+        "section": "r",
+        "display_last": "Erickson",
+        "display_first": "Nils",
+        "instrument": "Guitar",
+        "join_date": "2012-03-18",
+        "active": true
+    }
 }, {
-"pk": 3,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Nils",
-    "last_name": "Erickson",
-    "display_first": "Nils",
-    "display_last": "Erickson",
-    "dob": null,
-    "section": "r",
-    "instrument": "Guitar",
-    "join_date": "2012-03-18",
-    "active": true,
-    "middle_name": ""
-}
+    "pk": 4,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Luke",
+        "last_name": "Kirley",
+        "middle_name": "",
+        "dob": null,
+        "section": "h",
+        "display_last": "Kirley",
+        "display_first": "Luke",
+        "instrument": "Trombone",
+        "join_date": "2012-03-18",
+        "active": true
+    }
 }, {
-"pk": 4,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Luke",
-    "last_name": "Kirley",
-    "display_first": "Luke",
-    "display_last": "Kirley",
-    "dob": null,
-    "section": "h",
-    "instrument": "Trombone",
-    "join_date": "2012-03-18",
-    "active": true,
-    "middle_name": ""
-}
+    "pk": 5,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Lou",
+        "last_name": "Esposito II",
+        "middle_name": "",
+        "dob": null,
+        "section": "r",
+        "display_last": "Esposito II",
+        "display_first": "Lou",
+        "instrument": "Percussion",
+        "join_date": "2012-03-18",
+        "active": false
+    }
 }, {
-"pk": 5,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Lou",
-    "last_name": "Esposito II",
-    "display_first": "Lou",
-    "display_last": "Esposito II",
-    "dob": null,
-    "section": "r",
-    "instrument": "Percussion",
-    "join_date": "2012-03-18",
-    "active": false,
-    "middle_name": ""
-}
+    "pk": 6,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Ari",
+        "last_name": "Margolis",
+        "middle_name": "",
+        "dob": null,
+        "section": "r",
+        "display_last": "Margolis",
+        "display_first": "Ari",
+        "instrument": "Keyboards",
+        "join_date": null,
+        "active": true
+    }
 }, {
-"pk": 6,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Ari",
-    "last_name": "Margolis",
-    "display_first": "Ari",
-    "display_last": "Margolis",
-    "dob": null,
-    "section": "r",
-    "instrument": "Keyboards",
-    "join_date": null,
-    "active": true,
-    "middle_name": ""
-}
+    "pk": 7,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Max",
+        "last_name": "Delaney",
+        "middle_name": "",
+        "dob": null,
+        "section": "r",
+        "display_last": "Delaney",
+        "display_first": "Max",
+        "instrument": "Guitar",
+        "join_date": "2012-03-18",
+        "active": true
+    }
 }, {
-"pk": 7,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Max",
-    "last_name": "Delaney",
-    "display_first": "Max",
-    "display_last": "Delaney",
-    "dob": null,
-    "section": "r",
-    "instrument": "Guitar",
-    "join_date": "2012-03-18",
-    "active": true,
-    "middle_name": ""
-}
+    "pk": 8,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Max",
+        "last_name": "Sternberg",
+        "middle_name": "",
+        "dob": null,
+        "section": "h",
+        "display_last": "Sternberg",
+        "display_first": "Max",
+        "instrument": "Trumpet",
+        "join_date": null,
+        "active": true
+    }
 }, {
-"pk": 8,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Max",
-    "last_name": "Sternberg",
-    "display_first": "Max",
-    "display_last": "Sternberg",
-    "dob": null,
-    "section": "h",
-    "instrument": "Trumpet",
-    "join_date": null,
-    "active": true,
-    "middle_name": ""
-}
+    "pk": 9,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Manuel",
+        "last_name": "Angel",
+        "middle_name": "",
+        "dob": null,
+        "section": "h",
+        "display_last": "Angel",
+        "display_first": "Manny",
+        "instrument": "Trumpet",
+        "join_date": "2012-03-18",
+        "active": true
+    }
 }, {
-"pk": 9,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Manuel",
-    "last_name": "Angel",
-    "display_first": "Manny",
-    "display_last": "Angel",
-    "dob": null,
-    "section": "h",
-    "instrument": "Trumpet",
-    "join_date": "2012-03-18",
-    "active": true,
-    "middle_name": ""
-}
+    "pk": 10,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Dave",
+        "last_name": "Arms",
+        "middle_name": "",
+        "dob": null,
+        "section": "h",
+        "display_last": "Arms",
+        "display_first": "Dave",
+        "instrument": "Trombone",
+        "join_date": "2012-03-18",
+        "active": true
+    }
 }, {
-"pk": 10,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Dave",
-    "last_name": "Arms",
-    "display_first": "Dave",
-    "display_last": "Arms",
-    "dob": null,
-    "section": "h",
-    "instrument": "Trombone",
-    "join_date": "2012-03-18",
-    "active": true,
-    "middle_name": ""
-}
+    "pk": 11,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Matthew",
+        "last_name": "Christiansen",
+        "middle_name": "Layne",
+        "dob": null,
+        "section": "v",
+        "display_last": "Layne",
+        "display_first": "Matthew",
+        "instrument": "Vocals",
+        "join_date": "2012-03-18",
+        "active": true
+    }
 }, {
-"pk": 11,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Matthew",
-    "last_name": "Christiansen",
-    "display_first": "Matthew",
-    "display_last": "Layne",
-    "dob": null,
-    "section": "v",
-    "instrument": "Vocals",
-    "join_date": "2012-03-18",
-    "active": true,
-    "middle_name": "Layne"
-}
+    "pk": 12,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Mark",
+        "last_name": "Edwards",
+        "middle_name": "Alan",
+        "dob": null,
+        "section": "v",
+        "display_last": "Edwards",
+        "display_first": "Mark",
+        "instrument": "Vocals",
+        "join_date": "2012-03-18",
+        "active": true
+    }
 }, {
-"pk": 12,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Mark",
-    "last_name": "Edwards",
-    "display_first": "Mark",
-    "display_last": "Edwards",
-    "dob": null,
-    "section": "v",
-    "instrument": "Vocals",
-    "join_date": "2012-03-18",
-    "active": true,
-    "middle_name": "Alan"
-}
+    "pk": 13,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Carlos",
+        "last_name": "Soto",
+        "middle_name": "Xavier",
+        "dob": null,
+        "section": "v",
+        "display_last": "Xavier",
+        "display_first": "Carlos",
+        "instrument": "Vocals",
+        "join_date": null,
+        "active": true
+    }
 }, {
-"pk": 13,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Carlos",
-    "last_name": "Soto",
-    "display_first": "Carlos",
-    "display_last": "Xavier",
-    "dob": null,
-    "section": "v",
-    "instrument": "Vocals",
-    "join_date": null,
-    "active": true,
-    "middle_name": "Xavier"
-}
-}, {
-"pk": 14,
-"model": "members.member",
-"fields": {
-    "bio": "",
-    "first_name": "Lisa",
-    "last_name": "Andersen",
-    "display_first": "Lisa",
-    "display_last": "Leuschner",
-    "dob": null,
-    "section": "v",
-    "instrument": "Vocals",
-    "join_date": null,
-    "active": true,
-    "middle_name": "Leuschner"
-}
+    "pk": 14,
+    "model": "members.member",
+    "fields": {
+        "bio": "",
+        "first_name": "Lisa",
+        "last_name": "Andersen",
+        "middle_name": "Leuschner",
+        "dob": null,
+        "section": "v",
+        "display_last": "Leuschner",
+        "display_first": "Lisa",
+        "instrument": "Vocals",
+        "join_date": null,
+        "active": true
+    }
 }]

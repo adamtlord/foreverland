@@ -10,7 +10,7 @@ COMPRESS_OFFLINE = True
 # domains/hosts etc.
 # TLD_NAME = '%s.com' % PROJECT_NAME
 # DOMAIN_NAME = 'www.%s' % TLD_NAME
-TLD_NAME = DOMAIN_NAME = 'base.tivixlabs.com'
+TLD_NAME = DOMAIN_NAME = 'foreverland.com'
 
 # Django 1.5 requirement
 print "---" * 20
@@ -34,7 +34,14 @@ CACHES = {
 }
 
 # override for db password... not needed for most projects
-DATABASES['default']['PASSWORD'] = 'tivix-rules'
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'foreverland_db',
+        'HOST': 'localhost',
+        'USER': 'adamlord_fl',
+        'PASSWORD': 'Candybeans97',
+    }
+}
 #override for ubuntu 11.10+
 # DATABASES['default']['HOST'] = '/var/run/mysqld/mysqld.sock'

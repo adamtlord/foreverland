@@ -52,7 +52,7 @@ DATABASES = {
 # DATABASES['default']['HOST'] = '/var/run/mysqld/mysqld.sock'
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/') 
 MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static_collected/')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'global/')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'static'), ]
 

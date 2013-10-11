@@ -17,6 +17,7 @@ PROJECT_URL = '/'
 # Django 1.5 requirement
 print "---" * 20
 print TLD_NAME
+print PROJECT_ROOT
 ALLOWED_HOSTS = [TLD_NAME]
 
 WWW_ROOT = 'http://%s/' % DOMAIN_NAME
@@ -50,9 +51,9 @@ DATABASES = {
 
 #override for ubuntu 11.10+
 # DATABASES['default']['HOST'] = '/var/run/mysqld/mysqld.sock'
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/') 
-MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'global/')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'uploads/') 
+MEDIA_URL = '/uploads/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static_collected/')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'static'), ]
 

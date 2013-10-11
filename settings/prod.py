@@ -11,7 +11,7 @@ COMPRESS_OFFLINE = True
 # TLD_NAME = '%s.com' % PROJECT_NAME
 # DOMAIN_NAME = 'www.%s' % TLD_NAME
 TLD_NAME = DOMAIN_NAME = 'flstaging.adamlord.com'
-
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__)) 
 PROJECT_URL = '/'
 
 # Django 1.5 requirement
@@ -50,12 +50,11 @@ DATABASES = {
 
 #override for ubuntu 11.10+
 # DATABASES['default']['HOST'] = '/var/run/mysqld/mysqld.sock'
-
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/') 
+MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static_collected/')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-os.path.join(PROJECT_ROOT, 'static'),
-]
+STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'static'), ]
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 

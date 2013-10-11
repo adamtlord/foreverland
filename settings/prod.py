@@ -57,7 +57,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static_collected/')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'static'), ]
 
-ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'global/admin/'
 
 COMPRESS_URL = STATIC_URL
 COMPRESS_ROOT = STATIC_ROOT

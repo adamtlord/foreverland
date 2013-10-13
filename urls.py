@@ -16,7 +16,6 @@ urlpatterns = patterns('',
     (r'^songs/', include('songs.urls')),
     (r'^media/', include('media.urls')),
 
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+)
+# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if settings.IS_PROD:
-	urlpatterns += staticfiles_urlpatterns()

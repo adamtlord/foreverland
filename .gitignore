@@ -2,6 +2,7 @@
 *.DS_Store
 *~
 *.db
+static/global/*
 staticserve/
 pip-log.txt
 uploads/*
@@ -12,12 +13,3 @@ docs/build
 logs/*
 graphed_models/*
 node_modules
-
-.DS_Store
-*.pyc
-
-/static/js/.DS_Store
-settings_siteone.py
-settings_sitetwo.py
-siteone.wsgi
-sitetwo.wsgi

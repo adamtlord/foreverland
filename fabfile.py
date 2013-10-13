@@ -41,12 +41,12 @@ def staging():
 def prod():
     """Sets up the prod environment for fab remote commands"""
     from settings.prod import SSH_HOSTS, DATABASES as PROD_DATABASES
-    env.user = 'baseproject'
+    env.user = 'adamlord'
     env.hosts = SSH_HOSTS
     env.database = PROD_DATABASES['default']
     env.remote_mysql_pw_arg = get_remote_mysql_pass_arg()
 
-    env.CODE_DIR = '/home/baseproject/webapps/%s/src/%s/' % (PROJECT_NAME, PROJECT_NAME)
+    env.CODE_DIR = '/home/adamlord/webapps/foreverland_python/src/foreverland/'
 
 
 def _launch(full=False):
@@ -80,6 +80,8 @@ def ssh(id=0):
     """Launch console for given ssh host"""
     try:
         host = env.hosts[int(id)]
+        print env.hosts
+        print host
     except IndexError:
         raise Exception("Wrong index provided")
     except ValueError:

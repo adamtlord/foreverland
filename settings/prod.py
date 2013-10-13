@@ -24,7 +24,7 @@ WWW_ROOT = 'http://%s/' % DOMAIN_NAME
 DEFAULT_FROM_EMAIL = 'no-reply@%s' % TLD_NAME
 
 # change or add multiple if hosts don't map to domain (load balancer situation)
-SSH_HOSTS = [TLD_NAME]
+SSH_HOSTS = 'adamlord.webfactional.com'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 CACHES = {

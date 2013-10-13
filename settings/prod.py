@@ -49,15 +49,5 @@ DATABASES = {
     }
 }
 
-#override for ubuntu 11.10+
-# DATABASES['default']['HOST'] = '/var/run/mysqld/mysqld.sock'
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'uploads/') 
-MEDIA_URL = '/uploads/'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static_collected/')
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'static'), ]
-
-ADMIN_MEDIA_PREFIX = STATIC_URL + 'global/admin/'
-
 COMPRESS_URL = STATIC_URL
 COMPRESS_ROOT = STATIC_ROOT

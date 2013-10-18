@@ -6217,6 +6217,12 @@ html[xmlns] .slides {
   background: url('../images/vidpattern.png') rgba(34, 34, 34, 0.7);
   background-size: 1px;
 }
+.hover-state {
+  -webkit-transition: color 0.25s ease;
+  transition: color 0.25s ease;
+  color: #00b7ff;
+  text-shadow: 0 0 5px #121212;
+}
 h1,
 h2,
 h3,
@@ -6338,6 +6344,10 @@ footer p {
 #video_wrap {
   margin-bottom: -5px;
 }
+#video_wrap iframe {
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
 #next_show {
   background: url('../images/vidpattern.png') rgba(34, 34, 34, 0.7);
   background-size: 1px;
@@ -6355,8 +6365,10 @@ footer p {
   color: #ffffff;
 }
 #next_show a:hover {
-  color: #999999;
-  text-shadow: 0 0 10px #006cff;
+  -webkit-transition: color 0.25s ease;
+  transition: color 0.25s ease;
+  color: #00b7ff;
+  text-shadow: 0 0 5px #121212;
 }
 #next_show span {
   color: #999999;
@@ -6402,8 +6414,8 @@ footer p {
 #home_nav .navbar-nav > li > a:hover {
   -webkit-transition: color 0.25s ease;
   transition: color 0.25s ease;
-  color: #999999;
-  text-shadow: 0 0 10px #006cff;
+  color: #00b7ff;
+  text-shadow: 0 0 5px #121212;
 }
 #home_nav.up {
   position: fixed;
@@ -6451,6 +6463,10 @@ footer p {
 }
 #bio section p {
   font-size: 18px;
+}
+#follow iframe {
+  background-color: #333;
+  max-height: 480px;
 }
 #home_nav .navbar-toggle {
   margin-top: 14px;

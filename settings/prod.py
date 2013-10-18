@@ -15,9 +15,6 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 PROJECT_URL = '/'
 
 # Django 1.5 requirement
-print "---" * 20
-print TLD_NAME
-print PROJECT_ROOT
 ALLOWED_HOSTS = [TLD_NAME]
 
 WWW_ROOT = 'http://%s/' % DOMAIN_NAME
@@ -42,7 +39,7 @@ DATABASES = {
         'NAME': 'foreverland_db',
         'HOST': 'localhost',
         'USER': 'adamlord_fl',
-        'PASSWORD': 'Candybeans97',
+        'PASSWORD': 'IiT77j58tR7yUoKO',
         'OPTIONS': {
            'init_command': 'SET storage_engine=INNODB',
         }

@@ -6,7 +6,7 @@
         <ul class="shows">
         {% for show in shows %}
             <li>
-            	{% if show.venue.website %}<a href="http://{{ show.venue.website }}">{% endif %}<img src="../uploads/{{show.venue.venue_image}}">{% if show.venue.website %}</a>{% endif %}
+            	{% if show.venue.website %}<a href="http://{{ show.venue.website }}">{% endif %}<img src="{{show.venue.venue_image}}">{% if show.venue.website %}</a>{% endif %}
             	<div class="show">
             		<h4>
     					{{ show.date|date:"M. j" }} at {% if show.venue.website %}<a href="http://{{ show.venue.website }}">{% endif %}{{ show.venue }}{% if show.venue.website %}</a>{% endif %}

@@ -76,18 +76,16 @@ def launch():
     _launch(full=True)
 
 
-def ssh(id=0):
+def ssh():
     """Launch console for given ssh host"""
     try:
-        host = env.hosts[int(id)]
-        print env.hosts
-        print host
+        host = env.hosts
     except IndexError:
         raise Exception("Wrong index provided")
     except ValueError:
         raise Exception("Argument must be integer")
 
-    local('ssh baseproject@%s' % host)
+    local('ssh adamlord@%s' % host)
 
 
 @runs_once
@@ -161,7 +159,7 @@ def sphinx():
 
 
 def _run_in_ve(command):
-    run('workon %s; cd %s; %s' % (PROJECT_NAME, env.CODE_DIR, command))
+    run('cd webapps/foreverland_python; source bin/activate; cd src/foreverland')
 
 
 ####

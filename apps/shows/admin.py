@@ -8,6 +8,6 @@ admin.site.register(Venue, VenueAdmin)
 
 
 class ShowAdmin(admin.ModelAdmin):
-	ordering = ['date']
+	ordering = ['-date']
 
 admin.site.register(Show, ShowAdmin)

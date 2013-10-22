@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 
+from common.utils import get_lat_lng
+
 
 class Venue(models.Model):
     venue_name = models.CharField(max_length=200, blank=True, null=True)
@@ -16,6 +18,17 @@ class Venue(models.Model):
     contact = models.CharField(max_length=100, blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     ltlng = models.CharField(max_length=100, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        """ Let's get the latlng before we save"""
+        super(Venue, self).save(*args, **kwargs)
+        if not self.ltlng:
+            address = '%s %s %s' % (self.address1, self.address2, self.zip_code)
+            try:
+                self.ltlng = get_lat_lng(address)
+            except Exception:
+                raise Exception
+            super(Venue, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.venue_name
@@ -44,6 +57,8 @@ class Show(models.Model):
     net = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     payout = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     to_account = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+
+
 
 
     class Meta:

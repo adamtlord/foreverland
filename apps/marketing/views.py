@@ -4,6 +4,7 @@ from django.shortcuts import render
 
 from members.models import Member
 from shows.models import Show
+from songs.models import Song
 from marketing.models import Testimonial
 
 
@@ -39,12 +40,6 @@ def quotes(request, template='marketing/quotes.html'):
 
 def faq(request, template='marketing/faq.html'):
     """FAQ page"""
-
-    return render(request, template)
-
-
-def songs(request, template='marketing/songs.html'):
-    """Song List page"""
 
     return render(request, template)
 

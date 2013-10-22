@@ -99,10 +99,11 @@ def migrate():
 
 def bounce():
     """Bounce apache + memcache"""
-    _run_in_ve('python manage.py compress')
+    # _run_in_ve('python manage.py compress')
 
     # APACHE CONFIG
-    sudo('/etc/init.d/apache2 restart', pty=False)
+    with cd(env.CODE_DIR):
+        '../../apache2/bin/restart'
 
     # NGINX CONFIG
     #sudo('service uwsgi stop', pty=False)
@@ -110,7 +111,7 @@ def bounce():
     #sudo('/etc/init.d/nginx restart', pty=False)
     #sudo('/etc/init.d/nginx start', pty=False)
 
-    sudo('/etc/init.d/memcached restart', pty=False)
+    # sudo('/etc/init.d/memcached restart', pty=False)
 
 
 def syncdb():
@@ -159,7 +160,7 @@ def sphinx():
 
 
 def _run_in_ve(command):
-    run('cd webapps/foreverland_python; source bin/activate; cd src/foreverland')
+    run('cd ~/webapps/foreverland_python; source bin/activate; cd src/foreverland')
 
 
 ####

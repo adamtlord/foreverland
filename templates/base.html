@@ -24,7 +24,7 @@
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/require-jquery.js"></script>
         <script>
             require(['{{ STATIC_URL }}global/js/common.js'], function () {
-                require(['global']);
+                require(['sitewide']);
             });
         </script>
         {% block require_js %}{% endblock %}    

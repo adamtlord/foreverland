@@ -103,6 +103,8 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django.core.context_processors.static',
 
     'django_common.context_processors.common_settings',
+
+    'common.context_processors.random_quote',
 ]
 
 TEMPLATE_DIRS = (

@@ -16,14 +16,12 @@ def homepage(request, template='marketing/homepage.html'):
     vocals = members.filter(active=True, section='v')
     horns = members.filter(active=True, section='h')
     rhythm = members.filter(active=True, section='r')
-    testimonial = Testimonial.objects.filter(featured=True).order_by('?')[0]
     
     d = {}
     d['next_show'] = next_show
     d['vocals'] = vocals
     d['horns'] = horns
     d['rhythm'] = rhythm
-    d['testimonial'] = testimonial
    
     return render(request, template, d)
 

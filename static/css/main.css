@@ -6265,8 +6265,8 @@ a:hover {
   border: none;
 }
 .modal-content {
-  border-radius: 0;
-  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.95);
 }
 .modal-title,
 .modal-body {
@@ -6326,6 +6326,48 @@ footer p {
   background: url('../images/vidpattern.png') rgba(34, 34, 34, 0.7);
   background-size: 1px;
   padding: 20px 28px;
+}
+.container.interior {
+  margin-top: 70px;
+}
+#sidebar .quote {
+  background: url('../images/vidpattern.png') rgba(34, 34, 34, 0.7);
+  background-size: 1px;
+  padding: 20px;
+  margin-bottom: 32px;
+}
+#sidebar .quote p {
+  margin: 0;
+  position: relative;
+  font-style: italic;
+}
+#sidebar .quote p:before,
+#sidebar .quote p:after {
+  font-size: 24px;
+  font-style: normal;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #999999;
+  line-height: 12px;
+  position: relative;
+  top: 6px;
+}
+#sidebar .quote p:before {
+  content: '“';
+  left: -4px;
+}
+#sidebar .quote p:after {
+  content: '”';
+  right: -4px;
+}
+#sidebar .quote a {
+  display: block;
+  text-align: center;
+  margin-top: 12px;
+}
+#sidebar .fb {
+  background: url('../images/vidpattern.png') rgba(34, 34, 34, 0.7);
+  background-size: 1px;
+  margin-bottom: 32px;
 }
 #top_brand {
   margin: 100px 0 80px;
@@ -6622,6 +6664,9 @@ ul.shows li h4 a {
 ul.shows li h4 a:hover {
   color: #006cff;
 }
+ul.shows li h4 a.btn:hover {
+  color: #ffffff;
+}
 #map-canvas {
   width: 100%;
   height: 300px;
@@ -6659,4 +6704,29 @@ dl.faq dd span {
 dl.faq dt + dd {
   margin: 12px 0 20px 20px;
   text-align: justify;
+}
+ul.quotes {
+  padding-left: 0;
+  list-style: none;
+}
+ul.quotes li {
+  margin-bottom: 32px;
+}
+ul.quotes li:before,
+ul.quotes li:after {
+  font-size: 24px;
+  font-style: normal;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #999999;
+  line-height: 12px;
+  position: relative;
+  top: 6px;
+}
+ul.quotes li:before {
+  content: '“';
+  left: -4px;
+}
+ul.quotes li:after {
+  content: '”';
+  right: -4px;
 }

@@ -22,6 +22,11 @@
             {% include 'fragments/footer.html' %}
         </footer>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/require-jquery.js"></script>
+        <script>
+            require(['{{ STATIC_URL }}global/js/common.js'], function () {
+                require(['global']);
+            });
+        </script>
         {% block require_js %}{% endblock %}    
     </body>
 </html>

@@ -13,6 +13,7 @@ require.config({
         'jquery.flexslider': 'lib/jquery.flexslider',
 
         // apps - one page applications, each requires a separate build file
+        'global': 'apps/global',
         'homepage': 'apps/homepage',
         'shows': 'apps/shows',
         'show': 'apps/show',

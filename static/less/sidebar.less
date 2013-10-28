@@ -1,0 +1,40 @@
+#sidebar {
+	.quote {
+		.bg-texture;
+		padding:20px;
+		margin-bottom:32px;
+	}
+	.quote p {
+		margin:0;
+		position:relative;
+		font-style:italic;
+		&:before, &:after {
+			font-size:24px;
+			font-style:normal;
+			font-family:@font-family-serif;
+			color:@gray-light;
+			line-height:12px;
+			position:relative;
+			top:6px;
+		}
+		&:before {
+			content: '“';
+			left:-4px;
+		}
+		&:after {
+			content: '”';
+			right:-4px;
+		}
+	}
+	.quote a {
+		display:block;
+		text-align:center;
+		margin-top:12px;
+	}
+
+	.fb {
+		.bg-texture;
+		margin-bottom:32px;
+	}
+
+}

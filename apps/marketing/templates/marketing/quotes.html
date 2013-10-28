@@ -3,9 +3,11 @@
 
 {% block content %}
 <h2>Testimonials</h2>
-<ul class="testimonials">
-    {% for quote in quotes %}
-        <li>{{ quote.quote }}</li>
-    {% endfor %}
-</ul>
+<div class="bg">
+	<ul class="quotes">
+	    {% for quote in quotes %}
+	        <li>{{ quote.quote }}</li>
+	    {% endfor %}
+	</ul>
+</div>
 {% endblock %}

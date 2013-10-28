@@ -1,3 +1,14 @@
+{% load custom_tags %}
+
+{% url 'homepage' as homepage_url %}
+{% url 'upcoming_shows' as shows_url %}
+{% url 'video' as video_url %}
+{% url 'photos' as photos_url %}
+{% url 'list_songs' as songs_url %}
+{% url 'faq' as faq_url %}
+{% url 'quotes' as quotes_url %}
+{% url 'booking' as booking_url %}
+
 <div class="navbar navbar-inverse {% if fixed %}navbar-fixed-top{% endif %}">
     <div class="container">
         <div class="navbar-header">
@@ -10,14 +21,14 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="{% url 'homepage' %}">Home</a></li>
-                <li><a href="{% url 'upcoming_shows' %}">Shows</a></li>
-                <li><a href="{% url 'video' %}">Videos</a></li>
-                <li><a href="{% url 'photos' %}">Photos</a></li>
-                <li><a href="{% url 'list_songs' %}">Songs</a></li>
-                <li><a href="{% url 'faq' %}">FAQ</a></li>
-                <li><a href="{% url 'quotes' %}">Quotes</a></li>
-                <li><a href="{% url 'booking' %}">Booking</a></li>
+                <li class="{% active request homepage_url %}"><a href="{% url 'homepage' %}">Home</a></li>
+                <li class="{% active request shows_url %}"><a href="{% url 'upcoming_shows' %}">Shows</a></li>
+                <li class="{% active request video_url %}"><a href="{% url 'video' %}">Videos</a></li>
+                <li class="{% active request photos_url %}"><a href="{% url 'photos' %}">Photos</a></li>
+                <li class="{% active request songs_url %}"><a href="{% url 'list_songs' %}">Songs</a></li>
+                <li class="{% active request faq_url %}"><a href="{% url 'faq' %}">FAQ</a></li>
+                <li class="{% active request quotes_url %}"><a href="{% url 'quotes' %}">Quotes</a></li>
+                <li class="{% active request booking_url %}"><a href="{% url 'booking' %}">Booking</a></li>
             </ul>
         </div>
     </div>

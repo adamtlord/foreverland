@@ -1,0 +1,66 @@
+.albums, .images {
+	.list-unstyled;
+	margin:20px 0;
+	li {
+		display:inline-block;
+		img {
+			padding:2px;
+			background:fadeout(@gray-lighter, 10%);
+			margin:0 5px 5px 0;
+			max-width:100%;
+		}
+	}
+}
+form.img-edit {
+	margin-top:20px;
+	table {
+		background:@black;
+	}
+}
+.album {
+	.thumb img {
+		padding:2px;
+		background:fadeout(@gray-lighter, 10%);
+		margin:0 5px 5px 0;
+	}
+}
+.modal.lightbox {
+	.solo-close {
+		position:absolute;
+		right:10px;
+		top:10px;
+		padding:0;
+		background:fadeout(@black, 25%);
+		height:32px;
+		width:32px;
+		line-height:32px;
+		font-size:28px;
+		border:none;
+		border-radius:50px;
+		.box-shadow(0 0 3px fadeout(@gray-light, 15%));
+		color:@gray-light;
+		z-index:1;
+		&:hover {
+			color:@white;
+			.box-shadow(0 0 5px @white);
+			.transition(all .15s ease);
+		}
+
+	}
+	.modal-body {
+		padding:0;
+		.box-shadow(0 0 20px @white);
+	}
+}
+.video-wrap {
+	position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+    iframe, object, embed {
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	}
+}

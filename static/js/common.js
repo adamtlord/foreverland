@@ -11,12 +11,14 @@ require.config({
         'bootstrap': 'lib/bootstrap',
         'underscore': 'lib/underscore',
         'jquery.flexslider': 'lib/jquery.flexslider',
+        'ekko-lightbox': 'lib/ekko-lightbox',
 
         // apps - one page applications, each requires a separate build file
         'sitewide': 'apps/sitewide',
         'homepage': 'apps/homepage',
         'shows': 'apps/shows',
         'show': 'apps/show',
+        'media': 'apps/media',
     },
 
     // The shim is needed for any libs that are not AMD modules
@@ -26,6 +28,7 @@ require.config({
         'underscore': { exports: '_' },
         // jQuery plugins
         'bootstrap': { deps: ['jquery'] },
-        'jquery.flexslider': { deps: ['jquery'] }
+        'jquery.flexslider': { deps: ['jquery'] },
+        'ekko-lightbox': { deps: ['jquery'] }
     }
 });

@@ -27,6 +27,14 @@ body {
 	text-transform: uppercase;
 	font-weight:700;
 	float:right;
+	> li > a {
+		.transition(font-size .25s ease);
+		.transition(color .25s ease);
+		.transition(float .25s ease);
+		&:hover {
+		.hover-state;
+		}
+	}
 }
 footer {
 	text-align:center;
@@ -47,4 +55,47 @@ footer {
 }
 .container.interior {
 	margin-top:70px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.navbar-nav {
+		margin-right:-20px;
+		> li > a {
+			font-size:14px;
+			padding-left:8px;
+			padding-right:8px;
+		}
+	}
+}
+@media (max-width: 767px) {
+	.navbar > .container .navbar-brand {
+		margin-left: 20px;
+	}
+	.navbar-nav {
+		text-align:center;
+		float:none;
+		> li {
+			float:none;
+			display:inline;
+			> a {
+				display:inline-block;
+				padding:8px 15px;
+			}
+		}
+	}
+	.navbar-inverse {
+		.navbar-collapse.in {
+			.bg-texture;
+		}
+		.navbar-toggle {
+			.transition(background-color .25s ease);
+			&:focus, &:hover {
+				outline:none;
+				background-color:@blue;
+			}
+			&.collapsed {
+				background-color:@gray-dark;
+			}
+		}
+	}
 }

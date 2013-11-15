@@ -106,7 +106,7 @@
 	.bg-texture;
 	padding:30px 20px;
 	margin-top:30px;
-	color:@gold;
+	color:@blue-light;
 	p {
 		text-align:center;
 		font-size:20px;
@@ -233,5 +233,57 @@
 			font-size:22px;
 			letter-spacing:0;
 		}
+	}
+	#home_nav, #home_nav.up {
+		position:fixed;
+		top:0;
+		left:0;
+		right:0;
+		.container {
+			padding:0;
+			.navbar {
+				padding:0 20px;
+				.navbar-header {
+					margin:0;
+				}
+				.nav > li > a {
+					color:@gray-light;
+					font-size:16px;
+					&:hover {
+						color:@white;
+					}
+				}
+			}
+		}
+		.navbar-toggle {
+			margin-top:8px;
+			margin-right:0;
+			&:focus {
+				outline:none;
+			}
+			background-color:@blue;
+			&.collapsed {
+				background-color:@gray-dark;
+			}
+		}
+		.navbar-brand {
+			line-height:50px;
+		}
+		.navbar-collapse.in {
+			background-color:fadeout(@gray-darker, 10%)
+		}
+	}
+	#next_show {
+		position:absolute;
+		z-index: 1101;
+		text-align:left;
+		background:transparent;
+		h4 { 
+			float:left;
+			font-size:14px; 
+			margin:0 20px;
+			line-height:50px;
+		}
+
 	}
 }

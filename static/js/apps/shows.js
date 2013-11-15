@@ -5,7 +5,6 @@ define([
 
 function ($) {
 	function initMap(ltlng) {
-		console.log('initMap');
 		var thisltlng = new google.maps.LatLng(ltlng.split(",")[0], ltlng.split(",")[1]);
 		var mapOptions = {
 			zoom: 12,
@@ -25,20 +24,16 @@ function ($) {
         trigger: 'hover'
     });
 	$('.detail-launch').click(function(e){
-		console.log('get detail modal');
 		$.ajax({
 			type: "GET",
             url: $(this).data("showurl"),
             success: function(res) {
-				console.log(res);
 				$('#show_detail_modal').html(res).modal();
             }
         });
 	});
 	$('#show_detail_modal').on('shown.bs.modal', function(){
-		console.log('modal show');
-		var ltlng = $('#venue_address').val();
-		console.log(ltlng);
+		var ltlng = $(this).find('#venue_address').val();
 		initMap(ltlng);
 	});
 });

@@ -6701,11 +6701,14 @@ ul.shows li:after {
 ul.shows li:after {
   clear: both;
 }
-ul.shows li img {
-  max-width: 80px;
-  height: 80px;
-  margin-left: -90px;
+ul.shows li a.tl {
+  display: block;
   float: left;
+  margin-left: -90px;
+  line-height: 80px;
+}
+ul.shows li a.tl img {
+  max-width: 80px;
 }
 ul.shows li .show {
   background: url('../images/vidpattern.png') rgba(34, 34, 34, 0.7);

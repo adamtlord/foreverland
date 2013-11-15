@@ -6208,6 +6208,32 @@ a:hover {
 .btn {
   text-shadow: none;
 }
+.navbar-inverse .navbar-collapse.in {
+  background-image: -webkit-gradient(linear, left 0%, left 100%, from(transparent), to(#121212));
+  background-image: -webkit-linear-gradient(top, transparent, 0%, #121212, 100%);
+  background-image: -moz-linear-gradient(top, transparent 0%, #121212 100%);
+  background-image: linear-gradient(to bottom, transparent 0%, #121212 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#ff121212', GradientType=0);
+}
+.navbar-inverse .navbar-toggle,
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+  -webkit-transition: background-color 0.25s ease;
+  transition: background-color 0.25s ease;
+  outline: none;
+  background-color: #006cff;
+  border-color: #0a2f97;
+}
+.navbar-inverse .navbar-toggle.collapsed,
+.navbar-inverse .navbar-toggle:hover.collapsed,
+.navbar-inverse .navbar-toggle:focus.collapsed {
+  background-color: #333333;
+  border-color: #121212;
+}
+.navbar-inverse .navbar-toggle:hover {
+  border-color: #0a2f97;
+}
 .modal-content {
   border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.95);
@@ -6300,7 +6326,7 @@ footer p {
 }
 @media (max-width: 767px) {
   .navbar > .container .navbar-brand {
-    margin-left: 20px;
+    margin-left: 15px;
   }
   .navbar-nav {
     text-align: center;
@@ -6313,22 +6339,6 @@ footer p {
   .navbar-nav > li > a {
     display: inline-block;
     padding: 8px 15px;
-  }
-  .navbar-inverse .navbar-collapse.in {
-    background: url('../images/vidpattern.png') rgba(34, 34, 34, 0.7);
-    background-size: 1px;
-  }
-  .navbar-inverse .navbar-toggle {
-    -webkit-transition: background-color 0.25s ease;
-    transition: background-color 0.25s ease;
-  }
-  .navbar-inverse .navbar-toggle:focus,
-  .navbar-inverse .navbar-toggle:hover {
-    outline: none;
-    background-color: #006cff;
-  }
-  .navbar-inverse .navbar-toggle.collapsed {
-    background-color: #333333;
   }
 }
 #sidebar .quote {
@@ -6568,28 +6578,7 @@ footer p {
     padding-right: 5px;
   }
 }
-@media (max-width: 767px) and (min-width: 480px) {
-  #top_brand h1 {
-    font-size: 95px;
-    margin-bottom: -10px;
-  }
-  #top_brand h2 {
-    font-size: 22px;
-  }
-  #home_nav .navbar-nav > li > a {
-    padding-left: 20px;
-    padding-right: 20px;
-    line-height: 20px;
-    font-size: 14px;
-  }
-  #quote p {
-    font-size: 16px;
-  }
-  #bio section p {
-    font-size: 16px;
-  }
-}
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   #top_brand {
     margin-bottom: 50px;
   }
@@ -6614,16 +6603,13 @@ footer p {
   }
   #home_nav .container .navbar,
   #home_nav.up .container .navbar {
-    padding: 0 20px;
-  }
-  #home_nav .container .navbar .navbar-header,
-  #home_nav.up .container .navbar .navbar-header {
-    margin: 0;
+    padding: 0 15px;
   }
   #home_nav .container .navbar .nav > li > a,
   #home_nav.up .container .navbar .nav > li > a {
     color: #999999;
     font-size: 16px;
+    line-height: 20px;
   }
   #home_nav .container .navbar .nav > li > a:hover,
   #home_nav.up .container .navbar .nav > li > a:hover {
@@ -6632,24 +6618,10 @@ footer p {
   #home_nav .navbar-toggle,
   #home_nav.up .navbar-toggle {
     margin-top: 8px;
-    margin-right: 0;
-    background-color: #006cff;
-  }
-  #home_nav .navbar-toggle:focus,
-  #home_nav.up .navbar-toggle:focus {
-    outline: none;
-  }
-  #home_nav .navbar-toggle.collapsed,
-  #home_nav.up .navbar-toggle.collapsed {
-    background-color: #333333;
   }
   #home_nav .navbar-brand,
   #home_nav.up .navbar-brand {
     line-height: 50px;
-  }
-  #home_nav .navbar-collapse.in,
-  #home_nav.up .navbar-collapse.in {
-    background-color: rgba(34, 34, 34, 0.9);
   }
   #next_show,
   #next_show.up {
@@ -6658,13 +6630,15 @@ footer p {
     text-align: left;
     background: transparent;
     z-index: 2;
-    width: 80%;
+    margin-right: 60px;
+    overflow: hidden;
+    white-space: nowrap;
   }
   #next_show h4,
   #next_show.up h4 {
     float: left;
     font-size: 14px;
-    margin: 0 20px;
+    margin: 0 0 0 20px;
     line-height: 50px;
   }
   #nav_push.up {
@@ -6681,6 +6655,21 @@ footer p {
   }
   #follow iframe {
     margin-bottom: 15px;
+  }
+}
+@media (max-width: 767px) and (min-width: 572px) {
+  #top_brand h1 {
+    font-size: 95px;
+    margin-bottom: -10px;
+  }
+  #top_brand h2 {
+    font-size: 22px;
+  }
+  #quote p {
+    font-size: 16px;
+  }
+  #bio section p {
+    font-size: 16px;
   }
 }
 ul.shows {

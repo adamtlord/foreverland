@@ -29,3 +29,22 @@ a {
 .btn {
 	text-shadow:none;
 }
+.navbar-inverse {
+	.navbar-collapse.in {
+		#gradient.vertical(transparent, @black)
+	}
+	.navbar-toggle, .navbar-toggle:hover, .navbar-toggle:focus {
+		.transition(background-color .25s ease);
+		outline:none;
+		background-color:@blue;
+		border-color:darken(@blue-dark, 20%);
+		
+		&.collapsed {
+			background-color:@gray-dark;
+			border-color:@black;
+		}
+	}
+	.navbar-toggle:hover {
+		border-color:darken(@blue-dark, 20%);
+	}
+}

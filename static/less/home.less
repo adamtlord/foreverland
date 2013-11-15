@@ -205,30 +205,7 @@
 		padding-right:5px;
 	}
 }
-@media (max-width: 767px) and (min-width:480px) {
-	#top_brand {
-		h1 {
-			font-size:95px;
-			margin-bottom:-10px;
-		}
-		h2 {
-			font-size:22px;
-		}
-	}
-	#home_nav .navbar-nav > li > a {
-		padding-left:20px;
-		padding-right:20px;
-		line-height:20px;
-		font-size:14px;
-	}	
-	#quote p {
-		font-size:16px;
-	}
-	#bio section p {
-		font-size:16px
-	}
-}
-@media (max-width: 600px) {
+@media (max-width: 767px) {
 	#top_brand {
 		margin-bottom:50px;
 		h1 {
@@ -248,13 +225,11 @@
 		.container {
 			padding:0;
 			.navbar {
-				padding:0 20px;
-				.navbar-header {
-					margin:0;
-				}
+				padding: 0 15px;
 				.nav > li > a {
 					color:@gray-light;
 					font-size:16px;
+					line-height:20px;
 					&:hover {
 						color:@white;
 					}
@@ -263,20 +238,9 @@
 		}
 		.navbar-toggle {
 			margin-top:8px;
-			margin-right:0;
-			&:focus {
-				outline:none;
-			}
-			background-color:@blue;
-			&.collapsed {
-				background-color:@gray-dark;
-			}
 		}
 		.navbar-brand {
 			line-height:50px;
-		}
-		.navbar-collapse.in {
-			background-color:fadeout(@gray-darker, 10%)
 		}
 	}
 	#next_show, #next_show.up {
@@ -285,14 +249,15 @@
 		text-align:left;
 		background:transparent;
 		z-index:2;
-		width:80%;
+		margin-right:60px;
+		overflow:hidden;
+		white-space: nowrap;
 		h4 { 
 			float:left;
 			font-size:14px; 
-			margin:0 20px;
+			margin:0 0 0 20px;
 			line-height:50px;
 		}
-
 	}
 	#nav_push.up {
 		height:0;
@@ -310,3 +275,21 @@
 		margin-bottom:15px;
 	}
 }
+@media (max-width: 767px) and (min-width:572px) {
+	#top_brand {
+		h1 {
+			font-size:95px;
+			margin-bottom:-10px;
+		}
+		h2 {
+			font-size:22px;
+		}
+	}
+	#quote p {
+		font-size:16px;
+	}
+	#bio section p {
+		font-size:16px
+	}
+}
+

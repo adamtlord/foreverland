@@ -9,8 +9,10 @@
             	<a {% if show.venue.website %}href="http://{{ show.venue.website }}"{% endif %} class="tl"><img src="{{ MEDIA_URL }}{{show.venue.venue_image}}">{% if show.venue.website %}</a>{% endif %}
             	<div class="show">
             		<h4>
-    					{{ show.date|date:"M. j" }} at {% if show.venue.website %}<a href="http://{{ show.venue.website }}">{% endif %}{{ show.venue }}{% if show.venue.website %}</a>{% endif %}
-        				<small class="pull-right">{{ show.date|date:"g:i a"}}</small>
+                        <span class="title">
+        					{{ show.date|date:"M. j" }} at {% if show.venue.website %}<a href="http://{{ show.venue.website }}">{% endif %}{{ show.venue }}{% if show.venue.website %}</a>{% endif %}
+            				<small class="pull-right">{{ show.date|date:"g:i a"}}</small>
+                        </span>
             			{% if show.ticket_url %}
         					<a href="{{ show.ticket_url }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-shopping-cart"></span> Buy Tickets</a>
     					{% endif %}

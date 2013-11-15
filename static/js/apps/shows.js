@@ -15,14 +15,9 @@ function ($) {
 		var marker = new google.maps.Marker({
 			position: thisltlng,
 			map: map,
-			title: 'Hello World!'
 		});
+		return map;
 	}
-
-    $('[rel="tooltip"]').tooltip({
-        placement: 'right',
-        trigger: 'hover'
-    });
 	$('.detail-launch').click(function(e){
 		$.ajax({
 			type: "GET",
@@ -34,6 +29,7 @@ function ($) {
 	});
 	$('#show_detail_modal').on('shown.bs.modal', function(){
 		var ltlng = $(this).find('#venue_address').val();
-		initMap(ltlng);
+		var modalMap = initMap(ltlng);
+		google.maps.event.trigger(modalMap, "resize");
 	});
 });

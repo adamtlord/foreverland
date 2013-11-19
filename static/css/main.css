@@ -269,12 +269,12 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #006cff;
+  color: #88c0ff;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #88c0ff;
+  color: #006cff;
   text-decoration: underline;
 }
 a:focus {
@@ -2066,7 +2066,7 @@ fieldset[disabled] .btn-info.active {
   border-color: #6e3ca3;
 }
 .btn-link {
-  color: #006cff;
+  color: #88c0ff;
   font-weight: normal;
   cursor: pointer;
   border-radius: 0;
@@ -2087,7 +2087,7 @@ fieldset[disabled] .btn-link {
 }
 .btn-link:hover,
 .btn-link:focus {
-  color: #88c0ff;
+  color: #006cff;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -3316,7 +3316,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav .open > a:hover,
 .nav .open > a:focus {
   background-color: #eeeeee;
-  border-color: #006cff;
+  border-color: #88c0ff;
 }
 .nav .nav-divider {
   height: 1px;
@@ -3485,12 +3485,12 @@ textarea.input-group-sm > .input-group-btn > .btn {
   display: block;
 }
 .nav .caret {
-  border-top-color: #006cff;
-  border-bottom-color: #006cff;
-}
-.nav a:hover .caret {
   border-top-color: #88c0ff;
   border-bottom-color: #88c0ff;
+}
+.nav a:hover .caret {
+  border-top-color: #006cff;
+  border-bottom-color: #006cff;
 }
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
@@ -4278,7 +4278,7 @@ a.badge:focus {
 }
 a.list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
-  color: #006cff;
+  color: #88c0ff;
   background-color: #ffffff;
 }
 .nav-pills > li > a > .badge {
@@ -4337,7 +4337,7 @@ a.list-group-item.active > .badge,
 }
 a.thumbnail:hover,
 a.thumbnail:focus {
-  border-color: #006cff;
+  border-color: #88c0ff;
 }
 .thumbnail > img {
   margin-left: auto;
@@ -6325,6 +6325,13 @@ footer p {
   }
 }
 @media (max-width: 767px) {
+  body {
+    font-size: 13px;
+    line-height: 1.34em;
+  }
+  body.interior {
+    padding-top: 50px;
+  }
   .navbar > .container .navbar-brand {
     margin-left: 15px;
   }
@@ -6339,6 +6346,12 @@ footer p {
   .navbar-nav > li > a {
     display: inline-block;
     padding: 8px 15px;
+  }
+  h2 {
+    font-size: 32px;
+  }
+  h4 {
+    font-size: 16px;
   }
 }
 #sidebar .quote {
@@ -6638,7 +6651,7 @@ footer p {
   #next_show.up h4 {
     float: left;
     font-size: 14px;
-    margin: 0 0 0 20px;
+    margin: 0 0 0 15px;
     line-height: 50px;
   }
   #nav_push.up {
@@ -6670,6 +6683,35 @@ footer p {
   }
   #bio section p {
     font-size: 16px;
+  }
+}
+@media (max-width: 480px) {
+  #top_brand {
+    margin-top: 80px;
+    margin-bottom: 30px;
+  }
+  #top_brand h1 {
+    font-size: 55px;
+  }
+  #top_brand h2 {
+    font-size: 18px;
+  }
+  #home_nav .container .navbar .nav > li > a,
+  #home_nav.up .container .navbar .nav > li > a {
+    font-size: 13px;
+  }
+  #bio section p {
+    font-size: 13px;
+    line-height: 1.4em;
+  }
+  .flexslider {
+    margin-top: 20px;
+  }
+  #quote {
+    padding: 20px;
+  }
+  #quote p {
+    line-height: 1.4em;
   }
 }
 ul.shows {
@@ -6741,6 +6783,11 @@ ul.shows li h4 .btn:hover {
   height: 300px;
   margin: 12px 0;
 }
+@media (max-width: 767px) {
+  ul.shows h4 .btn {
+    margin-top: 5px;
+  }
+}
 ul.song-list {
   padding-left: 0;
   list-style: none;
@@ -6774,6 +6821,14 @@ dl.faq dt + dd {
   margin: 12px 0 20px 20px;
   text-align: justify;
 }
+@media (max-width: 767px) {
+  dl.faq dt {
+    font-size: 14px;
+  }
+  dl.faq dt + dd {
+    text-align: left;
+  }
+}
 ul.quotes {
   padding-left: 0;
   list-style: none;
@@ -6798,6 +6853,11 @@ ul.quotes li:before {
 ul.quotes li:after {
   content: '”';
   right: -4px;
+}
+@media (max-width: 767px) {
+  ul.quotes li {
+    margin-bottom: 18px;
+  }
 }
 .albums,
 .images {

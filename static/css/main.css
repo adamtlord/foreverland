@@ -6328,10 +6328,12 @@ footer p {
   body {
     font-size: 13px;
     line-height: 1.34em;
-    -webkit-background-size: auto 100%;
-    -moz-background-size: auto 100%;
-    -o-background-size: auto 100%;
-    background-size: auto 100%;
+    background: url(../images/starfield-m.jpg);
+    -webkit-background-size: auto;
+    -moz-background-size: auto;
+    -o-background-size: auto;
+    background-size: auto;
+    background-color: #121212;
   }
   body.interior {
     padding-top: 50px;

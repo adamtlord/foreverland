@@ -1287,11 +1287,11 @@ th {
   padding: 8px;
   line-height: 1.428571429;
   vertical-align: top;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #e5e5e5;
 }
 .table > thead > tr > th {
   vertical-align: bottom;
-  border-bottom: 2px solid #dddddd;
+  border-bottom: 2px solid #e5e5e5;
 }
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
@@ -1302,7 +1302,7 @@ th {
   border-top: 0;
 }
 .table > tbody + tbody {
-  border-top: 2px solid #dddddd;
+  border-top: 2px solid #e5e5e5;
 }
 .table .table {
   background-color: #333333;
@@ -1316,7 +1316,7 @@ th {
   padding: 5px;
 }
 .table-bordered {
-  border: 1px solid #dddddd;
+  border: 1px solid #e5e5e5;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
@@ -1324,7 +1324,7 @@ th {
 .table-bordered > thead > tr > td,
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > td {
-  border: 1px solid #dddddd;
+  border: 1px solid #e5e5e5;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > thead > tr > td {
@@ -1434,7 +1434,7 @@ table th[class*="col-"] {
     overflow-y: hidden;
     overflow-x: scroll;
     -ms-overflow-style: -ms-autohiding-scrollbar;
-    border: 1px solid #dddddd;
+    border: 1px solid #e5e5e5;
     -webkit-overflow-scrolling: touch;
   }
   .table-responsive > .table {
@@ -4672,7 +4672,7 @@ a.list-group-item:focus {
 }
 .panel > .panel-body + .table,
 .panel > .panel-body + .table-responsive {
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #e5e5e5;
 }
 .panel > .table-bordered,
 .panel > .table-responsive > .table-bordered {
@@ -7716,6 +7716,9 @@ a:hover {
 .navbar-inverse .navbar-toggle:hover {
   border-color: #0a2f97;
 }
+dl {
+  margin: 0;
+}
 .modal-content {
   border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.95);
@@ -7776,8 +7779,17 @@ body.interior {
   text-shadow: 0 0 5px #121212;
 }
 footer {
+  margin-top: 20px;
   text-align: center;
   color: #999999;
+  background-image: -webkit-gradient(linear, left 0%, left 100%, from(transparent), to(#121212));
+  background-image: -webkit-linear-gradient(top, transparent, 0%, #121212, 100%);
+  background-image: -moz-linear-gradient(top, transparent 0%, #121212 100%);
+  background-image: linear-gradient(to bottom, transparent 0%, #121212 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#ff121212', GradientType=0);
+}
+footer .container {
   padding: 20px 0;
 }
 footer p {
@@ -8282,6 +8294,9 @@ ul.shows li .btn:hover {
 }
 #show_detail_modal .modal-title img {
   width: 40px;
+}
+#show_detail_modal table {
+  margin-top: 20px;
 }
 .btn.jump-year-btn {
   margin-top: 10px;

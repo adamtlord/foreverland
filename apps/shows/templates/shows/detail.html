@@ -1,5 +1,7 @@
+{% extends 'interior.html' %}
+{% load custom_tags %}
 
-    <h3>{{ show.date }} at {{ show.venue }}</h3>
-    {% if show.doors_time %}<p>Doors at {{ show.doors_time }}</p>{% endif %}
-    <p><a href="{{ show.ticket_url }}">Tickets are ${{ show.ticket_price }}</a></p>
-
+{% block content %}
+    <h3>{{ show.date|date:"M. j" }}</h3>
+    <h2>{{ show.venue }}</h2>
+{% endblock %}

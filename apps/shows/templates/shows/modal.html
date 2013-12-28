@@ -3,21 +3,20 @@
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h4 class="modal-title">{{ show.date|date:"M. j" }} at {{ show.venue }}</h4>
+			<h4 class="modal-title"><img src="{{ MEDIA_URL }}{% if show.venue.venue_image != 'venues/' %}{{show.venue.venue_image}}{% else %}venues/blank-venue.jpg{% endif %}"> {{ show.date|date:"M. j" }} at {{ show.venue }}</h4>
 		</div>
 		<div class="modal-body">
-			Showtime: <strong>{{ show.date|date:"g:i a"}}</strong><br>
-			{% if show.ticket_price %}{{ show.ticket_price }}<br>{% endif %}
-			{% if show.doors_time %}Doors at <strong>{{ show.doors_time }}</strong><br>{% endif %}
-			{% if show.ages %}Ages: <strong>{{ show.ages }}</strong><br>{% endif %}
-			{% if show.opener %}Opener: <strong>{{ show.opener }}</strong><br>{% endif %}
-			{% if show.notes %}{{ show.notes }}<br>{% endif %}
-			{% if show.venue.address1 %}{{ show.venue.address1 }}, {% endif %}{{ show.venue.city }} {{ show.venue.state }}<br>
+			<div>Showtime: <strong>{{ show.date|date:"g:i a"}}</strong></div>
+			{% if show.ticket_price %}<div>{{ show.ticket_price }}</div>{% endif %}
+			{% if show.doors_time %}<div>Doors at <strong>{{ show.doors_time }}</strong></div>{% endif %}
+			{% if show.ages %}<div>Ages: <strong>{{ show.ages }}</strong></div>{% endif %}
+			{% if show.opener %}<div>Opener: <strong>{{ show.opener }}</strong></div>{% endif %}
+			{% if show.notes %}<div>{{ show.notes }}</div>{% endif %}
+			<div>Address: <strong>{% if show.venue.address1 %}{{ show.venue.address1 }}, {% endif %}{{ show.venue.city }} {{ show.venue.state }}</strong></div>
+			<input id="venue_address" type="hidden" value="{{ show.venue.ltlng }}">
 			<div id="map-canvas">Loading Map
-				<input id="venue_address" type="hidden" value="{{ show.venue.ltlng }}">
 			</div>
-			<a href="http://maps.google.com/maps?saddr=&daddr={{ show.venue}}+{{ show.venue.address1 }}+{{ show.venue.address2 }}+{{ show.venue.city }}+{{show.venue.state}}+{{show.venue.zip_code}}" target="_blank" class="btn btn-default">Get Directions</a>
-
+			<a href="http://maps.google.com/maps?saddr=&daddr={{ show.venue.address1 }}{% if show.venue.address2 %}+{{ show.venue.address2 }}{% endif %}+{{ show.venue.city }}+{{show.venue.state}}{% if show.venue.zip_code %}+{{show.venue.zip_code}}{% endif %}" target="_blank" class="btn btn-default">Get Directions</a>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -11,6 +11,8 @@ require.config({
         'bootstrap': 'lib/bootstrap',
         'underscore': 'lib/underscore',
         'jquery.flexslider': 'lib/jquery.flexslider',
+        'jquery.scrollTo': 'lib/jquery.scrollTo',
+        'jquery.easing': 'lib/jquery.easing',
         'ekko-lightbox': 'lib/ekko-lightbox',
 
         // apps - one page applications, each requires a separate build file
@@ -18,6 +20,7 @@ require.config({
         'homepage': 'apps/homepage',
         'shows': 'apps/shows',
         'show': 'apps/show',
+        'past': 'apps/past',
         'media': 'apps/media',
     },
 
@@ -29,6 +32,8 @@ require.config({
         // jQuery plugins
         'bootstrap': { deps: ['jquery'] },
         'jquery.flexslider': { deps: ['jquery'] },
+        'jquery.scrollTo': { deps: ['jquery'] },
+        'jquery.easing': { deps: ['jquery'] },
         'ekko-lightbox': { deps: ['jquery'] }
     }
 });

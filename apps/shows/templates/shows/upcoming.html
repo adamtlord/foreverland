@@ -6,21 +6,19 @@
         <ul class="shows">
         {% for show in shows %}
             <li>
-            	<a {% if show.venue.website %}href="http://{{ show.venue.website }}"{% endif %} class="tl"><img src="{{ MEDIA_URL }}{{show.venue.venue_image}}">{% if show.venue.website %}</a>{% endif %}
+            	<a {% if show.venue.website %}href="http://{{ show.venue.website }}"{% endif %} class="tl"><img src="{{ MEDIA_URL }}{% if show.venue.venue_image != 'venues/' %}{{show.venue.venue_image}}{% else %}venues/blank-venue.jpg{% endif %}">{% if show.venue.website %}</a>{% endif %}
             	<div class="show">
             		<h4>
                         <span class="title">
         					{{ show.date|date:"M. j" }} at {% if show.venue.website %}<a href="http://{{ show.venue.website }}">{% endif %}{{ show.venue }}{% if show.venue.website %}</a>{% endif %}
             				<small class="pull-right">{{ show.date|date:"g:i a"}}</small>
                         </span>
-            			{% if show.ticket_url %}
-        					<a href="{{ show.ticket_url }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-shopping-cart"></span> Buy Tickets</a>
-    					{% endif %}
-        			</h4>
-        			{% if show.ages %}{{ show.ages }}<br>{% endif %}
-        			{% if show.doors_time %}Doors at {{ show.doors_time }}<br>{% endif %}
-        			{% if show.opener %}Opener: {{ show.opener }}<br>{% endif %}
-        			{% if show.notes %}<small>{{ show.notes }}</small><br>{% endif %}
+                    </h4>
+        			{% if show.ticket_url %}<div><a href="{{ show.ticket_url }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-shopping-cart"></span> Buy Tickets</a></div>{% endif %}
+        			{% if show.ages %}<div>{{ show.ages }}</div>{% endif %}
+        			{% if show.doors_time %}<div>Doors at {{ show.doors_time }}</div>{% endif %}
+        			{% if show.opener %}<div>Opener: {{ show.opener }}</div>{% endif %}
+        			{% if show.notes %}<div><small>{{ show.notes }}</small></div>{% endif %}
             		<a href="#" class="detail-launch" data-target="#show_detail_modal" data-toggle="modal" data-showurl="{% url 'show_modal' show.id %}">Details <span class="glyphicon glyphicon-new-window"></span></a>
             	</div>
             </li>

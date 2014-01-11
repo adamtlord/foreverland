@@ -46,6 +46,7 @@ class Show(models.Model):
     ages = models.CharField(max_length=100, blank=True, null=True)
     opener = models.CharField(max_length=200, blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
+    poster = models.FileField(upload_to='posters/', blank=True, null=True)
     # Financial Information
     gross = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     commission = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
@@ -57,8 +58,6 @@ class Show(models.Model):
     net = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     payout = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     to_account = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-
-
 
 
     class Meta:

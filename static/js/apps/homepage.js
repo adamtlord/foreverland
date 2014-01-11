@@ -30,7 +30,7 @@ function ($) {
         // Hompage specific js goes here, if not already in a module
         $('.flexslider').flexslider({
             slideshowSpeed: 4000,
-            random:true,
+            randomize:true,
             controlNav: false,
             directionNav:false
         });

@@ -5,6 +5,7 @@ from django.shortcuts import render
 from members.models import Member
 from shows.models import Show
 from songs.models import Song
+from media.models import Video
 from marketing.models import Testimonial
 
 
@@ -16,13 +17,15 @@ def homepage(request, template='marketing/homepage.html'):
     vocals = members.filter(active=True, section='v')
     horns = members.filter(active=True, section='h')
     rhythm = members.filter(active=True, section='r')
+    tonight = datetime.datetime.date(next_show.date) == datetime.datetime.today().date()
     
     d = {}
     d['next_show'] = next_show
     d['vocals'] = vocals
     d['horns'] = horns
     d['rhythm'] = rhythm
-   
+    d['tonight'] = tonight
+    
     return render(request, template, d)
 
 
@@ -50,8 +53,12 @@ def photos(request, template='marketing/photos.html'):
 
 def video(request, template='marketing/video.html'):
     """Video page"""
+    featured_videos = Video.objects.filter(featured=True)
 
-    return render(request, template)
+    d = {
+        'featured_videos': featured_videos
+    }
+    return render(request, template, d)
 
 
 def booking(request, template='marketing/booking.html'):

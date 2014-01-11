@@ -22,6 +22,7 @@ require.config({
         'show': 'apps/show',
         'past': 'apps/past',
         'media': 'apps/media',
+        'videopage': 'apps/videopage',
     },
 
     // The shim is needed for any libs that are not AMD modules

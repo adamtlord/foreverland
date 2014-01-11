@@ -103,11 +103,13 @@ class Video(models.Model):
     )
     title = models.CharField(max_length=60, blank=True, null=True)
     url = models.URLField()
+    vid_id = models.CharField(max_length=100, blank=True, null=True)
     embed_type = models.CharField(max_length=10, blank=True, null=True, choices=EMBED_TYPES, default=YOUTUBE)
     tags = models.ManyToManyField(Tag, blank=True)
     show = models.ManyToManyField(Show, blank=True)
     albums = models.ManyToManyField(Album, blank=True)
     created = models.DateTimeField(auto_now_add=True)
+    featured = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.title

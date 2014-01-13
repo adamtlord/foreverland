@@ -7,24 +7,24 @@ from shows.models import Venue, Show
 
 class Command(BaseCommand):
 	def handle(self, *args, **options):
-		# print 'migrate testimonials'
-		# rts = WpRandomtext.objects.using('legacy').all()
-		# for rt in rts:
-		# 	t = Testimonial(quote=rt.text, featured=True)
-		# 	t.save()
+		print 'migrate testimonials'
+		rts = WpRandomtext.objects.using('legacy').all()
+		for rt in rts:
+			t = Testimonial(quote=rt.text, featured=True)
+			t.save()
 
-		# print 'migrate venues'
-		# gpvs = WpGigpressVenues.objects.using('legacy').all()
-		# for gpv in gpvs:
-		# 	v = Venue(id=gpv.venue_id, 
-		# 		venue_name=gpv.venue_name, 
-		# 		venue_image='venues/%s' % gpv.venue_phone,
-		# 		address1=gpv.venue_address,
-		# 		city=gpv.venue_city,
-		# 		state=gpv.venue_state,
-		# 		zip_code=gpv.venue_postal_code,
-		# 		website=gpv.venue_url)
-		# 	v.save()
+		print 'migrate venues'
+		gpvs = WpGigpressVenues.objects.using('legacy').all()
+		for gpv in gpvs:
+			v = Venue(id=gpv.venue_id, 
+				venue_name=gpv.venue_name, 
+				venue_image='venues/%s' % gpv.venue_phone,
+				address1=gpv.venue_address,
+				city=gpv.venue_city,
+				state=gpv.venue_state,
+				zip_code=gpv.venue_postal_code,
+				website=gpv.venue_url)
+			v.save()
 
 		print 'migrate shows'
 		gps = WpGigpressShows.objects.using('legacy').all()

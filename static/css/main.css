@@ -7697,6 +7697,7 @@ body.interior {
 #ow,
 #iw {
   min-height: 100%;
+  height: auto !important;
   height: 100%;
 }
 #ow {
@@ -7874,6 +7875,9 @@ footer p {
     -ms-transform: translate3d(70%, 0, 0) scale3d(1, 1, 1);
     -o-transform: translate3d(70%, 0, 0) scale3d(1, 1, 1);
     transform: translate3d(70%, 0, 0) scale3d(1, 1, 1);
+  }
+  .js-nav #navbar_toggle {
+    color: #006cff;
   }
   .navbar > .container .navbar-header {
     text-align: center;
@@ -8182,9 +8186,10 @@ td#follow #twitter-widget-0 {
 }
 @media (max-width: 767px) {
   #top_brand {
-    margin-bottom: 50px;
+    margin: 20px 0 30px 0;
   }
   #top_brand h1 {
+    margin-top: 0;
     font-size: 65px;
     margin-bottom: 0;
   }
@@ -8194,53 +8199,40 @@ td#follow #twitter-widget-0 {
   }
   #home_nav,
   #home_nav.up {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
   }
-  #home_nav .container,
-  #home_nav.up .container {
+  #home_nav > .container,
+  #home_nav.up > .container {
     padding: 0;
   }
-  #home_nav .container .navbar,
-  #home_nav.up .container .navbar {
-    padding: 0 15px;
+  #home_nav .navbar-inverse,
+  #home_nav.up .navbar-inverse {
+    background: transparent;
+    border: none;
   }
-  #home_nav .container .navbar .nav > li > a,
-  #home_nav.up .container .navbar .nav > li > a {
-    color: #999999;
-    font-size: 16px;
-    line-height: 20px;
-  }
-  #home_nav .container .navbar .nav > li > a:hover,
-  #home_nav.up .container .navbar .nav > li > a:hover {
-    color: #ffffff;
-  }
-  #home_nav .navbar-toggle,
-  #home_nav.up .navbar-toggle {
-    margin-top: 8px;
+  #home_nav .navbar-inverse > .container,
+  #home_nav.up .navbar-inverse > .container {
+    padding: 0;
   }
   #home_nav .navbar-brand,
   #home_nav.up .navbar-brand {
-    line-height: 50px;
+    display: none !important;
   }
   #next_show,
   #next_show.up {
-    position: absolute;
-    top: 0;
+    position: static;
+    margin-bottom: 15px;
     text-align: left;
-    background: transparent;
-    z-index: 2;
-    margin-right: 60px;
-    overflow: hidden;
-    white-space: nowrap;
+    height: 50px;
+    text-align: center;
   }
   #next_show h4,
   #next_show.up h4 {
-    float: left;
     font-size: 14px;
-    margin: 0 0 0 15px;
+    margin: 0;
     line-height: 50px;
   }
   #nav_push.up {
@@ -8277,10 +8269,6 @@ td#follow #twitter-widget-0 {
   }
 }
 @media (max-width: 480px) {
-  #top_brand {
-    margin-top: 80px;
-    margin-bottom: 30px;
-  }
   #top_brand h1 {
     font-size: 55px;
   }

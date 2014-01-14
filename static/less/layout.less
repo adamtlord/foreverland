@@ -14,8 +14,9 @@ body {
 	}
 }
 #ow, #iw {
-	min-height:100%;
-	height:100%;
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
 }
 #ow {
 	position: relative;
@@ -178,6 +179,9 @@ footer {
 		-ms-transform: translate3d(70%, 0, 0) scale3d(1, 1, 1);
 		-o-transform: translate3d(70%, 0, 0) scale3d(1, 1, 1);
 		transform: translate3d(70%, 0, 0) scale3d(1, 1, 1);
+	}
+	.js-nav #navbar_toggle {
+		color:@link-hover-color;
 	}
 	.navbar > .container {
 		.navbar-header {

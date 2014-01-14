@@ -12,14 +12,12 @@
 <div class="navbar navbar-inverse {% if fixed %}navbar-fixed-top{% endif %}">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+            <a href="#" id="navbar_toggle" class="visible-xs">
+                <i class="fa fa-align-justify"></i>
+            </a>
             <a class="navbar-brand" href="{% url 'homepage' %}">Foreverland</a>
         </div>
-        <div class="collapse navbar-collapse">
+        <div id="mainnav" class="">
             <ul class="nav navbar-nav">
                 <li><a href="{% url 'homepage' %}">Home</a></li>
                 <li class="{% active request shows_url %}"><a href="{% url 'upcoming_shows' %}">Shows</a></li>
@@ -30,6 +28,7 @@
                 <li class="{% active request quotes_url %}"><a href="{% url 'quotes' %}">Quotes</a></li>
                 <li class="{% active request booking_url %}"><a href="{% url 'booking' %}">Booking</a></li>
             </ul>
+            <a href="#" id="nav_close_btn" class="visible-xs"><i class="fa fa-times-circle"></i></a>
         </div>
     </div>
 </div>

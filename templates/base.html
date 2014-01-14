@@ -15,10 +15,22 @@
         <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}global/images/ico/apple-touch-icon-57-precomposed.png">
 
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}global/css/main.css">
+        <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/modernizr.js"></script>
         {% block header_includes %}{% endblock %}
     </head>
 
     <body class="{% block bodyclass %}{% endblock %}">
+        <div id="ow">
+            <div id="iw">
+                {% block topnav %}
+                    {% include 'fragments/navbar.html' with fixed='true' %}
+                {% endblock %}
+                {% block body %}{% endblock %}
+                <footer>
+                    {% include 'fragments/footer.html' %}
+                </footer>
+            </div>
+        </div>
         <div id="fb-root"></div>
         <script>(function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
@@ -27,13 +39,6 @@
           js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=247646052052822";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
-        {% block topnav %}
-            {% include 'fragments/navbar.html' with fixed='true' %}
-        {% endblock %}
-        {% block body %}{% endblock %}
-        <footer>
-            {% include 'fragments/footer.html' %}
-        </footer>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/require-jquery.js"></script>
         <script>
             require(['{{ STATIC_URL }}global/js/common.js'], function () {

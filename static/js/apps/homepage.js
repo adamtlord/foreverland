@@ -6,7 +6,7 @@ define([
 ],
 
 function ($) {
-    var w = $('#ow');
+    var w = $(window);
     var nvo = 0;
     function setHeights(){
         var v = $('#video_wrap iframe');

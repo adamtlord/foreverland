@@ -7694,16 +7694,15 @@ body {
 body.interior {
   padding-top: 70px;
 }
-#ow,
-#iw {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-}
 #ow {
   position: relative;
   overflow-y: auto;
   width: 100%;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -60px;
+  /* the bottom margin is the negative value of the footer's height */
 }
 #iw {
   position: relative;
@@ -7759,6 +7758,9 @@ footer p {
   margin-bottom: 0;
   font-size: 12px;
 }
+.push {
+  height: 60px;
+}
 .space {
   margin-top: 40px;
   margin-bottom: 40px;
@@ -7769,11 +7771,7 @@ footer p {
   padding: 20px 28px;
 }
 .container.interior {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
   margin-top: 70px;
-  margin-bottom: -130px;
 }
 .init-hide {
   opacity: 0;
@@ -7800,9 +7798,6 @@ footer p {
   body.interior {
     padding-top: 50px;
   }
-  .container.interior {
-    margin-bottom: -180px;
-  }
   #iw {
     background: url(../images/starfield-m2.jpg);
     background-size: 240px;
@@ -7814,6 +7809,9 @@ footer p {
   .js-ready body {
     padding-top: 0;
   }
+  #mainnav {
+    display: none;
+  }
   .js-ready #iw {
     left: 0;
   }
@@ -7822,6 +7820,7 @@ footer p {
     position: static;
   }
   .js-ready #iw #mainnav {
+    display: block;
     position: absolute;
     top: 50px;
     height: 100%;

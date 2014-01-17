@@ -10,7 +10,18 @@ from django.db.models import Q
 from media.models import *
 
 
-def photos(request, template="media/list.html"):
+def photos(request, template="media/photos.html"):
+    """Photos page"""
+
+    return render(request, template)
+
+
+def downloads(request, template="media/downloads.html"):
+    """Downloads page"""
+
+    return render(request, template)
+
+def list(request, template="media/list.html"):
     """Main listing."""
     albums = Album.objects.all()
     if not request.user.is_authenticated():

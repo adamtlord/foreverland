@@ -23,6 +23,25 @@ form.img-edit {
 		background:fadeout(@gray-lighter, 10%);
 		margin:0 5px 5px 0;
 	}
+	&.album-with-captions {
+		padding-bottom:20px;
+		.thumb {
+			.bg-texture;
+			display:block;
+			text-align:center;
+			padding:25px 20px 20px 20px;
+			img {
+				display:block;
+				margin:auto;
+				margin-bottom:5px;
+				
+			}
+			&:hover {
+				background:@black;
+				color:@white;
+			}
+		}
+	}
 }
 .modal.lightbox {
 	.solo-close {

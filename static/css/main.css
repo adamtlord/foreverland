@@ -7798,9 +7798,13 @@ footer p {
   body.interior {
     padding-top: 50px;
   }
+  .container.interior {
+    margin-top: 0;
+  }
   #iw {
     background: url(../images/starfield-m2.jpg);
     background-size: 240px;
+    min-height: 568px;
   }
   #nav_close_btn {
     position: absolute;
@@ -8482,6 +8486,25 @@ form.img-edit table {
   padding: 2px;
   background: rgba(238, 238, 238, 0.9);
   margin: 0 5px 5px 0;
+}
+.album.album-with-captions {
+  padding-bottom: 20px;
+}
+.album.album-with-captions .thumb {
+  background: url('../images/vidpattern.png') rgba(34, 34, 34, 0.7);
+  background-size: 1px;
+  display: block;
+  text-align: center;
+  padding: 25px 20px 20px 20px;
+}
+.album.album-with-captions .thumb img {
+  display: block;
+  margin: auto;
+  margin-bottom: 5px;
+}
+.album.album-with-captions .thumb:hover {
+  background: #121212;
+  color: #ffffff;
 }
 .modal.lightbox .solo-close {
   position: absolute;

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+
+{% block body %}
+<div class="container interior">
+	<h3>Promotional Photos</h3>
+    <div class="row album album-with-captions">
+    	<div class="col-md-3">
+	        <a href="{{ MEDIA_URL }}images/Foreverland-8x10.jpg" class="thumb">
+	            <img border="0" alt="" src="{{ MEDIA_URL }}images/Foreverland-8x10-thumb2.jpg" />
+	            Color 8&times;10 with text
+	        </a>
+	    </div>
+	    <div class="col-md-3">
+	        <a href="{{ MEDIA_URL }}images/Foreverland-8x10-bw.jpg"class="thumb">
+	            <img border="0" alt="" src="{{ MEDIA_URL }}images/Foreverland-8x10-bw-thumb2.jpg" />
+	            B&amp;W 8&times;10 with text
+	        </a>
+        </div>
+	    <div class="col-md-3">
+	        <a href="{{ MEDIA_URL }}images/Foreverland-8x10-no-text.jpg"class="thumb">
+	            <img border="0" alt="" src="{{ MEDIA_URL }}images/Foreverland-8x10-no-text-thumb2.jpg" />
+	            Color 8&times;10 without text
+	        </a>
+        </div>
+	    <div class="col-md-3">
+	        <a href="{{ MEDIA_URL }}images/Foreverland-8x10-bw-no-text.jpg"class="thumb">
+	            <img border="0" alt="" src="{{ MEDIA_URL }}images/Foreverland-8x10-bw-no-text-thumb2.jpg" />
+	            B&amp;W 8&times;10 without text
+	        </a>
+	    </div>
+    </div>
+    <h3>Official Logo</h3>
+    <div class="row album album-with-captions">
+    	<div class="col-md-3">
+	        <a href="{{ MEDIA_URL }}images/Foreverland_Logo.jpg" class="thumb">
+	            <img border="0" alt="" src="{{ MEDIA_URL }}images/Foreverland_Logo-thumb2.jpg" />
+	            High-quality JPG version
+	        </a>
+	    </div>
+	    <div class="col-md-3">
+	        <a href="/dl/Foreverland_Logo.pdf" class="thumb">
+	            <img border="0" alt="" src="{{ MEDIA_URL }}images/Foreverland_Logo-thumb2.jpg" />
+	            PDF version (13 MB)
+	        </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -3,7 +3,14 @@
 
 {% block body %}
 <div class="container interior">
-	<h2>Photos</h2>
+	<h2>Promotional Photos</h2>
+    <div class="album">
+        {% for img in album.images %}
+            <a href="{{ MEDIA_URL }}{{ img.image.name }}" class="thumb" data-toggle="lightbox" data-gallery="{{ album.title|slugify }}">
+                <img border="0" alt="" src="{{ MEDIA_URL }}{{ img.thumbnail2.name }}" />
+            </a>
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}

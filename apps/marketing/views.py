@@ -45,12 +45,6 @@ def faq(request, template='marketing/faq.html'):
     return render(request, template)
 
 
-def photos(request, template='marketing/photos.html'):
-    """Photos page"""
-
-    return render(request, template)
-
-
 def video(request, template='marketing/video.html'):
     """Video page"""
     featured_videos = Video.objects.filter(featured=True)

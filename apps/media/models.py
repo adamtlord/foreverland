@@ -122,3 +122,10 @@ class Video(models.Model):
         lst = [x[1] for x in self.albums.values_list()]
         return str(join(lst, ', '))
 
+
+class Download(models.Model):
+    title = models.CharField(max_length=60, blank=True, null=True)
+    downloadable = models.FileField(upload_to="dl/")
+    tags = models.ManyToManyField(Tag, blank=True)
+    updated = models.DateTimeField(auto_now_add=True, auto_now=True)
+

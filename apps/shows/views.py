@@ -14,14 +14,17 @@ def upcoming_shows(request, template='shows/upcoming.html'):
 def past_shows(request, template='shows/past.html'):
     """list all past shows"""
     public_shows = Show.objects.filter(public=True)
-    past_shows = public_shows.filter(date__lt=datetime.datetime.now()).order_by('-date')
+    past_shows = public_shows.filter(date__lt=datetime.datetime.now()).order_by('date')
     shows_by_year = {}
     for show in past_shows:
     	if show.date.year not in shows_by_year:
     		shows_by_year[show.date.year] = []
     	shows_by_year[show.date.year].append(show)
+    show_years = [x for x in shows_by_year]
+
     d = {}
     d['shows_by_year'] = shows_by_year
+    d['show_years'] = show_years
     return render(request, template, d)
 
 def show(request, show_id, template='shows/detail.html'):

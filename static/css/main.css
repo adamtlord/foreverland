@@ -7591,6 +7591,10 @@ dl {
   color: #ffffff;
   text-shadow: none;
 }
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-shadow: none;
+}
 .modal-content {
   border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.95);

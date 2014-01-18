@@ -18,8 +18,19 @@ def photos(request, template="media/photos.html"):
 
 def downloads(request, template="media/downloads.html"):
     """Downloads page"""
+    downloadables = Download.objects.all()
+    for dl in downloadables:
+        dl.icon_class = ''
+        if dl.extension() in ['.pdf', '.doc']:
+            dl.icon_class = 'fa-file-text-o'
+        if dl.extension() in ['.jpg', '.png', '.gif']:
+            dl.icon_class = 'fa-picture-o'
 
-    return render(request, template)
+    d = {
+        'downloads': downloadables
+    }
+
+    return render(request, template, d)
 
 def list(request, template="media/list.html"):
     """Main listing."""

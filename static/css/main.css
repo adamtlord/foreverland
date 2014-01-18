@@ -1269,7 +1269,7 @@ pre code {
 }
 table {
   max-width: 100%;
-  background-color: transparent;
+  background-color: rgba(34, 34, 34, 0.7);
 }
 th {
   text-align: left;
@@ -1287,11 +1287,11 @@ th {
   padding: 8px;
   line-height: 1.428571429;
   vertical-align: top;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #222222;
 }
 .table > thead > tr > th {
   vertical-align: bottom;
-  border-bottom: 2px solid #e5e5e5;
+  border-bottom: 2px solid #222222;
 }
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
@@ -1302,7 +1302,7 @@ th {
   border-top: 0;
 }
 .table > tbody + tbody {
-  border-top: 2px solid #e5e5e5;
+  border-top: 2px solid #222222;
 }
 .table .table {
   background-color: #333333;
@@ -1316,7 +1316,7 @@ th {
   padding: 5px;
 }
 .table-bordered {
-  border: 1px solid #e5e5e5;
+  border: 1px solid #222222;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
@@ -1324,7 +1324,7 @@ th {
 .table-bordered > thead > tr > td,
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > td {
-  border: 1px solid #e5e5e5;
+  border: 1px solid #222222;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > thead > tr > td {
@@ -1332,7 +1332,7 @@ th {
 }
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
-  background-color: #f9f9f9;
+  background-color: rgba(34, 34, 34, 0.5);
 }
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {
@@ -1434,7 +1434,7 @@ table th[class*="col-"] {
     overflow-y: hidden;
     overflow-x: scroll;
     -ms-overflow-style: -ms-autohiding-scrollbar;
-    border: 1px solid #e5e5e5;
+    border: 1px solid #222222;
     -webkit-overflow-scrolling: touch;
   }
   .table-responsive > .table {
@@ -4672,7 +4672,7 @@ a.list-group-item:focus {
 }
 .panel > .panel-body + .table,
 .panel > .panel-body + .table-responsive {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #222222;
 }
 .panel > .table-bordered,
 .panel > .table-responsive > .table-bordered {
@@ -7595,6 +7595,14 @@ dl {
 .nav > li > a:focus {
   text-shadow: none;
 }
+.table.table-va-middle > thead > tr > th,
+.table.table-va-middle > tbody > tr > th,
+.table.table-va-middle > tfoot > tr > th,
+.table.table-va-middle > thead > tr > td,
+.table.table-va-middle > tbody > tr > td,
+.table.table-va-middle > tfoot > tr > td {
+  vertical-align: middle;
+}
 .modal-content {
   border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.95);
@@ -8214,6 +8222,11 @@ td#follow #twitter-widget-0 {
   #home_nav > .container,
   #home_nav.up > .container {
     padding: 0;
+  }
+  #home_nav > .container .navbar-header,
+  #home_nav.up > .container .navbar-header {
+    margin-left: 0;
+    margin-right: 0;
   }
   #home_nav .navbar-inverse,
   #home_nav.up .navbar-inverse {

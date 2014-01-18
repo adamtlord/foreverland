@@ -129,3 +129,10 @@ class Download(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
     updated = models.DateTimeField(auto_now_add=True, auto_now=True)
 
+    def __unicode__(self):
+        return self.title
+
+    def extension(self):
+        name, extension = os.path.splitext(self.downloadable.name)
+        return extension
+

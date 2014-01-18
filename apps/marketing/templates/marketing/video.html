@@ -9,7 +9,7 @@
   	</div>
   	<div class="row">
   	{% for video in featured_videos %}
-  		<div class="col-md-6 video">
+  		<div class="col-md-6 sub-video">
 	  		{% include "media/fragments/video_embed.html" with type=video.embed_type id=video.vid_id %}
   		</div>
   	{% endfor %}

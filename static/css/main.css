@@ -7505,6 +7505,11 @@ html[xmlns] .slides {
   color: #88c0ff;
   text-shadow: 0 0 5px #121212;
 }
+.h2-height {
+  line-height: 46px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
 h1,
 h2,
 h3,
@@ -7602,6 +7607,17 @@ dl {
 .table.table-va-middle > tbody > tr > td,
 .table.table-va-middle > tfoot > tr > td {
   vertical-align: middle;
+}
+.modal .table {
+  background-color: transparent;
+}
+.modal .table > thead > tr > th,
+.modal .table > tbody > tr > th,
+.modal .table > tfoot > tr > th,
+.modal .table > thead > tr > td,
+.modal .table > tbody > tr > td,
+.modal .table > tfoot > tr > td {
+  border-color: #ddd;
 }
 .modal-content {
   border-radius: 3px;

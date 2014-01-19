@@ -8416,7 +8416,19 @@ ul.shows li .btn:hover {
 .btn.jump-year-btn {
   margin-top: 10px;
 }
+@media (min-width: 767px) {
+  .prev-next-show {
+    float: right !important;
+    float: right;
+    line-height: 46px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+}
 @media (max-width: 767px) {
+  ul.shows {
+    margin-top: 10px;
+  }
   ul.shows h4 .btn {
     margin-top: 5px;
   }

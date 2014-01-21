@@ -1,41 +1,56 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+<html>
     <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
-        <title>{% block title %}Django Project{% endblock %}</title>
+        <title>{% block title %}Foreverland{% endblock %}</title>
 
         <meta name="keywords" content="" />
         <meta name="description" content="{% block meta_description %}{% endblock %}" />
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0;" />
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% block header_includes %}{% endblock %}
+        <link href='http://fonts.googleapis.com/css?family=Raleway|Oswald' rel='stylesheet' type='text/css'>
+        <style type="text/css">
+            body {
+                background:#333;
+                color:#FFF;
+                font-family:'Raleway', "Helvetica Neue", Helvetica, Arial, sans-serif;
+                margin:0;
+                padding:0;
+            }
+            h1 {
+                font-family:'Oswald', serif;
+                font-weight:400;
+                font-size:72px;
+                text-shadow:3px 3px 0 #666;
+                margin:0;
+            }
+            a, a:visited, a:link, a:active {
+                color:#88c0ff;
+            }
+            a:hover {
+                color:#006cff;
+            }
+            .container > .content {
+                background:#000;
+                width: 50%;
+                min-width:320px;
+                margin:40px auto;
+                padding:10px 0 40px 0;
+                text-align:center;
+            }
+            .content > img {
+                width:250px;
+            }
+        </style>
     </head>
 
     <body>
-        {% include 'fragments/messages.html' %}
-
-        <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="fill">
-                <div class="container">
-                    <a class="brand" href="{% url 'homepage' %}">Django Base Project</a>
-                </div>
-            </div>
-        </div>
-        </div>
 
         <div class="container">
             {% block body %}{% endblock %}
         </div>
 
-        <footer>
-            {% include 'fragments/footer.html' %}
-        </footer>
-
-    {% block footer_scripts %}{% endblock %}
     </body>
 </html>

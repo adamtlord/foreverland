@@ -19,8 +19,12 @@ urlpatterns = patterns('',
 
 )
 if settings.DEBUG:
-    # static files (images, css, javascript, etc.)
+    urlpatterns += staticfiles_urlpatterns()
+
+if settings.DEBUG:
     urlpatterns += patterns('',
-        (r'^uploads/(?P<path>.*)$', 'django.views.static.serve', {
-        'document_root': settings.MEDIA_ROOT}))
+        (r'^404/$', 'django.views.defaults.page_not_found'),
+        (r'^500/$', 'django.views.defaults.server_error'),
+    )
+
 

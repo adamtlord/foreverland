@@ -9,6 +9,7 @@ class Song(models.Model):
     original_artist = models.CharField(max_length=200, blank=True, null=True)
     original_album = models.CharField(max_length=200, blank=True, null=True)
     release_year = models.CharField(max_length=200, blank=True, null=True)
+    display = models.BooleanField(default=True)
     # Foreverland info
     singer = models.ManyToManyField(Member, related_name='singer', blank=True, null=True)
     foh_notes = models.TextField(verbose_name="Notes for FOH", blank=True, null=True)

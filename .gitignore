@@ -6,6 +6,7 @@ static/global/*
 staticserve/
 pip-log.txt
 uploads/*
+dl/*
 dump-*.sql
 graphed_models.png
 settings/local.py

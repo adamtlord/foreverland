@@ -47,6 +47,7 @@ class Show(models.Model):
     opener = models.CharField(max_length=200, blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     poster = models.FileField(upload_to='posters/', blank=True, null=True)
+    fb_event = models.CharField(max_length=200, blank=True, null=True)
     # Financial Information
     gross = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     commission = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)

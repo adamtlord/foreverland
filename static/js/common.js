@@ -23,6 +23,7 @@ require.config({
         'past': 'apps/past',
         'media': 'apps/media',
         'videopage': 'apps/videopage',
+        'fidouche': 'apps/fidouche',
     },
 
     // The shim is needed for any libs that are not AMD modules
@@ -35,6 +36,6 @@ require.config({
         'jquery.flexslider': { deps: ['jquery'] },
         'jquery.scrollTo': { deps: ['jquery'] },
         'jquery.easing': { deps: ['jquery'] },
-        'ekko-lightbox': { deps: ['jquery'] }
+        'ekko-lightbox': { deps: ['jquery'] },
     }
 });

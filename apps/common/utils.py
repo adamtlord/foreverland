@@ -13,3 +13,11 @@ def get_lat_lng(location):
        return '%s,%s' % (lat, lng)
     else:
         return ''
+
+def years_with_gigs():
+  from shows.models import Show
+  years = []
+  years_with_gigs = Show.objects.all().dates('date', 'year')
+  for year in years_with_gigs:
+    years.append(year.year)
+  return years

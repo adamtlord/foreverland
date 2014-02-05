@@ -105,6 +105,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django_common.context_processors.common_settings',
 
     'common.context_processors.random_quote',
+    'common.context_processors.list_years_with_gigs',
 ]
 
 TEMPLATE_DIRS = (
@@ -136,6 +137,7 @@ INSTALLED_APPS = [
     'accounts',
     'common',
     'legacy',
+    'fidouche',
 ]
 
 TEMPLATE_LOADERS = [

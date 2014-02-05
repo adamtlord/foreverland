@@ -1,0 +1,12 @@
+{% extends 'base_fidouche.html' %}
+{% load custom_tags %}
+
+{% block content %}
+        <h2>Gigs in {{ year }}</h2>
+        <p><em>There are {{ this_years_gigs|length }} gigs in the database for this year.</em></p>
+		<select name="gigselect" class="form-control input-lg">
+			{% for gig in this_years_gigs %}
+				<option val="{{ gig.id }}">{{ gig }}</option>
+			{% endfor %}
+		</select>
+{% endblock %}

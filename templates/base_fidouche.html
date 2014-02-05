@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>{% block title %}Foreverland Finances{% endblock %}</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="{{ STATIC_URL }}global/images/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}global/images/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}global/images/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}global/images/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}global/images/ico/apple-touch-icon-57-precomposed.png">
+
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+        <link href="{{ STATIC_URL }}global/css/fidouche.css" rel="stylesheet">
+
+        <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/modernizr.js"></script>
+        
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        {% block header_includes %}{% endblock %}
+
+    </head>
+
+    <body class="{% block bodyclass %}{% endblock %}">
+        {% block navbar %}
+            <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{% url 'financial_dashboard' %}">Foreverland Finance</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gig Financials <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    {% for year in active_years %}
+                                        <li><a href="{% url 'gig_finance_dashboard' year %}">{{ year }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/admin">Admin</a></li>
+                            <li><a href="{% url 'homepage' %}">Foreverland.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+      
+        <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/require-jquery.js"></script>
+        <script>
+            require(['{{ STATIC_URL }}global/js/common.js'], function () {
+                require(['fidouche']);
+            });
+        </script>
+        {% block require_js %}{% endblock %}    
+    </body>
+</html>

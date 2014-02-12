@@ -16,8 +16,6 @@ class RegistrationForm(RegistrationFormUniqueEmail):
     """Capture other details represented in models.UserProfile and django User class"""
     first_name = forms.CharField(label='First Name')
     last_name = forms.CharField(label='Last Name')
-    tos = forms.BooleanField(label='Accept the terms of service')
-    newsletter_subscribe = forms.BooleanField(required=False)
 
     RESERVED_USERNAMES = ['admin', 'search', 'uploads', 'static', 'media', 'edit']
 

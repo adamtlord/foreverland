@@ -23,7 +23,6 @@ def profile_edit(request,  template='accounts/profile_edit.html'):
         if form.is_valid():
             user = form.save()
             profile = user.get_profile()
-            profile.picture = form.cleaned_data['picture']
             profile.save()
             user.save()
             messages.add_message(request, messages.SUCCESS,

@@ -24,8 +24,7 @@ class CustomRegistrationView(RegistrationView):
         new_user.save()
 
         # Store the common profile data.
-        UserProfile.objects.create(user=new_user,
-            newsletter_subscribe=cleaned_data['newsletter_subscribe'])
+        UserProfile.objects.create(user=new_user)
 
         # NOTE: activate and log in user according to settings
         if getattr(settings, 'AUTOMATIC_ACTIVATION_AFTER_REGISTRATION', True):

@@ -4,9 +4,11 @@
 {% block content %}
         <h2>Gigs in {{ year }}</h2>
         <p><em>There are {{ this_years_gigs|length }} gigs in the database for this year.</em></p>
-		<select name="gigselect" class="form-control input-lg">
+		<table class="table table-striped">
 			{% for gig in this_years_gigs %}
-				<option val="{{ gig.id }}">{{ gig }}</option>
+				<tr>
+					<td><a href="{% url 'gig_finances' gig.id %}">{{ gig }}</a></td>
+				</tr>
 			{% endfor %}
-		</select>
+		</table>
 {% endblock %}

@@ -2,6 +2,15 @@
 {% load custom_tags %}
 
 {% block content %}
-        <h2>Get Your FiDouche On</h2>
-        
+<div class="page-header">
+    <h2>Get Your FiDouche On</h2>
+</div>
+    <p>Most recent gig: <a href="{% url 'gig_finances' last_show.id %}">{{ last_show }}</a></p>
+    <p>Next gig: <a href="{% url 'gig_finances' next_show.id %}">{{ next_show }}</a></p>
+	<p>Find a gig:</p>
+	<select id="gig_select_nav" name="gigselect" class="form-control select2">
+		{% for gig in gigs %}
+			<option value="{% url 'gig_finances' gig.id %}"{% if gig.id == last_show.id %} selected="selected"{% endif %}>{{ gig }}</option>
+		{% endfor %}
+	</select>
 {% endblock %}

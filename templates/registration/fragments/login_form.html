@@ -8,6 +8,6 @@
 	<div class="form-group{% if form.password.errors %} has-error{% endif %}">
 		<input type="password" class="form-control input-lg" placeholder="Password" name="password">
 	</div>
-	<input type="hidden" name="next" value="">
+	<input type="hidden" name="next" value="{{ next }}" />
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 </form>

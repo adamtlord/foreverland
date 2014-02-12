@@ -2,7 +2,104 @@
 {% load custom_tags %}
 
 {% block content %}
-        <h2>Get Your Gig Dick On</h2>
-        <h3>{{ gig }}</h3>
-        
+<div class="page-header">
+	<h4>Gig Financials</h4>
+    <h2>{{ gig }}</h2>
+</div>
+<div class="row">
+	<div class="col-md-6">
+	    <form method="post" action="{{ request.path }}" role="form" id="gig_finances">{% csrf_token %}
+			<div class="form-group factor">
+				<label for="gross" class="control-label">Gross</label>
+				<div class="input-group">
+					<span class="input-group-addon">$</span>
+					{{ form.gross }}
+				</div>
+			</div>
+			<div class="form-inline factor">
+				<div class="form-group set-commission">
+					<label for="commission_percentage">Commission percentage</label>
+					<select id="commission_percentage" class="form-control input-sm">
+						<option value="10" selected="selected">10%</option>
+						<option value="15">15%</option>
+						<option value="other">other</option>
+					</select>
+				</div>
+				<div id="commission_other" class="form-group" style="display:none;">
+					<div class="input-group">
+						<input type="text" id="commission_percentage_other" class="form-control">
+						<span class="iput-group-addon">%</span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group factor">
+				<label for="commission" class="control-label">Commission</label>
+				<div class="input-group">
+					<span class="input-group-addon">$</span>
+					{{ form.commission }}
+				</div>
+			</div>
+	    	<div class="form-group factor">
+				<label for="sound_cost" class="control-label">Sound and production costs</label>
+				<div class="input-group">
+					<span class="input-group-addon">$</span>
+					{{ form.sound_cost }}
+				</div>
+			</div>
+	    	<div class="form-group factor">
+				<label for="in_ears_cost" class="control-label">In-ears cost</label>
+				<div class="input-group">
+					<span class="input-group-addon">$</span>
+					{{ form.in_ears_cost }}
+				</div>
+			</div>
+	    	<div class="form-group factor">
+				<label for="print_ship_cost" class="control-label">Printing &amp; shipping costs</label>
+				<div class="input-group">
+					<span class="input-group-addon">$</span>
+					{{ form.print_ship_cost }}
+				</div>
+			</div>
+	    	<div class="form-group factor">
+				<label for="ads_cost" class="control-label">Ads costs</label>
+				<div class="input-group">
+					<span class="input-group-addon">$</span>
+					{{ form.ads_cost }}
+				</div>
+			</div>
+	    	<div class="form-group factor">
+				<label for="other_cost" class="control-label">Other costs</label>
+				<div class="input-group">
+					<span class="input-group-addon">$</span>
+					{{ form.other_cost }}
+				</div>
+			</div>
+	    	<div class="form-group">
+				<label for="net" class="control-label">Net</label>
+				<div class="input-group">
+					<span class="input-group-addon">$</span>
+					{{ form.net }}
+				</div>
+			</div>
+			<p></p>
+	    	<div class="form-group factor">
+				<label for="payout" class="control-label">Payout</label>
+				<span class="help-inline">(max. payout: <span id="max_payout"></span>)</span>
+				<div class="input-group">
+					<span class="input-group-addon">$</span>
+					{{ form.payout }}
+				</div>
+			</div>
+	    	<div class="form-group">
+				<label for="to_account" class="control-label">To account</label>
+				<div class="input-group">
+					<span class="input-group-addon">$</span>
+					{{ form.to_account }}
+				</div>
+			</div>
+	     	<button type="submit" class="btn btn-block btn-lg btn-success">Save</button>
+		</form>
+	</div>
+</div>
+	
 {% endblock %}

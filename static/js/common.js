@@ -14,6 +14,7 @@ require.config({
         'jquery.scrollTo': 'lib/jquery.scrollTo',
         'jquery.easing': 'lib/jquery.easing',
         'ekko-lightbox': 'lib/ekko-lightbox',
+        'select2': 'lib/select2.min',
 
         // apps - one page applications, each requires a separate build file
         'sitewide': 'apps/sitewide',

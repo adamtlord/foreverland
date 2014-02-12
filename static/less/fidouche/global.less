@@ -13,4 +13,57 @@ body {
 .form-signin input {
 	margin-bottom:15px;
 }
+.page-header {
+	margin-top:0;
+	h2 {
+		margin-top:10px;
+	}
+}
+form {
+	margin-bottom:40px;
+	input[type="submit"], button[type="submit"] {
+		margin-top:15px;
+	}
+	span.req {
+		color:#a94442;
+	}
+	.errorlist {
+		list-style-type:none;
+		margin:0;
+		padding:0;
+		font-size:90%;
+	}
+	&.add-control {
+		select,
+		textarea,
+		input[type="text"],
+		input[type="password"],
+		input[type="datetime"],
+		input[type="datetime-local"],
+		input[type="date"],
+		input[type="month"],
+		input[type="time"],
+		input[type="week"],
+		input[type="number"],
+		input[type="email"],
+		input[type="url"],
+		input[type="search"],
+		input[type="tel"],
+		input[type="color"] {
+			.form-control;
+		}
+	}
+}
+.form-inline .form-control {
+	width:auto;
+	vertical-align:middle;
+}
+#gig_finances {
+	button[type="submit"] {
+		margin-top:25px;
+	}
+	.form-inline.factor {
+		margin-bottom:10px;
+	}
+}
 

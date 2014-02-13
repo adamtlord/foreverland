@@ -15,10 +15,28 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
     gigs = Show.objects.all().order_by('-date')
     last_show = gigs.filter(date__lte=datetime.datetime.now()).order_by('-date')[0]
     next_show = gigs.filter(date__gte=datetime.datetime.now()).order_by('date')[0]
+    gigs_booked = gigs.filter(date__year=current_year)
+    gigs_played = gigs_booked.filter(date__lt=datetime.datetime.now())
+    ytd_gross = []
+    ytd_net = []
+    ytd_player = []
+    for gig in gigs_played:
+    	ytd_gross.append(gig.gross)
+    	ytd_net.append(gig.net)
+    	ytd_player.append(gig.payout)
+
+    ytd = {
+    	'gigs_booked': gigs_booked.count(),
+    	'gigs_played': gigs_played.count(),
+    	'net':	sum(ytd_net),
+    	'gross': sum(ytd_gross),
+    	'payout': sum(ytd_player)
+    }
     d = {
     	'gigs': gigs,
     	'last_show': last_show,
-    	'next_show': next_show
+    	'next_show': next_show,
+    	'ytd': ytd
     }
     return render(request, template, d)
 

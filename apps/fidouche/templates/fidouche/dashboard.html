@@ -1,16 +1,54 @@
 {% extends 'base_fidouche.html' %}
 {% load custom_tags %}
+{% load humanize %}
 
 {% block content %}
 <div class="page-header">
     <h2>Get Your FiDouche On</h2>
 </div>
-    <p>Most recent gig: <a href="{% url 'gig_finances' last_show.id %}">{{ last_show }}</a></p>
-    <p>Next gig: <a href="{% url 'gig_finances' next_show.id %}">{{ next_show }}</a></p>
-	<p>Find a gig:</p>
-	<select id="gig_select_nav" name="gigselect" class="form-control select2">
-		{% for gig in gigs %}
-			<option value="{% url 'gig_finances' gig.id %}"{% if gig.id == last_show.id %} selected="selected"{% endif %}>{{ gig }}</option>
-		{% endfor %}
-	</select>
+<div class="row">
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Crunch some numbers</h3>
+			</div>
+			<div class="panel-body">
+				<p>Most recent gig: <a href="{% url 'gig_finances' last_show.id %}">{{ last_show }} <i class="fa fa-angle-right"></i></a></p>
+				<p>Next gig: <a href="{% url 'gig_finances' next_show.id %}">{{ next_show }} <i class="fa fa-angle-right"></i></a></p>
+				<p>Find a gig:</p>
+				<select id="gig_select_nav" name="gigselect" class="form-control select2">
+				{% for gig in gigs %}
+					<option value="{% url 'gig_finances' gig.id %}"{% if gig.id == last_show.id %} selected="selected"{% endif %}>{{ gig }}</option>
+				{% endfor %}
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">{% now "Y" %} year-to-date</h3>
+			</div>
+			<div class="panel-body panel-no-pad">
+				<table class="table table-striped">
+					<tr>
+						<td>Gigs booked:</td><td>{{ ytd.gigs_booked }}</td>
+					</tr>
+					<tr>
+						<td>Gigs played:</td><td>{{ ytd.gigs_played }}</td>
+					</tr>
+					<tr>
+						<td>Gross:</td><td>${{ ytd.gross|intcomma }} </td>
+					</tr>
+					<tr>
+						<td>Net:</td><td>${{ ytd.net|intcomma }}</td>
+					</tr>
+					<tr>
+						<td>Per player:</td><td>${{ ytd.payout|intcomma }}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}

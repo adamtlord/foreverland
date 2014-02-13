@@ -6,9 +6,9 @@ body {
   }
 }
 .form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
 }
 .form-signin input {
 	margin-bottom:15px;
@@ -54,9 +54,16 @@ form {
 		}
 	}
 }
-.form-inline .form-control {
-	width:auto;
-	vertical-align:middle;
+.form-inline {
+	margin-bottom:10px;
+	.form-control, .form-group {
+		width:auto;
+		vertical-align:middle;
+		.input-group {
+			width:auto;
+			max-width:80px;
+		}
+	}
 }
 #gig_finances {
 	button[type="submit"] {
@@ -64,6 +71,15 @@ form {
 	}
 	.form-inline.factor {
 		margin-bottom:10px;
+	}
+}
+.panel-body.panel-no-pad {
+	padding:0;
+	table {
+		margin-bottom:0;
+	}
+	table.table > tbody > tr:first-child > td{
+		border-top:none;
 	}
 }
 

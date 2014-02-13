@@ -7,7 +7,7 @@ define([
 
 function ($) {
 	function updateFields(){
-		var commissionField = $('#commission_percentage').find('option:selected').val() == 'other' ? $('#commision_percentage_other') : $('#commission_percentage').find('option:selected');
+		var commissionField = $('#commission_percentage').find('option:selected').val() == 'other' ? $('#commission_percentage_other') : $('#commission_percentage').find('option:selected');
 		var gross = $('#id_gross');
 		var commission = $('#id_commission');
 		var sound = $('#id_sound_cost');
@@ -39,10 +39,10 @@ function ($) {
 			mp = (parseFloat(n / 14) || 0).toFixed(2);
 			acc = (parseFloat(n - (p * 14)) ||0).toFixed(2);
 		}
-		commission.val(c);
+		commission.val(c).change();
 		max.html(mp);
-		net.val(n);
-		account.val(acc);
+		net.val(n).change();
+		account.val(acc).change();
 	}
 	var _updateFields = _.throttle(updateFields, 500);
 	$('#gig_select_nav').select2().on("select2-selecting", function(e) {
@@ -56,8 +56,16 @@ function ($) {
 			$('#commission_other').fadeIn('fast');
 		}else {
 			$('#commission_other').fadeOut('fast');
+			_updateFields();
 		}
-		_updateFields();
 	});
+	$('.warn').on('change', 'input', function(){
+		var parentGroup = $(this).parents('.form-group');
+		parentGroup.removeClass('has-error');
+		if($(this).val() && parseFloat($(this).val()) < 0){
+			parentGroup.addClass('has-error');
+		}
+	});
+	$('*[rel="tooltip"]').tooltip();
 	_updateFields();
 });

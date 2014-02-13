@@ -5,7 +5,8 @@ from dateutil import parser
 from django.core.management.base import BaseCommand
 from shows.models import Show
 
-CSV_FILE = '/Users/adamlord/work/foreverland/src/foreverland/apps/fidouche/csv/gigs14.csv'
+# insert path to csv file to import here
+# CSV_FILE = '/home/adamlord/webapps/foreverland_python/src/foreverland/apps/fidouche/csv/gigs12.csv'
 
 class Command(BaseCommand):
 

@@ -29,10 +29,7 @@ function ($) {
 		var o = parseFloat(other.val()) || 0;
 		var p = parseFloat(payout.val()) || 0;
 		// receiveable
-		var c = '';
-		var n = '';
-		var acc = '';
-		var mp = '';
+		var c, n, acc, mp = '';
 		if(g>0){
 			c = (parseFloat(g * (cp/100)) || 0).toFixed(2);
 			n = (parseFloat(g - c - (sc + iem + ps + a + o)) || 0).toFixed(2);

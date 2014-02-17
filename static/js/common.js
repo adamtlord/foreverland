@@ -15,6 +15,7 @@ require.config({
         'jquery.easing': 'lib/jquery.easing',
         'ekko-lightbox': 'lib/ekko-lightbox',
         'select2': 'lib/select2.min',
+        'highcharts': 'lib/highcharts',
 
         // apps - one page applications, each requires a separate build file
         'sitewide': 'apps/sitewide',
@@ -38,5 +39,6 @@ require.config({
         'jquery.scrollTo': { deps: ['jquery'] },
         'jquery.easing': { deps: ['jquery'] },
         'ekko-lightbox': { deps: ['jquery'] },
+        'highcharts': { exports: 'highcharts', deps: ['jquery'] }
     }
 });

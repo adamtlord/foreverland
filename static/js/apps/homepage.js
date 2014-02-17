@@ -9,12 +9,12 @@ function ($) {
     var w = $(window);
     var nvo = 0;
     function setHeights(){
-        var v = $('#video_wrap iframe');
-        var vh = Math.floor(0.5625 * v.width());
+        // var v = $('#video_wrap iframe');
+        // var vh = Math.floor(0.5625 * v.width());
         var ch = $('#bio .carousel').height();
         var bt = $('#bio section');
         var bth = bt.height();
-        v.css('min-height', vh + 'px');
+        // v.css('min-height', vh + 'px');
         if(w.width() > 992){
             bt.css('height', ch + 'px');
         }else {

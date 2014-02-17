@@ -31,7 +31,7 @@ function ($) {
 		// receiveable
 		var c, n, acc, mp = '';
 		if(g>0){
-			c = (parseFloat(g * (cp/100)) || 0).toFixed(2);
+			c = (parseFloat(g * (cp/100) - sc) || 0).toFixed(2);
 			n = (parseFloat(g - c - (sc + iem + ps + a + o)) || 0).toFixed(2);
 			mp = (parseFloat(n / 14) || 0).toFixed(2);
 			acc = (parseFloat(n - (p * 14)) ||0).toFixed(2);

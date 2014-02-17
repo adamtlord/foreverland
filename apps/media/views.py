@@ -32,6 +32,20 @@ def downloads(request, template="media/downloads.html"):
 
     return render(request, template, d)
 
+
+def behind_the_music(request, template="media/behind_the_music.html"):
+    """Behind the music page"""
+    album = Album.objects.get(pk=3)
+    album.images = album.image_set.all()
+    album.videos = album.video_set.all()
+    
+    d = {
+        'album': album
+    }
+
+    return render(request, template, d)
+
+
 def list(request, template="media/list.html"):
     """Main listing."""
     albums = Album.objects.all()

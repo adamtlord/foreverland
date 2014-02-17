@@ -26,6 +26,10 @@ body {
 	position: relative;
 	width: 100%;
 }
+.navbar {
+	padding-left:15px;
+	padding-right:15px;	
+}
 .navbar-inverse {
 	.bg-texture;
 	border:none;
@@ -49,6 +53,10 @@ body {
 		&:hover {
 		.hover-state;
 		}
+	}
+	> li.social > a {
+		padding:15px 5px;
+		display:inline-block;
 	}
 }
 footer {
@@ -85,7 +93,6 @@ footer {
 
 @media (min-width: 768px) and (max-width: 991px) {
 	.navbar-nav {
-		margin-right:-20px;
 		> li > a {
 			font-size:14px;
 			padding-left:8px;
@@ -146,6 +153,16 @@ footer {
 						display:block;
 						border-bottom:1px solid fadeout(#333, 50%);
 					}
+					&.social {
+						border-bottom:1px solid fadeout(#333, 50%);
+						padding-left:15px;
+						 > a {
+						 	border-bottom:none;
+						 	font-size:20px;
+							display:inline-block;
+							padding:10px 10px 10px 0;
+						}
+					}
 				}
 			}
 			#nav_close_btn {
@@ -186,7 +203,7 @@ footer {
 	.js-nav #navbar_toggle {
 		color:@link-hover-color;
 	}
-	.navbar > .container {
+	.navbar {
 		.navbar-header {
 			text-align:center;
 			height:50px;

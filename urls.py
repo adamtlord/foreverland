@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     (r'^photos/', include('media.urls')),
     (r'^fidouche/', include('fidouche.urls')),
     (r'^downloads/', 'media.views.downloads'),
+    (r'^behind-the-music/', 'media.views.behind_the_music'),
 
 )
 if settings.DEBUG:

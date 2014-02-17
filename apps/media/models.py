@@ -1,7 +1,6 @@
 import os
 from PIL import Image as PImage
 from settings import MEDIA_ROOT, MEDIA_URL
-from os.path import join as pjoin
 from tempfile import NamedTemporaryFile
 from string import join
 
@@ -21,6 +20,12 @@ class Album(models.Model):
 
     def images(self):
         lst = [x.image.name for x in self.image_set.all()]
+        lst = ["<a href='%s/%s'>%s</a>" % (MEDIA_URL, x, x.split('/')[-1]) for x in lst]
+        return join(lst, ', ')
+    images.allow_tags = True
+
+    def videos(self):
+        lst = [x.video.name for x in self.image_set.all()]
         lst = ["<a href='%s/%s'>%s</a>" % (MEDIA_URL, x, x.split('/')[-1]) for x in lst]
         return join(lst, ', ')
     images.allow_tags = True

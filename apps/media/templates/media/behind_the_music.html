@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+
+{% block body %}
+<div class="container interior">
+	<h2>Behind the Music</h2>
+	<div class="row">
+		<div class="col-md-6">
+			<h3>Photos</h3>
+		    <div class="album">
+		    {% for img in album.images %}
+		        <a href="{{ MEDIA_URL }}{{ img.image.name }}" class="thumb" data-toggle="lightbox" data-gallery="{{ album.title|slugify }}">
+		            <img border="0" alt="" src="{{ MEDIA_URL }}{{ img.thumbnail2.name }}" />
+		        </a>
+		    {% endfor %}
+		    </div>
+		</div>
+		<div class="col-md-6">
+		    <h3>Videos</h3>
+			{% for video in album.videos %}
+				<div class="video-wrap">
+					{% include "media/fragments/video_embed.html" with type=video.embed_type id=video.vid_id %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% endblock %}

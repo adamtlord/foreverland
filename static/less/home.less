@@ -16,9 +16,6 @@
 		.transition(font-size .5s ease);
 	}
 }
-#video_wrap {
-	margin-bottom:-5px;
-}
 #next_show {
 	.bg-texture;
 	position:fixed;
@@ -48,6 +45,13 @@
 	.navbar {
 		margin-bottom:0;
 		border-radius:0;
+		padding-left:0;
+		padding-right:0;
+		> .container {
+			padding-left:15px;
+			padding-right:15px;
+			margin-left:-15px;
+		}
 	}
 	.navbar-brand {
 		text-indent:-20em;
@@ -95,6 +99,10 @@
 			}
 		}
 	}
+}
+.js-nav #home_nav .navbar-nav > li > a {
+	font-size:13px;
+	line-height:20px;
 }
 #nav_push.up {
 	height:62px;
@@ -147,6 +155,10 @@
 			padding-left:30px;
 			padding-right:30px;
 		}
+		.navbar-nav > li.social a {
+			padding-left:10px;
+			padding-right:10px;
+		}
 		&.up {
 			.navbar-nav > li > a {
 				padding-left:15px;
@@ -173,6 +185,10 @@
 			padding-left:20px;
 			padding-right:20px;
 		}
+		.navbar-nav > li.social > a {
+			padding-left:5px;
+			padding-right:5px;
+		}
 		&.up {
 			.navbar-nav > li > a {
 				padding-left:10px;
@@ -198,6 +214,10 @@
 		font-size:16px;
 		padding-left:12px;
 		padding-right:12px;
+	}
+	#home_nav .navbar-nav > li.social > a {
+		padding-left:5px;
+		padding-right:5px;
 	}
 	#home_nav.up .navbar-nav > li > a {
 		font-size:14px;
@@ -242,15 +262,17 @@
 		}
 	}
 	#next_show, #next_show.up {
-		position:static;
-		margin-bottom:15px;
-		text-align:left;
-		height:50px;
-		text-align:center;
+		position: static;
+		margin-bottom: 15px;
+		min-height: 50px;
+		text-align: center;
+		padding-left: 46px;
 		h4 { 
-			font-size:14px; 
-			margin:0;
-			line-height:50px;
+			margin-top: 10px;
+			font-size: 14px;
+			margin: 0;
+			line-height: 15px;
+			padding-top: 16px;
 		}
 	}
 	#nav_push.up {
@@ -267,6 +289,9 @@
 	}
 	#follow iframe {
 		margin-bottom:15px;
+	}
+	#members {
+		padding-bottom:30px;
 	}
 }
 @media (max-width: 767px) and (min-width:572px) {
@@ -297,6 +322,12 @@
 			font-size:18px;
 		}
 	}
+	#next_show {
+		text-align:left;
+		h4 {
+			font-size:12px;
+		}
+	}
 	#home_nav .container .navbar .nav > li > a, 
 	#home_nav.up .container .navbar .nav > li > a {
 		font-size:13px;
@@ -313,9 +344,6 @@
 		p {
 			line-height:1.4em;
 		}
-	}
-	#video_wrap iframe {
-		height:165px;
 	}
 }
 

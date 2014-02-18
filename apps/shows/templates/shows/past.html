@@ -12,12 +12,12 @@
     </div>
     <ul class="nav nav-pills" role="menu">
         {% for year in show_years reversed %}
-            <li{% if forloop.first %} class="active"{% endif %}><a href="#{{ year }}" data-toggle="tab">{{ year }}</a></li>
+            <li{% if forloop.first %} class="active"{% endif %}><a href="#showyear_{{ year }}" data-toggle="tab">{{ year }}</a></li>
         {% endfor %}
     </ul>
-    <div class="pill-content">
+    <div class="tab-content">
     {% for year, shows in shows_by_year.items %}
-        <div id="{{ year }}" class="pill-pane{% if forloop.last %} active{% endif %}">
+        <div id="showyear_{{ year }}" class="tab-pane fade{% if forloop.last %} active in{% endif %}">
             <h3>{{ year }}</h3>
             <ul class="shows">
                 {% for show in shows %}
@@ -44,7 +44,7 @@
 {% block require_js %}
     <script type="text/javascript">
         require(['{{ STATIC_URL }}global/js/common.js'], function () {
-            require(['past']);
+            require(['bootstrap']);
         });
     </script>
 {% endblock %}

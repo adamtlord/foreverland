@@ -1,6 +1,6 @@
 import datetime
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from members.models import Member
 from shows.models import Show
@@ -11,6 +11,11 @@ from marketing.models import Testimonial
 
 def homepage(request, template='marketing/homepage.html'):
     """Returns homepage.html for the root url"""
+    feed = request.GET.get('feed', None)
+    if feed == 'gigpress':
+        return redirect('/shows/rss')
+    if feed == 'gigpress-ical':
+        return redirect('/shows/ical')
     public_shows = Show.objects.filter(public=True)
     next_show = public_shows.filter(date__gte=datetime.datetime.now()).order_by('date')[0]
     members = Member.objects.filter(active=True).order_by('display_last')

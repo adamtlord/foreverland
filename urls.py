@@ -3,7 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
+from django.views.generic.base import RedirectView
 
 admin.autodiscover()
 
@@ -18,7 +18,11 @@ urlpatterns = patterns('',
     (r'^fidouche/', include('fidouche.urls')),
     (r'^downloads/', 'media.views.downloads'),
     (r'^behind-the-music/', 'media.views.behind_the_music'),
-
+    # Legacy redirects
+    (r'^upcoming-shows/', RedirectView.as_view(url='/shows', permanent=True)),
+    (r'^past-shows/', RedirectView.as_view(url='/shows/past', permanent=True)),
+    (r'^song-list/', RedirectView.as_view(url='/songs', permanent=True)),
+    (r'^news-press/', RedirectView.as_view(url='/', permanent=True)),
 )
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

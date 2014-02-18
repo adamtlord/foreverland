@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from shows.feeds import CalendarFeed
+from shows.feeds import CalendarFeed, ShowsFeed
 
 
 urlpatterns = patterns('shows.views',
@@ -8,5 +8,6 @@ urlpatterns = patterns('shows.views',
     url(r'^past/$', 'past_shows', {}, name='past_shows'),
     url(r'^(?P<show_id>\d+)/$', 'show', {}, name='show'),
     url(r'^modal/(?P<show_id>\d+)/$', 'show_modal', {}, name='show_modal'),
-    url(r'^ical/$', CalendarFeed())
+    url(r'^ical/$', CalendarFeed()),
+    url(r'^rss/$', ShowsFeed())
 )

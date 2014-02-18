@@ -1,10 +1,11 @@
 from datetime import date
 import datetime
-from django.shortcuts import render, get_object_or_404
+from django.forms.models import inlineformset_factory
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from shows.models import Show
+from shows.models import Show, Expense
 from fidouche.forms import GigFinanceForm
 
 current_year = date.today().year
@@ -21,14 +22,17 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 	ytd_net = []
 	ytd_player = []
 	for gig in gigs_played:
-		ytd_gross.append(gig.gross)
-		ytd_net.append(gig.net)
-		ytd_player.append(gig.payout)
+		if gig.gross:
+			ytd_gross.append(gig.gross)
+		if gig.net:
+			ytd_net.append(gig.net)
+		if gig.payout:
+			ytd_player.append(gig.payout)
 
 	ytd = {
 		'gigs_booked': gigs_booked.count(),
 		'gigs_played': gigs_played.count(),
-		'net':	sum(ytd_net),
+		'net':  sum(ytd_net),
 		'gross': sum(ytd_gross),
 		'payout': sum(ytd_player)
 	}
@@ -55,15 +59,22 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 	"""Choose a gig from this year"""
 	gig_id = int(gig_id)
 	gig = get_object_or_404(Show, pk=gig_id)
-	if request.method == 'GET':
-		form = GigFinanceForm(instance=gig)
-	else:
+	ExpenseFormSet = inlineformset_factory(Show, Expense, can_delete=True)
+
+	if request.method == "POST":
 		form = GigFinanceForm(request.POST, instance=gig)
-		if form.is_valid():
+		formset = ExpenseFormSet(request.POST, request.FILES, instance=gig)
+		if form.is_valid() and formset.is_valid():
 			form.save()
+			formset.save()
 			messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>NICE.</strong> Gig finances updated!')
+	else:
+		form = GigFinanceForm(instance=gig)
+		formset = ExpenseFormSet(instance=gig)
+
 	d = {
 		'form': form,
+		'formset': formset,
 		'gig': gig
 	}
 

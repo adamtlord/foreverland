@@ -45,6 +45,16 @@ function ($) {
 	$('#gig_select_nav').select2().on("select2-selecting", function(e) {
 		window.location = $(this).find("option:selected").val();
 	});
+	function processItemized(){
+		var printCosts = [];
+		var shipCosts = [];
+		var adCosts = [];
+		var otherCosts = [];
+		$('#expenses_formset tbody tr').each(function(){
+			var thisCat = $(this).find('.category option:selected').val();
+			var thisAmount = $(this).find('.expense-amount input').val();
+		});
+	}
 	$('.factor').on('blur', 'input', function(){
 		_updateFields();
 	});
@@ -56,12 +66,36 @@ function ($) {
 			_updateFields();
 		}
 	});
+	$('.set-payer').on('change', '#id_payer', function(){
+		if($(this).find('option:selected').val() == 'DS'){
+			$('#commission_withheld').fadeIn('fast');
+		}else {
+			$('#commission_withheld').fadeOut('fast');
+		}
+	});
+	$('#commission_withheld').on('change', '#id_commission_withheld', function(){
+		if($(this).is(':checked')){
+			$('#commission_check').fadeOut('fast');
+		}else {
+			$('#commission_check').fadeIn('fast');
+		}
+	});
+	$('.payment-method').on('change', '#id_gross_method', function(){
+		if($(this).find('option:selected').val() == 'check'){
+			$('#payment_check_no').fadeIn('fast');
+		}else {
+			$('#payment_check_no').fadeOut('fast');
+		}
+	});
 	$('.warn').on('change', 'input', function(){
 		var parentGroup = $(this).parents('.form-group');
 		parentGroup.removeClass('has-error');
 		if($(this).val() && parseFloat($(this).val()) < 0){
 			parentGroup.addClass('has-error');
 		}
+	});
+	$('#expenses_formset').on('blur', '.expense-amount input', function(){
+		processItemized();
 	});
 	$('*[rel="tooltip"]').tooltip();
 	_updateFields();

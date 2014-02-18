@@ -1,14 +1,20 @@
-from django import forms
 from django.forms import ModelForm
 
 from shows.models import Show
 
 
 FINANCIAL_FIELDS = (
+	'attendance',
+	'payer',
+	'payee_check_no',
 	'gross',
+	'gross_method',
 	'commission',
+	'commission_withheld',
+	'commission_check_no',
 	'sound_cost',
 	'in_ears_cost',
+	'in_ears_check_no',
 	'print_ship_cost',
 	'ads_cost',
 	'other_cost',
@@ -16,7 +22,6 @@ FINANCIAL_FIELDS = (
 	'payout',
 	'to_account'
 )
-
 
 class GigFinanceForm(ModelForm):
 	class Meta:

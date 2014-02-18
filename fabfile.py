@@ -259,9 +259,10 @@ def sync():
 
 @runs_once
 def sync_uploads():
+    host = env.hosts
     """Reset local media from remote host"""
-    local("rsync -rva baseproject@%s:webapps/%s/src/%s/uploads/ uploads" % (
-        env.host_string, PROJECT_NAME, PROJECT_NAME))
+    local("rsync -rva adamlord@%s:webapps/foreverland_python/src/foreverland/uploads/ uploads" % (
+        env.host_string))
 
 
 def dbtunnel(id=0):

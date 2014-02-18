@@ -49,10 +49,34 @@ class Show(models.Model):
     poster = models.FileField(upload_to='posters/', blank=True, null=True)
     fb_event = models.CharField(max_length=200, blank=True, null=True)
     # Financial Information
+    AGENT = 'DS'
+    CLIENT = 'client'
+    CASH = 'cash'
+    CHECK = 'check'
+    PAYEE_CHOICES = (
+        (CLIENT, 'Client'),
+        (AGENT, 'Swan Entertainment'),
+    )
+    METHOD_CHOICES = (
+        (CASH, 'Cash'),
+        (CHECK, 'Check'),
+    )
+    IEM_CHOICES = (
+        (80, '$80'),
+        (130, '$130'),
+    )
+    attendance = models.IntegerField(blank=True, null=True)
     gross = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    gross_method = models.CharField(max_length=100, blank=True, null=True, choices=METHOD_CHOICES, default=CASH)
+    payer = models.CharField(max_length=100, blank=True, null=True, choices=PAYEE_CHOICES, default=CLIENT)
+    payee_check_no = models.IntegerField(blank=True, null=True)
     commission = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    commission_withheld = models.BooleanField(default=False)
+    commission_check_no = models.IntegerField(blank=True, null=True)
     sound_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    in_ears_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    sound_check_no = models.IntegerField(blank=True, null=True)
+    in_ears_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, choices=IEM_CHOICES, default=130)
+    in_ears_check_no = models.IntegerField(blank=True, null=True)
     print_ship_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     ads_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     other_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
@@ -66,3 +90,19 @@ class Show(models.Model):
 
     def __unicode__(self):
         return '%s %s' % (self.date.strftime('%m/%d/%y'), self.venue)
+
+
+class Expense(models.Model):
+    EXPENSE_CATEGORIES = (
+        ('print','printing'),
+        ('ship','shipping'),
+        ('ads','ads'),
+        ('other','other'),
+    )
+    show = models.ForeignKey(Show, related_name="expense")
+    payee = models.CharField(max_length=100, blank=True, null=True)
+    category = models.CharField(max_length=100, blank=True, null=True, choices=EXPENSE_CATEGORIES)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    check_no = models.IntegerField(blank=True, null=True, verbose_name="Check #")
+    notes = notes = models.TextField(blank=True, null=True)
+

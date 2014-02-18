@@ -1,5 +1,6 @@
 from django.contrib import admin
-from shows.models import Venue, Show
+from shows.models import Venue, Show, Expense
+
 
 class VenueAdmin(admin.ModelAdmin):
     pass
@@ -7,7 +8,18 @@ class VenueAdmin(admin.ModelAdmin):
 admin.site.register(Venue, VenueAdmin)
 
 
+class ExpenseAdmin(admin.ModelAdmin):
+	pass
+
+admin.site.register(Expense, ExpenseAdmin)
+
+
+class ExpenseInline(admin.TabularInline):
+	model = Expense
+
+
 class ShowAdmin(admin.ModelAdmin):
 	ordering = ['-date']
+	inlines = [ExpenseInline]
 
 admin.site.register(Show, ShowAdmin)

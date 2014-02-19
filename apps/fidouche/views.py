@@ -59,15 +59,16 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 	"""Choose a gig from this year"""
 	gig_id = int(gig_id)
 	gig = get_object_or_404(Show, pk=gig_id)
-	ExpenseFormSet = inlineformset_factory(Show, Expense, can_delete=True)
+	ExpenseFormSet = inlineformset_factory(Show, Expense)
 
 	if request.method == "POST":
 		form = GigFinanceForm(request.POST, instance=gig)
-		formset = ExpenseFormSet(request.POST, request.FILES, instance=gig)
+		formset = ExpenseFormSet(request.POST, instance=gig)
 		if form.is_valid() and formset.is_valid():
 			form.save()
 			formset.save()
 			messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>NICE.</strong> Gig finances updated!')
+			return redirect(request.path)
 	else:
 		form = GigFinanceForm(instance=gig)
 		formset = ExpenseFormSet(instance=gig)

@@ -77,6 +77,7 @@ class Show(models.Model):
     sound_check_no = models.IntegerField(blank=True, null=True)
     in_ears_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, choices=IEM_CHOICES, default=130)
     in_ears_check_no = models.IntegerField(blank=True, null=True)
+    costs_itemized = models.BooleanField(default=False)
     print_ship_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     ads_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     other_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)

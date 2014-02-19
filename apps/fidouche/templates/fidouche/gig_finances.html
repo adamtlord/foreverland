@@ -82,8 +82,9 @@
 					{{ form.in_ears_cost }}
 				</div>
 			</fieldset>
-			<fieldset>
-				<legend>Expenses <a href="#itemize" data-toggle="collapse" data-target="#itemize"><i class="fa fa-list"></i> Itemize</a></legend>
+			<fieldset class="expenses-summed">
+				<legend class="with-btn">Expenses <button id="itemize-toggle" data-toggle="button" class="btn btn-sm btn-success"><i class="fa fa-list"></i> Itemize Expenses</button></legend>
+				{{ form.costs_itemized.as_hidden }}
 		    	<div class="form-group factor">
 					<label for="print_ship_cost" class="control-label">Printing &amp; shipping costs</label>
 					<div class="input-group">
@@ -150,7 +151,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				{% for form in formset %}
+				{% for form in formset.forms %}
 					<tr>
 						{{ form.id }}
 						<td>{{ form.payee }}</td>
@@ -163,9 +164,9 @@
 				{% endfor %}
 				</tbody>
 			</table>
+			<button type="button" id="add_expense_rows" class="btn btn-sm btn-default pull-right"><i class="fa fa-plus"></i> Add a row</button>
     	</fieldset>
      	<button type="submit" class="btn btn-block btn-lg btn-primary">Save</button>
 	</div>
-</form>
-	
+</form>	
 {% endblock %}

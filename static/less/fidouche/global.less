@@ -97,6 +97,10 @@ fieldset.expenses {
 		margin-bottom:10px;
 	}
 }
+fieldset#itemize {
+	padding-bottom:15px;
+	border-bottom:1px solid @legend-border-color;
+}
 #expenses_formset {
 	select,
 	textarea,
@@ -118,6 +122,7 @@ fieldset.expenses {
 	}
 	td:last-child {
 		text-align:center;
+		vertical-align: middle;
 	}
 	.input-group {
 		float:left;
@@ -127,13 +132,17 @@ fieldset.expenses {
 		}
 	}
 }
-#commission_other {
+#commission_other,  #payment_check_no{
 	margin-top:10px;
 }
-legend a {
-	font-size:@font-size-base;
-	line-height:30px;
+legend.with-btn {
+	padding-bottom:5px;
+}
+legend .btn{
 	.pull-right;
+	&:focus, &.active:focus {
+		outline:none;
+	}
 }
 
 /* RESPONSIVE */

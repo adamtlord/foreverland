@@ -6,12 +6,13 @@ define([
 ],
 
 function ($) {
+	// Methods
 	function updateFields(){
 		var commissionField = $('#commission_percentage').find('option:selected').val() == 'other' ? $('#commission_percentage_other') : $('#commission_percentage').find('option:selected');
 		var gross = $('#id_gross');
 		var commission = $('#id_commission');
 		var sound = $('#id_sound_cost');
-		var inears = $('#id_in_ears_cost');
+		var inears = $('#id_in_ears_cost').find('option:selected');
 		var print = $('#id_print_ship_cost');
 		var ads = $('#id_ads_cost');
 		var other = $('#id_other_cost');
@@ -31,7 +32,7 @@ function ($) {
 		// receiveable
 		var c, n, acc, mp = '';
 		if(g>0){
-			c = (parseFloat(g * (cp/100) - sc) || 0).toFixed(2);
+			c = (parseFloat((g - sc) * (cp/100)) || 0).toFixed(2);
 			n = (parseFloat(g - c - (sc + iem + ps + a + o)) || 0).toFixed(2);
 			mp = (parseFloat(n / 14) || 0).toFixed(2);
 			acc = (parseFloat(n - (p * 14)) ||0).toFixed(2);
@@ -42,20 +43,60 @@ function ($) {
 		account.val(acc).change();
 	}
 	var _updateFields = _.throttle(updateFields, 500);
+	
+	function processItemized(){
+		var printCosts = 0;
+		var shipCosts = 0;
+		var adCosts = 0;
+		var otherCosts = 0;
+		$('#expenses_formset tbody tr').each(function(){
+			var thisCat = $(this).find('.category option:selected').val();
+			var thisAmount = parseFloat($(this).find('.expense-amount input').val()) || 0;
+			switch(thisCat){
+				case 'print':
+				printCosts += thisAmount;
+				break;
+				case 'ship':
+				shipCosts += thisAmount;
+				break;
+				case 'ads':
+				adCosts += thisAmount;
+				break;
+				case 'other':
+				otherCosts += thisAmount;
+				break;
+				default:
+				return;
+			}
+		});
+		if(printCosts + shipCosts !== 0){$('#id_print_ship_cost').val(printCosts + shipCosts).change();}
+		if(adCosts !== 0){$('#id_ads_cost').val(adCosts).change();}
+		if(otherCosts !== 0){$('#id_other_cost').val(otherCosts).change();}
+		_updateFields();
+	}
+	function cloneMore(selector, type) {
+		var newElement = $(selector).clone(true);
+		var total = $('#id_' + type + '-TOTAL_FORMS').val();
+		newElement.find(':input').each(function() {
+			var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
+			var id = 'id_' + name;
+			$(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+		});
+		newElement.find('label').each(function() {
+			var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');
+			$(this).attr('for', newFor);
+		});
+		total++;
+		$('#id_' + type + '-TOTAL_FORMS').val(total);
+		$(selector).after(newElement);
+	}
+
+	// Handlers //
 	$('#gig_select_nav').select2().on("select2-selecting", function(e) {
 		window.location = $(this).find("option:selected").val();
 	});
-	function processItemized(){
-		var printCosts = [];
-		var shipCosts = [];
-		var adCosts = [];
-		var otherCosts = [];
-		$('#expenses_formset tbody tr').each(function(){
-			var thisCat = $(this).find('.category option:selected').val();
-			var thisAmount = $(this).find('.expense-amount input').val();
-		});
-	}
-	$('.factor').on('blur', 'input', function(){
+
+	$('.factor').on('blur', 'input, select', function(){
 		_updateFields();
 	});
 	$('.set-commission').on('change', '#commission_percentage', function(){
@@ -94,9 +135,27 @@ function ($) {
 			parentGroup.addClass('has-error');
 		}
 	});
-	$('#expenses_formset').on('blur', '.expense-amount input', function(){
+	$('#itemize-toggle').click(function(){
+		if($(this).hasClass('active')){
+			$('#id_costs_itemized').val('False');
+			$('.expenses-summed input').removeAttr('readonly');
+		} else {
+			$('#id_costs_itemized').val('True');
+			$('.expenses-summed input').attr('readonly','readonly');
+		}
+		$('#itemize').collapse('toggle');
+
+	});
+	$('#expenses_formset').on('blur', '.expense-amount input, .category select', function(){
 		processItemized();
 	});
-	$('*[rel="tooltip"]').tooltip();
+	$('#add_expense_rows').click(function(){
+		cloneMore('#expenses_formset tr:last', 'expense');
+	});
+	// On load //
+	if($('#id_costs_itemized').val() == 'True'){
+		$('#itemize-toggle').click();
+	}
 	_updateFields();
+	processItemized();
 });

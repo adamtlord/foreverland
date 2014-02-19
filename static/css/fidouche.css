@@ -7984,6 +7984,10 @@ fieldset.expenses {
 fieldset.expenses legend {
   margin-bottom: 10px;
 }
+fieldset#itemize {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e5e5e5;
+}
 #expenses_formset select,
 #expenses_formset textarea,
 #expenses_formset input[type="text"],
@@ -8164,6 +8168,7 @@ textarea#expenses_formset input[type="color"] {
 }
 #expenses_formset td:last-child {
   text-align: center;
+  vertical-align: middle;
 }
 #expenses_formset .input-group {
   float: left;
@@ -8173,14 +8178,20 @@ textarea#expenses_formset input[type="color"] {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
-#commission_other {
+#commission_other,
+#payment_check_no {
   margin-top: 10px;
 }
-legend a {
-  font-size: 14px;
-  line-height: 30px;
+legend.with-btn {
+  padding-bottom: 5px;
+}
+legend .btn {
   float: right !important;
   float: right;
+}
+legend .btn:focus,
+legend .btn.active:focus {
+  outline: none;
 }
 /* RESPONSIVE */
 @media (min-width: 768px) {

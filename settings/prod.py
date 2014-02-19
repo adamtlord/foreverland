@@ -10,7 +10,7 @@ COMPRESS_OFFLINE = True
 # domains/hosts etc.
 # TLD_NAME = '%s.com' % PROJECT_NAME
 # DOMAIN_NAME = 'www.%s' % TLD_NAME
-TLD_NAME = DOMAIN_NAME = 'flstaging.adamlord.com'
+TLD_NAME = DOMAIN_NAME = 'foreverland.com'
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__)) 
 PROJECT_URL = '/'
 

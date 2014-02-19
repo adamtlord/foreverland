@@ -92,8 +92,8 @@ function ($) {
 	}
 
 	// Handlers //
-	$('#gig_select_nav').select2().on("select2-selecting", function(e) {
-		window.location = $(this).find("option:selected").val();
+	$('#gig_select_nav').select2().on('change', function(e) {
+		window.location = $(this).find('option:selected').val();
 	});
 
 	$('.factor').on('blur', 'input, select', function(){

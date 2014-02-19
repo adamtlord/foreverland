@@ -262,18 +262,22 @@
 		}
 	}
 	#next_show, #next_show.up {
-		position: static;
+		position: relative;
 		margin-bottom: 15px;
 		min-height: 50px;
 		text-align: center;
 		padding-left: 46px;
+		z-index:1;
+		top:0;
 		h4 { 
-			margin-top: 10px;
+			margin: 0 0 0 -46px;
 			font-size: 14px;
-			margin: 0;
 			line-height: 15px;
 			padding-top: 16px;
 		}
+	}
+	#next_show.up h4 {
+		margin-left:-22px;
 	}
 	#nav_push.up {
 		height:0;
@@ -323,7 +327,6 @@
 		}
 	}
 	#next_show {
-		text-align:left;
 		h4 {
 			font-size:12px;
 		}

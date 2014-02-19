@@ -23,7 +23,7 @@
 						<label for="gross_method" class="control-label col-md-4">Payment method</label>
 						<div class="col-md-8">
 							{{ form.gross_method }}
-							<div id="payment_check_no" class="form-inline" style="display:none;">
+							<div id="payment_check_no" class="form-inline"{% if gig.gross_method != 'check' %} style="display:none;"{% endif %}>
 								<label for="id_payee_check_no" class="control-label">Check #</label>
 									{{ form.payee_check_no }}
 							</div>
@@ -33,14 +33,14 @@
 						<label for="id_payer" class="control-label col-md-4">Paid by</label>
 						<div class="col-md-8">
 							{{ form.payer }}
-							<div id="commission_withheld" class="form-inline" style="display:none;">
+							<div id="commission_withheld" class="form-inline"{% if gig.payer != 'DS' %}style="display:none;"{% endif %}>
 								<div class="checkbox">
 		    						<label>{{ form.commission_withheld }} Commission withheld</label>
 		    					</div>
 							</div>
 						</div>
 					</div>
-					<div id="commission_check" class="form-group">
+					<div id="commission_check" class="form-group"{% if gig.commission_withheld %} style="display:none;"{% endif %}>
 						<label for="id_commission_check_no" class="control-label col-md-4">Commission check #</label>
 						<div class="col-md-8">
 							{{ form.commission_check_no }}

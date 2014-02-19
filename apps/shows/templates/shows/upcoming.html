@@ -13,11 +13,11 @@
     <ul class="shows">
     {% for show in shows %}
         <li>
-        	{% if show.venue.website %}<a href="http://{{ show.venue.website }}" class="tl">{% else %}<span class="tl">{% endif %}<img src="{{ MEDIA_URL }}{% if show.venue.venue_image != 'venues/' %}{{show.venue.venue_image}}{% else %}venues/blank-venue.jpg{% endif %}">{% if show.venue.website %}</a>{% else %}</span>{% endif %}
+        	{% if show.venue.website %}<a href="{{ show.venue.website }}" target="_blank" class="tl">{% else %}<span class="tl">{% endif %}<img src="{{ MEDIA_URL }}{% if show.venue.venue_image != 'venues/' %}{{show.venue.venue_image}}{% else %}venues/blank-venue.jpg{% endif %}">{% if show.venue.website %}</a>{% else %}</span>{% endif %}
         	<div class="show">
         		<h4>
                     <span class="title">
-    					{{ show.date|date:"M. j" }} at {% if show.venue.website %}<a href="http://{{ show.venue.website }}">{% endif %}{{ show.venue }}{% if show.venue.website %}</a>{% endif %}
+    					{{ show.date|date:"M. j" }} at {% if show.venue.website %}<a href="{{ show.venue.website }}" target="_blank">{% endif %}{{ show.venue }}{% if show.venue.website %}</a>{% endif %}
         				<small class="pull-right">{{ show.date|date:"g:i a"}}</small>
                     </span>
                 </h4>

@@ -2,11 +2,16 @@ import datetime
 from django.shortcuts import render, get_object_or_404
 from shows.models import Show
 
+UPCOMING_WINDOW_WEEKS = 8
 
 def upcoming_shows(request, template='shows/upcoming.html'):
-    """list all upcoming shows"""
+    """list all upcoming shows for the next n weeks"""
+    startdate = datetime.datetime.now()
+    enddate = startdate + datetime.timedelta(weeks=UPCOMING_WINDOW_WEEKS)
+    
     public_shows = Show.objects.filter(public=True)
-    upcoming_shows = public_shows.filter(date__gte=datetime.datetime.now()).order_by('date')
+    upcoming_shows = public_shows.filter(date__range=[startdate, enddate]).order_by('date')
+    
     d = {}
     d['shows'] = upcoming_shows
     return render(request, template, d)

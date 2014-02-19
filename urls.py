@@ -1,8 +1,7 @@
-from django.conf.urls import patterns, url, include
+from django.conf.urls import patterns, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic.base import RedirectView
 
 admin.autodiscover()
@@ -23,6 +22,8 @@ urlpatterns = patterns('',
     (r'^past-shows/', RedirectView.as_view(url='/shows/past', permanent=True)),
     (r'^song-list/', RedirectView.as_view(url='/songs', permanent=True)),
     (r'^news-press/', RedirectView.as_view(url='/', permanent=True)),
+    (r'^catalog/', RedirectView.as_view(url='http://v2.foreverland.com/catalog/', permanent=True)),
+    (r'^theworks/', RedirectView.as_view(url='http://v2.foreverland.com/theworks/', permanent=True)),
 )
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

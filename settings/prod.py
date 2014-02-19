@@ -15,7 +15,11 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 PROJECT_URL = '/'
 
 # Django 1.5 requirement
-ALLOWED_HOSTS = [TLD_NAME]
+ALLOWED_HOSTS = [
+'TLD_NAME',
+'.foreverland.com',
+'.foreverland.com.',
+]
 
 WWW_ROOT = 'http://%s/' % DOMAIN_NAME
 DEFAULT_FROM_EMAIL = 'no-reply@%s' % TLD_NAME

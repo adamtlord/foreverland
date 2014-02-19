@@ -19,6 +19,11 @@ ALLOWED_HOSTS = [TLD_NAME]
 
 WWW_ROOT = 'http://%s/' % DOMAIN_NAME
 DEFAULT_FROM_EMAIL = 'no-reply@%s' % TLD_NAME
+EMAIL_HOST = 'smtp.webfaction.com'
+EMAIL_HOST_USER = 'foreverland'
+EMAIL_HOST_PASSWORD = 'Bubbles14'
+DEFAULT_FROM_EMAIL = DEFAULT_FROM_EMAIL
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # change or add multiple if hosts don't map to domain (load balancer situation)
 SSH_HOSTS = 'adamlord.webfactional.com'
@@ -48,3 +53,4 @@ DATABASES = {
 
 COMPRESS_URL = STATIC_URL
 COMPRESS_ROOT = STATIC_ROOT
+

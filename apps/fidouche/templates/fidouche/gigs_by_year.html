@@ -31,21 +31,21 @@
 				<td><a href="{% url 'gig_finances' gig.id %}">{{ gig.date|date:"n/j/y" }}</a></td>
 				<td><a href="{% url 'gig_finances' gig.id %}">{{ gig.venue }}</a> {% if not gig.public %}<span class="label label-success">private</span>{% endif %}</td>
 				<td>{% if gig.attendance %}{{ gig.attendance|intcomma }}{% else %}--{% endif %}</td>
-				<td>{% if gig.gross %}${{ gig.gross }}{% else %}--{% endif %}</td>
-				<td>{% if gig.commission %}${{ gig.commission }} <small>({{ gig.commission_percentage }}%)</small>{% else %}0{% endif %}</td>
-				<td>{% if gig.total_expenses > 0 %}${{ gig.total_expenses }} <i class="fa fa-list-ul expense-detail-toggle" data-toggle="collapse" data-target="#gig{{ gig.id }}_expenses"></i>
+				<td>{% if gig.gross %}{{ gig.gross }}{% else %}--{% endif %}</td>
+				<td>{% if gig.commission %}{{ gig.commission }} <small>({{ gig.commission_percentage }}%)</small>{% else %}0{% endif %}</td>
+				<td>{% if gig.total_expenses > 0 %}{{ gig.total_expenses }} <i class="fa fa-list-ul expense-detail-toggle" data-toggle="collapse" data-target="#gig{{ gig.id }}_expenses"></i>
 					<div id="gig{{ gig.id }}_expenses" class="collapse">
 						<table class="table table-condensed table-bordered expense-details">
-							<tr><th>Sound:</th><td>${{gig.sound_cost}}</td></tr>
-							<tr><th>Ears:</th><td>${{gig.in_ears_cost}}</td></tr>
-							<tr><th>Print/Ship:</th><td>${{gig.print_ship_cost}}</td></tr>
-							<tr><th>Ads:</th><td>${{gig.ads_cost}}</td></tr>
-							<tr><th>Other:</th><td>${{gig.other_cost}}</td></tr>
+							<tr><th>Sound:</th><td>{{gig.sound_cost}}</td></tr>
+							<tr><th>Ears:</th><td>{{gig.in_ears_cost}}</td></tr>
+							<tr><th>Print/Ship:</th><td>{{gig.print_ship_cost}}</td></tr>
+							<tr><th>Ads:</th><td>{{gig.ads_cost}}</td></tr>
+							<tr><th>Other:</th><td>{{gig.other_cost}}</td></tr>
 						</table>
 					</div>
 					{% else %}0{% endif %}
 				</td>
-				<td>{% if gig.net %}${{ gig.net }}{% else %}--{% endif %}</td>
+				<td>{% if gig.net %}{{ gig.net }}{% else %}--{% endif %}</td>
 			</tr>
 		{% endfor %}
 		</tbody>

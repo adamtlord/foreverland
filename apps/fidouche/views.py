@@ -52,13 +52,19 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 	for gig in gigs:
 		gig.total_expenses = sum(filter(None,[gig.sound_cost, gig.in_ears_cost, gig.print_ship_cost, gig.ads_cost, gig.other_cost]))
 		gig.commission_percentage = ''
+		sc = gig.sound_cost or 0
 		if gig.commission and gig.gross:
-			gig.commission_percentage = int((gig.commission/gig.gross) * 100)
+			gig.commission_percentage = int((gig.commission/(gig.gross - sc)) * 100)
 	
 	d = {
 		'year': year,
 		'this_years_gigs': gigs,
 	}
+	return render(request, template, d)
+
+@login_required
+def gigs_year_over_year(request,template='fidouche/gigs_year_over_year.html'):
+	d = {}
 	return render(request, template, d)
 
 @login_required

@@ -9,11 +9,11 @@
     /* Set the defaults for DataTables initialisation */
 	$.extend( true, $.fn.dataTable.defaults, {
 		"sDom": "<'row'<'col-md-6 dt-length'l><'col-md-6 dt-filter'f>>t<'row'<'col-md-6 dt-info'i><'col-md-6 dt-pagination'p>>",
-	    "sPaginationType": "bs_normal",
-	    "oLanguage": {
-	        "sLengthMenu": "Show _MENU_ rows",
-	        "sSearch": "Search"
-	    }
+		"sPaginationType": "bs_normal",
+		"oLanguage": {
+		"sLengthMenu": "Show _MENU_ rows",
+		"sSearch": "Search"
+		}
 	} );
 
 	/* Default class modification */
@@ -36,7 +36,19 @@
 				0 : Math.ceil( oSettings.fnRecordsDisplay() / oSettings._iDisplayLength )
 		};
 	};
-
+	/* Currency-based Sorting */
+	$.extend( $.fn.dataTableExt.oSort, {
+		"currency-pre": function ( a ) {
+			a = (a==="-") ? 0 : a.replace( /[^\d\-\.]/g, "" );
+			return parseFloat( a );
+		},
+		"currency-asc": function ( a, b ) {
+			return a - b;
+		},
+		"currency-desc": function ( a, b ) {
+			return b - a;
+		}
+	} );
 	/* Bootstrap style pagination control */
 	$.extend( $.fn.dataTableExt.oPagination, {
 		"bs_normal": {
@@ -103,7 +115,7 @@
 					}
 				}
 			}
-		},	
+		},
 		"bs_two_button": {
 			"fnInit": function ( oSettings, nPaging, fnCallbackDraw )
 			{
@@ -353,7 +365,7 @@
 							});
 					}
 				}
-		}	
+		}
 	} );
 
 

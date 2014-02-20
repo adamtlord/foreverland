@@ -16,7 +16,7 @@ require.config({
         'select2': 'lib/select2.min',
         'highcharts': 'lib/highcharts',
         'datatables': 'lib/jquery.dataTables.min',
-        'datatables_bs3': 'lib/datatables',
+        'datatables_plugins': 'lib/datatables_plugins',
 
         // apps - one page applications, each requires a separate build file
         'sitewide': 'apps/sitewide',
@@ -39,7 +39,6 @@ require.config({
         'jquery.flexslider': { deps: ['jquery'] },
         'jquery.scrollTo': { deps: ['jquery'] },
         'jquery.easing': { deps: ['jquery'] },
-        'highcharts': { exports: 'highcharts', deps: ['jquery'] },
-        'datatables': { deps: ['jquery', 'datatables_bs3'] }
+        'highcharts': { exports: 'highcharts', deps: ['jquery'] }
     }
 });

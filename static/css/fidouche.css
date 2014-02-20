@@ -8078,7 +8078,7 @@ div.dataTables_paginate {
   float: right;
   margin: 0;
 }
-table.table {
+table.table.datatable {
   clear: both;
   margin: 6px 0;
   max-width: none !important;
@@ -8279,6 +8279,10 @@ form .errorlist {
   margin: 0;
   padding: 0;
   font-size: 90%;
+  color: #a94442;
+}
+form .has-error p.help-block {
+  margin: -8px 0 0 0;
 }
 form.add-control select,
 form.add-control textarea,

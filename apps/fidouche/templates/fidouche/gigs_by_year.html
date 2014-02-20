@@ -54,7 +54,7 @@
 {% block require_js %}
 <script>
 	require(['{{ STATIC_URL }}global/js/common.js'], function () {
-		require(['datatables','datatables_bs3']);
+		require(['datatables', 'datatables_plugins']);
 	});
 </script>
 {% endblock %}

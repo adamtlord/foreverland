@@ -164,7 +164,8 @@ function ($) {
 		"aoColumnDefs": [
 			{"bVisible": false, "aTargets": [0]},
 			{"asSorting": ["asc"], "aTargets": [0]},
-			{"iDataSort": 0, "aTargets": [1]}
+			{"iDataSort": 0, "aTargets": [1]},
+			{"sType": "currency", "aTargets": [4,5,6,7]}
 		],
 	});
 });

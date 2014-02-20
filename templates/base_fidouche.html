@@ -47,6 +47,7 @@
                                     {% for year in active_years %}
                                         <li><a href="{% url 'gigs_by_year' year %}">{{ year }}</a></li>
                                     {% endfor %}
+                                    <li><a href="{% url 'gigs_year_over_year' %}">All years</a></li>
                                 </ul>
                             </li>
                         </ul>

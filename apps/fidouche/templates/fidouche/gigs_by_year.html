@@ -2,14 +2,14 @@
 {% load custom_tags %}
 {% load humanize %}
 {% block content %}
-    <h2>Gigs in {{ year }}</h2>
-    <p><em>There are {{ this_years_gigs|length }} gigs in the database for this year.</em></p>
-    {% commend graph here %}
-	    <div class="row">
-	    	<div class="col-md-6">
-	    		<div id="net_by_month"></div>
-	    	</div>
-	    </div>
+	<h2>Gigs in {{ year }}</h2>
+	<p><em>There are {{ this_years_gigs|length }} gigs in the database for this year.</em></p>
+	{% comment graph here %}
+		<div class="row">
+			<div class="col-md-6">
+				<div id="net_by_month"></div>
+			</div>
+		</div>
 	{% endcomment %}
 	<table class="table table-striped table-bordered datatable">
 		<thead>
@@ -53,8 +53,8 @@
 {% endblock %}
 {% block require_js %}
 <script>
-    require(['{{ STATIC_URL }}global/js/common.js'], function () {
-        require(['datatables','datatables_bs3']);
-    });
+	require(['{{ STATIC_URL }}global/js/common.js'], function () {
+		require(['datatables','datatables_bs3']);
+	});
 </script>
 {% endblock %}

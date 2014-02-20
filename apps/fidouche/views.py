@@ -47,7 +47,14 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 @login_required
 def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.html'):
 	"""Choose a gig from this year"""
+
 	gigs = Show.objects.filter(date__year = year)
+	for gig in gigs:
+		gig.total_expenses = sum(filter(None,[gig.sound_cost, gig.in_ears_cost, gig.print_ship_cost, gig.ads_cost, gig.other_cost]))
+		gig.commission_percentage = ''
+		if gig.commission and gig.gross:
+			gig.commission_percentage = int((gig.commission/gig.gross) * 100)
+	
 	d = {
 		'year': year,
 		'this_years_gigs': gigs,

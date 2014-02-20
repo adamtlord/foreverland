@@ -158,4 +158,13 @@ function ($) {
 	}
 	_updateFields();
 	processItemized();
+
+	$('.datatable').dataTable({
+		"iDisplayLength": 100,
+		"aoColumnDefs": [
+			{"bVisible": false, "aTargets": [0]},
+			{"asSorting": ["asc"], "aTargets": [0]},
+			{"iDataSort": 0, "aTargets": [1]}
+		],
+	});
 });

@@ -13,9 +13,10 @@ require.config({
         'jquery.flexslider': 'lib/jquery.flexslider',
         'jquery.scrollTo': 'lib/jquery.scrollTo',
         'jquery.easing': 'lib/jquery.easing',
-        'ekko-lightbox': 'lib/ekko-lightbox',
         'select2': 'lib/select2.min',
         'highcharts': 'lib/highcharts',
+        'datatables': 'lib/jquery.dataTables.min',
+        'datatables_bs3': 'lib/datatables',
 
         // apps - one page applications, each requires a separate build file
         'sitewide': 'apps/sitewide',
@@ -38,7 +39,7 @@ require.config({
         'jquery.flexslider': { deps: ['jquery'] },
         'jquery.scrollTo': { deps: ['jquery'] },
         'jquery.easing': { deps: ['jquery'] },
-        'ekko-lightbox': { deps: ['jquery'] },
-        'highcharts': { exports: 'highcharts', deps: ['jquery'] }
+        'highcharts': { exports: 'highcharts', deps: ['jquery'] },
+        
     }
 });

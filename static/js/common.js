@@ -40,6 +40,6 @@ require.config({
         'jquery.scrollTo': { deps: ['jquery'] },
         'jquery.easing': { deps: ['jquery'] },
         'highcharts': { exports: 'highcharts', deps: ['jquery'] },
-        
+        'datatables': { deps: ['jquery', 'datatables_bs3'] }
     }
 });

@@ -168,4 +168,10 @@ function ($) {
 			{"sType": "currency", "aTargets": [4,5,6,7]}
 		],
 	});
+	$('.datatable-years').dataTable({
+		"bPaginate": false,
+		"bLengthChange": false,
+		"bFilter": false,
+		"bInfo": false,
+	});
 });

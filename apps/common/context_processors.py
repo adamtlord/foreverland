@@ -1,7 +1,5 @@
 from random import randint
 
-from django.core.urlresolvers import reverse
-
 from marketing.models import Testimonial
 from common.utils import years_with_gigs
 

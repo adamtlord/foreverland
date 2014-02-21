@@ -65,6 +65,30 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 @login_required
 def gigs_year_over_year(request,template='fidouche/gigs_year_over_year.html'):
 	d = {}
+	from common.utils import years_with_gigs
+	years_with_gigs = years_with_gigs()
+	gigs = Show.objects.all()
+	years = {}
+	for year in years_with_gigs:
+		years[year] = {}
+		this_years_gigs = gigs.filter(date__year=year)
+		y_gross = []
+		y_net = []
+		y_player = []
+		for gig in this_years_gigs:
+			if gig.gross:
+				y_gross.append(gig.gross)
+			if gig.net:
+				y_net.append(gig.net)
+			if gig.payout:
+				y_player.append(gig.payout)
+		years[year] = {
+			'gigs_played': this_years_gigs.count(),
+			'net':  sum(y_net),
+			'gross': sum(y_gross),
+			'payout': sum(y_player)
+		}
+	d['years'] = years
 	return render(request, template, d)
 
 @login_required

@@ -161,6 +161,7 @@ function ($) {
 
 	$('.datatable').dataTable({
 		"iDisplayLength": 100,
+		"bPaginate": false,
 		"aoColumnDefs": [
 			{"bVisible": false, "aTargets": [0]},
 			{"asSorting": ["asc"], "aTargets": [0]},

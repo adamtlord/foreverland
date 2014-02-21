@@ -8245,6 +8245,7 @@ div.DTFC_LeftFootWrapper table {
 }
 body {
   padding-top: 70px;
+  padding-bottom: 40px;
 }
 body.login {
   padding: 40px 0;

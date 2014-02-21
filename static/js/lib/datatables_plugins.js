@@ -1,11 +1,11 @@
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['jquery'], factory);
-    }
-    else {
-        factory(jQuery);
-    }
-}(function ($) {
+// (function (factory) {
+//     if (typeof define === 'function' && define.amd) {
+//         define(['jquery'], factory);
+//     }
+//     else {
+//         factory(jQuery);
+//     }
+// }(function ($) {
     /* Set the defaults for DataTables initialisation */
 	$.extend( true, $.fn.dataTable.defaults, {
 		"sDom": "<'row'<'col-md-6 dt-length'l><'col-md-6 dt-filter'f>>t<'row'<'col-md-6 dt-info'i><'col-md-6 dt-pagination'p>>",
@@ -405,7 +405,7 @@
 			}
 		} );
 	}
-}));
+// }));
 
 
 

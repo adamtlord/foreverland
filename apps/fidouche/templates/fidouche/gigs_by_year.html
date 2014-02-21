@@ -28,8 +28,8 @@
 		{% for gig in this_years_gigs %}
 			<tr>
 				<td>{{ gig.date|date:"Ymd" }}</td>
-				<td><a href="{% url 'gig_finances' gig.id %}">{{ gig.date|date:"n/j/y" }}</a></td>
-				<td><a href="{% url 'gig_finances' gig.id %}">{{ gig.venue }}</a> {% if not gig.public %}<span class="label label-success">private</span>{% endif %}</td>
+				<td>{% if request.user.is_staff %}<a href="{% url 'gig_finances' gig.id %}">{% endif %}{{ gig.date|date:"n/j/y" }}{% if request.user.is_staff %}</a>{% endif %}</td>
+				<td>{% if request.user.is_staff %}<a href="{% url 'gig_finances' gig.id %}">{% endif %}{{ gig.venue }}{% if request.user.is_staff %}</a>{% endif %} {% if not gig.public %}<span class="label label-success">private</span>{% endif %}</td>
 				<td>{% if gig.attendance %}{{ gig.attendance|intcomma }}{% else %}--{% endif %}</td>
 				<td>{% if gig.gross %}${{ gig.gross|intcomma }}{% else %}--{% endif %}</td>
 				<td>{% if gig.commission %}${{ gig.commission|intcomma }} <small>({{ gig.commission_percentage }}%)</small>{% else %}0{% endif %}</td>
@@ -51,10 +51,18 @@
 		</tbody>
 	</table>
 {% endblock %}
-{% block require_js %}
+{% block js %}
 <script>
-	require(['{{ STATIC_URL }}global/js/common.js'], function () {
-		require(['datatables', 'datatables_plugins']);
+	$(function(){
+		$('.datatable').dataTable({
+			"iDisplayLength": 100,
+			"aoColumnDefs": [
+				{"bVisible": false, "aTargets": [0]},
+				{"asSorting": ["asc"], "aTargets": [0]},
+				{"iDataSort": 0, "aTargets": [1]},
+				{"sType": "currency", "aTargets": [4,5,6,7]}
+			],
+		});
 	});
 </script>
 {% endblock %}

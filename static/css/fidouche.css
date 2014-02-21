@@ -8249,7 +8249,7 @@ body {
 }
 body.login {
   padding: 40px 0;
-  background-color: #eee;
+  background-color: #222;
 }
 .form-signin {
   max-width: 330px;
@@ -8258,6 +8258,11 @@ body.login {
 }
 .form-signin input {
   margin-bottom: 15px;
+}
+.form-signin h2 {
+  font-size: 36px;
+  color: white;
+  text-shadow: 1px 2px 1px #000;
 }
 .page-header {
   margin-top: 0;

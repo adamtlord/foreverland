@@ -16,7 +16,7 @@
 		<tbody>
 			{% for k, v in years.items %}
 			<tr>
-				<td>{{ k }}</td>
+				<td><a href="{% url 'gigs_by_year' k %}">{{ k }}</a></td>
 				<td>{{ v.gigs_played }}</td>
 				<td>${{ v.gross|intcomma }}</td>
 				<td>${{ v.net|intcomma }}</td>
@@ -26,10 +26,15 @@
 		</tbody>
 	</table>
 {% endblock %}
-{% block require_js %}
+{% block js %}
 <script>
-	require(['{{ STATIC_URL }}global/js/common.js'], function () {
-		require(['datatables']);
+	$(function(){
+		$('.datatable-years').dataTable({
+			"bPaginate": false,
+			"bLengthChange": false,
+			"bFilter": false,
+			"bInfo": false,
+		});
 	});
 </script>
 {% endblock %}

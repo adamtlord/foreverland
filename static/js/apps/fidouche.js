@@ -1,11 +1,4 @@
-define([
-    'jquery',
-    'underscore',
-    'bootstrap',
-    'select2',
-],
-
-function ($) {
+$(function ($) {
 	// Methods
 	function updateFields(){
 		var commissionField = $('#commission_percentage').find('option:selected').val() == 'other' ? $('#commission_percentage_other') : $('#commission_percentage').find('option:selected');
@@ -158,21 +151,5 @@ function ($) {
 	}
 	_updateFields();
 	processItemized();
-
-	$('.datatable').dataTable({
-		"iDisplayLength": 100,
-		"bPaginate": false,
-		"aoColumnDefs": [
-			{"bVisible": false, "aTargets": [0]},
-			{"asSorting": ["asc"], "aTargets": [0]},
-			{"iDataSort": 0, "aTargets": [1]},
-			{"sType": "currency", "aTargets": [4,5,6,7]}
-		],
-	});
-	$('.datatable-years').dataTable({
-		"bPaginate": false,
-		"bLengthChange": false,
-		"bFilter": false,
-		"bInfo": false,
-	});
 });
+	

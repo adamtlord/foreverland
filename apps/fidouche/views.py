@@ -4,6 +4,7 @@ from django.forms.models import inlineformset_factory
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 from shows.models import Show, Expense
 from fidouche.forms import GigFinanceForm
@@ -92,6 +93,7 @@ def gigs_year_over_year(request,template='fidouche/gigs_year_over_year.html'):
 	return render(request, template, d)
 
 @login_required
+@staff_member_required
 def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 	"""Choose a gig from this year"""
 	gig_id = int(gig_id)

@@ -27,13 +27,11 @@
     			{% if show.opener %}<div>Opener: {{ show.opener }}</div>{% endif %}
     			{% if show.notes %}<div><small>{{ show.notes }}</small></div>{% endif %}
         		<a href="#" class="detail-launch" data-target="#show_detail_modal" data-toggle="modal" data-showurl="{% url 'show_modal' show.id %}">Details <span class="glyphicon glyphicon-new-window"></span></a>
+                {% if show.fb_event %}<div><a href="{{ show.fb_event }}" class="btn btn-sm btn-facebook"><i class="fa fa-facebook-square"></i> RSVP</a></div>{% endif %}
         	</div>
         </li>
     {% endfor %}
 	</ul>
-	<!-- Detail Modal -->
-	<div id="show_detail_modal" class="modal fade">
-	</div>
 {% endblock %}
 {% block require_js %}
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYqyvZ70GOiWyTw5bXexwSppcu6urgbdQ&sensor=false"></script>
@@ -42,4 +40,8 @@
 			require(['shows']);
 		});
 	</script>
+{% endblock %}
+{% block modals %}
+<!-- Detail Modal -->
+<div id="show_detail_modal" class="modal fade"></div>
 {% endblock %}

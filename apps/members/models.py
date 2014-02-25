@@ -19,6 +19,7 @@ class Member(models.Model):
     join_date = models.DateField(verbose_name="Date of Joining", blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     active = models.BooleanField()
+    sub = models.BooleanField(default=False)
 
     def __unicode__(self):
         return '%s %s' % (self.first_name, self.last_name)

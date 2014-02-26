@@ -21,8 +21,11 @@ body {
 }
 .page-header {
 	margin-top:0;
-	h2 {
+	h2, .btn {
 		margin-top:10px;
+	}
+	.btn {
+		float:right;
 	}
 }
 form {
@@ -167,9 +170,24 @@ table.table.expense-details {
 	font-size:85%;
 	margin-top:6px;
 }
+table.table-valign-middle {
+	> thead > tr > th,
+	> tbody > tr > th,
+	> tfoot > tr > th,
+	> thead > tr > td,
+	> tbody > tr > td, 
+	> tfoot > tr > td {
+		vertical-align:middle;
+	}
+}
 /* RESPONSIVE */
 @media (min-width: 768px) {
 	.form-horizontal .control-label {
 		text-align:left;
+	}
+}
+@media (max-width: 768px) {
+	.page-header .btn {
+		float:left;
 	}
 }

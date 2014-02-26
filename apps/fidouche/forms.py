@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from shows.models import Show
+from shows.models import Show, Expense
 
 
 FINANCIAL_FIELDS = (
@@ -22,6 +22,14 @@ FINANCIAL_FIELDS = (
 	'payout',
 	'to_account'
 )
+EXPENSE_FIELDS = (
+	'date',
+	'payee',
+	'category',
+	'amount',
+	'check_no',
+	'notes'
+)
 
 class GigFinanceForm(ModelForm):
 	class Meta:
@@ -32,3 +40,15 @@ class GigFinanceForm(ModelForm):
 		super(GigFinanceForm, self).__init__(*args, **kwargs)
 		for field in FINANCIAL_FIELDS:
 			self.fields[field].widget.attrs['class'] = 'form-control'
+
+
+class ExpenseForm(ModelForm):
+	class Meta:
+		model = Expense
+		exclude = ['show']
+
+	def __init__(self, *args, **kwargs):
+		super(ExpenseForm, self).__init__(*args, **kwargs)
+		for field in EXPENSE_FIELDS:
+			self.fields[field].widget.attrs['class'] = 'form-control'
+		self.fields['date'].widget.attrs['data-format'] = 'YYYY-MM-DD'

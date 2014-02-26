@@ -50,6 +50,9 @@
                                     <li><a href="{% url 'gigs_year_over_year' %}">All years</a></li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="{% url 'expenses_list' %}">Expenses</a>
+                            </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             {% if request.user.is_staff %}<li><a href="/admin">Admin</a></li>{% endif %}
@@ -67,10 +70,12 @@
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/underscore.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/jquery.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/bootstrap.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/moment.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/select2.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/datatables_plugins.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/highcharts.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/bootstrap-datetimepicker.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/apps/fidouche.js"></script>
         {% block js %}{% endblock %}    
     </body>

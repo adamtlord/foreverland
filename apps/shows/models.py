@@ -109,5 +109,5 @@ class Expense(models.Model):
     notes = notes = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
-        return '%s, $%s to %s' % (self.date.strftime('%n/%j/%y'), self.amount, self.payee)
+        return '%s, $%s to %s' % (self.date.strftime('%m/%d/%y'), self.amount, self.payee)
 

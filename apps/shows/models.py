@@ -98,6 +98,9 @@ class Expense(models.Model):
         ('print','printing'),
         ('ship','shipping'),
         ('ads','ads'),
+        ('rent','rent'),
+        ('equipment','equipment'),
+        ('subcon','subcontracted services'),
         ('other','other'),
     )
     show = models.ForeignKey(Show, related_name="expense", blank=True, null=True)

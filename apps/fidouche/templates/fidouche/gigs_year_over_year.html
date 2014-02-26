@@ -2,7 +2,9 @@
 {% load custom_tags %}
 {% load humanize %}
 {% block content %}
-	<h2>Gigs By Year</h2>
+	<div class="page-header">
+		<h2>Gigs By Year</h2>
+	</div>
 	<table class="table table-striped table-bordered datatable-years">
 		<thead>
 			<tr>
@@ -34,6 +36,9 @@
 			"bLengthChange": false,
 			"bFilter": false,
 			"bInfo": false,
+			"aoColumnDefs": [
+				{"sType": "currency", "aTargets": [2,3,4]}
+			],
 		});
 	});
 </script>

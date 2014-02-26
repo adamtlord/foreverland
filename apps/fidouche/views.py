@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
 from shows.models import Show, Expense
-from fidouche.forms import GigFinanceForm
+from fidouche.forms import GigFinanceForm, ExpenseForm
 
 current_year = date.today().year
 
@@ -119,4 +119,78 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 	}
 
 	return render(request, template, d)
+
+
+@login_required
+def expenses_list(request, template='fidouche/expenses_list.html'):
+	"""Show non-gig expenses"""
+	expenses = Expense.objects.filter(show__isnull=True)
+	d = {
+		'expenses': expenses
+	}
+
+	return render(request, template, d)
+
+
+@login_required
+@staff_member_required
+def expense_details(request, expense_id=None, template='fidouche/expense_details.html'):
+	"""Show/edit single expense"""
+	expense_id = int(expense_id)
+	expense = get_object_or_404(Expense, pk=expense_id)
+
+	if request.method == "POST":
+		form = ExpenseForm(request.POST, instance=expense)
+		if form.is_valid():
+			form.save()
+			messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>KA-CHING.</strong> Expense edited.')
+			return redirect(request.path)
+	else:
+		form = ExpenseForm(instance=expense)
+
+	d = {
+		'form': form,
+		'expense': expense
+	}
+
+	return render(request, template, d)
+
+@login_required
+@staff_member_required
+def expense_create(request, template='fidouche/expense_create.html'):
+	"""Create a new expense record"""
+
+	if request.method == "POST":
+		form = ExpenseForm(request.POST)
+		form.save()
+		messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>KA-CHING.</strong> Expense added.')
+		return redirect(expenses_list)
+
+	else:
+		form = ExpenseForm()
+		expense = None
+
+	d = {
+		'form': form,
+		'expense': expense
+	}
+
+	return render(request, template, d)
+
+
+@login_required
+@staff_member_required
+def expense_delete(request, expense_id=None):
+	"""Delete an expense record"""
+	expense_id = int(expense_id)
+	expense = get_object_or_404(Expense, pk=expense_id)
+	if expense_id:
+		expense.delete()
+		messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>Toast.</strong> Expense deleted.')
+	else:
+		messages.add_message(request, messages.WARNING, '<i class="fa fa-warning"></i> <strong>HUH?</strong> That\'s not a thing.')
+
+	return redirect(expenses_list)
+
+
 

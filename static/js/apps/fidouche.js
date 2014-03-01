@@ -85,10 +85,6 @@ $(function ($) {
 	}
 
 	// Handlers //
-	$('#gig_select_nav').select2().on('change', function(e) {
-		window.location = $(this).find('option:selected').val();
-	});
-
 	$('.factor').on('blur', 'input, select', function(){
 		_updateFields();
 	});

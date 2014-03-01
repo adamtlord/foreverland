@@ -1,12 +1,13 @@
 from datetime import date
 import datetime
 from django.forms.models import inlineformset_factory
+from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
-from members.models import Member, Sub
+from members.models import Member
 from shows.models import Show, Expense
 from fidouche.models import Payment, SubPayment
 from fidouche.forms import GigFinanceForm, ExpenseForm, PaymentForm, SubPaymentForm
@@ -16,7 +17,7 @@ current_year = date.today().year
 @login_required
 def financial_dashboard(request, template='fidouche/dashboard.html'):
 	""""""
-	gigs = Show.objects.all().order_by('-date')
+	gigs = Show.objects.filter(date__year = current_year)
 	last_show = gigs.filter(date__lte=datetime.datetime.now()).order_by('-date')[0]
 	next_show = gigs.filter(date__gte=datetime.datetime.now()).order_by('date')[0]
 	gigs_booked = gigs.filter(date__year=current_year)
@@ -43,7 +44,7 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 		'gigs': gigs,
 		'last_show': last_show,
 		'next_show': next_show,
-		'ytd': ytd
+		'ytd': ytd,
 	}
 	return render(request, template, d)
 
@@ -52,29 +53,35 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 	"""Listing of all gigs in the given year"""
 
 	gigs = Show.objects.filter(date__year = year)
+	
+	by_month = {}
+	public = []
+	private = []
+
+	for m in range(1,13):
+		month_gigs = gigs.filter(date__month = m)
+		by_month[m] = {
+			'count': month_gigs.count(),
+			'gross': month_gigs.aggregate(Sum('gross'))
+		}
+
 	for gig in gigs:
 		gig.total_expenses = sum(filter(None,[gig.sound_cost, gig.in_ears_cost, gig.print_ship_cost, gig.ads_cost, gig.other_cost]))
 		gig.commission_percentage = ''
 		sc = gig.sound_cost or 0
 		if gig.commission and gig.gross:
 			gig.commission_percentage = int((gig.commission/(gig.gross - sc)) * 100)
-	by_month = {
-		1:[],
-		2:[],
-		3:[],
-		4:[],
-		5:[],
-		6:[],
-		7:[],
-		8:[],
-		9:[],
-		10:[],
-		11:[],
-		12:[]
-	}
+		if gig.public:
+			public.append(gig)
+		else:
+			private.append(gig)
+	
 	d = {
 		'year': year,
 		'this_years_gigs': gigs,
+		'by_month': by_month,
+		'private': len(private),
+		'public': len(public)
 	}
 	return render(request, template, d)
 

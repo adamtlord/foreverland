@@ -1,13 +1,16 @@
 from datetime import date
 import datetime
-from django.forms.models import inlineformset_factory
+from django.forms.models import inlineformset_factory, modelformset_factory
+from django.forms.formsets import formset_factory
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
+from members.models import Member
 from shows.models import Show, Expense
-from fidouche.forms import GigFinanceForm, ExpenseForm
+from fidouche.models import Payment
+from fidouche.forms import GigFinanceForm, ExpenseForm, PaymentForm
 
 current_year = date.today().year
 
@@ -47,7 +50,7 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 
 @login_required
 def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.html'):
-	"""Choose a gig from this year"""
+	"""Listing of all gigs in the given year"""
 
 	gigs = Show.objects.filter(date__year = year)
 	for gig in gigs:
@@ -56,7 +59,20 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 		sc = gig.sound_cost or 0
 		if gig.commission and gig.gross:
 			gig.commission_percentage = int((gig.commission/(gig.gross - sc)) * 100)
-	
+	by_month = {
+		1:[],
+		2:[],
+		3:[],
+		4:[],
+		5:[],
+		6:[],
+		7:[],
+		8:[],
+		9:[],
+		10:[],
+		11:[],
+		12:[]
+	}
 	d = {
 		'year': year,
 		'this_years_gigs': gigs,
@@ -96,25 +112,35 @@ def gigs_year_over_year(request,template='fidouche/gigs_year_over_year.html'):
 @staff_member_required
 def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 	"""Choose a gig from this year"""
+
 	gig_id = int(gig_id)
 	gig = get_object_or_404(Show, pk=gig_id)
+	active_members = Member.objects.filter(active=True)
+
+	initial_payments = []
+
 	ExpenseFormSet = inlineformset_factory(Show, Expense)
+	PaymentFormSet = inlineformset_factory(Show, Payment, form=PaymentForm, extra=len(active_members), max_num=14, can_delete=False)	
 
 	if request.method == "POST":
 		form = GigFinanceForm(request.POST, instance=gig)
-		formset = ExpenseFormSet(request.POST, instance=gig)
-		if form.is_valid() and formset.is_valid():
+		expense_formset = ExpenseFormSet(request.POST, instance=gig)
+		payment_formset = PaymentFormSet(request.POST, instance=gig)
+		if form.is_valid() and expense_formset.is_valid() and payment_formset.is_valid():
 			form.save()
-			formset.save()
+			expense_formset.save()
+			payment_formset.save()
 			messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>NICE.</strong> Gig finances updated!')
 			return redirect(request.path)
 	else:
 		form = GigFinanceForm(instance=gig)
-		formset = ExpenseFormSet(instance=gig)
+		expense_formset = ExpenseFormSet(instance=gig)
+		payment_formset = PaymentFormSet(instance=gig)
 
 	d = {
 		'form': form,
-		'formset': formset,
+		'expense_formset': expense_formset,
+		'payment_formset': payment_formset,
 		'gig': gig
 	}
 

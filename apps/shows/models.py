@@ -114,3 +114,4 @@ class Expense(models.Model):
     def __unicode__(self):
         return '%s, $%s to %s' % (self.date.strftime('%m/%d/%y'), self.amount, self.payee)
 
+

@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 
 from shows.models import Show, Expense
+from fidouche.models import Payment
 
 
 FINANCIAL_FIELDS = (
@@ -45,10 +46,15 @@ class GigFinanceForm(ModelForm):
 class ExpenseForm(ModelForm):
 	class Meta:
 		model = Expense
-		exclude = ['show']
 
 	def __init__(self, *args, **kwargs):
 		super(ExpenseForm, self).__init__(*args, **kwargs)
-		for field in EXPENSE_FIELDS:
+		for field in self.fields:
 			self.fields[field].widget.attrs['class'] = 'form-control'
 		self.fields['date'].widget.attrs['data-format'] = 'YYYY-MM-DD'
+
+
+class PaymentForm(ModelForm):
+	class Meta:
+		model = Payment
+		# fields = ('member', 'amount', 'paid')

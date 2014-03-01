@@ -138,11 +138,12 @@
 				</div>
 		     </div>
 		 </fieldset>
+		 {{ payment_formset }}
 		</div>
 		<fieldset id="itemize" class="expenses collapse">
 			<legend>Itemized Expenses</legend>
-			{{ formset.management_form }}
-			{{ formset.non_form_errors.as_ul }}
+			{{ expense_formset.management_form }}
+			{{ expense_formset.non_form_errors.as_ul }}
 			<table id="expenses_formset" class="table table-striped">
 				<thead>
 					<tr>
@@ -155,7 +156,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				{% for form in formset.forms %}
+				{% for form in expense_formset.forms %}
 					<tr>
 						{{ form.id }}
 						<td>{{ form.payee }}</td>

@@ -1,16 +1,15 @@
 from datetime import date
 import datetime
-from django.forms.models import inlineformset_factory, modelformset_factory
-from django.forms.formsets import formset_factory
+from django.forms.models import inlineformset_factory
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
-from members.models import Member
+from members.models import Member, Sub
 from shows.models import Show, Expense
-from fidouche.models import Payment
-from fidouche.forms import GigFinanceForm, ExpenseForm, PaymentForm
+from fidouche.models import Payment, SubPayment
+from fidouche.forms import GigFinanceForm, ExpenseForm, PaymentForm, SubPaymentForm
 
 current_year = date.today().year
 
@@ -119,26 +118,31 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 
 	ExpenseFormSet = inlineformset_factory(Show, Expense)
 	PaymentFormSet = inlineformset_factory(Show, Payment, form=PaymentForm, extra=len(active_members), max_num=14, can_delete=False)	
+	SubPaymentFormSet = inlineformset_factory(Show, SubPayment, form=SubPaymentForm)
 
 	if request.method == "POST":
 		form = GigFinanceForm(request.POST, instance=gig)
 		expense_formset = ExpenseFormSet(request.POST, instance=gig)
 		payment_formset = PaymentFormSet(request.POST, instance=gig)
-		if form.is_valid() and expense_formset.is_valid() and payment_formset.is_valid():
+		sub_payment_formset = SubPaymentFormSet(request.POST, instance=gig)
+		if form.is_valid() and expense_formset.is_valid() and payment_formset.is_valid() and sub_payment_formset.is_valid():
 			form.save()
 			expense_formset.save()
 			payment_formset.save()
+			sub_payment_formset.save()
 			messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>NICE.</strong> Gig finances updated!')
 			return redirect(request.path)
 	else:
 		form = GigFinanceForm(instance=gig)
 		expense_formset = ExpenseFormSet(instance=gig)
 		payment_formset = PaymentFormSet(instance=gig)
+		sub_payment_formset = SubPaymentFormSet(instance=gig)
 
 	d = {
 		'form': form,
 		'expense_formset': expense_formset,
 		'payment_formset': payment_formset,
+		'sub_payment_formset': sub_payment_formset,
 		'gig': gig
 	}
 

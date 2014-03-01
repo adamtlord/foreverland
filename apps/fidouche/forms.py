@@ -1,8 +1,7 @@
-from django import forms
 from django.forms import ModelForm
 
 from shows.models import Show, Expense
-from fidouche.models import Payment
+from fidouche.models import Payment, SubPayment
 
 
 FINANCIAL_FIELDS = (
@@ -22,7 +21,9 @@ FINANCIAL_FIELDS = (
 	'other_cost',
 	'net',
 	'payout',
-	'to_account'
+	'to_account',
+	'subs', 
+	'costs_itemized'
 )
 EXPENSE_FIELDS = (
 	'date',
@@ -61,5 +62,14 @@ class PaymentForm(ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(PaymentForm, self).__init__(*args, **kwargs)
 		self.fields['member'].widget.attrs['class'] = 'form-control input-sm'
+		self.fields['amount'].widget.attrs['class'] = 'form-control input-sm'
+
+
+class SubPaymentForm(ModelForm):
+	class Meta:
+		model = SubPayment
+	def __init__(self, *args, **kwargs):
+		super(SubPaymentForm, self).__init__(*args, **kwargs)
+		self.fields['sub'].widget.attrs['class'] = 'form-control input-sm'
 		self.fields['amount'].widget.attrs['class'] = 'form-control input-sm'
 

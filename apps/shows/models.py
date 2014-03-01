@@ -84,6 +84,7 @@ class Show(models.Model):
     net = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     payout = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     to_account = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    subs = models.BooleanField(default=False)
 
 
     class Meta:

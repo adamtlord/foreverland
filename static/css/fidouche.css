@@ -8876,11 +8876,17 @@ textarea#expenses_formset input[type="color"] {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
-#payment_formset td {
+#payment_formset,
+#sub_payment_formset {
+  margin-bottom: 10px;
+}
+#payment_formset td,
+#sub_payment_formset td {
   vertical-align: middle;
 }
-#payment_formset .member select {
-  width: auto;
+#payment_formset .paid,
+#sub_payment_formset .paid {
+  text-align: center;
 }
 #commission_other,
 #payment_check_no {
@@ -8889,12 +8895,15 @@ textarea#expenses_formset input[type="color"] {
 legend.with-btn {
   padding-bottom: 5px;
 }
-legend .btn {
+legend .btn,
+#subs_toggle {
   float: right !important;
   float: right;
 }
 legend .btn:focus,
-legend .btn.active:focus {
+#subs_toggle:focus,
+legend .btn.active:focus,
+#subs_toggle.active:focus {
   outline: none;
 }
 i.expense-detail-toggle {

@@ -13,7 +13,7 @@ $(function ($) {
 		var max = $('#max_payout');
 		var payout = $('#id_payout');
 		var account = $('#id_to_account');
-		var payment_amount = $('.amount input');
+		var payment_amount = $('#payment .amount input');
 		// payable
 		var g = parseFloat(gross.val()) || 0;
 		var cp = parseFloat(commissionField.val()) || 0;
@@ -130,16 +130,23 @@ $(function ($) {
 			parentGroup.addClass('has-error');
 		}
 	});
-	$('#itemize-toggle').click(function(){
+	$('#itemize_toggle').click(function(){
 		if($(this).hasClass('active')){
-			$('#id_costs_itemized').val('False');
+			$('#id_costs_itemized').val('False').change();
 			$('.expenses-summed input').removeAttr('readonly');
 		} else {
-			$('#id_costs_itemized').val('True');
+			$('#id_costs_itemized').val('True').change();
 			$('.expenses-summed input').attr('readonly','readonly');
 		}
 		$('#itemize').collapse('toggle');
-
+	});
+	$('#subs_toggle').click(function(){
+		if($(this).hasClass('active')){
+			$('#id_subs').val('False').change();
+		} else {
+			$('#id_subs').val('True').change();
+		}
+		$('#sub_payment').collapse('toggle');
 	});
 	$('#expenses_formset').on('blur', '.expense-amount input, .category select', function(){
 		processItemized();
@@ -149,7 +156,10 @@ $(function ($) {
 	});
 	// On load //
 	if($('#id_costs_itemized').val() == 'True'){
-		$('#itemize-toggle').click();
+		$('#itemize_toggle').click();
+	}
+	if($('#id_subs').val() == 'True'){
+		$('#subs_toggle').click();
 	}
 	_updateFields();
 	processItemized();

@@ -145,12 +145,13 @@ fieldset#itemize {
 		}
 	}
 }
-#payment_formset {
+#payment_formset, #sub_payment_formset {
+	margin-bottom:10px;
 	td {
 		vertical-align:middle;
 	}
-	.member select {
-		width:auto;
+	.paid {
+		text-align:center;
 	}
 }
 #commission_other,  #payment_check_no{
@@ -159,7 +160,7 @@ fieldset#itemize {
 legend.with-btn {
 	padding-bottom:5px;
 }
-legend .btn{
+legend .btn, #subs_toggle{
 	.pull-right;
 	&:focus, &.active:focus {
 		outline:none;

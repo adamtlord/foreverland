@@ -21,4 +21,4 @@ class Member(models.Model):
     active = models.BooleanField()
 
     def __unicode__(self):
-        return '%s %s' % (self.first_name, self.last_name)
+        return '%s %s' % (self.display_first, self.display_last)

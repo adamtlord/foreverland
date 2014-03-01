@@ -117,8 +117,6 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 	gig = get_object_or_404(Show, pk=gig_id)
 	active_members = Member.objects.filter(active=True)
 
-	initial_payments = []
-
 	ExpenseFormSet = inlineformset_factory(Show, Expense)
 	PaymentFormSet = inlineformset_factory(Show, Payment, form=PaymentForm, extra=len(active_members), max_num=14, can_delete=False)	
 

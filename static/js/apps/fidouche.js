@@ -13,6 +13,7 @@ $(function ($) {
 		var max = $('#max_payout');
 		var payout = $('#id_payout');
 		var account = $('#id_to_account');
+		var payment_amount = $('.amount input');
 		// payable
 		var g = parseFloat(gross.val()) || 0;
 		var cp = parseFloat(commissionField.val()) || 0;
@@ -34,6 +35,7 @@ $(function ($) {
 		max.html(mp);
 		net.val(n).change();
 		account.val(acc).change();
+		payment_amount.val(p).change();
 	}
 	var _updateFields = _.throttle(updateFields, 500);
 	

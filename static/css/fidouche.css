@@ -8876,6 +8876,12 @@ textarea#expenses_formset input[type="color"] {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
+#payment_formset td {
+  vertical-align: middle;
+}
+#payment_formset .member select {
+  width: auto;
+}
 #commission_other,
 #payment_check_no {
   margin-top: 10px;

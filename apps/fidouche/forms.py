@@ -1,3 +1,4 @@
+from django import forms
 from django.forms import ModelForm
 
 from shows.models import Show, Expense
@@ -57,4 +58,8 @@ class ExpenseForm(ModelForm):
 class PaymentForm(ModelForm):
 	class Meta:
 		model = Payment
-		# fields = ('member', 'amount', 'paid')
+	def __init__(self, *args, **kwargs):
+		super(PaymentForm, self).__init__(*args, **kwargs)
+		self.fields['member'].widget.attrs['class'] = 'form-control input-sm'
+		self.fields['amount'].widget.attrs['class'] = 'form-control input-sm'
+

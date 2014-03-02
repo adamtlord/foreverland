@@ -60,8 +60,13 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 	gigs = Show.objects.filter(date__year = year)
 	
 	by_month = {}
-	public = []
-	private = []
+	players = []
+	commission = []
+	sound = []
+	iem = []
+	printship = []
+	ads = []
+	other = []
 
 	for m in range(1,13):
 		month_gigs = gigs.filter(date__month = m)
@@ -76,17 +81,32 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 		sc = gig.sound_cost or 0
 		if gig.commission and gig.gross:
 			gig.commission_percentage = int((gig.commission/(gig.gross - sc)) * 100)
-		if gig.public:
-			public.append(gig)
-		else:
-			private.append(gig)
+		if gig.payout:
+			players.append(gig.payout)
+		if gig.commission:
+			commission.append(gig.commission)
+		if gig.sound_cost:
+			sound.append(gig.sound_cost)
+		if gig.in_ears_cost:
+			iem.append(gig.in_ears_cost)
+		if gig.print_ship_cost:
+			printship.append(gig.print_ship_cost)
+		if gig.ads_cost:
+			ads.append(gig.ads_cost)
+		if gig.other_cost:
+			other.append(gig.other_cost)
 	
 	d = {
 		'year': year,
 		'this_years_gigs': gigs,
 		'by_month': by_month,
-		'private': len(private),
-		'public': len(public)
+		'players': sum(players),
+		'commission': sum(commission),
+		'sound': sum(sound),
+		'iem': sum(iem),
+		'printship': sum(printship),
+		'ads': sum(ads),
+		'other': sum(other)
 	}
 	return render(request, template, d)
 

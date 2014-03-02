@@ -9,7 +9,7 @@
 			<div id="net_by_month"></div>
 		</div>
 		<div class="col-md-6">
-			<div id="public_v_private"></div>
+			<div id="year_pie"></div>
 		</div>
 	</div>
 	<hr> 
@@ -103,23 +103,39 @@
 			}],
 			tooltip: {
 				formatter: function(){
-					return '<strong>' + this.x + '</strong><br>$' + this.y;
+					return '<strong>' + this.x + '</strong><br>$' + this.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 				}
 			}
 		});
-		$('#public_v_private').highcharts({
+		$('#year_pie').highcharts({
 			title: { 
-				text: "Public vs. Private"
+				text: "{{ year }} at a glance"
 			},
 			series: [{
 				type: 'pie',
 				data: [
-					['Public' , {{ public }}],
-					['Private', {{ private }}]
+					['Players' , {{ players }}],
+					['Commission', {{ commission }}],
+					['In-Ears', {{ iem }}],
+					['Print/Ship', {{ printship }}],
+					['Ads', {{ ads }}],
+					['Other', {{ other }}]
 				]
 			}],
 			tooltip: {
 				enabled: false 
+			},
+			plotOptions: {
+				pie: {
+					dataLabels: {
+						formatter: function(){
+							console.log(this)
+							return '<strong>' + this.key + '</strong>: $' + this.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' (' + Math.floor(this.percentage) + '%)';
+						},
+						distance: 10,
+						softConnector: false
+					}
+				}
 			}
 		});
 	});

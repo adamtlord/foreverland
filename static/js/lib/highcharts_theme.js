@@ -1,10 +1,12 @@
 Highcharts.theme = {
     colors: [
         '#428bca',
-        '#5bc0de',
         '#5cb85c',
         '#f0ad4e',
-        '#d9534f'
+        '#d9534f',
+        '#790CE8',
+        '#5bc0de',
+        '#38c79e'
     ],
     chart: {
         style: {
@@ -48,7 +50,7 @@ Highcharts.theme = {
 		borderRadius: 0,
     },
     plotOptions: {
-		pie : {
+		pie: {
 			dataLabels: {
 				formatter: function(){
 					return this.key + ' (' + this.y + ')';

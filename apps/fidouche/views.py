@@ -25,6 +25,11 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 	ytd_gross = []
 	ytd_net = []
 	ytd_player = []
+	for gig in gigs:
+		gig.commission_percentage = ''
+		sc = gig.sound_cost or 0
+		if gig.commission and gig.gross:
+			gig.commission_percentage = int((gig.commission/(gig.gross - sc)) * 100)
 	for gig in gigs_played:
 		if gig.gross:
 			ytd_gross.append(gig.gross)

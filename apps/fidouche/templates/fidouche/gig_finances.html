@@ -153,6 +153,7 @@
 					{% for form in payment_formset.forms %}
 						<tr>
 							{{ form.id }}
+							{{ form.show }}
 							<td class="member">
 								{{ form.member }}
 							</td>
@@ -226,7 +227,7 @@
 			{% for form in expense_formset.forms %}
 				<tr>
 					{{ form.id }}
-					<td>{{ form.payee }}</td>
+					<td class="payee">{{ form.payee }}</td>
 					<td class="category">{{ form.category }}</td>
 					<td class="expense-amount">{{ form.amount }}</td>
 					<td>{{ form.check_no }}</td>

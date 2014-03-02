@@ -8,8 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
 from members.models import Member
-from shows.models import Show, Expense
-from fidouche.models import Payment, SubPayment
+from shows.models import Show
+from fidouche.models import Payment, SubPayment, Expense
 from fidouche.forms import GigFinanceForm, ExpenseForm, PaymentForm, SubPaymentForm
 
 current_year = date.today().year
@@ -126,7 +126,7 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 	initial_payments = []
 	for member in active_members:
 		pd = {
-			'show': gig,
+			'show': gig.id,
 			'member': member
 		}
 		initial_payments.append(pd)

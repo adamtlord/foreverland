@@ -3,7 +3,6 @@ from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 
 from common.utils import get_lat_lng
 
-
 class Venue(models.Model):
     venue_name = models.CharField(max_length=200, blank=True, null=True)
     venue_image = models.ImageField(upload_to='venues/', blank=True)
@@ -92,27 +91,3 @@ class Show(models.Model):
 
     def __unicode__(self):
         return '%s %s' % (self.date.strftime('%m/%d/%y'), self.venue)
-
-
-class Expense(models.Model):
-    EXPENSE_CATEGORIES = (
-        ('print','printing'),
-        ('ship','shipping'),
-        ('ads','ads'),
-        ('rent','rent'),
-        ('equipment','equipment'),
-        ('subcon','subcontracted services'),
-        ('other','other'),
-    )
-    show = models.ForeignKey(Show, related_name="expense", blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
-    payee = models.CharField(max_length=100, blank=True, null=True)
-    category = models.CharField(max_length=100, blank=True, null=True, choices=EXPENSE_CATEGORIES)
-    amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    check_no = models.IntegerField(blank=True, null=True, verbose_name="Check #")
-    notes = notes = models.TextField(blank=True, null=True)
-
-    def __unicode__(self):
-        return '%s, $%s to %s' % (self.date.strftime('%m/%d/%y'), self.amount, self.payee)
-
-

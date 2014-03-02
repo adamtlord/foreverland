@@ -55,7 +55,7 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            {% if request.user.is_staff %}<li><a href="/admin">Admin</a></li>{% endif %}
+                            {% if request.user.is_staff %}<li><a href="/admin">DB Admin</a></li>{% endif %}
                             <li><a href="{% url 'homepage' %}">Foreverland.com</a></li>
                             <li><a href="{% url 'auth_logout' %}">Log out</a></li>
                         </ul>

@@ -1,5 +1,6 @@
 from django.contrib import admin
-from shows.models import Venue, Show, Expense
+from shows.models import Venue, Show
+from fidouche.models import Expense
 
 
 class VenueAdmin(admin.ModelAdmin):

@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 
-from shows.models import Show, Expense
-from fidouche.models import Payment, SubPayment
+from shows.models import Show
+from fidouche.models import Payment, SubPayment, Expense
 
 
 FINANCIAL_FIELDS = (

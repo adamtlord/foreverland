@@ -8274,6 +8274,9 @@ textarea#expenses_formset input[type="color"] {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
+#expenses_formset .payee select {
+  width: auto;
+}
 #payment_formset,
 #sub_payment_formset {
   margin-bottom: 10px;

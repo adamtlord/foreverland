@@ -127,15 +127,6 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 	gig_id = int(gig_id)
 	gig = get_object_or_404(Show, pk=gig_id)
 	active_members = Member.objects.filter(active=True)
-	
-	initial_payments = []
-	for member in active_members:
-		pd = {
-			'show': gig.id,
-			'member': member
-		}
-		initial_payments.append(pd)
-
 
 	ExpenseFormSet = inlineformset_factory(Show, Expense)
 	PaymentFormSet = inlineformset_factory(Show, Payment, form=PaymentForm, extra=len(active_members), max_num=14, can_delete=False)	
@@ -153,10 +144,12 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 			sub_payment_formset.save()
 			messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>NICE.</strong> Gig finances updated!')
 			return redirect(request.path)
+		else:
+			messages.add_message(request, messages.DANGER, '<i class="fa fa-wrench"></i> <strong>Aw, damnit.</strong> Something\'s fucked up.')
 	else:
 		form = GigFinanceForm(instance=gig)
 		expense_formset = ExpenseFormSet(instance=gig)
-		payment_formset = PaymentFormSet(initial=initial_payments)
+		payment_formset = PaymentFormSet(instance=gig)
 		sub_payment_formset = SubPaymentFormSet(instance=gig)
 
 	d = {

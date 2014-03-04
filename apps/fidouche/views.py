@@ -202,7 +202,7 @@ def expense_details(request, expense_id=None, template='fidouche/expense_details
 	expense = get_object_or_404(Expense, pk=expense_id)
 
 	if request.method == "POST":
-		form = ExpenseForm(request.POST, instance=expense)
+		form = ExpenseForm(request.POST, request.FILES, instance=expense)
 		if form.is_valid():
 			form.save()
 			messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>KA-CHING.</strong> Expense edited.')
@@ -223,7 +223,7 @@ def expense_create(request, template='fidouche/expense_create.html'):
 	"""Create a new expense record"""
 
 	if request.method == "POST":
-		form = ExpenseForm(request.POST)
+		form = ExpenseForm(request.POST, request.FILES)
 		form.save()
 		messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>KA-CHING.</strong> Expense added.')
 		return redirect(expenses_list)

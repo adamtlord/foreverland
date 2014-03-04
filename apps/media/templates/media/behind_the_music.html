@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load custom_tags %}
+{% load thumbnail %}
 
 {% block body %}
 <div class="container interior">
@@ -9,9 +10,11 @@
 			<h3>Photos</h3>
 		    <div class="album">
 		    {% for img in album.images %}
-		        <a href="{{ MEDIA_URL }}{{ img.image.name }}" class="thumb" data-toggle="lightbox" data-gallery="{{ album.title|slugify }}">
-		            <img border="0" alt="" src="{{ MEDIA_URL }}{{ img.thumbnail2.name }}" />
-		        </a>
+		    	{% thumbnail img.image "100x100" crop="center" as im %}
+		    		<a href="{{ MEDIA_URL }}{{ img.image.name }}" class="thumb">
+		    			<img src="{{ MEDIA_URL }}{{ im }}" width="{{ im.width }}" height="{{ im.height }}">
+		        	</a>
+		        {% endthumbnail %}
 		    {% endfor %}
 		    </div>
 		</div>

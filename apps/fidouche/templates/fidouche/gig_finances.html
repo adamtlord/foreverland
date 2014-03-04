@@ -10,14 +10,64 @@
 	<div class="row">
 		<div class="col-md-6 col-sm-6">
 			<fieldset>
-				<legend>Payment</legend>
+				<legend class="with-btn">Payment <button type="button" id="buyouts_toggle" data-toggle="button" class="btn btn-sm btn-success pull-right"><i class="fa fa-cutlery"></i> Buyouts</button></legend>
+				{{ form.gross_itemized.as_hidden }}
 				<div class="form-group factor">
-					<label for="gross" class="control-label">Gross</label>
+					<label for="gross" class="control-label">Gross</label> 
 					<div class="input-group">
 						<span class="input-group-addon">$</span>
 						{{ form.gross }}
 					</div>
 				</div>
+				<fieldset id="buyouts" class="collapse">
+					<div class="form-horizontal">
+						<div class="form-group factor">
+							<label for="gross_method" class="control-label col-md-4">Fee</label>
+							<div class="col-md-8">
+								<div class="input-group">
+									<span class="input-group-addon">$</span>
+									{{ form.fee }}
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="gross_method" class="control-label col-md-4">Food Buyout</label>
+							<div class="col-md-8">
+								<div class="input-group">
+									<span class="input-group-addon">$</span>
+									{{ form.food_buyout }}
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="gross_method" class="control-label col-md-4">Travel Buyout</label>
+							<div class="col-md-8">
+								<div class="input-group">
+									<span class="input-group-addon">$</span>
+									{{ form.travel_buyout }}
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="gross_method" class="control-label col-md-4">Lodging Buyout</label>
+							<div class="col-md-8">
+								<div class="input-group">
+									<span class="input-group-addon">$</span>
+									{{ form.lodging_buyout }}
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="gross_method" class="control-label col-md-4">Other Buyout</label>
+							<div class="col-md-8">
+								<div class="input-group">
+									<span class="input-group-addon">$</span>
+									{{ form.other_buyout }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
 				<div class="form-horizontal">
 					<div class="form-group payment-method">
 						<label for="gross_method" class="control-label col-md-4">Payment method</label>
@@ -145,8 +195,8 @@
 					<thead>
 						<tr>
 							<th width="40%">Member</th>
-							<th width="50%">Amount</th>
-							<th>Paid?</th>
+							<th width="40%">Amount</th>
+							<th>Paid? <input type="checkbox" id="payment_check_all"></th>
 						</tr>
 					</thead>
 					<tbody>

@@ -17,6 +17,7 @@ class Venue(models.Model):
     contact = models.CharField(max_length=100, blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     ltlng = models.CharField(max_length=100, blank=True, null=True)
+    capacity = models.IntegerField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
         """ Let's get the latlng before we save"""
@@ -66,6 +67,12 @@ class Show(models.Model):
     )
     attendance = models.IntegerField(blank=True, null=True)
     gross = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    gross_itemized = models.BooleanField(default=False)
+    fee = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    food_buyout = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    travel_buyout = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    lodging_buyout = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    other_buyout = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     gross_method = models.CharField(max_length=100, blank=True, null=True, choices=METHOD_CHOICES, default=CASH)
     payer = models.CharField(max_length=100, blank=True, null=True, choices=PAYEE_CHOICES, default=CLIENT)
     payee_check_no = models.IntegerField(blank=True, null=True)

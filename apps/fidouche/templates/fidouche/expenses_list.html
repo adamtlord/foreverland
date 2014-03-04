@@ -1,6 +1,7 @@
 {% extends 'base_fidouche.html' %}
 {% load custom_tags %}
 {% load humanize %}
+{% load thumbnail %}
 
 {% block content %}
 <div class="page-header">
@@ -25,6 +26,7 @@
 				<th>Category</th>
 				<th>Check #</th>
 				<th>Notes</th>
+				<th>Receipt</th>
 			{% if request.user.is_staff %}
 				<th>Action</th>
 			{% endif %}
@@ -34,11 +36,18 @@
 			{% for expense in expenses %}
 			<tr>
 				<td>{{ expense.date|date:"n/j/y" }}</td>
-				<td>${{ expense.amount|intcomma }}</td>
-				<td>{{ expense.payee }}</td>
-				<td>{{ expense.category }}</td>
-				<td>{{ expense.check_no }}</td>
-				<td>{{ expense.notes }}</td>
+				<td>{% if expense.amount %}${{ expense.amount|intcomma }}{% endif %}</td>
+				<td>{% if expense.payee %}{{ expense.payee }}{% endif %}</td>
+				<td>{% if expense.category %}{{ expense.category }}{% endif %}</td>
+				<td>{% if expense.check_no %}{{ expense.check_no }}{% endif %}</td>
+				<td>{% if expense.notes %}{{ expense.notes }}{% endif %}</td>
+				<td>
+					{% thumbnail expense.receipt_img "60x60" crop="center" as im %}
+					<a href="{{ MEDIA_URL }}{{ expense.receipt_img.name }}" class="thumb">
+						<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+					</a>
+					{% endthumbnail %}
+				</td>
 			{% if request.user.is_staff %}
 				<td>
 					<a href="{% url 'expense_details' expense.id %}" class="btn btn-sm btn-default">edit</a>
@@ -58,6 +67,12 @@
 				{"sType": "currency", "aTargets": [1]},
 				{"sType": "date", "aTargets": [0]}
 			]
+		});
+		$('.thumb').magnificPopup({
+			type:'image',
+			zoom: {
+				enabled: true
+			}
 		});
 	});
 </script>

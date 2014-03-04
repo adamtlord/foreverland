@@ -17,6 +17,7 @@ require.config({
         'highcharts': 'lib/highcharts',
         'datatables': 'lib/jquery.dataTables.min',
         'datatables_plugins': 'lib/datatables_plugins',
+        'magnific-popup': 'lib/magnific-popup.min',
 
         // apps - one page applications, each requires a separate build file
         'sitewide': 'apps/sitewide',
@@ -39,6 +40,7 @@ require.config({
         'jquery.flexslider': { deps: ['jquery'] },
         'jquery.scrollTo': { deps: ['jquery'] },
         'jquery.easing': { deps: ['jquery'] },
-        'highcharts': { exports: 'highcharts', deps: ['jquery'] }
+        'highcharts': { exports: 'highcharts', deps: ['jquery'] },
+        'magnific-popup': { deps: ['jquery'] }
     }
 });

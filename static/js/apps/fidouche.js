@@ -3,6 +3,7 @@ $(function ($) {
 	function updateFields(){
 		var commissionField = $('#commission_percentage').find('option:selected').val() == 'other' ? $('#commission_percentage_other') : $('#commission_percentage').find('option:selected');
 		var gross = $('#id_gross');
+		var fee = $('#id_fee');
 		var commission = $('#id_commission');
 		var sound = $('#id_sound_cost');
 		var inears = $('#id_in_ears_cost').find('option:selected');
@@ -14,7 +15,12 @@ $(function ($) {
 		var payout = $('#id_payout');
 		var account = $('#id_to_account');
 		// payable
-		var g = parseFloat(gross.val()) || 0;
+		var g;
+		if (fee.val() > 0) {
+			g = parseFloat(fee.val());
+		} else {
+			g = parseFloat(gross.val()) || 0;
+		}
 		var cp = parseFloat(commissionField.val()) || 0;
 		var sc = parseFloat(sound.val()) || 0;
 		var iem = parseFloat(inears.val()) || 0;
@@ -136,6 +142,7 @@ $(function ($) {
 			$('.expenses-summed input').attr('readonly','readonly');
 		}
 		$('#itemize').collapse('toggle');
+		$(this).blur();
 	});
 	$('#subs_toggle').click(function(){
 		if($(this).hasClass('active')){
@@ -144,6 +151,16 @@ $(function ($) {
 			$('#id_subs').val('True').change();
 		}
 		$('#sub_payment').collapse('toggle');
+		$(this).blur();
+	});
+	$('#buyouts_toggle').click(function(){
+		if($(this).hasClass('active')){
+			$('#id_gross_itemized').val('False').change();
+		} else {
+			$('#id_gross_itemized').val('True').change();
+		}
+		$('#buyouts').collapse('toggle');
+		$(this).blur();
 	});
 	$('#expenses_formset').on('blur', '.expense-amount input, .category select', function(){
 		processItemized();
@@ -151,12 +168,22 @@ $(function ($) {
 	$('#add_expense_rows').click(function(){
 		cloneMore('#expenses_formset tr:last', 'expense');
 	});
+	$('#payment_check_all').change(function(){
+		if($(this).prop('checked')){
+			$('.paid input').prop('checked', true);
+		} else {
+			$('.paid input').prop('checked', false);
+		}
+	});
 	// On load //
 	if($('#id_costs_itemized').val() == 'True'){
 		$('#itemize_toggle').click();
 	}
 	if($('#id_subs').val() == 'True'){
 		$('#subs_toggle').click();
+	}
+	if($('#id_gross_itemized').val() == 'True'){
+		$('#buyouts_toggle').click();
 	}
 	_updateFields();
 	processItemized();

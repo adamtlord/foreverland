@@ -128,6 +128,7 @@ INSTALLED_APPS = [
     'imagekit',
     'django_common',
     'storages',
+    'sorl.thumbnail',
 
     'marketing',
     'members',

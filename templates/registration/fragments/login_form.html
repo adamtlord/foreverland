@@ -2,6 +2,9 @@
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}" class="form-signin">
 	{% csrf_token %}
 	<h2>Sign in</h2>
+	{% if form.non_field_errors %}
+		<p class="alert alert-danger"><i class="fa fa-warning"></i> Your username/password combination is wrong, butterfingers.</p>
+	{% endif %}
 	<div class="form-group{% if form.username.errors %} has-error{% endif %}">
 		<input type="text" class="form-control input-lg" placeholder="Username" autofocus="" maxlength="254" name="username">
 		{% if form.username.errors %}<p class="help-block">{{ form.username.errors }}</p>{% endif %}

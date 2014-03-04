@@ -8,11 +8,19 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding field 'Expense.receipt_img'
+        db.add_column(u'fidouche_expense', 'receipt_img',
+                      self.gf('sorl.thumbnail.fields.ImageField')(max_length=100, null=True, blank=True),
+                      keep_default=False)
+
 
         # Changing field 'Expense.date'
         db.alter_column(u'fidouche_expense', 'date', self.gf('django.db.models.fields.DateField')())
 
     def backwards(self, orm):
+        # Deleting field 'Expense.receipt_img'
+        db.delete_column(u'fidouche_expense', 'receipt_img')
+
 
         # Changing field 'Expense.date'
         db.alter_column(u'fidouche_expense', 'date', self.gf('django.db.models.fields.DateField')(null=True))

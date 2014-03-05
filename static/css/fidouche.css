@@ -8518,6 +8518,15 @@ fieldset#itemize {
 #expenses_formset .payee select {
   width: auto;
 }
+#expenses_formset p.file-upload {
+  font-size: 11px;
+}
+#expenses_formset p.file-upload .clearable-file-input {
+  display: block;
+}
+#expenses_formset p.file-upload .clearable-file-input label {
+  font-weight: normal;
+}
 #payment_formset,
 #sub_payment_formset {
   margin-bottom: 10px;

@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-
+from fidouche.widgets import AdminImageWidget
 from shows.models import Show
 from fidouche.models import Payment, SubPayment, Expense
 
@@ -54,11 +54,15 @@ class GigFinanceForm(ModelForm):
 class ExpenseForm(ModelForm):
 	class Meta:
 		model = Expense
+		widgets = {
+			'receipt_img': AdminImageWidget()
+		}
+
 
 	def __init__(self, *args, **kwargs):
 		super(ExpenseForm, self).__init__(*args, **kwargs)
-		for field in self.fields:
-			self.fields[field].widget.attrs['class'] = 'form-control'
+		for field in EXPENSE_FIELDS:
+			self.fields[field].widget.attrs['class'] = 'form-control input-sm'
 		self.fields['date'].widget.attrs['data-format'] = 'YYYY-MM-DD'
 
 

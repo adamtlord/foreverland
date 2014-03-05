@@ -6,7 +6,7 @@
 	<h4>Gig Financials</h4>
 	<h2>{{ gig }}</h2>
 </div>
-<form method="post" action="{{ request.path }}" role="form" id="gig_finances">{% csrf_token %}
+<form method="post" action="{{ request.path }}" role="form" id="gig_finances" enctype="multipart/form-data">{% csrf_token %}
 	<div class="row">
 		<div class="col-md-6 col-sm-6">
 			<fieldset>
@@ -265,11 +265,13 @@
 		<table id="expenses_formset" class="table table-striped">
 			<thead>
 				<tr>
+					<th width="160">Date</th>
 					<th>Payee</th>
 					<th>Category</th>
 					<th>Amount</th>
 					<th>Check #</th>
 					<th>Notes</th>
+					<th>Receipt</th>
 					<th>Delete</th>
 				</tr>
 			</thead>
@@ -277,11 +279,18 @@
 			{% for form in expense_formset.forms %}
 				<tr>
 					{{ form.id }}
-					<td class="payee">{{ form.payee }}</td>
+					<td>
+						<div class="expense_date_picker input-group">
+							{{ form.date }}
+							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						</div>
+					</td>
+					<td class="payee">{{ form.payee }}{{ form.errors }}</td>
 					<td class="category">{{ form.category }}</td>
 					<td class="expense-amount">{{ form.amount }}</td>
 					<td>{{ form.check_no }}</td>
 					<td>{{ form.notes }}</td>
+					<td>{{ form.receipt_img }}</td>
 					<td>{{ form.DELETE }}</td>
 				</tr>
 			{% endfor %}
@@ -291,4 +300,13 @@
 	</fieldset>
 	<button type="submit" class="btn btn-block btn-lg btn-primary">Save</button>
 </form>	
+{% endblock %}
+{% block js %}
+<script>
+	$(function(){
+		$('.expense_date_picker').datetimepicker({
+			pickTime: false
+		});
+	});
+</script>
 {% endblock %}

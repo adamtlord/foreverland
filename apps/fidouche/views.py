@@ -148,13 +148,13 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 	gig = get_object_or_404(Show, pk=gig_id)
 	active_members = Member.objects.filter(active=True)
 
-	ExpenseFormSet = inlineformset_factory(Show, Expense)
+	ExpenseFormSet = inlineformset_factory(Show, Expense, form=ExpenseForm)
 	PaymentFormSet = inlineformset_factory(Show, Payment, form=PaymentForm, extra=len(active_members), max_num=14, can_delete=False)	
 	SubPaymentFormSet = inlineformset_factory(Show, SubPayment, form=SubPaymentForm)
 
 	if request.method == "POST":
 		form = GigFinanceForm(request.POST, instance=gig)
-		expense_formset = ExpenseFormSet(request.POST, instance=gig)
+		expense_formset = ExpenseFormSet(request.POST, request.FILES, instance=gig)
 		payment_formset = PaymentFormSet(request.POST, instance=gig)
 		sub_payment_formset = SubPaymentFormSet(request.POST, instance=gig)
 		if form.is_valid() and expense_formset.is_valid() and payment_formset.is_valid() and sub_payment_formset.is_valid():
@@ -165,7 +165,7 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 			messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>NICE.</strong> Gig finances updated!')
 			return redirect(request.path)
 		else:
-			messages.add_message(request, messages.DANGER, '<i class="fa fa-wrench"></i> <strong>Aw, damnit.</strong> Something\'s fucked up.')
+			messages.add_message(request, messages.ERROR, '<i class="fa fa-wrench"></i> <strong>Aw, damnit.</strong> Something\'s fucked up.')
 	else:
 		form = GigFinanceForm(instance=gig)
 		expense_formset = ExpenseFormSet(instance=gig)

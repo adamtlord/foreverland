@@ -115,34 +115,13 @@ fieldset#itemize {
 	border-bottom:1px solid @legend-border-color;
 }
 #expenses_formset {
-	select,
-	textarea,
-	input[type="text"],
-	input[type="password"],
-	input[type="datetime"],
-	input[type="datetime-local"],
-	input[type="date"],
-	input[type="month"],
-	input[type="time"],
-	input[type="week"],
-	input[type="number"],
-	input[type="email"],
-	input[type="url"],
-	input[type="search"],
-	input[type="tel"],
-	input[type="color"] {
-		.form-control;
+	textarea.form-control {
+		height:36px;
+		line-height:1.2em;
 	}
 	td:last-child {
 		text-align:center;
 		vertical-align: middle;
-	}
-	.input-group {
-		float:left;
-		input {
-			width:auto;
-			.border-left-radius(0); 
-		}
 	}
 	.payee select {
 		width:auto;

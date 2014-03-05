@@ -49,7 +49,7 @@ class Expense(models.Model):
         ('other','other'),
     )
     show = models.ForeignKey(Show, related_name="expense", blank=True, null=True)
-    date = models.DateField(default=datetime.date.today)
+    date = models.DateField(blank=True, null=True)
     payee = models.ForeignKey(Payee, related_name="expense", blank=True, null=True)
     category = models.CharField(max_length=100, blank=True, null=True, choices=EXPENSE_CATEGORIES)
     amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)

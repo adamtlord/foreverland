@@ -162,6 +162,7 @@
 			<fieldset>
 				<div class="form-group">
 					<label for="id_attendance" class="control-label">Attendance</label>
+					{% if gig.venue.capacity %}<span class="help-inline">(Capacity: {{ gig.venue.capacity }})</span>{% endif %}
 					{{ form.attendance }}
 				</div>
 				<div class="form-group warn">
@@ -306,6 +307,12 @@
 	$(function(){
 		$('.expense_date_picker').datetimepicker({
 			pickTime: false
+		});
+		$('.thumb').magnificPopup({
+			type:'image',
+			zoom: {
+				enabled: true
+			}
 		});
 	});
 </script>

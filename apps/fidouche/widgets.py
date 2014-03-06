@@ -10,17 +10,12 @@ def thumbnail(image_path):
 class AdminImageWidget(AdminFileWidget):
     def render(self, name, value, attrs=None):
         output = []
-        print self
-        print name
-        print value
-        print attrs
         if value:
             file_name=str(value)
             static_url = '/uploads'
             try:
-                output.append('<a href="%s/%s">%s</a>' % (static_url, file_name, thumbnail(file_name)))
+                output.append('<a href="%s/%s" class="thumb">%s</a>' % (static_url, file_name, thumbnail(file_name)))
             except:
                 pass
-        
         output.append(super(AdminFileWidget, self).render(name, value, attrs))
         return mark_safe(u''.join(output))

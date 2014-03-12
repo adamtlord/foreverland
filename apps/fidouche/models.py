@@ -45,6 +45,8 @@ class Expense(models.Model):
         ('ads','ads'),
         ('rent','rent'),
         ('equipment','equipment'),
+        ('food','food/drink'),
+        ('costumes','costumes'),
         ('subcon','subcontracted services'),
         ('other','other'),
     )

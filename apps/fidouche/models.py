@@ -60,4 +60,7 @@ class Expense(models.Model):
     receipt_img = ImageField(upload_to="receipts/", blank=True, null=True)
 
     def __unicode__(self):
-        return '%s, $%s to %s' % (self.date.strftime('%m/%d/%y'), self.amount, self.payee)
+    	safedate = ''
+    	if self.date:
+    		safedate = self.date.strftime('%m/%d/%y') + ', '
+        return '%s$%s to %s' % (safedate, self.amount, self.payee)

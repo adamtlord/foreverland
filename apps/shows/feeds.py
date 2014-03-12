@@ -9,18 +9,30 @@ from shows.models import Show
 
 class CalendarFeed(ICalFeed):
 	"""An iCal feed of upcoming events"""
-	product_id = '-//foreverlandsf.com//Example//EN'
-	timezone = 'UTC'
+	product_id = '-//Foreverland//Band//EN'
+	timezone = 'America/Los_Angeles'
 	title = 'Foreverland Upcoming Shows'
 
 	def items(self):
 		return Show.objects.filter(public=True).filter(date__gte=datetime.datetime.now()).order_by('date')
 
 	def item_title(self, item):
-		return '%s - %s' % (item.venue, item.date.strftime('%I:%M %p'))
+		return '%s, %s - %s' % (item.venue, item.venue.city, item.date.strftime('%I:%M %p'))
 
 	def item_description(self, item):
-		return 'Doors at %s; Ticket price: %s; Ages: %s' % (item.doors_time, item.ticket_price, item.ages)
+		time = 'Show at %s' % item.date.strftime('%I:%M %p')
+		price = ''
+		ages = ''
+		notes = ''
+		if item.doors_time:
+			time += '\nDoors at %s\n' % item.doors_time.strftime('%I:%M %p')
+		if item.ticket_price:
+			price = 'Ticket price: %s\n' % item.ticket_price
+		if item.ages:
+			ages = 'Ages: %s\n' % item.ages
+		if item.notes:
+			notes = item.notes
+		return '%s%s%s%s' % (time, price, ages, notes)
 
 	def item_start_datetime(self, item):
 		return item.date
@@ -50,22 +62,22 @@ class ShowsFeed(Feed):
 		return Show.objects.filter(public=True).filter(date__gte=datetime.datetime.now()).order_by('date')
 
 	def item_title(self, item):
-		return '%s - %s' % (item.venue, item.date.strftime('%I:%M %p'))
+		return '%s, %s - %s' % (item.venue, item.venue.city, item.date.strftime('%I:%M %p'))
 
 	def item_link(self, item):
 		return reverse('show', args=[item.pk])
 	
 	def item_description(self, item):
-		time = ''
+		time = 'Show at %s' % item.date.strftime('%I:%M %p')
 		price = ''
 		ages = ''
 		notes = ''
 		if item.doors_time:
-			time = 'Doors at %s ' % item.doors_time
+			time += '\nDoors at %s\n' % item.doors_time.strftime('%I:%M %p')
 		if item.ticket_price:
-			price = 'Ticket price: %s ' % item.ticket_price
+			price = 'Ticket price: %s\n' % item.ticket_price
 		if item.ages:
-			ages = 'Ages: %s ' % item.ages
+			ages = 'Ages: %s\n' % item.ages
 		if item.notes:
 			notes = item.notes
 

@@ -47,6 +47,9 @@ class Expense(models.Model):
         ('equipment','equipment'),
         ('food','food/drink'),
         ('costumes','costumes'),
+        ('travel','travel'),
+        ('fuel','fuel'),
+        ('lodging','lodging'),
         ('subcon','subcontracted services'),
         ('other','other'),
     )

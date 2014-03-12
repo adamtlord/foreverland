@@ -20,12 +20,12 @@ class CalendarFeed(ICalFeed):
 		return '%s, %s - %s' % (item.venue, item.venue.city, item.date.strftime('%I:%M %p'))
 
 	def item_description(self, item):
-		time = 'Show at %s' % item.date.strftime('%I:%M %p')
+		time = 'Show at %s\n' % item.date.strftime('%I:%M %p')
 		price = ''
 		ages = ''
 		notes = ''
 		if item.doors_time:
-			time += '\nDoors at %s\n' % item.doors_time.strftime('%I:%M %p')
+			time += 'Doors at %s\n' % item.doors_time.strftime('%I:%M %p')
 		if item.ticket_price:
 			price = 'Ticket price: %s\n' % item.ticket_price
 		if item.ages:
@@ -68,12 +68,12 @@ class ShowsFeed(Feed):
 		return reverse('show', args=[item.pk])
 	
 	def item_description(self, item):
-		time = 'Show at %s' % item.date.strftime('%I:%M %p')
+		time = 'Show at %s\n' % item.date.strftime('%I:%M %p')
 		price = ''
 		ages = ''
 		notes = ''
 		if item.doors_time:
-			time += '\nDoors at %s\n' % item.doors_time.strftime('%I:%M %p')
+			time += 'Doors at %s\n' % item.doors_time.strftime('%I:%M %p')
 		if item.ticket_price:
 			price = 'Ticket price: %s\n' % item.ticket_price
 		if item.ages:

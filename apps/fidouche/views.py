@@ -26,10 +26,16 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 	ytd_net = []
 	ytd_player = []
 	for gig in gigs:
+		gig.total_expenses = sum(filter(None,[gig.sound_cost, gig.in_ears_cost, gig.print_ship_cost, gig.ads_cost, gig.other_cost]))
+		gig_expenses = Expense.objects.filter(show = gig)
 		gig.commission_percentage = ''
 		sc = gig.sound_cost or 0
 		if gig.commission and gig.gross:
 			gig.commission_percentage = int((gig.commission/(gig.gross - sc)) * 100)
+		if gig_expenses:
+			for expense in gig_expenses:
+				sum([gig.other_cost,expense.amount])
+
 	for gig in gigs_played:
 		if gig.gross:
 			ytd_gross.append(gig.gross)
@@ -77,6 +83,7 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 
 	for gig in gigs:
 		gig.total_expenses = sum(filter(None,[gig.sound_cost, gig.in_ears_cost, gig.print_ship_cost, gig.ads_cost, gig.other_cost]))
+		gig_expenses = Expense.objects.filter(show = gig)
 		gig.commission_percentage = ''
 		sc = gig.sound_cost or 0
 		if gig.commission and gig.gross:
@@ -95,6 +102,9 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 			ads.append(gig.ads_cost)
 		if gig.other_cost:
 			other.append(gig.other_cost)
+		if gig_expenses:
+			for expense in gig_expenses:
+				other.append(expense.amount)
 	
 	d = {
 		'year': year,

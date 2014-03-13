@@ -61,10 +61,8 @@ $(function ($) {
 				case 'ads':
 				adCosts += thisAmount;
 				break;
-				case 'other':
-				otherCosts += thisAmount;
-				break;
 				default:
+				otherCosts += thisAmount;
 				return;
 			}
 		});

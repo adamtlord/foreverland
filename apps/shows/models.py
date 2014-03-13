@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 
+from sorl.thumbnail import ImageField
+
 from common.utils import get_lat_lng
 
 class Venue(models.Model):
@@ -91,6 +93,7 @@ class Show(models.Model):
     payout = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     to_account = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     subs = models.BooleanField(default=False)
+    settlement_sheet = ImageField(upload_to="receipts/", blank=True, null=True)
 
 
     class Meta:

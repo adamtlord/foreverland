@@ -8488,6 +8488,14 @@ textareaform.add-control input[type="color"] {
 #gig_finances .form-inline.factor {
   margin-bottom: 10px;
 }
+#gig_finances p.file-upload {
+  font-size: 11px;
+  line-height: 12px;
+  margin-bottom: 5px;
+}
+#gig_finances p.file-upload .clearable-file-input label {
+  font-weight: normal;
+}
 .panel-body.panel-no-pad {
   padding: 0;
 }
@@ -8585,6 +8593,27 @@ table.table-valign-middle > thead > tr > td,
 table.table-valign-middle > tbody > tr > td,
 table.table-valign-middle > tfoot > tr > td {
   vertical-align: middle;
+}
+.mfp-image-holder .mfp-close,
+.mfp-iframe-holder .mfp-close {
+  text-shadow: 0px 0px 10px black;
+  opacity: 1;
+}
+.alert.alert-error {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+.alert.alert-error hr {
+  border-top-color: #e4b9c0;
+}
+.alert.alert-error .alert-link {
+  color: #843534;
+}
+input[type="file"] {
+  font-size: 11px;
+  line-height: 12px;
+  color: #999999;
 }
 /* RESPONSIVE */
 @media (min-width: 768px) {

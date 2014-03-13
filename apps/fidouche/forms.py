@@ -29,7 +29,8 @@ FINANCIAL_FIELDS = (
 	'payout',
 	'to_account',
 	'subs', 
-	'costs_itemized'
+	'costs_itemized',
+	'settlement_sheet'
 )
 EXPENSE_FIELDS = (
 	'date',
@@ -44,11 +45,15 @@ class GigFinanceForm(ModelForm):
 	class Meta:
 		model = Show
 		fields = FINANCIAL_FIELDS
+		widgets = {
+			'settlement_sheet': AdminImageWidget()
+		}
 
 	def __init__(self, *args, **kwargs):
 		super(GigFinanceForm, self).__init__(*args, **kwargs)
 		for field in FINANCIAL_FIELDS:
-			self.fields[field].widget.attrs['class'] = 'form-control'
+			if field != 'settlement_sheet':
+				self.fields[field].widget.attrs['class'] = 'form-control'
 
 
 class ExpenseForm(ModelForm):

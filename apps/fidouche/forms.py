@@ -17,6 +17,7 @@ FINANCIAL_FIELDS = (
 	'lodging_buyout',
 	'other_buyout',
 	'commission',
+	'commission_percentage',
 	'commission_withheld',
 	'commission_check_no',
 	'sound_cost',

@@ -79,6 +79,7 @@ class Show(models.Model):
     payer = models.CharField(max_length=100, blank=True, null=True, choices=PAYEE_CHOICES, default=CLIENT)
     payee_check_no = models.IntegerField(blank=True, null=True)
     commission = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    commission_percentage = models.IntegerField(default=10, blank=True, null=True)
     commission_withheld = models.BooleanField(default=False)
     commission_check_no = models.IntegerField(blank=True, null=True)
     sound_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)

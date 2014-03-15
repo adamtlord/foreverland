@@ -1,45 +1,47 @@
 $(function ($) {
 	// Methods
 	function updateFields(){
-		var commissionField = $('#commission_percentage').find('option:selected').val() == 'other' ? $('#commission_percentage_other') : $('#commission_percentage').find('option:selected');
-		var gross = $('#id_gross');
-		var fee = $('#id_fee');
-		var commission = $('#id_commission');
-		var sound = $('#id_sound_cost');
-		var inears = $('#id_in_ears_cost').find('option:selected');
-		var print = $('#id_print_ship_cost');
-		var ads = $('#id_ads_cost');
-		var other = $('#id_other_cost');
-		var net = $('#id_net');
-		var max = $('#max_payout');
-		var payout = $('#id_payout');
-		var account = $('#id_to_account');
-		// payable
-		var g;
-		if (fee.val() > 0) {
-			g = parseFloat(fee.val());
-		} else {
-			g = parseFloat(gross.val()) || 0;
+		if($('#auto_calc').bootstrapSwitch('state') === true){
+			var commissionField = $('#id_commission_percentage');
+			var gross = $('#id_gross');
+			var fee = $('#id_fee');
+			var commission = $('#id_commission');
+			var sound = $('#id_sound_cost');
+			var inears = $('#id_in_ears_cost').find('option:selected');
+			var print = $('#id_print_ship_cost');
+			var ads = $('#id_ads_cost');
+			var other = $('#id_other_cost');
+			var net = $('#id_net');
+			var max = $('#max_payout');
+			var payout = $('#id_payout');
+			var account = $('#id_to_account');
+			// payable
+			var g;
+			if (fee.val() > 0) {
+				g = parseFloat(fee.val());
+			} else {
+				g = parseFloat(gross.val()) || 0;
+			}
+			var cp = parseFloat(commissionField.val()) || 0;
+			var sc = parseFloat(sound.val()) || 0;
+			var iem = parseFloat(inears.val()) || 0;
+			var ps = parseFloat(print.val()) || 0;
+			var a = parseFloat(ads.val()) || 0;
+			var o = parseFloat(other.val()) || 0;
+			var p = parseFloat(payout.val()) || 0;
+			// receiveable
+			var c, n, acc, mp = '';
+			if(g>0){
+				c = (parseFloat((g - sc) * (cp/100)) || 0).toFixed(2);
+				n = (parseFloat(g - c - (sc + iem + ps + a + o)) || 0).toFixed(2);
+				mp = (parseFloat(n / 14) || 0).toFixed(2);
+				acc = (parseFloat(n - (p * 14)) ||0).toFixed(2);
+			}
+			commission.val(c).change();
+			max.html(mp);
+			net.val(n).change();
+			account.val(acc).change();
 		}
-		var cp = parseFloat(commissionField.val()) || 0;
-		var sc = parseFloat(sound.val()) || 0;
-		var iem = parseFloat(inears.val()) || 0;
-		var ps = parseFloat(print.val()) || 0;
-		var a = parseFloat(ads.val()) || 0;
-		var o = parseFloat(other.val()) || 0;
-		var p = parseFloat(payout.val()) || 0;
-		// receiveable
-		var c, n, acc, mp = '';
-		if(g>0){
-			c = (parseFloat((g - sc) * (cp/100)) || 0).toFixed(2);
-			n = (parseFloat(g - c - (sc + iem + ps + a + o)) || 0).toFixed(2);
-			mp = (parseFloat(n / 14) || 0).toFixed(2);
-			acc = (parseFloat(n - (p * 14)) ||0).toFixed(2);
-		}
-		commission.val(c).change();
-		max.html(mp);
-		net.val(n).change();
-		account.val(acc).change();
 	}
 	var _updateFields = _.throttle(updateFields, 500);
 	
@@ -91,14 +93,6 @@ $(function ($) {
 	// Handlers //
 	$('.factor').on('blur', 'input, select', function(){
 		_updateFields();
-	});
-	$('.set-commission').on('change', '#commission_percentage', function(){
-		if($(this).find('option:selected').val() == 'other'){
-			$('#commission_other').fadeIn('fast');
-		}else {
-			$('#commission_other').fadeOut('fast');
-			_updateFields();
-		}
 	});
 	$('.set-payer').on('change', '#id_payer', function(){
 		if($(this).find('option:selected').val() == 'DS'){
@@ -183,7 +177,6 @@ $(function ($) {
 	if($('#id_gross_itemized').val() == 'True'){
 		$('#buyouts_toggle').click();
 	}
-	_updateFields();
-	processItemized();
+	$('#auto_calc').bootstrapSwitch();
 });
 	

@@ -16,12 +16,7 @@ $(function ($) {
 			var payout = $('#id_payout');
 			var account = $('#id_to_account');
 			// payable
-			var g;
-			if (fee.val() > 0) {
-				g = parseFloat(fee.val());
-			} else {
-				g = parseFloat(gross.val()) || 0;
-			}
+			var g = parseFloat(gross.val()) || 0;
 			var cp = parseFloat(commissionField.val()) || 0;
 			var sc = parseFloat(sound.val()) || 0;
 			var iem = parseFloat(inears.val()) || 0;
@@ -31,8 +26,15 @@ $(function ($) {
 			var p = parseFloat(payout.val()) || 0;
 			// receiveable
 			var c, n, acc, mp = '';
+			var cb;
 			if(g>0){
-				c = (parseFloat((g - sc) * (cp/100)) || 0).toFixed(2);
+				if (fee.val() > 0) {
+					// base commission off fee
+					cb = fee.val();
+				} else {
+					cb = g;
+				}
+				c = (parseFloat((cb - sc) * (cp/100)) || 0).toFixed(2);
 				n = (parseFloat(g - c - (sc + iem + ps + a + o)) || 0).toFixed(2);
 				mp = (parseFloat(n / 14) || 0).toFixed(2);
 				acc = (parseFloat(n - (p * 14)) ||0).toFixed(2);

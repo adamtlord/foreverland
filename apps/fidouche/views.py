@@ -89,7 +89,8 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 		all_expenses.append(gig.total_expenses)
 		if gig.payments:
 			for pay in gig.payments:
-				players.append(pay.amount)
+				if pay.amount:
+					players.append(pay.amount)
 		else:
 			if gig.payout:
 				players.append(gig.payout * 14)

@@ -61,7 +61,10 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 	"""Listing of all gigs in the given year"""
 
 	gigs = Show.objects.filter(date__year = year)
-	
+	current = False
+	if int(year) == int(current_year):
+		gigs = gigs.filter(date__lt=datetime.datetime.now())
+		current = True
 	by_month = {}
 	players = []
 	commission = []
@@ -70,6 +73,7 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 	printship = []
 	ads = []
 	other = []
+	all_expenses = []
 
 	for m in range(1,13):
 		month_gigs = gigs.filter(date__month = m)
@@ -79,10 +83,16 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 		}
 
 	for gig in gigs:
+		gig.payments = Payment.objects.filter(show=gig)
 		gig.total_expenses = sum(filter(None,[gig.sound_cost, gig.in_ears_cost, gig.print_ship_cost, gig.ads_cost, gig.other_cost]))
 		gig_expenses = Expense.objects.filter(show = gig)
-		if gig.payout:
-			players.append(gig.payout)
+		all_expenses.append(gig.total_expenses)
+		if gig.payments:
+			for pay in gig.payments:
+				players.append(pay.amount)
+		else:
+			if gig.payout:
+				players.append(gig.payout * 14)
 		if gig.commission:
 			commission.append(gig.commission)
 		if gig.sound_cost:
@@ -100,8 +110,10 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 				other.append(expense.amount)
 	
 	d = {
+		'payment':gig.payments,
 		'year': year,
 		'this_years_gigs': gigs,
+		'current': current,
 		'by_month': by_month,
 		'players': sum(players),
 		'commission': sum(commission),
@@ -109,7 +121,8 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 		'iem': sum(iem),
 		'printship': sum(printship),
 		'ads': sum(ads),
-		'other': sum(other)
+		'other': sum(other),
+		'all_expenses': sum(all_expenses)
 	}
 	return render(request, template, d)
 

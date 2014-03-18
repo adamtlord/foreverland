@@ -5,11 +5,14 @@
 	<h2>Gigs in {{ year }}</h2>
 	<p><em>There are {{ this_years_gigs|length }} gigs in the database for this year.</em></p>
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<div id="net_by_month"></div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<div id="year_pie"></div>
+		</div>
+		<div class="col-md-4">
+			<div id="year_expenses"></div>
 		</div>
 	</div>
 	<hr> 
@@ -109,13 +112,43 @@
 		});
 		$('#year_pie').highcharts({
 			title: { 
-				text: "{{ year }} at a glance"
+				text: "{{ year }} at a glance{% if current %} (to date){% endif %}"
 			},
 			series: [{
 				type: 'pie',
 				data: [
 					['Players' , {{ players }}],
 					['Commission', {{ commission }}],
+					// ['In-Ears', {{ iem }}],
+					// ['Print/Ship', {{ printship }}],
+					// ['Ads', {{ ads }}],
+					// ['Other', {{ other }}]
+					['Expenses', {{ all_expenses }}]
+				]
+			}],
+			tooltip: {
+				enabled: false 
+			},
+			plotOptions: {
+				pie: {
+					dataLabels: {
+						formatter: function(){
+							console.log(this)
+							return '<strong>' + this.key + '</strong>:<br>$' + this.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' (' + Math.floor(this.percentage) + '%)';
+						},
+						distance: 10,
+						softConnector: false
+					}
+				}
+			}
+		});
+		$('#year_expenses').highcharts({
+			title: {
+				text: "{{ year }} Expenses"
+			},
+			series: [{
+				type: 'pie',
+				data: [
 					['In-Ears', {{ iem }}],
 					['Print/Ship', {{ printship }}],
 					['Ads', {{ ads }}],
@@ -130,7 +163,7 @@
 					dataLabels: {
 						formatter: function(){
 							console.log(this)
-							return '<strong>' + this.key + '</strong>: $' + this.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' (' + Math.floor(this.percentage) + '%)';
+							return '<strong>' + this.key + '</strong>:<br>$' + this.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' (' + Math.floor(this.percentage) + '%)';
 						},
 						distance: 10,
 						softConnector: false

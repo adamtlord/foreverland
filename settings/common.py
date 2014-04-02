@@ -10,7 +10,7 @@ PROJECT_NAME = 'foreverland'
 # Other settings
 ####
 ADMINS = (
-    ('Alerts', 'adam@foreverlandsf.com'),
+    ('Alerts', 'adam@foreverland.com'),
 )
 SITE_ID = 1
 TIME_ZONE = 'America/Los_Angeles'  # changed to UTC
@@ -90,8 +90,6 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
 
-    # 'userswitch.middleware.UserSwitchMiddleware',
-    # 'social_auth.middleware.SocialAuthExceptionMiddleware',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS = [
@@ -145,17 +143,6 @@ TEMPLATE_LOADERS = [
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 ]
-
-# Email settings #
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'adam@foreverlandsf.com'
-EMAIL_HOST_PASSWORD = 'Bubbles14'
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'noreply@foreverlandsf.com'
-
 
 # auth / django-registration params
 ACCOUNT_ACTIVATION_DAYS = 7

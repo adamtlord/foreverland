@@ -16,3 +16,5 @@ graphed_models/*
 node_modules
 
 /settings/prod.py
+
+/settings/staging.py

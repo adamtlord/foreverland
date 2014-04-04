@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     (r'^past-shows/', RedirectView.as_view(url='/shows/past', permanent=True)),
     (r'^song-list/', RedirectView.as_view(url='/songs', permanent=True)),
     (r'^news-press/', RedirectView.as_view(url='/', permanent=True)),
+    (r'^quotes/', RedirectView.as_view(url='/about#quotes', permanent=True)),
     (r'^catalog/', RedirectView.as_view(url='http://v2.foreverland.com/catalog/', permanent=True)),
     (r'^theworks/', RedirectView.as_view(url='http://v2.foreverland.com/theworks/', permanent=True)),
 )

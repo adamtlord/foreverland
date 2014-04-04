@@ -34,7 +34,7 @@ def homepage(request, template='marketing/homepage.html'):
     return render(request, template, d)
 
 
-def quotes(request, template='marketing/quotes.html'):
+def about(request, template='marketing/about.html'):
     """Featured Testimonials"""
     testimonials = Testimonial.objects.filter(featured=True)
 

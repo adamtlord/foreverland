@@ -22,6 +22,7 @@ require.config({
         // apps - one page applications, each requires a separate build file
         'sitewide': 'apps/sitewide',
         'homepage': 'apps/homepage',
+        'about': 'apps/about',
         'shows': 'apps/shows',
         'show': 'apps/show',
         'past': 'apps/past',

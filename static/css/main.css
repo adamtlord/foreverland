@@ -8338,6 +8338,9 @@ footer p {
   background-size: 1px;
   margin-bottom: 32px;
 }
+.about #sidebar .quote {
+  display: none !important;
+}
 #top_brand {
   margin: 100px 0 80px;
   text-align: center;

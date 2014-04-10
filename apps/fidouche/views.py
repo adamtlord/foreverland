@@ -134,6 +134,14 @@ def gigs_year_over_year(request,template='fidouche/gigs_year_over_year.html'):
 	years_with_gigs = years_with_gigs()
 	gigs = Show.objects.all()
 	years = {}
+	players = []
+	commission = []
+	sound = []
+	iem = []
+	printship = []
+	ads = []
+	other = []
+	all_expenses = []
 	for year in years_with_gigs:
 		years[year] = {}
 		this_years_gigs = gigs.filter(date__year=year)
@@ -154,6 +162,37 @@ def gigs_year_over_year(request,template='fidouche/gigs_year_over_year.html'):
 			'payout': sum(y_player)
 		}
 	d['years'] = years
+
+	for gig in gigs:
+		gig.payments = Payment.objects.filter(show=gig)
+		gig.total_expenses = sum(filter(None,[gig.sound_cost, gig.in_ears_cost, gig.print_ship_cost, gig.ads_cost, gig.other_cost]))
+		gig_expenses = Expense.objects.filter(show = gig)
+		all_expenses.append(gig.total_expenses)
+		if gig.payments:
+			for pay in gig.payments:
+				if pay.amount:
+					players.append(pay.amount)
+		else:
+			if gig.payout:
+				players.append(gig.payout * 14)
+		if gig.commission:
+			commission.append(gig.commission)
+		if gig.sound_cost:
+			sound.append(gig.sound_cost)
+		if gig.in_ears_cost:
+			iem.append(gig.in_ears_cost)
+		if gig.print_ship_cost:
+			printship.append(gig.print_ship_cost)
+		if gig.ads_cost:
+			ads.append(gig.ads_cost)
+		if gig.other_cost:
+			other.append(gig.other_cost)
+		if gig_expenses:
+			for expense in gig_expenses:
+				other.append(expense.amount)
+
+	d['all_gigs'] = gigs
+	
 	return render(request, template, d)
 
 @login_required

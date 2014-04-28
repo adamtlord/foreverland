@@ -31,7 +31,8 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 		sc = gig.sound_cost or 0
 		if gig_expenses:
 			for expense in gig_expenses:
-				sum([gig.other_cost,expense.amount])
+				if expense != None:
+					sum([gig.other_cost,expense.amount])
 
 	for gig in gigs_played:
 		if gig.gross:

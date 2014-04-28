@@ -31,8 +31,11 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 		sc = gig.sound_cost or 0
 		if gig_expenses:
 			for expense in gig_expenses:
-				if expense != None:
-					sum([gig.other_cost,expense.amount])
+				try:
+					expense.amount = int(expense.amount)
+				except TypeError:
+					expense.amount = 0
+				sum([gig.other_cost,expense.amount])
 
 	for gig in gigs_played:
 		if gig.gross:
@@ -109,6 +112,10 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 			other.append(gig.other_cost)
 		if gig_expenses:
 			for expense in gig_expenses:
+				try:
+					expense.amount = int(expense.amount)
+				except TypeError:
+					expense.amount = 0
 				other.append(expense.amount)
 	
 	d = {

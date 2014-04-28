@@ -57,7 +57,7 @@ class Expense(models.Model):
     date = models.DateField(blank=True, null=True)
     payee = models.ForeignKey(Payee, related_name="expense", blank=True, null=True)
     category = models.CharField(max_length=100, blank=True, null=True, choices=EXPENSE_CATEGORIES)
-    amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
     check_no = models.CharField(max_length=100, blank=True, null=True, verbose_name="Check #")
     notes = models.TextField(blank=True, null=True)
     receipt_img = ImageField(upload_to="receipts/", blank=True, null=True)

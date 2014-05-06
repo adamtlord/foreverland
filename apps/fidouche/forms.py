@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, DecimalField
 from fidouche.widgets import AdminImageWidget
 from shows.models import Show
 from fidouche.models import Payment, SubPayment, Expense
@@ -49,6 +49,10 @@ class GigFinanceForm(ModelForm):
 		widgets = {
 			'settlement_sheet': AdminImageWidget()
 		}
+
+	ads_cost = DecimalField()
+	other_cost = DecimalField()
+	print_ship_cost = DecimalField()
 
 	def __init__(self, *args, **kwargs):
 		super(GigFinanceForm, self).__init__(*args, **kwargs)

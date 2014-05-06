@@ -35,6 +35,10 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 					expense.amount = int(expense.amount)
 				except TypeError:
 					expense.amount = 0
+				try:
+					gig.other_cost = int(gig.other_cost)
+				except TypeError:
+					gig.other_cost = 0
 				sum([gig.other_cost,expense.amount])
 
 	for gig in gigs_played:

@@ -50,10 +50,6 @@ class GigFinanceForm(ModelForm):
 			'settlement_sheet': AdminImageWidget()
 		}
 
-	ads_cost = DecimalField()
-	other_cost = DecimalField()
-	print_ship_cost = DecimalField()
-
 	def __init__(self, *args, **kwargs):
 		super(GigFinanceForm, self).__init__(*args, **kwargs)
 		for field in FINANCIAL_FIELDS:
@@ -67,7 +63,6 @@ class ExpenseForm(ModelForm):
 		widgets = {
 			'receipt_img': AdminImageWidget()
 		}
-
 
 	def __init__(self, *args, **kwargs):
 		super(ExpenseForm, self).__init__(*args, **kwargs)

@@ -32,4 +32,4 @@ class SetlistSong(models.Model):
     order = models.IntegerField(blank=True, null=True)
 
     def __unicode__(self):
-        return 'setlist order'
+        return '%s' % self.song

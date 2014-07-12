@@ -8708,99 +8708,10 @@ input[type="file"] {
     float: left;
   }
 }
-.page-header .auto-calc-box {
-  margin-top: 39px;
-  line-height: 33px;
-}
-#gig_finances button[type="submit"] {
-  margin-top: 25px;
-}
-#gig_finances .form-inline.factor {
-  margin-bottom: 10px;
-}
-#gig_finances p.file-upload {
-  font-size: 11px;
-  line-height: 12px;
-  margin-bottom: 5px;
-}
-#gig_finances p.file-upload .clearable-file-input label {
-  font-weight: normal;
-}
-fieldset.expenses {
-  margin-top: 15px;
-}
-fieldset#itemize {
-  padding-bottom: 15px;
-  border-bottom: 1px solid #e5e5e5;
-}
-#expenses_formset textarea.form-control {
-  height: 36px;
-  line-height: 1.2em;
-}
-#expenses_formset td:last-child {
-  text-align: center;
-  vertical-align: middle;
-}
-#expenses_formset .payee select {
-  width: auto;
-}
-#expenses_formset p.file-upload {
-  font-size: 11px;
-  line-height: 12px;
-}
-#expenses_formset p.file-upload .clearable-file-input {
-  display: block;
-}
-#expenses_formset p.file-upload .clearable-file-input label {
-  font-weight: normal;
-}
-#expenses_formset p.file-upload br {
-  display: none;
-}
-#payment_formset,
-#sub_payment_formset {
-  margin-bottom: 10px;
-}
-#payment_formset th:last-child,
-#sub_payment_formset th:last-child {
-  text-align: center;
-}
-#payment_formset td,
-#sub_payment_formset td {
-  vertical-align: middle;
-}
-#payment_formset .paid,
-#sub_payment_formset .paid {
-  text-align: center;
-}
-#commission_other,
-#payment_check_no {
-  margin-top: 10px;
-}
-legend.with-btn {
-  padding-bottom: 5px;
-}
-legend .btn,
-#subs_toggle {
-  float: right !important;
-  float: right;
-}
-legend .btn:focus,
-#subs_toggle:focus,
-legend .btn.active:focus,
-#subs_toggle.active:focus {
-  outline: none;
-}
-i.expense-detail-toggle {
-  color: #999999;
-  cursor: pointer;
-  float: right;
-  margin-top: 3px;
-}
-i.expense-detail-toggle:hover {
-  color: #555555;
-}
-table.table.expense-details {
-  font-size: 85%;
-  margin-top: 6px;
+.navbar-default .navbar-brand {
+  background: url('../images/setter/setter-brand.png') left center no-repeat;
+  background-size: 70px auto;
+  padding-left: 70px;
+  color: #333333;
+  font-weight: 500;
 }

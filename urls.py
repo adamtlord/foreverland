@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     (r'^songs/', include('songs.urls')),
     (r'^photos/', include('media.urls')),
     (r'^fidouche/', include('fidouche.urls')),
+    (r'^setter/', include('setter.urls')),
     (r'^downloads/', 'media.views.downloads'),
     (r'^behind-the-music/', 'media.views.behind_the_music'),
     # Legacy redirects

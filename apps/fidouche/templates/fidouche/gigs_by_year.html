@@ -119,11 +119,8 @@
 				data: [
 					['Players' , {{ players }}],
 					['Commission', {{ commission }}],
-					// ['In-Ears', {{ iem }}],
-					// ['Print/Ship', {{ printship }}],
-					// ['Ads', {{ ads }}],
-					// ['Other', {{ other }}]
-					['Expenses', {{ all_expenses }}]
+					['Expenses', {{ all_expenses }}],
+					['To Account', {{ to_account }}]
 				]
 			}],
 			tooltip: {
@@ -133,10 +130,9 @@
 				pie: {
 					dataLabels: {
 						formatter: function(){
-							console.log(this)
-							return '<strong>' + this.key + '</strong>:<br>$' + this.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' (' + Math.floor(this.percentage) + '%)';
+							return '<strong>' + this.key + '</strong>:<br>$' + parseInt(this.y, 10).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' (' + Math.floor(this.percentage) + '%)';
 						},
-						distance: 10,
+						distance: 15,
 						softConnector: false
 					}
 				}
@@ -152,6 +148,7 @@
 					['In-Ears', {{ iem }}],
 					['Print/Ship', {{ printship }}],
 					['Ads', {{ ads }}],
+					['Sound', {{ sound }}],
 					['Other', {{ other }}]
 				]
 			}],
@@ -163,7 +160,7 @@
 					dataLabels: {
 						formatter: function(){
 							console.log(this)
-							return '<strong>' + this.key + '</strong>:<br>$' + this.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' (' + Math.floor(this.percentage) + '%)';
+							return '<strong>' + this.key + '</strong>:<br>$' + parseInt(this.y, 10).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' (' + Math.floor(this.percentage) + '%)';
 						},
 						distance: 10,
 						softConnector: false

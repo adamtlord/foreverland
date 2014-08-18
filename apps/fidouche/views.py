@@ -82,6 +82,7 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 	ads = []
 	other = []
 	all_expenses = []
+	to_account = []
 
 	for m in range(1,13):
 		month_gigs = gigs.filter(date__month = m)
@@ -91,10 +92,19 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 		}
 
 	for gig in gigs:
-		gig.payments = Payment.objects.filter(show=gig)
+		gig_itemized_expenses = Expense.objects.filter(show=gig)
 		gig.total_expenses = sum(filter(None,[gig.sound_cost, gig.in_ears_cost, gig.print_ship_cost, gig.ads_cost, gig.other_cost]))
-		gig_expenses = Expense.objects.filter(show = gig)
 		all_expenses.append(gig.total_expenses)
+		if gig_itemized_expenses:
+			for expense in gig_itemized_expenses:
+				try:
+					expense.amount = int(expense.amount)
+				except TypeError:
+					expense.amount = 0
+				other.append(expense.amount)
+				all_expenses.append(expense.amount)
+
+		gig.payments = Payment.objects.filter(show=gig)
 		if gig.payments:
 			for pay in gig.payments:
 				if pay.amount:
@@ -102,6 +112,7 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 		else:
 			if gig.payout:
 				players.append(gig.payout * 14)
+		
 		if gig.commission:
 			commission.append(gig.commission)
 		if gig.sound_cost:
@@ -114,16 +125,10 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 			ads.append(gig.ads_cost)
 		if gig.other_cost:
 			other.append(gig.other_cost)
-		if gig_expenses:
-			for expense in gig_expenses:
-				try:
-					expense.amount = int(expense.amount)
-				except TypeError:
-					expense.amount = 0
-				other.append(expense.amount)
+		if gig.to_account:
+			to_account.append(gig.to_account)
 	
 	d = {
-		'payment':gig.payments,
 		'year': year,
 		'this_years_gigs': gigs,
 		'current': current,
@@ -135,7 +140,8 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 		'printship': sum(printship),
 		'ads': sum(ads),
 		'other': sum(other),
-		'all_expenses': sum(all_expenses)
+		'all_expenses': sum(all_expenses),
+		'to_account': sum(to_account)
 	}
 	return render(request, template, d)
 

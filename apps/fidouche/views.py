@@ -252,6 +252,26 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 
 
 @login_required
+def gig_finances_view(request, gig_id=None, template='fidouche/gig_finances_view.html'):
+	"""Read-only view of gig finance info"""
+
+	gig_id = int(gig_id)
+	gig = get_object_or_404(Show, pk=gig_id)
+	payments = Payment.objects.filter(show=gig)
+	sub_payments = SubPayment.objects.filter(show=gig)
+	expenses = Expense.objects.filter(show=gig)
+
+	d = {
+		'gig': gig,
+		'payments': payments,
+		'sub_payments': sub_payments,
+		'expenses': expenses
+	}
+
+	return render(request, template, d)
+
+
+@login_required
 def expenses_list(request, template='fidouche/expenses_list.html'):
 	"""Show non-gig expenses"""
 	expenses = Expense.objects.filter(show__isnull=True)

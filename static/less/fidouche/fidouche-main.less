@@ -1,3 +1,5 @@
+@brand-success: #23a725;
+@state-success-text: @brand-success;
 .page-header {
 	.auto-calc-box {
 		margin-top:39px;
@@ -91,4 +93,14 @@ i.expense-detail-toggle {
 table.table.expense-details {
 	font-size:85%;
 	margin-top:6px;
+}
+.gig-meta {
+	table {
+		margin-bottom:0;
+		> tbody > tr:first-child {
+			th, td {
+				border-top:none;
+			}
+		}
+	}
 }

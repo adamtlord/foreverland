@@ -2,7 +2,7 @@ import datetime
 from django.shortcuts import render, get_object_or_404
 from shows.models import Show
 
-UPCOMING_WINDOW_WEEKS = 8
+UPCOMING_WINDOW_WEEKS = 12
 
 def upcoming_shows(request, template='shows/upcoming.html'):
     """list all upcoming shows for the next n weeks"""

@@ -1,11 +1,20 @@
-@setter-brand:		#c44d2d;
+@import url(http://fonts.googleapis.com/css?family=Permanent+Marker);
+@setter-font:               'Permanent Marker', @font-family-sans-serif;
+@setter-brand:              #c44d2d;
+@headings-font-family:      @setter-font;
 
 .navbar-default {
-	.navbar-brand {
-		background:url('../images/setter/setter-brand.png') left center no-repeat;
-		background-size:70px auto;
-		padding-left:70px;
-		color:@gray-dark;
-		font-weight:500;
-	}
+    .navbar-brand {
+        background:url('../images/setter/setter-brand.png') left center no-repeat;
+        background-size:70px auto;
+        padding-left:70px;
+        color:@gray-dark;
+        font-weight:500;
+        font-family: @setter-font;
+        font-size:1.4em;
+    }
+}
+
+ol.setlist {
+    .list-unstyled;
 }

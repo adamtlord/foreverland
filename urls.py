@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     (r'^setter/', include('setter.urls')),
     (r'^downloads/', 'media.views.downloads'),
     (r'^behind-the-music/', 'media.views.behind_the_music'),
+    (r'^api/', include('api.urls')),
     # Legacy redirects
     (r'^upcoming-shows/', RedirectView.as_view(url='/shows', permanent=True)),
     (r'^past-shows/', RedirectView.as_view(url='/shows/past', permanent=True)),

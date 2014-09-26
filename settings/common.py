@@ -127,7 +127,6 @@ INSTALLED_APPS = [
     'django_common',
     'storages',
     'sorl.thumbnail',
-    'rest_framework',
 
     'marketing',
     'members',
@@ -145,11 +144,6 @@ TEMPLATE_LOADERS = [
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 ]
-
-REST_FRAMEWORK = {
-    # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
-    'PAGINATE_BY': 10
-}
 
 # auth / django-registration params
 ACCOUNT_ACTIVATION_DAYS = 7

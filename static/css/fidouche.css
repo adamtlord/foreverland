@@ -8811,3 +8811,179 @@ table.table.expense-details {
 .gig-meta table > tbody > tr:first-child td {
   border-top: none;
 }
+@media (max-width: 767px) {
+  .page-header .auto-calc-box {
+    margin-top: 12px;
+  }
+  #subs_toggle {
+    margin-bottom: 12px;
+  }
+  table.table > thead > tr > th,
+  table.table > tbody > tr > th,
+  table.table > tfoot > tr > th,
+  table.table > thead > tr > td,
+  table.table > tbody > tr > td,
+  table.table > tfoot > tr > td {
+    padding: 5px;
+  }
+  table.table > thead > tr > th .input-group,
+  table.table > tbody > tr > th .input-group,
+  table.table > tfoot > tr > th .input-group,
+  table.table > thead > tr > td .input-group,
+  table.table > tbody > tr > td .input-group,
+  table.table > tfoot > tr > td .input-group {
+    width: 100%;
+  }
+  table.table > thead > tr > th .input-group .form-control,
+  table.table > tbody > tr > th .input-group .form-control,
+  table.table > tfoot > tr > th .input-group .form-control,
+  table.table > thead > tr > td .input-group .form-control,
+  table.table > tbody > tr > td .input-group .form-control,
+  table.table > tfoot > tr > td .input-group .form-control {
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  table.table > thead > tr > th .input-group-addon,
+  table.table > tbody > tr > th .input-group-addon,
+  table.table > tfoot > tr > th .input-group-addon,
+  table.table > thead > tr > td .input-group-addon,
+  table.table > tbody > tr > td .input-group-addon,
+  table.table > tfoot > tr > td .input-group-addon {
+    display: none !important;
+  }
+  .input-sm {
+    padding: 5px 7px;
+  }
+  #payment,
+  #sub_payment,
+  #itemize {
+    /* Force table to not be like tables anymore */
+    /* Hide table headers (but not display: none;, for accessibility) */
+    /*
+        Label the data
+        */
+  }
+  #payment table,
+  #sub_payment table,
+  #itemize table,
+  #payment thead,
+  #sub_payment thead,
+  #itemize thead,
+  #payment tbody,
+  #sub_payment tbody,
+  #itemize tbody,
+  #payment th,
+  #sub_payment th,
+  #itemize th,
+  #payment td,
+  #sub_payment td,
+  #itemize td,
+  #payment tr,
+  #sub_payment tr,
+  #itemize tr {
+    display: block;
+  }
+  #payment table.table,
+  #sub_payment table.table,
+  #itemize table.table {
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+  }
+  #payment table.table > tbody > tr,
+  #sub_payment table.table > tbody > tr,
+  #itemize table.table > tbody > tr {
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+  }
+  #payment table.table > tbody > tr td,
+  #sub_payment table.table > tbody > tr td,
+  #itemize table.table > tbody > tr td {
+    border: none;
+    position: relative;
+    padding-left: 25%;
+    text-align: left;
+    min-height: 40px;
+  }
+  #payment table.table > tbody > tr td:before,
+  #sub_payment table.table > tbody > tr td:before,
+  #itemize table.table > tbody > tr td:before {
+    position: absolute;
+    top: 0;
+    left: 7px;
+    width: 25%;
+    white-space: nowrap;
+    font-size: 12px;
+    bottom: 0;
+    line-height: 40px;
+  }
+  #payment table.table > tbody > tr td.paid input[type="checkbox"],
+  #sub_payment table.table > tbody > tr td.paid input[type="checkbox"],
+  #itemize table.table > tbody > tr td.paid input[type="checkbox"] {
+    margin: 7px 0 0 10px;
+  }
+  #payment table.table > tbody > tr td > a.thumb,
+  #sub_payment table.table > tbody > tr td > a.thumb,
+  #itemize table.table > tbody > tr td > a.thumb {
+    display: block;
+  }
+  #payment table.table > tbody > tr td > a.thumb img,
+  #sub_payment table.table > tbody > tr td > a.thumb img,
+  #itemize table.table > tbody > tr td > a.thumb img {
+    max-width: 100%;
+    margin-bottom: 5px;
+  }
+  #payment table.table > tbody > tr td > p.file-upload input,
+  #sub_payment table.table > tbody > tr td > p.file-upload input,
+  #itemize table.table > tbody > tr td > p.file-upload input {
+    margin-top: 5px;
+  }
+  #payment_formset > tbody > tr td:nth-of-type(1):before,
+  #sub_payment_formset > tbody > tr td:nth-of-type(1):before {
+    content: "Player";
+  }
+  #payment_formset td:nth-of-type(2):before,
+  #sub_payment_formset td:nth-of-type(2):before {
+    content: "Amount";
+  }
+  #payment_formset td:nth-of-type(3):before,
+  #sub_payment_formset td:nth-of-type(3):before {
+    content: "Paid?";
+  }
+}
+@media (max-width: 767px) and (max-width: 767px) {
+  #payment thead tr,
+  #sub_payment thead tr,
+  #itemize thead tr {
+    display: none !important;
+  }
+}
+#expenses_formset > tbody > tr td:nth-of-type(1):before {
+  content: "Date";
+}
+#expenses_formset > tbody > tr td:nth-of-type(2):before {
+  content: "Payee";
+}
+#expenses_formset > tbody > tr td:nth-of-type(3):before {
+  content: "Category";
+}
+#expenses_formset > tbody > tr td:nth-of-type(4):before {
+  content: "Amount";
+}
+#expenses_formset > tbody > tr td:nth-of-type(5):before {
+  content: "Check #";
+}
+#expenses_formset > tbody > tr td:nth-of-type(6):before {
+  content: "Notes";
+}
+#expenses_formset > tbody > tr td:nth-of-type(7):before {
+  content: "Receipt";
+}
+#expenses_formset > tbody > tr td:nth-of-type(8):before {
+  content: "Delete?";
+}
+#expenses_formset .payee select {
+  width: 100%;
+}

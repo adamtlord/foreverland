@@ -127,7 +127,6 @@ INSTALLED_APPS = [
     'django_common',
     'storages',
     'sorl.thumbnail',
-    'localflavor',
 
     'marketing',
     'members',

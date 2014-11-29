@@ -1,5 +1,8 @@
 import datetime
 from django.db import models
+
+from localflavor.us.models import PhoneNumberField, USStateField
+
 from sorl.thumbnail import ImageField
 from members.models import Member, Sub
 from shows.models import Show
@@ -15,7 +18,11 @@ class Payment(models.Model):
 		unique_together = (('show','member'),)
 
 	def __unicode__(self):
-		return '%s for %s on %s' % (self.member.display_first, self.show.venue, self.show.date.strftime('%m/%d/%y'))
+		payee = str(self.member.display_first) if self.member else '',
+		show = str(self.show.venue) if self.show.venue else '',
+		date = self.show.date.strftime('%m/%d/%y') if self.show else '',
+		return '%s for %s on %s' % (payee[0], show[0], date[0])
+
 
 
 class SubPayment(models.Model):
@@ -33,37 +40,43 @@ class SubPayment(models.Model):
 
 class Payee(models.Model):
 	name = models.CharField(max_length=200, blank=True, null=True)
+	address = models.CharField(max_length=100, blank=True, null=True)
+	city = models.CharField(max_length=100, blank=True, null=True)
+	state = USStateField(max_length=50, blank=True, null=True)
+	zip_code = models.CharField(verbose_name="Zip", max_length=20, blank=True, null=True)
+	phone = PhoneNumberField(blank=True, null=True)
+	ssn = models.CharField(verbose_name="SSN#", max_length=16, blank=True, null=True)
 
 	def __unicode__(self):
 		return self.name
 
 
 class Expense(models.Model):
-    EXPENSE_CATEGORIES = (
-        ('print','printing'),
-        ('ship','shipping'),
-        ('ads','ads'),
-        ('rent','rent'),
-        ('equipment','equipment'),
-        ('food','food/drink'),
-        ('costumes','costumes'),
-        ('travel','travel'),
-        ('fuel','fuel'),
-        ('lodging','lodging'),
-        ('subcon','subcontracted services'),
-        ('other','other'),
-    )
-    show = models.ForeignKey(Show, related_name="expense", blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
-    payee = models.ForeignKey(Payee, related_name="expense", blank=True, null=True)
-    category = models.CharField(max_length=100, blank=True, null=True, choices=EXPENSE_CATEGORIES)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    check_no = models.CharField(max_length=100, blank=True, null=True, verbose_name="Check #")
-    notes = models.TextField(blank=True, null=True)
-    receipt_img = ImageField(upload_to="receipts/", blank=True, null=True)
+	EXPENSE_CATEGORIES = (
+		('print','printing'),
+		('ship','shipping'),
+		('ads','ads'),
+		('rent','rent'),
+		('equipment','equipment'),
+		('food','food/drink'),
+		('costumes','costumes'),
+		('travel','travel'),
+		('fuel','fuel'),
+		('lodging','lodging'),
+		('subcon','subcontracted services'),
+		('other','other'),
+	)
+	show = models.ForeignKey(Show, related_name="expense", blank=True, null=True)
+	date = models.DateField(blank=True, null=True)
+	payee = models.ForeignKey(Payee, related_name="expense", blank=True, null=True)
+	category = models.CharField(max_length=100, blank=True, null=True, choices=EXPENSE_CATEGORIES)
+	amount = models.DecimalField(max_digits=10, decimal_places=2)
+	check_no = models.CharField(max_length=100, blank=True, null=True, verbose_name="Check #")
+	notes = models.TextField(blank=True, null=True)
+	receipt_img = ImageField(upload_to="receipts/", blank=True, null=True)
 
-    def __unicode__(self):
-    	safedate = ''
-    	if self.date:
-    		safedate = self.date.strftime('%m/%d/%y') + ', '
-        return '%s$%s to %s' % (safedate, self.amount, self.payee)
+	def __unicode__(self):
+		safedate = ''
+		if self.date:
+			safedate = self.date.strftime('%m/%d/%y') + ', '
+		return '%s$%s to %s' % (safedate, self.amount, self.payee)

@@ -15,7 +15,7 @@
         <link href="{{ STATIC_URL }}global/css/fidouche.css" rel="stylesheet">
 
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/modernizr.js"></script>
-        
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -53,6 +53,9 @@
                             <li>
                                 <a href="{% url 'expenses_list' %}">Expenses</a>
                             </li>
+                            <li>
+                                <a href="{% url 'finance_reports' %}">Reports</a>
+                            </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             {% if request.user.is_staff %}<li><a href="/admin">DB Admin</a></li>{% endif %}
@@ -79,6 +82,6 @@
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/bootstrap-switch.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/magnific-popup.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/apps/fidouche.js"></script>
-        {% block js %}{% endblock %}    
+        {% block js %}{% endblock %}
     </body>
 </html>

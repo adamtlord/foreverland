@@ -112,7 +112,7 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 		else:
 			if gig.payout:
 				players.append(gig.payout * 14)
-		
+
 		if gig.commission:
 			commission.append(gig.commission)
 		if gig.sound_cost:
@@ -127,7 +127,7 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 			other.append(gig.other_cost)
 		if gig.to_account:
 			to_account.append(gig.to_account)
-	
+
 	d = {
 		'year': year,
 		'this_years_gigs': gigs,
@@ -210,7 +210,7 @@ def gigs_year_over_year(request,template='fidouche/gigs_year_over_year.html'):
 				other.append(expense.amount)
 
 	d['all_gigs'] = gigs
-	
+
 	return render(request, template, d)
 
 @login_required
@@ -223,7 +223,7 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 	active_members = Member.objects.filter(active=True)
 
 	ExpenseFormSet = inlineformset_factory(Show, Expense, form=ExpenseForm)
-	PaymentFormSet = inlineformset_factory(Show, Payment, form=PaymentForm, extra=len(active_members), max_num=14, can_delete=False)	
+	PaymentFormSet = inlineformset_factory(Show, Payment, form=PaymentForm, extra=len(active_members), max_num=14, can_delete=False)
 	SubPaymentFormSet = inlineformset_factory(Show, SubPayment, form=SubPaymentForm)
 
 	if request.method == "POST":
@@ -347,6 +347,67 @@ def expense_delete(request, expense_id=None):
 		messages.add_message(request, messages.WARNING, '<i class="fa fa-warning"></i> <strong>HUH?</strong> That\'s not a thing.')
 
 	return redirect(expenses_list)
+
+
+@login_required
+def finance_reports(request, template='fidouche/finance_reports.html'):
+	"""View finance reports for a given timeframe"""
+
+	d = {
+		'no_dates': False
+	}
+	start = request.GET.get('start_date', None)
+	end = request.GET.get('end_date', None)
+	if start and end:
+		start_date = datetime.datetime.strptime(start, "%Y-%m-%d")
+		end_date = datetime.datetime.strptime(end, "%Y-%m-%d")
+
+
+		member_payments = {}
+		memberPayments = Payment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0)
+		for payment in memberPayments:
+			if payment.member in member_payments:
+				member_payments[payment.member].append(payment.amount)
+			else:
+				member_payments[payment.member] = [payment.amount]
+		for member in member_payments:
+			member_payments[member] = sum(member_payments[member])
+		d.update({'member_payments':member_payments})
+
+		sub_payments = {}
+		subPayments = SubPayment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0)
+		for payment in subPayments:
+			if payment.sub in sub_payments:
+				sub_payments[payment.sub].append(payment.amount)
+			else:
+				sub_payments[payment.sub] = [payment.amount]
+		for sub in sub_payments:
+			sub_payments[sub] = sum(sub_payments[sub])
+		d.update({
+			'sub_payments':sub_payments,
+		})
+
+		expense_payments = {}
+		expensePayments = Expense.objects.filter(date__range=(start_date, end_date)).filter(amount__gt=0)
+		for payment in expensePayments:
+			if payment.payee in expense_payments:
+				expense_payments[payment.payee]['total'].append(payment.amount)
+				expense_payments[payment.payee]['count'] += 1
+			else:
+				expense_payments[payment.payee] = {
+					'total':[payment.amount],
+					'count':1
+				}
+		for payee in expense_payments:
+			expense_payments[payee]['total'] = sum(expense_payments[payee]['total'])
+		d.update({'expense_payments':expense_payments})
+
+	else:
+		d['no_dates'] = True
+
+
+
+	return render(request, template, d)
 
 
 

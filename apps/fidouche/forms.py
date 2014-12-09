@@ -1,4 +1,4 @@
-from django.forms import ModelForm, DecimalField
+from django import forms
 from fidouche.widgets import AdminImageWidget
 from shows.models import Show
 from fidouche.models import Payment, SubPayment, Expense
@@ -29,7 +29,7 @@ FINANCIAL_FIELDS = (
 	'net',
 	'payout',
 	'to_account',
-	'subs', 
+	'subs',
 	'costs_itemized',
 	'settlement_sheet'
 )
@@ -42,7 +42,7 @@ EXPENSE_FIELDS = (
 	'notes'
 )
 
-class GigFinanceForm(ModelForm):
+class GigFinanceForm(forms.ModelForm):
 	class Meta:
 		model = Show
 		fields = FINANCIAL_FIELDS
@@ -57,7 +57,7 @@ class GigFinanceForm(ModelForm):
 				self.fields[field].widget.attrs['class'] = 'form-control'
 
 
-class ExpenseForm(ModelForm):
+class ExpenseForm(forms.ModelForm):
 	class Meta:
 		model = Expense
 		widgets = {
@@ -71,7 +71,7 @@ class ExpenseForm(ModelForm):
 		self.fields['date'].widget.attrs['data-format'] = 'YYYY-MM-DD'
 
 
-class PaymentForm(ModelForm):
+class PaymentForm(forms.ModelForm):
 	class Meta:
 		model = Payment
 	def __init__(self, *args, **kwargs):
@@ -80,7 +80,7 @@ class PaymentForm(ModelForm):
 		self.fields['amount'].widget.attrs['class'] = 'form-control input-sm'
 
 
-class SubPaymentForm(ModelForm):
+class SubPaymentForm(forms.ModelForm):
 	class Meta:
 		model = SubPayment
 	def __init__(self, *args, **kwargs):

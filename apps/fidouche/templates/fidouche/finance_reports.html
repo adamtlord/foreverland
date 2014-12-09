@@ -1,0 +1,140 @@
+{% extends 'base_fidouche.html' %}
+{% load custom_tags %}
+{% load humanize %}
+{% block content %}
+<div class="page-header">
+	<h2>Financial Reports</h2>
+</div>
+<form id="report_dates" role="form" action="">
+	<div class="row">
+		<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+			<div class="form-group">
+				<label class="sr-only" for="startDate">Start Date</label>
+				<div class="input-group startDate">
+					<input class="form-control" data-format="YYYY-MM-DD" id="start_date" name="start_date" type="text" placeholder="YYYY-MM-DD" {% if request.GET.start_date %}value="{{ request.GET.start_date }}"{% endif %}>
+					<span class="input-group-addon">
+						<i class="fa fa-calendar"></i>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+			<div class="form-group">
+				<label class="sr-only" for="endDate">End Date</label>
+				<div class="input-group endDate">
+					<input class="form-control" data-format="YYYY-MM-DD" id="end_date" name="end_date" type="text" placeholder="YYYY-MM-DD" {% if request.GET.end_date %}value="{{ request.GET.end_date }}"{% endif %}>
+					<span class="input-group-addon">
+						<i class="fa fa-calendar"></i>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4 col-md-3 col-lg-2">
+			<button type="submit" class="btn btn-primary">Generate Reports</button>
+		</div>
+	</div>
+<hr>
+</form>
+{% if no_dates %}
+	Pick some dates, yo
+{% else %}
+<h3>Members</h3>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>
+				Member
+			</th>
+			<th>
+				Total Paid
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for member, total in member_payments.items %}
+			<tr>
+				<td>{{ member }}</td>
+				<td>${{ total|intcomma }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<h3>Subs</h3>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>
+				Sub
+			</th>
+			<th>
+				Total Paid
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for sub, total in sub_payments.items %}
+			<tr>
+				<td>{{ sub }}</td>
+				<td>${{ total|intcomma }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<h3>Expenses</h3>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>
+				Payee
+			</th>
+			<th>
+				Total Paid
+			</th>
+			<th>
+				# of Payments
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for payee, payments in expense_payments.items %}
+			<tr>
+				<td>{{ payee }}</td>
+				<td>${{ payments.total|intcomma }}</td>
+				<td><span class="badge">{{ payments.count }}</span></td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% endif %}
+
+
+{% endblock %}
+{% block js %}
+<script>
+	$(function(){
+		$('.startDate').datetimepicker({
+			pickTime: false
+		});
+		$('.endDate').datetimepicker({
+			pickTime: false,
+			defaultDate: moment().format('YYYY-MM-DD')
+		});
+		$('#report_dates').submit(function(e){
+			var sd = $('#start_date');
+			var ed = $('#end_date');
+			if(sd.val() == '' || ed.val() == ''){
+				if(sd.val() == ''){
+					sd.parents('.form-group').addClass('has-error');
+				}
+				if(ed.val() == ''){
+					ed.parents('.form-group').addClass('has-error');
+				}
+				return false;
+			}
+		});
+	});
+</script>
+{% endblock %}

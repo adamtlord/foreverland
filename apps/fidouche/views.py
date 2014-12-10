@@ -362,27 +362,34 @@ def finance_reports(request, template='fidouche/finance_reports.html'):
 		start_date = datetime.datetime.strptime(start, "%Y-%m-%d")
 		end_date = datetime.datetime.strptime(end, "%Y-%m-%d")
 
-
 		member_payments = {}
 		memberPayments = Payment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0)
 		for payment in memberPayments:
 			if payment.member in member_payments:
-				member_payments[payment.member].append(payment.amount)
+				member_payments[payment.member]['total'].append(payment.amount)
+				member_payments[payment.member]['payments'].append(payment)
 			else:
-				member_payments[payment.member] = [payment.amount]
+				member_payments[payment.member] = {
+					'total': [payment.amount],
+					'payments': [payment]
+				}
 		for member in member_payments:
-			member_payments[member] = sum(member_payments[member])
+			member_payments[member]['total'] = sum(member_payments[member]['total'])
 		d.update({'member_payments':member_payments})
 
 		sub_payments = {}
 		subPayments = SubPayment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0)
 		for payment in subPayments:
 			if payment.sub in sub_payments:
-				sub_payments[payment.sub].append(payment.amount)
+				sub_payments[payment.sub]['total'].append(payment.amount)
+				sub_payments[payment.sub]['payments'].append(payment)
 			else:
-				sub_payments[payment.sub] = [payment.amount]
+				sub_payments[payment.sub] = {
+					'total': [payment.amount],
+					'payments': [payment]
+				}
 		for sub in sub_payments:
-			sub_payments[sub] = sum(sub_payments[sub])
+			sub_payments[sub]['total'] = sum(sub_payments[sub]['total'])
 		d.update({
 			'sub_payments':sub_payments,
 		})
@@ -392,11 +399,11 @@ def finance_reports(request, template='fidouche/finance_reports.html'):
 		for payment in expensePayments:
 			if payment.payee in expense_payments:
 				expense_payments[payment.payee]['total'].append(payment.amount)
-				expense_payments[payment.payee]['count'] += 1
+				expense_payments[payment.payee]['payments'].append(payment)
 			else:
 				expense_payments[payment.payee] = {
 					'total':[payment.amount],
-					'count':1
+					'payments':[payment]
 				}
 		for payee in expense_payments:
 			expense_payments[payee]['total'] = sum(expense_payments[payee]['total'])
@@ -404,8 +411,6 @@ def finance_reports(request, template='fidouche/finance_reports.html'):
 
 	else:
 		d['no_dates'] = True
-
-
 
 	return render(request, template, d)
 

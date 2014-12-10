@@ -107,8 +107,36 @@ table.table.expense-details {
 
 /* Finance Reports */
 #report_dates {
+    margin-bottom:20px;
     button[type="submit"] {
         margin-top:0
+    }
+    .help-block {
+        .hide;
+    }
+    .has-error .help-block {
+        .show;
+        margin-bottom:0;
+    }
+    .form-group {
+        margin-bottom:0;
+    }
+}
+i.payment-detail-toggle {
+    color:@gray-light;
+    cursor:pointer;
+    float:right;
+    margin-top:3px;
+    &:hover {
+        color:@gray;
+    }
+}
+table.table.payment-details {
+    font-size:85%;
+    margin-top:6px;
+    &.table-striped > tbody > tr:nth-child(odd) > td,
+    &.table-striped > tbody > tr:nth-child(odd) > th {
+        background-color:#f5f5f5;
     }
 }
 @media (min-width:@screen-sm-min) and (max-width:@screen-sm-max){

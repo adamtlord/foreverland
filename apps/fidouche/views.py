@@ -278,7 +278,18 @@ def gig_finances_view(request, gig_id=None, template='fidouche/gig_finances_view
 
 
 @login_required
-def expenses_list(request, template='fidouche/expenses_list.html'):
+def expenses_list(request, year=current_year, template='fidouche/expenses_list.html'):
+	"""Show non-gig expenses"""
+	expenses = Expense.objects.filter(show__isnull=True, date__year=year)
+	d = {
+		'expenses': expenses
+	}
+
+	return render(request, template, d)
+
+
+@login_required
+def all_expenses_list(request, template='fidouche/expenses_list.html'):
 	"""Show non-gig expenses"""
 	expenses = Expense.objects.filter(show__isnull=True)
 	d = {

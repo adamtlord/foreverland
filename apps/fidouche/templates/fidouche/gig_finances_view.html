@@ -23,7 +23,7 @@
 					<th>Paid by</th><td>{{ gig.payer }} {% if gig.commission_withheld %}(commission withheld){% endif %}</td>
 				</tr>
 				<tr>
-					<th>Commission</th><td>{{ gig.commission_percentage }}%</td>
+					<th>Commission</th><td>${{ gig.commission }} ({{ gig.commission_percentage }}%)</td>
 				</tr>
 				<tr>
 					<th>Sound/Production costs</th><td>{% if gig.sound_cost %}${{ gig.sound_cost }}{% endif %}</td>

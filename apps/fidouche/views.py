@@ -83,6 +83,9 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 	other = []
 	all_expenses = []
 	to_account = []
+	gross = []
+	net = []
+	payout = []
 
 	for m in range(1,13):
 		month_gigs = gigs.filter(date__month = m)
@@ -127,10 +130,20 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 			other.append(gig.other_cost)
 		if gig.to_account:
 			to_account.append(gig.to_account)
+		if gig.gross:
+			gross.append(gig.gross)
+		if gig.net:
+			net.append(gig.net)
+		if gig.payout:
+			payout.append(gig.payout)
 
 	d = {
 		'year': year,
 		'this_years_gigs': gigs,
+		'gigs_played': gigs.count(),
+		'gross': sum(gross),
+		'net': sum(net),
+		'payout': sum(payout),
 		'current': current,
 		'by_month': by_month,
 		'players': sum(players),

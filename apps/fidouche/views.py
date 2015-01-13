@@ -279,12 +279,16 @@ def gig_finances_view(request, gig_id=None, template='fidouche/gig_finances_view
 	payments = Payment.objects.filter(show=gig)
 	sub_payments = SubPayment.objects.filter(show=gig)
 	expenses = Expense.objects.filter(show=gig)
+	buyouts = False
+	if gig.fee or gig.food_buyout or gig.travel_buyout or gig.lodging_buyout or gig.other_buyout:
+		buyouts = True
 
 	d = {
 		'gig': gig,
 		'payments': payments,
 		'sub_payments': sub_payments,
-		'expenses': expenses
+		'expenses': expenses,
+		'buyouts': buyouts
 	}
 
 	return render(request, template, d)

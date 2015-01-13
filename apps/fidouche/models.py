@@ -16,6 +16,7 @@ class Payment(models.Model):
 
 	class Meta:
 		unique_together = (('show','member'),)
+		ordering = ['show__date']
 
 	def __unicode__(self):
 		payee = str(self.member.display_first) if self.member else '',

@@ -26,10 +26,10 @@
 					<th>Commission</th><td>{{ gig.commission_percentage }}%</td>
 				</tr>
 				<tr>
-					<th>Sound/Production costs</th><td>{{ gig.sound_cost }}</td>
+					<th>Sound/Production costs</th><td>{% if gig.sound_cost %}${{ gig.sound_cost }}{% endif %}</td>
 				</tr>
 				<tr>
-					<th>IEM cost</th><td>${{ gig.in_ears_cost }}</td>
+					<th>IEM cost</th><td>{% if gig.in_ears_cost %}${{ gig.in_ears_cost }}{% endif %}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -58,13 +58,13 @@
 		<table class="table">
 			<tbody>
 				<tr>
-					<th>Printing/shipping costs</th><td>${{ gig.print_ship_cost|intcomma }}</td>
+					<th>Printing/shipping costs</th><td>{% if gig.print_ship_cost %}${{ gig.print_ship_cost|intcomma }}{% endif %}</td>
 				</tr>
 				<tr>
-					<th>Ads costs</th><td>${{ gig.ads_cost|intcomma }}</td>
+					<th>Ads costs</th><td>{% if gig.ads_cost %}${{ gig.ads_cost|intcomma }}{% endif %}</td>
 				</tr>
 				<tr>
-					<th>Other costs</th><td>${{ gig.other_cost|intcomma }}</td>
+					<th>Other costs</th><td>{% if gig.other_cost %}${{ gig.other_cost|intcomma }}{% endif %}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -96,7 +96,7 @@
 				<tbody>
 					{% if gig.attendance %}
 						<tr>
-							<th>Attendance</th><td>{{ gig.attendance }} {% if gig.venue.capacity %}(capacity: {{ gig.venue.capacity }}{% endif %}</td>
+							<th>Attendance</th><td>{{ gig.attendance }} {% if gig.venue.capacity %}(capacity: {{ gig.venue.capacity }}){% endif %}</td>
 						</tr>
 					{% endif %}
 					<tr>

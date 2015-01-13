@@ -15,31 +15,39 @@
 						<tr>
 							<td>Gigs played:</td><td>{{ gigs_played }}</td>
 						</tr>
+						{% if gross > 0 %}
 						<tr>
 							<td>Gross:</td><td>${{ gross|intcomma }} </td>
 						</tr>
+						{% endif %}
+						{% if net > 0 %}
 						<tr>
 							<td>Net:</td><td>${{ net|intcomma }}</td>
 						</tr>
+						{% endif %}
+						{% if payout > 0 %}
 						<tr>
 							<td>Per player:</td><td>${{ payout|intcomma }}</td>
 						</tr>
+						{% endif %}
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-md-4">
-			<div id="net_by_month"></div>
+	{% if gross %}
+		<div class="row">
+				<div class="col-md-4">
+					<div id="net_by_month"></div>
+				</div>
+			<div class="col-md-4">
+				<div id="year_pie"></div>
+			</div>
+			<div class="col-md-4">
+				<div id="year_expenses"></div>
+			</div>
 		</div>
-		<div class="col-md-4">
-			<div id="year_pie"></div>
-		</div>
-		<div class="col-md-4">
-			<div id="year_expenses"></div>
-		</div>
-	</div>
+	{% endif %}
 	<hr>
 	<table class="table table-striped table-bordered datatable">
 		<thead>

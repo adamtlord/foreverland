@@ -26,6 +26,9 @@ class Member(models.Model):
     zip_code = models.CharField(verbose_name="Zip", max_length=20, blank=True, null=True)
     phone = PhoneNumberField(blank=True, null=True)
     ssn = models.CharField(verbose_name="SSN#", max_length=16, blank=True, null=True)
+    partner = models.BooleanField(default=False)
+    date_partner_joined = models.DateField(verbose_name="Became a Partner", blank=True, null=True)
+    date_partner_left = models.DateField(verbose_name="Left Partnership", blank=True, null=True)
 
     def __unicode__(self):
         return '%s %s' % (self.display_first, self.display_last)

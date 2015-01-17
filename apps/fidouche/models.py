@@ -52,25 +52,28 @@ class Payee(models.Model):
 		return self.name
 
 
+class TaxExpenseCategory(models.Model):
+	name = models.CharField(max_length=100, blank=True, null=True)
+	class Meta:
+		verbose_name_plural = "Tax Expense Categories"
+
+
+class ExpenseCategory(models.Model):
+	category = models.CharField(max_length=100, blank=True, null=True)
+	tax_category = models.ForeignKey(TaxExpenseCategory, related_name="expense_category", blank=True, null=True)
+
+	def __unicode__(self):
+		return self.category
+
+	class Meta:
+		verbose_name_plural = "Expense Categories"
+
 class Expense(models.Model):
-	EXPENSE_CATEGORIES = (
-		('print','printing'),
-		('ship','shipping'),
-		('ads','ads'),
-		('rent','rent'),
-		('equipment','equipment'),
-		('food','food/drink'),
-		('costumes','costumes'),
-		('travel','travel'),
-		('fuel','fuel'),
-		('lodging','lodging'),
-		('subcon','subcontracted services'),
-		('other','other'),
-	)
+
 	show = models.ForeignKey(Show, related_name="expense", blank=True, null=True)
 	date = models.DateField(blank=True, null=True)
 	payee = models.ForeignKey(Payee, related_name="expense", blank=True, null=True)
-	category = models.CharField(max_length=100, blank=True, null=True, choices=EXPENSE_CATEGORIES)
+	new_category = models.ForeignKey(ExpenseCategory, related_name="expense_category", blank=True, null=True, verbose_name="Category")
 	amount = models.DecimalField(max_digits=10, decimal_places=2)
 	check_no = models.CharField(max_length=100, blank=True, null=True, verbose_name="Check #")
 	notes = models.TextField(blank=True, null=True)
@@ -81,3 +84,7 @@ class Expense(models.Model):
 		if self.date:
 			safedate = self.date.strftime('%m/%d/%y') + ', '
 		return '%s$%s to %s' % (safedate, self.amount, self.payee)
+
+
+
+

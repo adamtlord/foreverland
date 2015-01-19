@@ -8845,10 +8845,65 @@ table.table.payment-details.table-striped > tbody > tr:nth-child(odd) > td,
 table.table.payment-details.table-striped > tbody > tr:nth-child(odd) > th {
   background-color: #f5f5f5;
 }
+#payment_formset > tbody > tr td:nth-of-type(1):before,
+#sub_payment_formset > tbody > tr td:nth-of-type(1):before {
+  content: "";
+}
+#payment_formset > tbody > tr td:nth-of-type(2):before,
+#sub_payment_formset > tbody > tr td:nth-of-type(2):before {
+  content: "";
+}
+#payment_formset > tbody > tr td:nth-of-type(3):before,
+#sub_payment_formset > tbody > tr td:nth-of-type(3):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(1):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(2):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(3):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(4):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(5):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(6):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(7):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(8):before {
+  content: "";
+}
+#expenses_formset .payee select {
+  width: auto;
+}
 @media (min-width: 768px) and (max-width: 991px) {
   .navbar-default .navbar-nav > li > a {
     padding-left: 10px;
     padding-right: 10px;
+  }
+}
+@media (max-width: 991px) {
+  .table-responsive,
+  .dataTables_wrapper {
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    min-height: .01%;
+    overflow-x: auto;
+  }
+  .table-responsive table.table.datatable,
+  .dataTables_wrapper table.table.datatable {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }
 @media (max-width: 767px) {
@@ -8984,13 +9039,40 @@ table.table.payment-details.table-striped > tbody > tr:nth-child(odd) > th {
   #sub_payment_formset > tbody > tr td:nth-of-type(1):before {
     content: "Player";
   }
-  #payment_formset td:nth-of-type(2):before,
-  #sub_payment_formset td:nth-of-type(2):before {
+  #payment_formset > tbody > tr td:nth-of-type(2):before,
+  #sub_payment_formset > tbody > tr td:nth-of-type(2):before {
     content: "Amount";
   }
-  #payment_formset td:nth-of-type(3):before,
-  #sub_payment_formset td:nth-of-type(3):before {
+  #payment_formset > tbody > tr td:nth-of-type(3):before,
+  #sub_payment_formset > tbody > tr td:nth-of-type(3):before {
     content: "Paid?";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(1):before {
+    content: "Date";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(2):before {
+    content: "Payee";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(3):before {
+    content: "Category";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(4):before {
+    content: "Amount";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(5):before {
+    content: "Check #";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(6):before {
+    content: "Notes";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(7):before {
+    content: "Receipt";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(8):before {
+    content: "Delete?";
+  }
+  #expenses_formset .payee select {
+    width: 100%;
   }
 }
 @media (max-width: 767px) and (max-width: 767px) {
@@ -8999,31 +9081,4 @@ table.table.payment-details.table-striped > tbody > tr:nth-child(odd) > th {
   #itemize thead tr {
     display: none !important;
   }
-}
-#expenses_formset > tbody > tr td:nth-of-type(1):before {
-  content: "Date";
-}
-#expenses_formset > tbody > tr td:nth-of-type(2):before {
-  content: "Payee";
-}
-#expenses_formset > tbody > tr td:nth-of-type(3):before {
-  content: "Category";
-}
-#expenses_formset > tbody > tr td:nth-of-type(4):before {
-  content: "Amount";
-}
-#expenses_formset > tbody > tr td:nth-of-type(5):before {
-  content: "Check #";
-}
-#expenses_formset > tbody > tr td:nth-of-type(6):before {
-  content: "Notes";
-}
-#expenses_formset > tbody > tr td:nth-of-type(7):before {
-  content: "Receipt";
-}
-#expenses_formset > tbody > tr td:nth-of-type(8):before {
-  content: "Delete?";
-}
-#expenses_formset .payee select {
-  width: 100%;
 }

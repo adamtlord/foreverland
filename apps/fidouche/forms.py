@@ -36,7 +36,7 @@ FINANCIAL_FIELDS = (
 EXPENSE_FIELDS = (
 	'date',
 	'payee',
-	'category',
+	'new_category',
 	'amount',
 	'check_no',
 	'notes'

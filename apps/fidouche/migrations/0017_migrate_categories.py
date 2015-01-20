@@ -36,7 +36,7 @@ class Migration(DataMigration):
 
 
     def backwards(self, orm):
-        raise RuntimeError("Cannot reverse this migration.")
+        pass
 
     models = {
         u'fidouche.expense': {

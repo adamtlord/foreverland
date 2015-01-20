@@ -1,7 +1,7 @@
 from datetime import date
 import datetime
 from django.forms.models import inlineformset_factory
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -9,7 +9,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 from members.models import Member
 from shows.models import Show
-from fidouche.models import Payment, SubPayment, Expense
+from fidouche.models import Payment, SubPayment, Expense, ExpenseCategory
 from fidouche.forms import GigFinanceForm, ExpenseForm, PaymentForm, SubPaymentForm
 
 current_year = date.today().year
@@ -435,6 +435,93 @@ def finance_reports(request, template='fidouche/finance_reports.html'):
 				}
 		for payee in expense_payments:
 			expense_payments[payee]['total'] = sum(expense_payments[payee]['total'])
+		d.update({'expense_payments':expense_payments})
+
+	else:
+		d['no_dates'] = True
+
+	return render(request, template, d)
+
+@login_required
+def tax_reports(request, template='fidouche/tax_reports.html'):
+	"""View finance reports for a given timeframe"""
+
+	d = {
+		'no_dates': False
+	}
+	start = request.GET.get('start_date', None)
+	end = request.GET.get('end_date', None)
+	if start and end:
+		start_date = datetime.datetime.strptime(start, "%Y-%m-%d").date()
+		end_date = datetime.datetime.strptime(end, "%Y-%m-%d").date()
+
+		payments = Payment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0)
+
+		# PARTNER PAYMENTS aka "Guaranteed Payments"
+		# We want all payments to members who were partners during this time period.
+		# That means they became a member before the start date AND
+		# they stopped being a member after it (OR they haven't stopped being a member, ie, no date_partner_left)
+		partnerPayments = payments.filter(member__date_partner_joined__lte=start_date).filter(Q(member__date_partner_left__isnull=True) | Q(member__date_partner_left__gte=end_date))
+		partner_payments = {}
+		for payment in partnerPayments:
+			if payment.member in partner_payments:
+				partner_payments[payment.member]['total'].append(payment.amount)
+				partner_payments[payment.member]['payments'].append(payment)
+			else:
+				partner_payments[payment.member] = {
+					'total': [payment.amount],
+					'payments': [payment]
+				}
+		for member in partner_payments:
+			partner_payments[member]['total'] = sum(partner_payments[member]['total'])
+		d.update({'partner_payments':partner_payments})
+
+		non_partner_payments = {}
+		subPayments = SubPayment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0)
+		nonPartnerPayments = payments.exclude(id__in=partnerPayments)
+
+		for payment in subPayments:
+			if payment.sub in non_partner_payments:
+				non_partner_payments[payment.sub]['total'].append(payment.amount)
+				non_partner_payments[payment.sub]['payments'].append(payment)
+			else:
+				non_partner_payments[payment.sub] = {
+					'total': [payment.amount],
+					'payments': [payment]
+				}
+
+		for payment in nonPartnerPayments:
+			if payment.member in non_partner_payments:
+				non_partner_payments[payment.member]['total'].append(payment.amount)
+				non_partner_payments[payment.member]['payments'].append(payment)
+			else:
+				non_partner_payments[payment.member] = {
+					'total': [payment.amount],
+					'payments': [payment]
+				}
+
+		for person in non_partner_payments:
+			non_partner_payments[person]['total'] = sum(non_partner_payments[person]['total'])
+
+		d.update({
+			'non_partner_payments':non_partner_payments,
+		})
+
+		expense_payments = {}
+		expensePayments = Expense.objects.filter(date__range=(start_date, end_date)).filter(amount__gt=0)
+		for payment in expensePayments:
+			if payment.new_category.tax_category.name in expense_payments:
+				expense_payments[payment.new_category.tax_category.name]['total'].append(payment.amount)
+				expense_payments[payment.new_category.tax_category.name]['payments'].append(payment)
+			else:
+				expense_payments[payment.new_category.tax_category.name] = {
+					'total':[payment.amount],
+					'payments':[payment]
+				}
+		for category in expense_payments:
+			expense_payments[category]['total'] = sum(expense_payments[category]['total'])
+			expense_payments[category]['show'] = True
+
 		d.update({'expense_payments':expense_payments})
 
 	else:

@@ -61,6 +61,9 @@ class TaxExpenseCategory(models.Model):
 	class Meta:
 		verbose_name_plural = "Tax Expense Categories"
 
+	def __unicode__(self):
+		return self.name
+
 
 class ExpenseCategory(models.Model):
 	category = models.CharField(max_length=100, blank=True, null=True)

@@ -1,0 +1,227 @@
+{% extends 'base_fidouche.html' %}
+{% load custom_tags %}
+{% load humanize %}
+{% block content %}
+<div class="page-header">
+	<h2>Tax Reports</h2>
+</div>
+<form id="report_dates" role="form" action="">
+	<div class="row">
+		<div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+			<div class="form-group">
+				<label class="sr-only" for="startDate">Start Date</label>
+				<div class="input-group startDate">
+					<input class="form-control" data-format="YYYY-MM-DD" id="start_date" name="start_date" type="text" placeholder="YYYY-MM-DD" {% if request.GET.start_date %}value="{{ request.GET.start_date }}"{% endif %}>
+					<span class="input-group-addon">
+						<i class="fa fa-calendar"></i>
+					</span>
+				</div>
+				<span class="help-block">Need this.</span>
+			</div>
+		</div>
+		<div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+			<div class="form-group">
+				<label class="sr-only" for="endDate">End Date</label>
+				<div class="input-group endDate">
+					<input class="form-control" data-format="YYYY-MM-DD" id="end_date" name="end_date" type="text" placeholder="YYYY-MM-DD" {% if request.GET.end_date %}value="{{ request.GET.end_date }}"{% endif %}>
+					<span class="input-group-addon">
+						<i class="fa fa-calendar"></i>
+					</span>
+				</div>
+				<span class="help-block">Need this.</span>
+			</div>
+		</div>
+		<div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+			<button type="submit" class="btn btn-primary">Generate<span class="hidden-xs"> Reports</span></button>
+		</div>
+	</div>
+	<hr />
+</form>
+{% if no_dates %}
+	<p>Choose a date range</p>
+{% else %}
+	<ul class="nav nav-tabs">
+		<li role="presentation" class="active"><a href="#partners" data-toggle="tab">Partners</a></li>
+		<li role="presentation"><a href="#nonpartners" data-toggle="tab">Non-partners</a></li>
+		<li role="presentation"><a href="#expenses" data-toggle="tab">Expenses & Services</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane active" id="partners">
+			<h3>Partners</h3>
+			<table class="table table-bordered table-striped datatable">
+				<thead>
+					<tr>
+						<th>
+							Partner
+						</th>
+						<th>
+							Total Paid
+						</th>
+						<th>
+							Payments
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for partner, payments in partner_payments.items %}
+						<tr>
+							<td>{{ partner }}</td>
+							<td>${{ payments.total|intcomma }}</td>
+							<td>{{ payments.payments|length }} {% if payments %}<i class="fa fa-list-ul payment-detail-toggle" data-toggle="collapse" data-target="#member{{ member.id }}_payments"></i>
+								<table class="table table-condensed table-striped payment-details collapse" id="member{{ member.id }}_payments">
+									<tbody>
+										{% for payment in payments.payments %}
+										<tr>
+											<td>{{payment.show }}</td>
+											<td>{{payment.amount }}</td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="tab-pane" id="nonpartners">
+			<h3>Non-Partners and Subs</h3>
+			<table class="table table-bordered table-striped datatable">
+				<thead>
+					<tr>
+						<th>
+							Player
+						</th>
+						<th>
+							Total Paid
+						</th>
+						<th>
+							Payments
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for sub, payments in non_partner_payments.items %}
+						<tr>
+							<td>{{ sub }}</td>
+							<td>${{ payments.total|intcomma }}</td>
+							<td>{{ payments.payments|length }} {% if payments %}<i class="fa fa-list-ul payment-detail-toggle" data-toggle="collapse" data-target="#sub{{ sub.id }}_payments"></i>
+								<table class="table table-condensed table-striped payment-details collapse" id="sub{{ sub.id }}_payments">
+									<tbody>
+										{% for payment in payments.payments %}
+										<tr>
+											<td>{{payment.show }}</td>
+											<td>{{payment.amount }}</td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="tab-pane" id="expenses">
+			<h3>Expenses</h3>
+			{% for category, payments in expense_payments.items %}
+				<h4>{{ category|title }}</h4>
+				<table class="table table-bordered table-striped datatable-expense">
+					<thead>
+						<tr>
+							<th>Date Sort</th>
+							<th>
+								Date
+							</th>
+							<th>
+								Amount
+							</th>
+							<th>
+								Payee
+							</th>
+							<th>
+								Show
+							</th>
+							<th>
+								Commission Withheld
+							</th>
+							<th>
+								Show Payer
+							</th>
+							<th>
+								Notes
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for payment in payments.payments %}
+							<tr>
+								<td>{{ payment.date|date:"Ymd" }}</td>
+								<td>{{ payment.date|date:"n/j/y" }}</td>
+								<td>${{ payment.amount|intcomma }}</td>
+								<td>{{ payment.payee }}</td>
+								<td>{% if payment.show %}{{ payment.show }}{% endif %}</td>
+								<td>{% if payment.show.commission_withheld %}Yes{% else %}No{% endif %}</td>
+								<td>{{ payment.show.payer }}</td>
+								<td>{{ payment.notes }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			{% endfor %}
+		</div>
+	</div>
+
+{% endif %}
+
+
+{% endblock %}
+{% block js %}
+<script>
+	$(function(){
+		if(window.location.hash){
+			var activeTab = window.location.hash;
+			$('a[href="' + activeTab + '"]').tab('show');
+		}
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+			window.location.hash = $(e.target).attr('href');
+			e.preventDefault()
+		});
+		$('.startDate').datetimepicker({
+			pickTime: false
+		});
+		$('.endDate').datetimepicker({
+			pickTime: false,
+			defaultDate: moment().format('YYYY-MM-DD')
+		});
+		$('#report_dates').submit(function(e){
+			var sd = $('#start_date');
+			var ed = $('#end_date');
+			if(sd.val() == '' || ed.val() == ''){
+				if(sd.val() == ''){
+					sd.parents('.form-group').addClass('has-error');
+				}
+				if(ed.val() == ''){
+					ed.parents('.form-group').addClass('has-error');
+				}
+				return false;
+			}
+		});
+		$('.datatable').dataTable({
+			"aaSorting": [ ],
+			"aoColumnDefs": [
+				{"sType": "currency", "aTargets": [2]}
+			],
+		});
+		$('.datatable-expense').dataTable({
+			"bAutoWidth": false,
+			"aoColumnDefs": [
+				{"bVisible": false, "aTargets": [0]},
+				{"asSorting": ["asc"], "aTargets": [0]},
+				{"iDataSort": 0, "aTargets": [1]},
+				{"sType": "currency", "aTargets": [3]}
+			]
+		})
+	});
+</script>
+{% endblock %}

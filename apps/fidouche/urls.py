@@ -16,4 +16,5 @@ urlpatterns = patterns('fidouche.views',
 	url(r'^expenses/delete/(?P<expense_id>\d+)/$','expense_delete', {}, name='expense_delete'),
 
     url(r'^reports/$','finance_reports', {}, name='finance_reports'),
+    url(r'^tax-reports/$','tax_reports', {}, name='tax_reports'),
 )

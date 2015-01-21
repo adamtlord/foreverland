@@ -88,6 +88,14 @@ class Expense(models.Model):
 			safedate = self.date.strftime('%m/%d/%y') + ', '
 		return '%s$%s to %s' % (safedate, self.amount, self.payee)
 
+class Quote(models.Model):
+
+	quote = models.TextField()
+	source = models.CharField(max_length=128, blank=True, null=True)
+	occasion = models.CharField(max_length=256, blank=True, null=True)
+
+	def __unicode__(self):
+		return '%s...' % self.quote[0:64]
 
 
 

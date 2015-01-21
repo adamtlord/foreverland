@@ -348,7 +348,7 @@ def expense_create(request, template='fidouche/expense_create.html'):
 		form = ExpenseForm(request.POST, request.FILES)
 		form.save()
 		messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>KA-CHING.</strong> Expense added.')
-		return redirect(expenses_list)
+		return redirect(all_expenses_list)
 
 	else:
 		form = ExpenseForm()

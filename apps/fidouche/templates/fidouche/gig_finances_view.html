@@ -82,7 +82,7 @@
 					{% for expense in expenses %}
 					<tr>
 						<td>{{ expense.payee }}</td>
-						<td>{{ expense.category }}</td>
+						<td>{{ expense.new_category }}</td>
 						<td>${{ expense.amount|intcomma }}</td>
 					</tr>
 					{% endfor %}

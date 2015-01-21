@@ -166,8 +166,13 @@ table.table.payment-details {
         margin-bottom:20px;
     }
     h4 {
-        padding-top:15px;
+        padding-top:20px;
+        margin-top:20px;
+        margin-bottom:-25px;
         border-top:1px solid @gray-lighter;
+    }
+    .dataTables_filter label {
+        margin-bottom:10px;
     }
 }
 @media (min-width:@screen-sm-min) and (max-width:@screen-sm-max){
@@ -299,5 +304,10 @@ table.table.payment-details {
         .payee select {
             width:100%;
         }
+    }
+}
+@media (min-width:@screen-md-min){
+    table.table.datatable {
+        table-layout:fixed;
     }
 }

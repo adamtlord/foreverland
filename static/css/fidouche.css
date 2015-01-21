@@ -8889,8 +8889,13 @@ table.table.payment-details.table-striped > tbody > tr:nth-child(odd) > th {
   margin-bottom: 20px;
 }
 .tab-pane#expenses h4 {
-  padding-top: 15px;
+  padding-top: 20px;
+  margin-top: 20px;
+  margin-bottom: -25px;
   border-top: 1px solid #eeeeee;
+}
+.tab-pane#expenses .dataTables_filter label {
+  margin-bottom: 10px;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .navbar-default .navbar-nav > li > a {
@@ -9088,5 +9093,10 @@ table.table.payment-details.table-striped > tbody > tr:nth-child(odd) > th {
   #sub_payment thead tr,
   #itemize thead tr {
     display: none !important;
+  }
+}
+@media (min-width: 992px) {
+  table.table.datatable {
+    table-layout: fixed;
   }
 }

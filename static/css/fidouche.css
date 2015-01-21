@@ -8903,7 +8903,8 @@ blockquote.qotd {
   position: relative;
 }
 blockquote.qotd p {
-  margin-bottom: 0;
+  line-height: 1.34em;
+  margin-bottom: 5px;
 }
 blockquote.qotd p > span {
   font-size: 28px;

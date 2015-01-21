@@ -8897,6 +8897,19 @@ table.table.payment-details.table-striped > tbody > tr:nth-child(odd) > th {
 .tab-pane#expenses .dataTables_filter label {
   margin-bottom: 10px;
 }
+blockquote.qotd {
+  background-color: #f8f8f8;
+  margin-bottom: 0;
+  position: relative;
+}
+blockquote.qotd p {
+  margin-bottom: 0;
+}
+blockquote.qotd p > span {
+  font-size: 28px;
+  color: #999999;
+  vertical-align: middle;
+}
 @media (min-width: 768px) and (max-width: 991px) {
   .navbar-default .navbar-nav > li > a {
     padding-left: 10px;

@@ -1,4 +1,5 @@
 from datetime import date
+import random
 import datetime
 from django.forms.models import inlineformset_factory
 from django.db.models import Sum, Q
@@ -9,7 +10,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 from members.models import Member
 from shows.models import Show
-from fidouche.models import Payment, SubPayment, Expense, ExpenseCategory
+from fidouche.models import Payment, SubPayment, Expense, Quote
 from fidouche.forms import GigFinanceForm, ExpenseForm, PaymentForm, SubPaymentForm
 
 current_year = date.today().year
@@ -22,6 +23,9 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 	next_show = gigs.filter(date__gte=datetime.datetime.now()).order_by('date')[0]
 	gigs_booked = gigs.filter(date__year=current_year)
 	gigs_played = gigs_booked.filter(date__lt=datetime.datetime.now())
+	count = Quote.objects.all().count()
+	slice = random.random() * (count - 1)
+	quotes = Quote.objects.all()[slice: slice+1]
 	ytd_gross = []
 	ytd_net = []
 	ytd_player = []
@@ -61,6 +65,7 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 		'last_show': last_show,
 		'next_show': next_show,
 		'ytd': ytd,
+		'quote': quotes[0]
 	}
 	return render(request, template, d)
 

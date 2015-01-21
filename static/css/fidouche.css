@@ -8885,6 +8885,17 @@ table.table.payment-details.table-striped > tbody > tr:nth-child(odd) > th {
 #expenses_formset .payee select {
   width: auto;
 }
+body.tax-report h3 i.popover-trigger {
+  font-size: 16px;
+  color: #999999;
+  vertical-align: super;
+  cursor: pointer;
+}
+body.tax-report h3 .popover {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 20px;
+}
 .tab-pane#expenses h3 {
   margin-bottom: 20px;
 }

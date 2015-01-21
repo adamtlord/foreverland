@@ -1,6 +1,7 @@
 {% extends 'base_fidouche.html' %}
 {% load custom_tags %}
 {% load humanize %}
+{% block bodyclass %}tax-report{% endblock %}
 {% block content %}
 <div class="page-header">
 	<h2>Tax Reports</h2>
@@ -47,7 +48,13 @@
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active" id="partners">
-			<h3>Partners</h3>
+			<h3>Partners
+				<i class="fa fa-question-circle popover-trigger"
+					data-toggle="popover"
+					data-content="The records below show payments made to band members who were partners during the specified date range.
+					If a member became a partner or left the partnership during the specified date range, those payments will appear under 'Non-partners.'">
+				</i>
+			</h3>
 			<table class="table table-bordered table-striped datatable">
 				<thead>
 					<tr>
@@ -85,7 +92,13 @@
 			</table>
 		</div>
 		<div class="tab-pane" id="nonpartners">
-			<h3>Non-Partners and Subs</h3>
+			<h3>Non-Partners and Subs
+				<i class="fa fa-question-circle popover-trigger"
+					data-toggle="popover"
+					data-content="The records below show payments made to subs and to band members who were not partners during the specified date range.
+					If a member was also a partner during the specified date range, those payments made during that time will appear under 'Partners.'">
+				</i>
+			</h3>
 			<table class="table table-bordered table-striped datatable">
 				<thead>
 					<tr>
@@ -123,7 +136,8 @@
 			</table>
 		</div>
 		<div class="tab-pane" id="expenses">
-			<h3>Expenses</h3>
+			<h3>Expenses <i class="fa fa-question-circle popover-trigger" data-toggle="popover"
+				data-content="The records below show payments made for expenses during the specified date range, organized by Tax Category. Show information is only displayed the the expense was associated with a particular show."></i></h3>
 			{% for category, payments in expense_payments.items %}
 				<h4>{{ category|title }}</h4>
 				<table class="table table-bordered table-striped datatable-expense" rel="{{ category|title }}">
@@ -223,6 +237,7 @@
 			],
 			"sDom": "<'row'<'col-md-6'><'col-md-6 dt-filter'f>>t<'row'<'col-md-6 dt-info'><'col-md-6 dt-pagination'>>",
 		});
+		$('.popover-trigger').popover();
 	});
 </script>
 {% endblock %}

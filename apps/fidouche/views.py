@@ -392,8 +392,10 @@ def finance_reports(request, template='fidouche/finance_reports.html'):
 	start = request.GET.get('start_date', None)
 	end = request.GET.get('end_date', None)
 	if start and end:
-		start_date = datetime.datetime.strptime(start, "%Y-%m-%d")
-		end_date = datetime.datetime.strptime(end, "%Y-%m-%d")
+		start_date = datetime.datetime.strptime(start, "%Y-%m-%d").date()
+		end_date = datetime.datetime.strptime(end, "%Y-%m-%d").date()
+		d['start_date'] = start_date
+		d['end_date'] = end_date
 
 		member_payments = {}
 		memberPayments = Payment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0)

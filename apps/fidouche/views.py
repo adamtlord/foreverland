@@ -459,16 +459,23 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
 	if start and end:
 		start_date = datetime.datetime.strptime(start, "%Y-%m-%d").date()
 		end_date = datetime.datetime.strptime(end, "%Y-%m-%d").date()
-
+		d['start_date'] = start_date
+		d['end_date'] = end_date
+		# All payments for the date range
 		payments = Payment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0)
 
 		# PARTNER PAYMENTS aka "Guaranteed Payments"
 		# We want all payments to members who were partners during this time period.
-		# That means they became a member before the start date AND
-		# they stopped being a member after it (OR they haven't stopped being a member, ie, no date_partner_left)
-		partnerPayments = payments.filter(member__date_partner_joined__lte=start_date).filter(Q(member__date_partner_left__isnull=True) | Q(member__date_partner_left__gte=end_date))
+		# Get everyone who has been a partner, ie, they joined at some point
+		partners = Member.objects.filter(date_partner_joined__isnull=False)
+		# Exclude everyone who became a partner after the end date
+		# Exclude everyone who left the partnership before the start date
+		partners = partners.exclude(date_partner_joined__gt=end_date).exclude(date_partner_left__lt=start_date)
+		partnerPayments = payments.filter(member__in=partners)
 		partner_payments = {}
+		partner_total = []
 		for payment in partnerPayments:
+			partner_total.append(payment.amount)
 			if payment.member in partner_payments:
 				partner_payments[payment.member]['total'].append(payment.amount)
 				partner_payments[payment.member]['payments'].append(payment)
@@ -479,8 +486,13 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
 				}
 		for member in partner_payments:
 			partner_payments[member]['total'] = sum(partner_payments[member]['total'])
-		d.update({'partner_payments':partner_payments})
+		partner_total = sum(partner_total)
+		d.update({
+			'partner_payments':partner_payments,
+			'partner_total':partner_total
+			})
 
+		# NON-partner payments, ie, subs and non-partner members
 		non_partner_payments = {}
 		subPayments = SubPayment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0)
 		nonPartnerPayments = payments.exclude(id__in=partnerPayments)

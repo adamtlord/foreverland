@@ -139,6 +139,24 @@ table.table.payment-details {
         background-color:#f5f5f5;
     }
 }
+.modal.payment-details {
+    .modal-header {
+        border-bottom:none;
+    }
+    .modal-body {
+        padding:0;
+        table.table.payment-details {
+            margin-top:0;
+            margin-bottom:0;
+            > tbody > tr > td {
+                padding:5px 20px;
+            }
+        }
+    }
+    .modal-footer {
+        margin-top:0;
+    }
+}
 #payment_formset, #sub_payment_formset {
     > tbody > tr {
         td:nth-of-type(1):before { content: ""; }
@@ -174,6 +192,10 @@ body.tax-report {
             font-weight:normal;
             line-height:@line-height-computed;
          }
+    }
+    table.table > tfoot > tr > td {
+        padding:8px;
+        font-weight:bold;
     }
 }
 .tab-pane#expenses {

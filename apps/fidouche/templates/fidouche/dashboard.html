@@ -82,11 +82,11 @@
 			<td>{% if gig.total_expenses > 0 %}${{ gig.total_expenses }} <i class="fa fa-list-ul expense-detail-toggle" data-toggle="collapse" data-target="#gig{{ gig.id }}_expenses"></i>
 				<div id="gig{{ gig.id }}_expenses" class="collapse">
 					<table class="table table-condensed expense-details">
-						<tr><th>Sound:</th><td>${{gig.sound_cost|intcomma}}</td></tr>
-						<tr><th>Ears:</th><td>${% if gig.in_ears_cost %}{{gig.in_ears_cost|intcomma}}{% else %}0{% endif %}</td></tr>
-						<tr><th>Print/Ship:</th><td>${{gig.print_ship_cost|intcomma}}</td></tr>
-						<tr><th>Ads:</th><td>${{gig.ads_cost|intcomma}}</td></tr>
-						<tr><th>Other:</th><td>${{gig.other_cost|intcomma}}</td></tr>
+						<tr><th>Sound:</th><td>{% if gig.sound_cost %}${{gig.sound_cost|intcomma}}{% endif %}</td></tr>
+						<tr><th>Ears:</th><td>{% if gig.in_ears_cost %}${{gig.in_ears_cost|intcomma}}{% endif %}</td></tr>
+						<tr><th>Print/Ship:</th><td>{% if gig.print_ship_cost %}${{gig.print_ship_cost|intcomma}}{% endif %}</td></tr>
+						<tr><th>Ads:</th><td>{% if gig.ads_cost %}${{gig.ads_cost|intcomma}}{% endif %}</td></tr>
+						<tr><th>Other:</th><td>{% if gig.other_cost %}${{gig.other_cost|intcomma}}{% endif %}</td></tr>
 					</table>
 				</div>
 				{% else %}0{% endif %}

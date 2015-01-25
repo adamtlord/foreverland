@@ -27,18 +27,20 @@
 	{% endif %}
 	<div class="row">
 		<div class="col-md-6 col-sm-6">
-			<fieldset>
-				<legend class="with-btn">Payment <button type="button" id="buyouts_toggle" data-toggle="button" class="btn btn-sm btn-success pull-right"><i class="fa fa-cutlery"></i> Buyouts</button></legend>
-				{{ form.gross_itemized.as_hidden }}
-				<div class="form-group factor">
-					<label for="gross" class="control-label">Gross</label>
-					<div class="input-group">
-						<span class="input-group-addon">$</span>
-						{{ form.gross }}
+			<div class="form-horizontal">
+				<fieldset>
+					<legend class="with-btn">Payment <button type="button" id="buyouts_toggle" data-toggle="button" class="btn btn-sm btn-success pull-right"><i class="fa fa-cutlery"></i> Buyouts</button></legend>
+					{{ form.gross_itemized.as_hidden }}
+					<div class="form-group factor">
+						<label for="gross" class="control-label col-md-4">Gross</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<span class="input-group-addon">$</span>
+								{{ form.gross }}
+							</div>
+						</div>
 					</div>
-				</div>
-				<fieldset id="buyouts" class="collapse">
-					<div class="form-horizontal">
+					<fieldset id="buyouts" class="collapse">
 						<div class="form-group factor">
 							<label for="gross_method" class="control-label col-md-4">Fee</label>
 							<div class="col-md-8">
@@ -84,70 +86,116 @@
 								</div>
 							</div>
 						</div>
-					</div>
-				</fieldset>
-				<div class="form-horizontal">
-					<div class="form-group payment-method">
-						<label for="gross_method" class="control-label col-md-4">Payment method</label>
-						<div class="col-md-8">
-							{{ form.gross_method }}
-							<div id="payment_check_no" class="form-inline"{% if gig.gross_method != 'check' %} style="display:none;"{% endif %}>
-								<label for="id_payee_check_no" class="control-label">Check #</label>
-									{{ form.payee_check_no }}
-							</div>
-						</div>
-					</div>
-					<div class="form-group set-payer">
-						<label for="id_payer" class="control-label col-md-4">Paid by</label>
-						<div class="col-md-8">
-							{{ form.payer }}
-							<div id="commission_withheld" class="form-inline"{% if gig.payer != 'DS' %}style="display:none;"{% endif %}>
-								<div class="checkbox">
-									<label>{{ form.commission_withheld }} Commission withheld</label>
+					</fieldset>
+
+						<div class="form-group payment-method">
+							<label for="gross_method" class="control-label col-md-4">Payment method</label>
+							<div class="col-md-8">
+								{{ form.gross_method }}
+								<div id="payment_check_no" class="form-inline"{% if gig.gross_method != 'check' %} style="display:none;"{% endif %}>
+									<label for="id_payee_check_no" class="control-label">Check #</label>
+										{{ form.payee_check_no }}
 								</div>
 							</div>
 						</div>
-					</div>
-					<div id="commission_check" class="form-group"{% if gig.commission_withheld %} style="display:none;"{% endif %}>
-						<label for="id_commission_check_no" class="control-label col-md-4">Comm. check #</label>
-						<div class="col-md-8">
-							{{ form.commission_check_no }}
-						</div>
-					</div>
-					<div class="form-group factor">
-						<label for="commission_percentage" class="control-label col-md-4">Commission %</label>
-						<div class="col-md-8">
-							<div class="input-group">
-								{{ form.commission_percentage }}
-								<span class="input-group-addon">%</span>
+						<div class="form-group set-payer">
+							<label for="id_payer" class="control-label col-md-4">Paid by</label>
+							<div class="col-md-8">
+								{{ form.payer }}
+								<div id="commission_withheld" class="form-inline"{% if gig.payer == 'client' %}style="display:none;"{% endif %}>
+									<div class="checkbox">
+										<label>{{ form.commission_withheld }} Commission withheld</label>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
+					</fieldset>
+					<fieldset id="commission">
+						<legend>Commission</legend>
+						<div class="form-group factor">
+							<label for="commission_percentage" class="control-label col-md-4">Commission %</label>
+							<div class="col-md-8">
+								<div class="input-group">
+									{{ form.commission_percentage }}
+									<span class="input-group-addon">%</span>
+								</div>
+							</div>
+						</div>
+							<div class="form-group">
+								<label for="agent" class="control-label col-md-4">Agent</label>
+								<div class="col-md-8">
+									{{ form.agent }}
+								</div>
+							</div>
+							<div class="form-group factor">
+								<label for="commission" class="control-label col-md-4">Commission</label>
+								<div class="col-md-8">
+									<div class="input-group">
+										<span class="input-group-addon">$</span>
+										{{ form.commission }}
+									</div>
+								</div>
+							</div>
+							<div id="commission_check"{% if gig.commission_withheld %} style="display:none;"{% endif %}>
+								<div class="form-group">
+									<label for="commission_check_no" class="control-label col-md-4">Comm. check #</label>
+									<div class="col-md-6">
+										{{ form.commission_check_no }}
+									</div>
+									<div class="col-md-2">
+										<div class="checkbox">
+											<label>
+												{{ form.commission_paid }}
+												Paid
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+					</fieldset>
+					<fieldset id="production">
+						<legend>Production</legend>
+						{{ production_payment_formset.management_form }}
+						{{ production_payment_formset.non_form_errors.as_ul }}
+						{% for form in production_payment_formset.forms %}
+							<div class="form-group">
+								<label for="{{ form.company.id_for_label }}" class="control-label col-md-4">Company</label>
+								<div class="col-md-8">
+									{{ form.company }}
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="{{ form.amount.id_for_label }}" class="control-label col-md-4">Amount</label>
+								<div class="col-md-8">
+									<div class="input-group">
+										<span class="input-group-addon">$</span>
+										{{ form.amount }}
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="{{ form.category.id_for_label }}" class="control-label col-md-4">Category</label>
+								<div class="col-md-8">
+									{{ form.category }}
+								</div>
+							</div>
+							<div class="form-group"{% if gig.commission_withheld %} style="display:none;"{% endif %}>
+								<label for="{{ form.check_no.id_for_label }}" class="control-label col-md-4">Prod. check #</label>
+								<div class="col-md-6">
+									{{ form.check_no }}
+								</div>
+								<div class="col-md-2">
+									<div class="checkbox">
+										<label>
+											{{ form.paid }}
+											Paid
+										</label>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</fieldset>
 				</div>
-				<div class="form-group factor">
-					<label for="commission" class="control-label">Commission</label>
-					<div class="input-group">
-						<span class="input-group-addon">$</span>
-						{{ form.commission }}
-					</div>
-				</div>
-				<div class="form-group factor">
-					<label for="sound_cost" class="control-label">Sound and production costs</label>
-					<div class="input-group">
-						<span class="input-group-addon">$</span>
-						{{ form.sound_cost }}
-					</div>
-				</div>
-
-				<div class="form-group factor">
-					<label for="in_ears_cost" class="control-label">In-ears cost</label>
-					{{ form.in_ears_cost }}
-				</div>
-				<div class="form-group">
-					<label for="in_ears_check_no" class="control-label">In-ears check #</label>
-					{{ form.in_ears_check_no }}
-				</div>
-			</fieldset>
 			<fieldset class="expenses-summed">
 				<legend class="with-btn">Expenses <button id="itemize_toggle" data-toggle="button" class="btn btn-sm btn-success"><i class="fa fa-list"></i> Itemize Expenses</button></legend>
 				{{ form.costs_itemized.as_hidden }}
@@ -175,40 +223,53 @@
 			</fieldset>
 		</div>
 		<div class="col-md-6 col-sm-6">
-			<fieldset>
-				<div class="form-group">
-					<label for="id_attendance" class="control-label">Attendance</label>
-					{% if gig.venue.capacity %}<span class="help-inline">(Capacity: {{ gig.venue.capacity }})</span>{% endif %}
-					{{ form.attendance }}
-				</div>
-				<div class="form-group warn">
-					<label for="net" class="control-label">Net</label>
-					<div class="input-group">
-						<span class="input-group-addon">$</span>
-						{{ form.net }}
+			<div class="form-horizontal">
+				<fieldset>
+					<legend>Settlement</legend>
+					<div class="form-group">
+						<label for="id_attendance" class="control-label col-md-4">Attendance</label>
+						<div class="col-md-8">
+							{{ form.attendance }}
+							{% if gig.venue.capacity %}<span class="help-inline">(Capacity: {{ gig.venue.capacity }})</span>{% endif %}
+						</div>
 					</div>
-				</div>
-				<div class="form-group factor set-payout">
-					<label for="id_payout" class="control-label">Payout</label>
-					<span class="help-inline">(max. payout: <span id="max_payout"></span>)</span>
-					<div class="input-group">
-						<span class="input-group-addon">$</span>
-						{{ form.payout }}
+					<div class="form-group warn">
+						<label for="net" class="control-label col-md-4">Net</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<span class="input-group-addon">$</span>
+								{{ form.net }}
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="form-group warn">
-					<label for="to_account" class="control-label">To account</label>
-					<div class="input-group">
-						<span class="input-group-addon">$</span>
-						{{ form.to_account }}
+					<div class="form-group factor set-payout">
+						<label for="id_payout" class="control-label col-md-4">Payout</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<span class="input-group-addon">$</span>
+								{{ form.payout }}
+							</div>
+							<span class="help-inline">(max. payout: <span id="max_payout"></span>)</span>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="settlement_sheet" class="control-label">Settlement Sheet</label>
-					<div class="input-group">
-						{{ form.settlement_sheet }}
+					<div class="form-group warn">
+						<label for="to_account" class="control-label col-md-4">To account</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<span class="input-group-addon">$</span>
+								{{ form.to_account }}
+							</div>
+						</div>
 					</div>
-			</fieldset>
+					<div class="form-group">
+						<label for="settlement_sheet" class="control-label col-md-4">Settlement Sheet</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								{{ form.settlement_sheet }}
+							</div>
+						</div>
+				</fieldset>
+			</div>
 			<fieldset id="payment">
 				<legend>Payout</legend>
 				{{ payment_formset.management_form }}
@@ -280,6 +341,7 @@
 			</fieldset>
 		</div>
 	</div>
+
 	<fieldset id="itemize" class="expenses collapse">
 		<legend>Itemized Expenses</legend>
 		{{ expense_formset.management_form }}
@@ -322,6 +384,7 @@
 	</fieldset>
 	<button type="submit" class="btn btn-block btn-lg btn-primary">Save</button>
 </form>
+
 {% endblock %}
 {% block js %}
 <script>

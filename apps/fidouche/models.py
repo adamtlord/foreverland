@@ -71,6 +71,7 @@ class ExpenseCategory(models.Model):
 	class Meta:
 		verbose_name_plural = "Expense Categories"
 
+
 class Expense(models.Model):
 
 	show = models.ForeignKey(Show, related_name="expense", blank=True, null=True)
@@ -88,6 +89,7 @@ class Expense(models.Model):
 			safedate = self.date.strftime('%m/%d/%y') + ', '
 		return '%s$%s to %s' % (safedate, self.amount, self.payee)
 
+
 class Quote(models.Model):
 
 	quote = models.TextField()
@@ -98,4 +100,83 @@ class Quote(models.Model):
 		return '%s...' % self.quote[0:64]
 
 
+class Agent(models.Model):
+
+	name = models.CharField(max_length=128)
+	agency = models.CharField(max_length=128, blank=True, null=True)
+	address = models.CharField(max_length=100, blank=True, null=True)
+	city = models.CharField(max_length=100, blank=True, null=True)
+	state = USStateField(max_length=50, blank=True, null=True)
+	zip_code = models.CharField(verbose_name="Zip", max_length=20, blank=True, null=True)
+	phone = PhoneNumberField(blank=True, null=True)
+	ssn = models.CharField(verbose_name="SSN/EIN", max_length=16, blank=True, null=True)
+
+	def __unicode__(self):
+		agency = ', %s' % self.agency if self.agency else ''
+		return '%s%s' % (self.name, agency)
+
+
+class CommissionPayment(models.Model):
+	show = models.ForeignKey(Show, related_name="commission_payment", blank=True, null=True)
+	agent = models.ForeignKey(Agent, related_name="commission_payment", blank=True, null=True)
+	amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+	check_no = models.IntegerField(blank=True, null=True)
+	paid = models.BooleanField(default=False)
+
+	class Meta:
+		unique_together = (('show','agent'),)
+		ordering = ['show__date']
+
+	def __unicode__(self):
+		agent = str(self.agent.name) if self.agent else '',
+		show = str(self.show.venue) if self.show.venue else '',
+		date = self.show.date.strftime('%m/%d/%y') if self.show else '',
+		return '%s for %s on %s' % (agent[0], show[0], date[0])
+
+
+class ProductionCompany(models.Model):
+
+	name = models.CharField(max_length=128)
+	address = models.CharField(max_length=100, blank=True, null=True)
+	city = models.CharField(max_length=100, blank=True, null=True)
+	state = USStateField(max_length=50, blank=True, null=True)
+	zip_code = models.CharField(verbose_name="Zip", max_length=20, blank=True, null=True)
+	phone = PhoneNumberField(blank=True, null=True)
+	ssn = models.CharField(verbose_name="SSN/EIN", max_length=16, blank=True, null=True)
+
+	def __unicode__(self):
+		return self.name
+
+	class Meta:
+		verbose_name_plural = 'Production companies'
+
+
+class ProductionCategory(models.Model):
+	name = models.CharField(max_length=128)
+	tax_category = models.ForeignKey(TaxExpenseCategory, related_name="production_category", blank=True, null=True)
+
+	def __unicode__(self):
+		return self.name
+
+	class Meta:
+		verbose_name_plural = 'Production categories'
+
+
+class ProductionPayment(models.Model):
+	show = models.ForeignKey(Show, related_name="production_payment", blank=True, null=True)
+	company = models.ForeignKey(ProductionCompany, related_name="production_payment", blank=True, null=True)
+	amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=130)
+	check_no = models.IntegerField(blank=True, null=True)
+	category = models.ForeignKey(ProductionCategory, blank=True, null=True)
+	paid = models.BooleanField(default=False)
+
+	class Meta:
+		unique_together = (('show','company'),)
+		ordering = ['show__date']
+
+	def __unicode__(self):
+		company = str(self.company.name) if self.company else '',
+		show = str(self.show.venue) if self.show.venue else '',
+		date = self.show.date.strftime('%m/%d/%y') if self.show else '',
+		return '%s for %s on %s' % (company[0], show[0], date[0])
 

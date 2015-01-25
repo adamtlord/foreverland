@@ -46,7 +46,7 @@ $(function ($) {
 		}
 	}
 	var _updateFields = _.throttle(updateFields, 500);
-	
+
 	function processItemized(){
 		var printCosts = 0;
 		var shipCosts = 0;
@@ -97,7 +97,7 @@ $(function ($) {
 		_updateFields();
 	});
 	$('.set-payer').on('change', '#id_payer', function(){
-		if($(this).find('option:selected').val() == 'DS'){
+		if($(this).find('option:selected').val() == 'agent'){
 			$('#commission_withheld').fadeIn('fast');
 		}else {
 			$('#commission_withheld').fadeOut('fast');
@@ -181,4 +181,3 @@ $(function ($) {
 	}
 	$('#auto_calc').bootstrapSwitch();
 });
-	

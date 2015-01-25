@@ -1,5 +1,8 @@
 @brand-success: #23a725;
 @state-success-text: @brand-success;
+body {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 .page-header {
     .auto-calc-box {
         margin-top:39px;
@@ -21,6 +24,13 @@
             label {
                 font-weight:normal;
             }
+        }
+    }
+    fieldset {
+        margin-bottom:12px;
+        legend {
+            font-weight:300;
+            padding-bottom:5px;
         }
     }
 }
@@ -71,9 +81,6 @@ fieldset#itemize {
 }
 #commission_other,  #payment_check_no{
     margin-top:10px;
-}
-legend.with-btn {
-    padding-bottom:5px;
 }
 legend .btn, #subs_toggle{
     .pull-right;

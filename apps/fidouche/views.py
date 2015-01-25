@@ -10,8 +10,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 from members.models import Member
 from shows.models import Show
-from fidouche.models import Payment, SubPayment, Expense, Quote
-from fidouche.forms import GigFinanceForm, ExpenseForm, PaymentForm, SubPaymentForm
+from fidouche.models import Payment, SubPayment, Expense, Quote, CommissionPayment, ProductionPayment, Agent
+from fidouche.forms import GigFinanceForm, ExpenseForm, PaymentForm, SubPaymentForm, \
+	ProductionPaymentForm
 
 current_year = date.today().year
 
@@ -243,8 +244,10 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 	ExpenseFormSet = inlineformset_factory(Show, Expense, form=ExpenseForm)
 	PaymentFormSet = inlineformset_factory(Show, Payment, form=PaymentForm, extra=len(active_members), max_num=14, can_delete=False)
 	SubPaymentFormSet = inlineformset_factory(Show, SubPayment, form=SubPaymentForm)
+	ProductionPaymentFormSet = inlineformset_factory(Show, ProductionPayment, form=ProductionPaymentForm, extra=1, can_delete=False)
 
 	if request.method == "POST":
+
 		form = GigFinanceForm(request.POST, request.FILES, instance=gig)
 		expense_formset = ExpenseFormSet(request.POST, request.FILES, instance=gig)
 		payment_formset = PaymentFormSet(request.POST, instance=gig)
@@ -254,21 +257,32 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 			expense_formset.save()
 			payment_formset.save()
 			sub_payment_formset.save()
+			cdata = form.cleaned_data
+			if not cdata['commission_withheld']:
+				commission_payment, created = CommissionPayment.objects.get_or_create(show=gig)
+				commission_payment.agent=cdata['agent']
+				commission_payment.amount=cdata['commission']
+				commission_payment.paid=cdata['commission_paid']
+				commission_payment.check_no=cdata['commission_check_no']
+				commission_payment.save()
+
 			messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>NICE.</strong> Gig finances updated!')
 			return redirect(request.path)
 		else:
 			messages.add_message(request, messages.ERROR, '<i class="fa fa-wrench"></i> <strong>Aw, damnit.</strong> Something\'s fucked up.')
 	else:
-		form = GigFinanceForm(instance=gig)
+		form = GigFinanceForm(instance=gig, initial={'agent':1})
 		expense_formset = ExpenseFormSet(instance=gig)
 		payment_formset = PaymentFormSet(instance=gig)
 		sub_payment_formset = SubPaymentFormSet(instance=gig)
+		production_payment_formset = ProductionPaymentFormSet(instance=gig, initial=[{'company':1,'category':1}])
 
 	d = {
 		'form': form,
 		'expense_formset': expense_formset,
 		'payment_formset': payment_formset,
 		'sub_payment_formset': sub_payment_formset,
+		'production_payment_formset': production_payment_formset,
 		'gig': gig
 	}
 

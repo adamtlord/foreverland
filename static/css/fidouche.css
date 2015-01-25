@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400italic,400,600,700);
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
@@ -8709,6 +8710,9 @@ input[type="file"] {
     float: left;
   }
 }
+body {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 .page-header .auto-calc-box {
   margin-top: 39px;
   line-height: 33px;
@@ -8726,6 +8730,13 @@ input[type="file"] {
 }
 #gig_finances p.file-upload .clearable-file-input label {
   font-weight: normal;
+}
+#gig_finances fieldset {
+  margin-bottom: 12px;
+}
+#gig_finances fieldset legend {
+  font-weight: 300;
+  padding-bottom: 5px;
 }
 fieldset.expenses {
   margin-top: 15px;
@@ -8777,9 +8788,6 @@ fieldset#itemize {
 #commission_other,
 #payment_check_no {
   margin-top: 10px;
-}
-legend.with-btn {
-  padding-bottom: 5px;
 }
 legend .btn,
 #subs_toggle {

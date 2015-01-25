@@ -51,13 +51,13 @@ class Show(models.Model):
     poster = models.FileField(upload_to='posters/', blank=True, null=True)
     fb_event = models.CharField(max_length=200, blank=True, null=True)
     # Financial Information
-    AGENT = 'DS'
+    AGENT = 'agent'
     CLIENT = 'client'
     CASH = 'cash'
     CHECK = 'check'
-    PAYEE_CHOICES = (
+    PAYER_CHOICES = (
         (CLIENT, 'Client'),
-        (AGENT, 'Swan Entertainment'),
+        (AGENT, 'Agent'),
     )
     METHOD_CHOICES = (
         (CASH, 'Cash'),
@@ -76,12 +76,14 @@ class Show(models.Model):
     lodging_buyout = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     other_buyout = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     gross_method = models.CharField(max_length=100, blank=True, null=True, choices=METHOD_CHOICES, default=CASH)
-    payer = models.CharField(max_length=100, blank=True, null=True, choices=PAYEE_CHOICES, default=CLIENT)
+    payer = models.CharField(max_length=100, blank=True, null=True, choices=PAYER_CHOICES, default=CLIENT)
     payee_check_no = models.IntegerField(blank=True, null=True)
     commission = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    agent = models.ForeignKey('fidouche.Agent', related_name="gig_agent", blank=True, null=True)
+    commission_withheld = models.BooleanField(default=True)
     commission_percentage = models.IntegerField(default=10, blank=True, null=True)
-    commission_withheld = models.BooleanField(default=False)
     commission_check_no = models.IntegerField(blank=True, null=True)
+    commission_paid = models.BooleanField(default=False)
     sound_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     sound_check_no = models.IntegerField(blank=True, null=True)
     in_ears_cost = models.IntegerField(blank=True, null=True, choices=IEM_CHOICES, default=130)
@@ -95,7 +97,6 @@ class Show(models.Model):
     to_account = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     subs = models.BooleanField(default=False)
     settlement_sheet = ImageField(upload_to="receipts/", blank=True, null=True)
-
 
     class Meta:
         ordering = ['date']

@@ -1,7 +1,7 @@
 from django import forms
 from fidouche.widgets import AdminImageWidget
 from shows.models import Show
-from fidouche.models import Payment, SubPayment, Expense
+from fidouche.models import Payment, SubPayment, Expense, ProductionPayment
 
 
 FINANCIAL_FIELDS = (
@@ -17,9 +17,11 @@ FINANCIAL_FIELDS = (
 	'lodging_buyout',
 	'other_buyout',
 	'commission',
+	'agent',
 	'commission_percentage',
 	'commission_withheld',
 	'commission_check_no',
+	'commission_paid',
 	'sound_cost',
 	'in_ears_cost',
 	'in_ears_check_no',
@@ -42,6 +44,13 @@ EXPENSE_FIELDS = (
 	'notes'
 )
 
+PRODUCTION_FIELDS = (
+	'company',
+	'amount',
+	'check_no',
+	'category',
+)
+
 class GigFinanceForm(forms.ModelForm):
 	class Meta:
 		model = Show
@@ -53,7 +62,7 @@ class GigFinanceForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(GigFinanceForm, self).__init__(*args, **kwargs)
 		for field in FINANCIAL_FIELDS:
-			if field != 'settlement_sheet':
+			if field not in ['settlement_sheet', 'commission_paid']:
 				self.fields[field].widget.attrs['class'] = 'form-control'
 
 
@@ -87,4 +96,14 @@ class SubPaymentForm(forms.ModelForm):
 		super(SubPaymentForm, self).__init__(*args, **kwargs)
 		self.fields['sub'].widget.attrs['class'] = 'form-control input-sm'
 		self.fields['amount'].widget.attrs['class'] = 'form-control input-sm'
+
+
+class ProductionPaymentForm(forms.ModelForm):
+	class Meta:
+		model = ProductionPayment
+
+	def __init__(self, *args, **kwargs):
+		super(ProductionPaymentForm, self).__init__(*args, **kwargs)
+		for field in PRODUCTION_FIELDS:
+			self.fields[field].widget.attrs['class'] = 'form-control'
 

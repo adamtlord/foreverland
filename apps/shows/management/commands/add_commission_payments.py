@@ -40,7 +40,8 @@ class Command(BaseCommand):
                         print 'xx no commission'
                     else:
                         print 'xx commission_withheld'
-
+        else:
+            print '!!! Update the DB first !!!!'
 
 
 

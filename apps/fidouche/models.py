@@ -164,19 +164,18 @@ class ProductionCategory(models.Model):
 
 class ProductionPayment(models.Model):
 	show = models.ForeignKey(Show, related_name="production_payment", blank=True, null=True)
-	company = models.ForeignKey(ProductionCompany, related_name="production_payment", blank=True, null=True)
-	amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=130)
+	company = models.ForeignKey(ProductionCompany, related_name="production_payment")
+	amount = models.DecimalField(max_digits=10, decimal_places=2)
 	check_no = models.IntegerField(blank=True, null=True)
 	category = models.ForeignKey(ProductionCategory, blank=True, null=True)
 	paid = models.BooleanField(default=False)
 
 	class Meta:
-		unique_together = (('show','company'),)
 		ordering = ['show__date']
 
 	def __unicode__(self):
-		company = str(self.company.name) if self.company else '',
-		show = str(self.show.venue) if self.show.venue else '',
-		date = self.show.date.strftime('%m/%d/%y') if self.show else '',
-		return '%s for %s on %s' % (company[0], show[0], date[0])
+		company = str(self.company.name) if self.company else ''
+		show = self.show
+		cat = self.category
+		return '%s for %s (%s)' % (company[0], show, cat)
 

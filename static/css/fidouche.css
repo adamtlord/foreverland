@@ -8738,6 +8738,27 @@ body {
   font-weight: 300;
   padding-bottom: 5px;
 }
+#gig_finances fieldset#production legend {
+  margin-bottom: 0;
+}
+#gig_finances fieldset#production table#gig_production {
+  margin-bottom: 0;
+}
+#gig_finances fieldset#production table#gig_production > tbody > tr:first-child > td {
+  border-top: none;
+}
+#gig_finances fieldset#production table#gig_production > tbody > tr:last-child {
+  border-bottom: 1px solid #eeeeee;
+}
+#gig_finances fieldset#production table#gig_production > tbody > tr > td {
+  padding-bottom: 3px;
+}
+#gig_finances fieldset#production table#gig_production .form-group {
+  margin-bottom: 5px;
+}
+#gig_finances fieldset#production table#gig_production .checkbox.delete {
+  padding-top: 0;
+}
 fieldset.expenses {
   margin-top: 15px;
 }

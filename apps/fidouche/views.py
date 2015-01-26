@@ -244,7 +244,7 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 	ExpenseFormSet = inlineformset_factory(Show, Expense, form=ExpenseForm)
 	PaymentFormSet = inlineformset_factory(Show, Payment, form=PaymentForm, extra=len(active_members), max_num=14, can_delete=False)
 	SubPaymentFormSet = inlineformset_factory(Show, SubPayment, form=SubPaymentForm)
-	ProductionPaymentFormSet = inlineformset_factory(Show, ProductionPayment, form=ProductionPaymentForm, extra=1, can_delete=False)
+	ProductionPaymentFormSet = inlineformset_factory(Show, ProductionPayment, extra=1, form=ProductionPaymentForm)
 
 	if request.method == "POST":
 
@@ -252,11 +252,18 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 		expense_formset = ExpenseFormSet(request.POST, request.FILES, instance=gig)
 		payment_formset = PaymentFormSet(request.POST, instance=gig)
 		sub_payment_formset = SubPaymentFormSet(request.POST, instance=gig)
-		if form.is_valid() and expense_formset.is_valid() and payment_formset.is_valid() and sub_payment_formset.is_valid():
+		production_payment_formset = ProductionPaymentFormSet(request.POST, instance=gig)
+		if form.is_valid() and \
+			expense_formset.is_valid() and \
+			payment_formset.is_valid() and \
+			sub_payment_formset.is_valid() and \
+			production_payment_formset.is_valid():
 			form.save()
 			expense_formset.save()
 			payment_formset.save()
 			sub_payment_formset.save()
+			production_payment_formset.save()
+
 			cdata = form.cleaned_data
 			if not cdata['commission_withheld']:
 				commission_payment, created = CommissionPayment.objects.get_or_create(show=gig)
@@ -275,7 +282,7 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 		expense_formset = ExpenseFormSet(instance=gig)
 		payment_formset = PaymentFormSet(instance=gig)
 		sub_payment_formset = SubPaymentFormSet(instance=gig)
-		production_payment_formset = ProductionPaymentFormSet(instance=gig, initial=[{'company':1,'category':1}])
+		production_payment_formset = ProductionPaymentFormSet(instance=gig)
 
 	d = {
 		'form': form,

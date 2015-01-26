@@ -13,13 +13,10 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('show', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='production_payment', null=True, to=orm['shows.Show'])),
             ('company', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='production_payment', null=True, to=orm['fidouche.Agent'])),
-            ('amount', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=10, decimal_places=2, blank=True)),
+            ('amount', self.gf('django.db.models.fields.DecimalField')(max_digits=10, decimal_places=2)),
             ('paid', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal(u'fidouche', ['ProductionPayment'])
-
-        # Adding unique constraint on 'ProductionPayment', fields ['show', 'company']
-        db.create_unique(u'fidouche_productionpayment', ['show_id', 'company_id'])
 
         # Adding model 'ProductionCompany'
         db.create_table(u'fidouche_productioncompany', (

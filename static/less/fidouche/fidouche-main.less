@@ -33,6 +33,29 @@ body {
             padding-bottom:5px;
         }
     }
+    fieldset#production {
+        legend{
+            margin-bottom:0;
+        }
+        table#gig_production {
+            margin-bottom:0;
+            > tbody > tr:first-child > td {
+                border-top:none;
+            }
+            > tbody > tr:last-child {
+                border-bottom:1px solid @gray-lighter;
+            }
+            > tbody > tr > td {
+                padding-bottom:3px;
+            }
+            .form-group {
+                margin-bottom:5px;
+            }
+            .checkbox.delete {
+                padding-top:0;
+            }
+        }
+    }
 }
 fieldset.expenses {
     margin-top:15px;

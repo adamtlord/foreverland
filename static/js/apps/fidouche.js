@@ -162,6 +162,9 @@ $(function ($) {
 	$('#add_expense_rows').click(function(){
 		cloneMore('#expenses_formset tr:last', 'expense');
 	});
+	$('#add_production_payments').click(function(){
+		cloneMore('#gig_production tr:last', 'production_payment');
+	})
 	$('#payment_check_all').change(function(){
 		if($(this).prop('checked')){
 			$('.paid input').prop('checked', true);

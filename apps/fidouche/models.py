@@ -125,7 +125,7 @@ class CommissionPayment(models.Model):
 
 	class Meta:
 		unique_together = (('show','agent'),)
-		ordering = ['show__date']
+		ordering = ['-show__date']
 
 	def __unicode__(self):
 		agent = str(self.agent.name) if self.agent else '',

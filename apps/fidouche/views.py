@@ -555,7 +555,18 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
 			expense_payments[category]['total'] = sum(expense_payments[category]['total'])
 			expense_payments[category]['show'] = True
 
-		d.update({'expense_payments':expense_payments})
+		d.update({
+			'expense_payments':expense_payments
+		})
+
+		commission_payments = CommissionPayment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0).order_by('show__date')
+		total_commission_payments = []
+		for payment in commission_payments:
+			total_commission_payments.append(payment.amount)
+		d.update({
+			'commission_payments': commission_payments,
+			'total_commission_payments': sum(total_commission_payments)
+		})
 
 	else:
 		d['no_dates'] = True

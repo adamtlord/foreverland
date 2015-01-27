@@ -36,12 +36,21 @@ class Venue(models.Model):
         return self.venue_name
 
 
+class Tour(models.Model):
+    """ A collection of shows, ie, Speed of Sound """
+    name = models.CharField(max_length=200, blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Show(models.Model):
     # Open to the public/Display on public calendar?
     public = models.BooleanField(default=True)
     # Public Information
     venue = models.ForeignKey(Venue, related_name='venue')
     date = models.DateTimeField()
+    tour = models.ForeignKey(Tour, related_name='show_in_tour', blank=True, null=True)
     doors_time = models.TimeField(blank=True, null=True)
     ticket_price = models.CharField(max_length=100, blank=True, null=True)
     ticket_url = models.URLField(max_length=200, blank=True, null=True)

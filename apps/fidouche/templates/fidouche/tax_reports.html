@@ -193,7 +193,7 @@
 						<tr>
 							<td>{{ payment.company }}</td>
 							<td>${{ payment.amount|intcomma }}</td>
-							<td>{{ payment.category }}</td>
+							<td>{{ payment.category.tax_category }}</td>
 							<td><a href="{% url 'gig_finances' payment.show.id %}">{{ payment.show }}</a></td>
 							<td>{% if payment.check_no %}{{ payment.check_no }}{% endif %}</td>
 						</tr>
@@ -237,7 +237,7 @@
 					{% for payment in commission_payments %}
 						<tr>
 							<td>{{ payment.agent.name }}</td>
-							<td>{{ payment.show }}</td>
+							<td><a href="{% url 'gig_finances' payment.show.id %}">{{ payment.show }}</a></td>
 							<td>${{ payment.amount|intcomma }} <small>({{ payment.show.commission_percentage }}%)</small></td>
 							<td>{% if payment.check_no %}{{ payment.check_no }}{% endif %}</td>
 						</tr>

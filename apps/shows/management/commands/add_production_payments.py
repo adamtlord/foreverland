@@ -43,7 +43,7 @@ class Command(BaseCommand):
                 if show.in_ears_cost or show.sound_cost:
                     past = show.date.date() <= today
                     if show.in_ears_cost:
-                        iem_production_payment, created = ProductionPayment.objects.get_or_create(show=show, category=iem_cat, amount=show.in_ears_cost)
+                        iem_production_payment, created = ProductionPayment.objects.get_or_create(show=show, category=iem_cat, amount=show.in_ears_cost, company=company)
                         if created:
                             print '- creating IEM payment'
                             print '- amount: %s' % show.in_ears_cost
@@ -55,7 +55,7 @@ class Command(BaseCommand):
                         iem_production_payment.check_no=show.in_ears_check_no
                         iem_production_payment.save()
                     if show.sound_cost:
-                        sound_production_payment, created = ProductionPayment.objects.get_or_create(show=show, category=sound_cat, amount=show.sound_cost)
+                        sound_production_payment, created = ProductionPayment.objects.get_or_create(show=show, category=sound_cat, amount=show.sound_cost, company=company)
                         if created:
                             print '- creating sound payment'
                             print '- amount: %s' % show.sound_cost

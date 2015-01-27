@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
-from members.models import Member
+from members.models import Member, Sub
 from shows.models import Show
 from fidouche.models import Payment, SubPayment, Expense, Quote, CommissionPayment, \
 	 ProductionPayment, Agent, ProductionPayment
@@ -542,6 +542,7 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
 				}
 
 		for person in non_partner_payments:
+			person.type  = person.__class__.__name__
 			non_partner_payments[person]['total'] = sum(non_partner_payments[person]['total'])
 
 		d.update({
@@ -591,5 +592,61 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
 
 	return render(request, template, d)
 
+
+@login_required
+def member_payments(request, member_id=None,  template='fidouche/payments.html'):
+	"""View finance reports for a given timeframe/member"""
+	member_id = int(member_id)
+	member = Member.objects.get(pk=member_id)
+	d = {
+		'no_dates': False
+	}
+	start = request.GET.get('start_date', None)
+	end = request.GET.get('end_date', None)
+	if start and end:
+		start_date = datetime.datetime.strptime(start, "%Y-%m-%d").date()
+		end_date = datetime.datetime.strptime(end, "%Y-%m-%d").date()
+		d['start_date'] = start_date
+		d['end_date'] = end_date
+		# All payments for the date range
+		payment_totals = []
+		payments = Payment.objects.filter(show__date__range=(start_date, end_date)).filter(member=member, amount__gt=0)
+		for payment in payments:
+			payment_totals.append(payment.amount)
+		d['payments'] = payments
+		d['member'] = member
+		d['total'] = sum(payment_totals)
+	else:
+		d['no_dates'] = True
+
+	return render(request, template, d)
+
+@login_required
+def sub_payments(request, sub_id=None,  template='fidouche/payments.html'):
+	"""View finance reports for a given timeframe/member"""
+	sub_id = int(sub_id)
+	sub = Sub.objects.get(pk=sub_id)
+	d = {
+		'no_dates': False
+	}
+	start = request.GET.get('start_date', None)
+	end = request.GET.get('end_date', None)
+	if start and end:
+		start_date = datetime.datetime.strptime(start, "%Y-%m-%d").date()
+		end_date = datetime.datetime.strptime(end, "%Y-%m-%d").date()
+		d['start_date'] = start_date
+		d['end_date'] = end_date
+		# All payments for the date range
+		payment_totals = []
+		payments = SubPayment.objects.filter(show__date__range=(start_date, end_date)).filter(sub=sub, amount__gt=0)
+		for payment in payments:
+			payment_totals.append(payment.amount)
+		d['payments'] = payments
+		d['sub'] = sub
+		d['total'] = sum(payment_totals)
+	else:
+		d['no_dates'] = True
+
+	return render(request, template, d)
 
 

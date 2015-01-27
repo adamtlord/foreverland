@@ -10,7 +10,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 from members.models import Member
 from shows.models import Show
-from fidouche.models import Payment, SubPayment, Expense, Quote, CommissionPayment, ProductionPayment, Agent
+from fidouche.models import Payment, SubPayment, Expense, Quote, CommissionPayment, \
+	 ProductionPayment, Agent, ProductionPayment
 from fidouche.forms import GigFinanceForm, ExpenseForm, PaymentForm, SubPaymentForm, \
 	ProductionPaymentForm
 
@@ -564,6 +565,16 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
 
 		d.update({
 			'expense_payments':expense_payments
+		})
+
+		production_payments = ProductionPayment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0).order_by('show__date')
+		total_production_payments = []
+		for payment in production_payments:
+			total_production_payments.append(payment.amount)
+
+		d.update({
+			'production_payments': production_payments,
+			'total_production_payments': sum(total_production_payments)
 		})
 
 		commission_payments = CommissionPayment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0).order_by('show__date')

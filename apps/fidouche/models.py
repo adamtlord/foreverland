@@ -177,5 +177,5 @@ class ProductionPayment(models.Model):
 		company = str(self.company.name) if self.company else ''
 		show = self.show
 		cat = self.category
-		return '%s for %s (%s)' % (company[0], show, cat)
+		return '%s for %s (%s)' % (company, show, cat)
 

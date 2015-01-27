@@ -102,7 +102,7 @@
 							<label for="id_payer" class="control-label col-md-4">Paid by</label>
 							<div class="col-md-8">
 								{{ form.payer }}
-								<div id="commission_withheld" class="form-inline"{% if gig.payer == 'client' %}style="display:none;"{% endif %}>
+								<div id="commission_withheld" class="form-inline">
 									<div class="checkbox">
 										<label>{{ form.commission_withheld }} Commission withheld</label>
 									</div>
@@ -136,7 +136,7 @@
 									</div>
 								</div>
 							</div>
-							<div id="commission_check"{% if gig.commission_withheld %} style="display:none;"{% endif %}>
+							<div id="commission_check">
 								<div class="form-group">
 									<label for="commission_check_no" class="control-label col-md-4">Comm. check #</label>
 									<div class="col-md-6">

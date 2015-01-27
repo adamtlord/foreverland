@@ -51,13 +51,13 @@ class Show(models.Model):
     poster = models.FileField(upload_to='posters/', blank=True, null=True)
     fb_event = models.CharField(max_length=200, blank=True, null=True)
     # Financial Information
-    AGENT = 'DS'
+    AGENT = 'agent'
     CLIENT = 'client'
     CASH = 'cash'
     CHECK = 'check'
     PAYER_CHOICES = (
         (CLIENT, 'Client'),
-        (AGENT, 'Swan Entertainment'),
+        (AGENT, 'Agent'),
     )
     METHOD_CHOICES = (
         (CASH, 'Cash'),

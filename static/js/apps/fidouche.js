@@ -96,13 +96,13 @@ $(function ($) {
 	$('.factor').on('blur', 'input, select', function(){
 		_updateFields();
 	});
-	$('.set-payer').on('change', '#id_payer', function(){
-		if($(this).find('option:selected').val() == 'agent'){
-			$('#commission_withheld').fadeIn('fast');
-		}else {
-			$('#commission_withheld').fadeOut('fast');
-		}
-	});
+	// $('.set-payer').on('change', '#id_payer', function(){
+	// 	if($(this).find('option:selected').val() == 'agent'){
+	// 		$('#commission_withheld').fadeIn('fast');
+	// 	}else {
+	// 		$('#commission_withheld').fadeOut('fast');
+	// 	}
+	// });
 	$('#commission_withheld').on('change', '#id_commission_withheld', function(){
 		if($(this).is(':checked')){
 			$('#commission_check').fadeOut('fast');

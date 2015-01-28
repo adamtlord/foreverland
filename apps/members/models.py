@@ -30,6 +30,8 @@ class Member(models.Model):
     date_partner_joined = models.DateField(verbose_name="Became a Partner", blank=True, null=True)
     date_partner_left = models.DateField(verbose_name="Left Partnership", blank=True, null=True)
 
+    class Meta:
+        ordering = ['-active', '-section', 'display_first']
     def __unicode__(self):
         return '%s %s' % (self.display_first, self.display_last)
 

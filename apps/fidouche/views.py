@@ -2,7 +2,7 @@ from datetime import date
 import random
 import datetime
 from django.forms.models import inlineformset_factory
-from django.db.models import Sum, Q
+from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -11,7 +11,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from members.models import Member, Sub
 from shows.models import Show
 from fidouche.models import Payment, SubPayment, Expense, Quote, CommissionPayment, \
-	 ProductionPayment, Agent, ProductionPayment
+	 ProductionPayment
 from fidouche.forms import GigFinanceForm, ExpenseForm, PaymentForm, SubPaymentForm, \
 	ProductionPaymentForm
 
@@ -34,7 +34,6 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 	for gig in gigs:
 		gig.total_expenses = sum(filter(None,[gig.sound_cost, gig.in_ears_cost, gig.print_ship_cost, gig.ads_cost, gig.other_cost]))
 		gig_expenses = Expense.objects.filter(show = gig)
-		sc = gig.sound_cost or 0
 		if gig_expenses:
 			for expense in gig_expenses:
 				try:

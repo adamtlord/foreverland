@@ -49,7 +49,7 @@
 				<td>{{ gig.date|date:"Ymd" }}</td>
 				<td>{% if request.user.is_staff %}<a href="{% url 'gig_finances' gig.id %}">{% endif %}{{ gig.date|date:"n/j/y" }}{% if request.user.is_staff %}</a>{% endif %}</td>
 				<td>{% if request.user.is_staff %}<a href="{% url 'gig_finances' gig.id %}">{% endif %}{{ gig.venue }}{% if request.user.is_staff %}</a>{% endif %} {% if not gig.public %}<span class="label label-success">private</span>{% endif %}</td>
-				<td>{% if gig.attendance %}{{ gig.attendance|intcomma }}{% else %}--{% endif %}</td>
+				<td>{% if gig.attendance %}{{ gig.attendance }}{% endif %}</td>
 				<td>{% if gig.gross %}${{ gig.gross|intcomma }}{% else %}--{% endif %}</td>
 				<td>{% if gig.commission %}${{ gig.commission|intcomma }} <small>({{ gig.commission_percentage }}%)</small>{% else %}--{% endif %}</td>
 				<td>{% if gig.total_expenses > 0 %}${{ gig.total_expenses }} <i class="fa fa-list-ul expense-detail-toggle" data-toggle="collapse" data-target="#gig{{ gig.id }}_expenses"></i>

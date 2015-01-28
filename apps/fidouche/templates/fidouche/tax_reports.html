@@ -49,208 +49,16 @@
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active" id="partners">
-			<h3>Partners
-				<i class="fa fa-question-circle popover-trigger"
-					data-toggle="popover"
-					data-content="The records below show payments made to band members who were partners during the specified date range.
-					If a member became a partner or left the partnership during the specified date range, those payments will appear under 'Non-partners.'
-					Note: this report is not affected by the 'Partner' checkbox, only by the dates a member joined/left the partnership.">
-				</i>
-			</h3>
-			<table class="table table-bordered table-striped datatable">
-				<thead>
-					<tr>
-						<th>
-							Partner
-						</th>
-						<th>
-							Total Paid
-						</th>
-						<th>
-							Payments
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for partner, payments in partner_payments.items %}
-						<tr>
-							<td>{{ partner }}</td>
-							<td>${{ payments.total|intcomma }}</td>
-							<td>{{ payments.payments|length }}
-								{% if payments %}
-									<i class="fa fa-list-ul payment-detail-toggle" data-toggle="modal" data-target="#partner{{ partner.id }}_payments"></i>
-								{% endif %}
-							</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+			{% include 'fragments/partners_tax.html' %}
 		</div>
 		<div class="tab-pane" id="nonpartners">
-			<h3>Non-Partners and Subs
-				<i class="fa fa-question-circle popover-trigger"
-					data-toggle="popover"
-					data-content="The records below show payments made to subs and to band members who were not partners during the specified date range.
-					If a member was also a partner during the specified date range, those payments made during that time will appear under 'Partners.'">
-				</i>
-			</h3>
-			<table class="table table-bordered table-striped datatable">
-				<thead>
-					<tr>
-						<th>
-							Player
-						</th>
-						<th>
-							Total Paid
-						</th>
-						<th>
-							Payments
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for sub, payments in non_partner_payments.items %}
-						<tr>
-							<td>{{ sub }}</td>
-							<td>${{ payments.total|intcomma }}</td>
-							<td>{{ payments.payments|length }} {% if payments %}<i class="fa fa-list-ul payment-detail-toggle" data-toggle="modal" data-target="#{{ sub.type }}{{ sub.id }}_payments"></i>{% endif %}
-							</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+			{% include 'fragments/non_partners_tax.html' %}
 		</div>
 		<div class="tab-pane" id="expenses">
-			<h3>Expenses <i class="fa fa-question-circle popover-trigger" data-toggle="popover"
-				data-content="The records below show payments made for expenses during the specified date range, organized by Tax Category."></i></h3>
-			{% for category, payments in expense_payments.items %}
-				<h4>{{ category|title }}</h4>
-				<table class="table table-bordered table-striped datatable-expense" rel="{{ category|title }}">
-					<thead>
-						<tr>
-							<th>Date Sort</th>
-							<th>
-								Date
-							</th>
-							<th>
-								Amount
-							</th>
-							<th>
-								Payee
-							</th>
-							<th>
-								Show
-							</th>
-							<th>
-								Notes
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for payment in payments.payments %}
-							<tr>
-								<td>{{ payment.date|date:"Ymd" }}</td>
-								<td><a href="{% url 'expense_details' payment.id %}">{{ payment.date|date:"n/j/y" }}</a></td>
-								<td>${{ payment.amount|intcomma }}</td>
-								<td>{{ payment.payee }}</td>
-								<td>{% if payment.show %}<a href="{% url 'gig_finances' payment.show.id %}">{{ payment.show }}</a>{% endif %}</td>
-								<td>{{ payment.notes }}</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="2"></td>
-							<td>${{ payments.total|intcomma }}</td>
-							<td colspan="3"></td>
-						</tr>
-					</tfoot>
-				</table>
-			{% endfor %}
-			<h4>Production</h4>
-			<table class="table table-bordered table-striped datatable-production" rel="Production">
-				<thead>
-					<tr>
-						<th>
-							Company
-						</th>
-						<th>
-							Amount
-						</th>
-						<th>
-							Category
-						</th>
-						<th>
-							Show
-						</th>
-						<th>
-							Check #
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for payment in production_payments %}
-						<tr>
-							<td>{{ payment.company }}</td>
-							<td>${{ payment.amount|intcomma }}</td>
-							<td>{{ payment.category.tax_category }}</td>
-							<td><a href="{% url 'gig_finances' payment.show.id %}">{{ payment.show }}</a></td>
-							<td>{% if payment.check_no %}{{ payment.check_no }}{% endif %}</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-				<tfoot>
-					<tr>
-						<td></td>
-						<td>${{ total_production_payments|intcomma }}</td>
-						<td colspan="3"></td>
-					</tr>
-				</tfoot>
-			</table>
+			{% include 'fragments/expenses_tax.html' %}
 		</div>
 		<div class="tab-pane" id="commissions">
-			<h3>Commission Payments
-				<i class="fa fa-question-circle popover-trigger"
-					data-toggle="popover"
-					data-content="The records below show payments made to agents during the specified date range.
-					Commission Payments are only made when the commission is not withheld by the agent.">
-				</i>
-			</h3>
-			<table class="table table-bordered table-striped datatable">
-				<thead>
-					<tr>
-						<th>
-							Agent
-						</th>
-						<th>
-							Show
-						</th>
-						<th>
-							Commission
-						</th>
-						<th>
-							Check #
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for payment in commission_payments %}
-						<tr>
-							<td>{{ payment.agent.name }}</td>
-							<td><a href="{% url 'gig_finances' payment.show.id %}">{{ payment.show }}</a></td>
-							<td>${{ payment.amount|intcomma }} <small>({{ payment.show.commission_percentage }}%)</small></td>
-							<td>{% if payment.check_no %}{{ payment.check_no }}{% endif %}</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="2"></td>
-						<td>${{ total_commission_payments|intcomma }}</td>
-						<td></td>
-					</tr>
-				</tfoot>
-			</table>
+			{% include 'fragments/commission.html' %}
 		</div>
 	</div>
 
@@ -358,6 +166,10 @@
 			}
 		});
 		$('.datatable').dataTable({
+			"bLengthChange": false,
+			"bInfo": false,
+			"bPaginate": false,
+			"bFilter": false,
 			"aaSorting": [ ],
 			"aoColumnDefs": [
 				{"sType": "currency", "aTargets": [2]}

@@ -8821,13 +8821,15 @@ legend .btn.active:focus,
 #subs_toggle.active:focus {
   outline: none;
 }
-i.expense-detail-toggle {
+i.expense-detail-toggle,
+i.address-toggle {
   color: #999999;
   cursor: pointer;
   float: right;
   margin-top: 3px;
 }
-i.expense-detail-toggle:hover {
+i.expense-detail-toggle:hover,
+i.address-toggle:hover {
   color: #555555;
 }
 table.table.expense-details {

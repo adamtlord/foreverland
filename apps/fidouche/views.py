@@ -25,12 +25,15 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 	next_show = gigs.filter(date__gte=datetime.datetime.now()).order_by('date')[0]
 	gigs_booked = gigs.filter(date__year=current_year)
 	gigs_played = gigs_booked.filter(date__lt=datetime.datetime.now())
-	count = Quote.objects.all().count()
-	slice = random.random() * (count - 1)
-	quotes = Quote.objects.all()[slice: slice+1]
+
+	quotecount = Quote.objects.all().count()
+	rslice = random.random() * (quotecount - 1)
+	quotes = Quote.objects.all()[rslice: rslice+1]
+
 	ytd_gross = []
 	ytd_net = []
 	ytd_player = []
+
 	for gig in gigs:
 		gig.total_expenses = sum(filter(None,[gig.sound_cost, gig.in_ears_cost, gig.print_ship_cost, gig.ads_cost, gig.other_cost]))
 		gig_expenses = Expense.objects.filter(show = gig)
@@ -61,6 +64,7 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 		'gross': sum(ytd_gross),
 		'payout': sum(ytd_player)
 	}
+
 	d = {
 		'gigs': gigs,
 		'last_show': last_show,
@@ -497,8 +501,10 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
 		partnerPayments = payments.filter(member__in=partners)
 		partner_payments = {}
 		partner_total = []
+		all_partners_total = []
 		for payment in partnerPayments:
 			partner_total.append(payment.amount)
+			all_partners_total.append(payment.amount)
 			if payment.member in partner_payments:
 				partner_payments[payment.member]['total'].append(payment.amount)
 				partner_payments[payment.member]['payments'].append(payment)
@@ -512,15 +518,17 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
 		partner_total = sum(partner_total)
 		d.update({
 			'partner_payments':partner_payments,
-			'partner_total':partner_total
+			'partner_total':partner_total,
+			'all_partners_total':sum(all_partners_total)
 			})
 
 		# NON-partner payments, ie, subs and non-partner members
 		non_partner_payments = {}
 		subPayments = SubPayment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0)
 		nonPartnerPayments = payments.exclude(id__in=partnerPayments)
-
+		non_partners_total = []
 		for payment in subPayments:
+			non_partners_total.append(payment.amount)
 			if payment.sub in non_partner_payments:
 				non_partner_payments[payment.sub]['total'].append(payment.amount)
 				non_partner_payments[payment.sub]['payments'].append(payment)
@@ -531,6 +539,7 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
 				}
 
 		for payment in nonPartnerPayments:
+			non_partners_total.append(payment.amount)
 			if payment.member in non_partner_payments:
 				non_partner_payments[payment.member]['total'].append(payment.amount)
 				non_partner_payments[payment.member]['payments'].append(payment)
@@ -546,6 +555,7 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
 
 		d.update({
 			'non_partner_payments':non_partner_payments,
+			'non_partners_total': sum(non_partners_total)
 		})
 
 		expense_payments = {}

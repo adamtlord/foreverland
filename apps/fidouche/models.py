@@ -81,7 +81,7 @@ class Expense(models.Model):
 	amount = models.DecimalField(max_digits=10, decimal_places=2)
 	check_no = models.CharField(max_length=100, blank=True, null=True, verbose_name="Check #")
 	notes = models.TextField(blank=True, null=True)
-	receipt_img = ImageField(upload_to="receipts/", blank=True, null=True)
+	receipt_img = models.FileField(upload_to="receipts/", blank=True, null=True)
 
 	def __unicode__(self):
 		safedate = ''

@@ -69,7 +69,13 @@
 					</div>{% endif %}
 				</td>
 				<td>{% if gig.net %}${{ gig.net|intcomma }}{% else %}--{% endif %}</td>
-				<td>{% if gig.payout %}${{ gig.payout|intcomma }}{% else %}--{% endif %}</td>
+				<td>{% if gig.payout %}${{ gig.payout|intcomma }}{% else %}--{% endif %}{% if gig.payout_notes %}<i class="fa fa-comment payout-notes-toggle" data-toggle="collapse" data-target="#gig{{ gig.id }}_notes"></i>{% endif %}
+					{% if gig.payout_notes %}
+						<div id="gig{{ gig.id }}_notes" class="collapse payout-notes">
+							{{ gig.payout_notes }}
+						</div>
+					{% endif %}
+				</td>
 			</tr>
 		{% endfor %}
 		</tbody>

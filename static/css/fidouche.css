@@ -8822,19 +8822,27 @@ legend .btn.active:focus,
   outline: none;
 }
 i.expense-detail-toggle,
-i.address-toggle {
+i.address-toggle,
+i.payout-notes-toggle {
   color: #999999;
   cursor: pointer;
   float: right;
   margin-top: 3px;
 }
 i.expense-detail-toggle:hover,
-i.address-toggle:hover {
+i.address-toggle:hover,
+i.payout-notes-toggle:hover {
   color: #555555;
 }
 table.table.expense-details {
-  font-size: 85%;
   margin-top: 6px;
+}
+.payout-notes {
+  font-size: 85%;
+  background: #FFFACD;
+  padding: 4px;
+  line-height: 1.1em;
+  margin: 6px -8px 0 -8px;
 }
 .gig-meta table {
   margin-bottom: 0;

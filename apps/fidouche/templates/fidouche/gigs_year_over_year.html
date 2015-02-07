@@ -52,17 +52,21 @@
 				<td>{% if gig.attendance %}{{ gig.attendance }}{% endif %}</td>
 				<td>{% if gig.gross %}${{ gig.gross|intcomma }}{% else %}--{% endif %}</td>
 				<td>{% if gig.commission %}${{ gig.commission|intcomma }} <small>({{ gig.commission_percentage }}%)</small>{% else %}--{% endif %}</td>
-				<td>{% if gig.total_expenses > 0 %}${{ gig.total_expenses }} <i class="fa fa-list-ul expense-detail-toggle" data-toggle="collapse" data-target="#gig{{ gig.id }}_expenses"></i>
+				<td>{% if gig.total_expenses %}${{ gig.total_expenses|intcomma}} <i class="fa fa-list-ul expense-detail-toggle" data-toggle="collapse" data-target="#gig{{ gig.id }}_expenses"></i>
 					<div id="gig{{ gig.id }}_expenses" class="collapse">
 						<table class="table table-condensed expense-details">
-							<tr><th>Sound:</th><td>${{gig.sound_cost|intcomma}}</td></tr>
-							<tr><th>Ears:</th><td>${% if gig.in_ears_cost %}{{gig.in_ears_cost|intcomma}}{% else %}0{% endif %}</td></tr>
-							<tr><th>Print/Ship:</th><td>${{gig.print_ship_cost|intcomma}}</td></tr>
-							<tr><th>Ads:</th><td>${{gig.ads_cost|intcomma}}</td></tr>
-							<tr><th>Other:</th><td>${{gig.other_cost|intcomma}}</td></tr>
+							{% for k, v in gig.production_costs.items %}
+								{% if v > 0 %}
+									<tr><th>{{k}}:</th><td>${{v|intcomma}}</td></tr>
+								{% endif %}
+							{% endfor %}
+							{% for k, v in gig.expenses.items %}
+								{% if v > 0 %}
+									<tr><th>{{k|title}}:</th><td>${{v|intcomma}}</td></tr>
+								{% endif %}
+							{% endfor %}
 						</table>
-					</div>
-					{% else %}--{% endif %}
+					</div>{% endif %}
 				</td>
 				<td>{% if gig.net %}${{ gig.net|intcomma }}{% else %}--{% endif %}</td>
 				<td>{% if gig.payout %}${{ gig.payout|intcomma }}{% else %}--{% endif %}</td>

@@ -33,7 +33,8 @@ FINANCIAL_FIELDS = (
 	'to_account',
 	'subs',
 	'costs_itemized',
-	'settlement_sheet'
+	'settlement_sheet',
+	'payout_notes'
 )
 EXPENSE_FIELDS = (
 	'date',

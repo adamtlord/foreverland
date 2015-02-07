@@ -11,7 +11,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from members.models import Member, Sub
 from shows.models import Show
 from fidouche.models import Payment, SubPayment, Expense, Quote, CommissionPayment, \
-	 ProductionPayment
+	 ProductionPayment, ProductionCategory, ExpenseCategory
 from fidouche.forms import GigFinanceForm, ExpenseForm, PaymentForm, SubPaymentForm, \
 	ProductionPaymentForm
 
@@ -35,19 +35,9 @@ def financial_dashboard(request, template='fidouche/dashboard.html'):
 	ytd_player = []
 
 	for gig in gigs:
-		gig.total_expenses = sum(filter(None,[gig.sound_cost, gig.in_ears_cost, gig.print_ship_cost, gig.ads_cost, gig.other_cost]))
-		gig_expenses = Expense.objects.filter(show = gig)
-		if gig_expenses:
-			for expense in gig_expenses:
-				try:
-					expense.amount = int(expense.amount)
-				except TypeError:
-					expense.amount = 0
-				try:
-					gig.other_cost = int(gig.other_cost)
-				except TypeError:
-					gig.other_cost = 0
-				sum([gig.other_cost,expense.amount])
+		gig.production_costs = gig.get_production_costs()
+		gig.expenses = gig.get_expenses()
+		gig.total_expenses = gig.get_total_costs()
 
 	for gig in gigs_played:
 		if gig.gross:
@@ -86,16 +76,12 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 	by_month = {}
 	players = []
 	commission = []
-	sound = []
-	iem = []
-	printship = []
-	ads = []
-	other = []
-	all_expenses = []
 	to_account = []
 	gross = []
 	net = []
 	payout = []
+	sum_all_expenses = []
+	all_total_expenses = []
 
 	for m in range(1,13):
 		month_gigs = gigs.filter(date__month = m)
@@ -105,18 +91,10 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 		}
 
 	for gig in gigs:
-		gig_itemized_expenses = Expense.objects.filter(show=gig)
-		gig.total_expenses = sum(filter(None,[gig.sound_cost, gig.in_ears_cost, gig.print_ship_cost, gig.ads_cost, gig.other_cost]))
-		all_expenses.append(gig.total_expenses)
-		if gig_itemized_expenses:
-			for expense in gig_itemized_expenses:
-				try:
-					expense.amount = int(expense.amount)
-				except TypeError:
-					expense.amount = 0
-				other.append(expense.amount)
-				all_expenses.append(expense.amount)
-
+		gig.production_costs = gig.get_production_costs()
+		gig.expenses = gig.get_expenses()
+		gig.total_expenses = gig.get_total_costs()
+		all_total_expenses.append(gig.total_expenses)
 		gig.payments = Payment.objects.filter(show=gig)
 		if gig.payments:
 			for pay in gig.payments:
@@ -128,16 +106,6 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 
 		if gig.commission:
 			commission.append(gig.commission)
-		if gig.sound_cost:
-			sound.append(gig.sound_cost)
-		if gig.in_ears_cost:
-			iem.append(gig.in_ears_cost)
-		if gig.print_ship_cost:
-			printship.append(gig.print_ship_cost)
-		if gig.ads_cost:
-			ads.append(gig.ads_cost)
-		if gig.other_cost:
-			other.append(gig.other_cost)
 		if gig.to_account:
 			to_account.append(gig.to_account)
 		if gig.gross:
@@ -146,6 +114,14 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 			net.append(gig.net)
 		if gig.payout:
 			payout.append(gig.payout)
+		gig.all_expenses = dict(gig.production_costs.items() + gig.expenses.items())
+		sum_all_expenses.append(gig.all_expenses)
+
+	# http://stackoverflow.com/questions/19461747/sum-corresponding-elements-of-multiple-python-dictionaries
+	from collections import Counter
+	summed_expenses = Counter()
+	for d in sum_all_expenses:
+		summed_expenses.update(d)
 
 	d = {
 		'year': year,
@@ -158,12 +134,8 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
 		'by_month': by_month,
 		'players': sum(players),
 		'commission': sum(commission),
-		'sound': sum(sound),
-		'iem': sum(iem),
-		'printship': sum(printship),
-		'ads': sum(ads),
-		'other': sum(other),
-		'all_expenses': sum(all_expenses),
+		'all_expenses': dict(summed_expenses),
+		'total_expenses': sum(all_total_expenses),
 		'to_account': sum(to_account)
 	}
 	return render(request, template, d)
@@ -177,12 +149,8 @@ def gigs_year_over_year(request,template='fidouche/gigs_year_over_year.html'):
 	years = {}
 	players = []
 	commission = []
-	sound = []
-	iem = []
-	printship = []
-	ads = []
-	other = []
-	all_expenses = []
+	sum_all_expenses = []
+	all_total_expenses = []
 	for year in years_with_gigs:
 		years[year] = {}
 		this_years_gigs = gigs.filter(date__year=year)
@@ -205,10 +173,11 @@ def gigs_year_over_year(request,template='fidouche/gigs_year_over_year.html'):
 	d['years'] = years
 
 	for gig in gigs:
+		gig.production_costs = gig.get_production_costs()
+		gig.expenses = gig.get_expenses()
+		gig.total_expenses = gig.get_total_costs()
+		all_total_expenses.append(gig.total_expenses)
 		gig.payments = Payment.objects.filter(show=gig)
-		gig.total_expenses = sum(filter(None,[gig.sound_cost, gig.in_ears_cost, gig.print_ship_cost, gig.ads_cost, gig.other_cost]))
-		gig_expenses = Expense.objects.filter(show = gig)
-		all_expenses.append(gig.total_expenses)
 		if gig.payments:
 			for pay in gig.payments:
 				if pay.amount:
@@ -218,22 +187,11 @@ def gigs_year_over_year(request,template='fidouche/gigs_year_over_year.html'):
 				players.append(gig.payout * 14)
 		if gig.commission:
 			commission.append(gig.commission)
-		if gig.sound_cost:
-			sound.append(gig.sound_cost)
-		if gig.in_ears_cost:
-			iem.append(gig.in_ears_cost)
-		if gig.print_ship_cost:
-			printship.append(gig.print_ship_cost)
-		if gig.ads_cost:
-			ads.append(gig.ads_cost)
-		if gig.other_cost:
-			other.append(gig.other_cost)
-		if gig_expenses:
-			for expense in gig_expenses:
-				other.append(expense.amount)
+		gig.all_expenses = dict(gig.production_costs.items() + gig.expenses.items())
+		sum_all_expenses.append(gig.all_expenses)
 
 	d['all_gigs'] = gigs
-
+	print d
 	return render(request, template, d)
 
 @login_required

@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 
@@ -106,9 +107,67 @@ class Show(models.Model):
     to_account = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     subs = models.BooleanField(default=False)
     settlement_sheet = ImageField(upload_to="receipts/", blank=True, null=True)
+    payout_notes = models.TextField(null=True, blank=True)
+
+    def get_production_costs(self):
+        d = {}
+        from fidouche.models import ProductionPayment, ProductionCategory
+        production_expenses = list(ProductionPayment.objects.filter(show=self))
+        production_categories = ProductionCategory.objects.all()
+        if production_expenses:
+            for category in production_categories:
+                d[category.name] = []
+            for expense in production_expenses:
+                    d[expense.category.name].append(expense.amount)
+            for k in d:
+                d[k] = sum(d[k])
+        else:
+            sound = self.sound_cost or 0
+            iem = self.in_ears_cost or 0
+            d['Sound'] = sound
+            d['IEM'] = iem
+        return d
+
+    def get_expenses(self):
+        d = {}
+        from fidouche.models import Expense, ExpenseCategory
+        expenses = list(Expense.objects.filter(show=self))
+        expense_categories = ExpenseCategory.objects.all()
+        for category in expense_categories:
+            d[category.category] = []
+        if expenses:
+            for expense in expenses:
+                d[expense.new_category.category].append(expense.amount)
+        else:
+            d['printing'] = self.print_ship_cost or 0
+            d['ads'] = self.ads_cost or 0
+            d['other'] = self.other_cost or 0
+        for k in d:
+            if type(d[k]) is list:
+                d[k] = sum(d[k])
+        return d
+
+    def get_total_costs(self):
+        production_costs = self.get_production_costs()
+        production = []
+        for k in production_costs:
+            production.append(production_costs[k])
+        production = sum(production)
+        expense_costs = self.get_expenses()
+        expenses = []
+        for k in expense_costs:
+            if type(expense_costs[k]) is list:
+                expenses.append(sum(expense_costs[k]))
+            else:
+                expenses.append(expense_costs[k])
+        expenses = sum(expenses)
+
+        return production + expenses
 
     class Meta:
         ordering = ['date']
 
     def __unicode__(self):
         return '%s %s' % (self.date.strftime('%m/%d/%y'), self.venue)
+
+

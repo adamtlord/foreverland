@@ -356,13 +356,15 @@ def expense_delete(request, expense_id=None):
 	"""Delete an expense record"""
 	expense_id = int(expense_id)
 	expense = get_object_or_404(Expense, pk=expense_id)
+	expense_date = expense.date or expense.show.date
+	expense_year = expense_date.year
 	if expense_id:
 		expense.delete()
 		messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>Toast.</strong> Expense deleted.')
 	else:
 		messages.add_message(request, messages.WARNING, '<i class="fa fa-warning"></i> <strong>HUH?</strong> That\'s not a thing.')
 
-	return redirect(expenses_list)
+	return redirect(expenses_list, expense_year)
 
 
 @login_required

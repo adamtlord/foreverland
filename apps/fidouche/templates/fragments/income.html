@@ -53,6 +53,9 @@
                 Show
             </th>
             <th>
+                Comm. WH Sort
+            </th>
+            <th>
                 Commission Withheld
             </th>
             <th>
@@ -71,7 +74,18 @@
             <tr>
                 <td>{{ show.date|date:"n/j/y" }}</td>
                 <td><a href="{% url 'gig_finances' show.id %}">{{ show.venue }}</a></td>
-                <td>{% if show.commission_withheld %}<i class="fa fa-check text-success"></i>{% endif %}</td>
+                <td>
+                    {% if show.commission_withheld %}
+                        1
+                    {% else %}
+                        0
+                    {% endif %}
+                </td>
+                <td>
+                    {% if show.commission_withheld %}
+                        <i class="fa fa-check text-success"></i>
+                    {% endif %}
+                </td>
                 <td>{% if show.gross %}
                         ${{ show.gross|intcomma }}
                     {% endif %}
@@ -93,7 +107,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="5"></td>
+            <td colspan="6"></td>
             <td>${{ paid_by_agent_total_gross|intcomma }}</td>
         </tr>
     </tfoot>

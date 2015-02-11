@@ -200,6 +200,16 @@
 				{"sType": "currency", "aTargets": [1]}
 			],
 		});
+		$('.datatable-agent-income').dataTable({
+			"bLengthChange": false,
+			"bInfo": false,
+			"bPaginate": false,
+			"bFilter": false,
+			"aaSorting": [ ],
+			"aoColumnDefs": [
+				{"sType": "currency", "aTargets": [3,4,5]}
+			],
+		});
 		$('.popover-trigger').popover();
 	});
 </script>

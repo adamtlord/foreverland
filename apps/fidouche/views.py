@@ -556,6 +556,28 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
 			'total_commission_payments': sum(total_commission_payments)
 		})
 
+		# Income
+		shows = Show.objects.filter(date__range=(start_date, end_date))
+		paid_by_client = shows.filter(payer='client')
+		paid_by_client_total_gross = []
+		for show in paid_by_client:
+			if show.gross:
+				paid_by_client_total_gross.append(show.gross)
+		d['paid_by_client'] = paid_by_client
+		d['paid_by_client_total_gross'] = sum(paid_by_client_total_gross)
+
+		paid_by_agent = shows.exclude(id__in=paid_by_client)
+		paid_by_agent_total_gross = []
+		for show in paid_by_agent:
+			if show.commission_withheld:
+				show.adjusted_gross = show.gross - show.commission
+				paid_by_agent_total_gross.append(show.adjusted_gross)
+			else:
+				paid_by_agent_total_gross.append(show.gross)
+
+		d['paid_by_agent'] = paid_by_agent
+		d['paid_by_agent_total_gross'] = sum(paid_by_agent_total_gross)
+
 	else:
 		d['no_dates'] = True
 

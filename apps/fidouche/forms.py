@@ -106,5 +106,8 @@ class ProductionPaymentForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(ProductionPaymentForm, self).__init__(*args, **kwargs)
 		for field in PRODUCTION_FIELDS:
-			self.fields[field].widget.attrs['class'] = 'form-control input-sm'
+			if field == 'amount':
+				self.fields[field].widget.attrs['class'] = 'form-control input-sm production-cost'
+			else:
+				self.fields[field].widget.attrs['class'] = 'form-control input-sm'
 

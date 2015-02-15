@@ -6,8 +6,6 @@ $(function ($) {
 			var gross = $('#id_gross');
 			var fee = $('#id_fee');
 			var commission = $('#id_commission');
-			var sound = $('#id_sound_cost');
-			var inears = $('#id_in_ears_cost').find('option:selected');
 			var print = $('#id_print_ship_cost');
 			var ads = $('#id_ads_cost');
 			var other = $('#id_other_cost');
@@ -15,11 +13,14 @@ $(function ($) {
 			var max = $('#max_payout');
 			var payout = $('#id_payout');
 			var account = $('#id_to_account');
+			var production_cost = 0;
+			$('.production-cost').each(function(i,n){
+				production_cost += parseFloat($(n).val() || 0);
+			});
 			// payable
 			var g = parseFloat(gross.val()) || 0;
 			var cp = parseFloat(commissionField.val()) || 0;
-			var sc = parseFloat(sound.val()) || 0;
-			var iem = parseFloat(inears.val()) || 0;
+			var pc = production_cost;
 			var ps = parseFloat(print.val()) || 0;
 			var a = parseFloat(ads.val()) || 0;
 			var o = parseFloat(other.val()) || 0;
@@ -34,13 +35,13 @@ $(function ($) {
 				} else {
 					cb = g;
 				}
-				c = (parseFloat((cb - sc) * (cp/100)) || 0).toFixed(2);
-				n = (parseFloat(g - c - (sc + iem + ps + a + o)) || 0).toFixed(2);
+				c = (parseFloat((cb - pc) * (cp/100)) || 0).toFixed(2);
+				n = (parseFloat(g - c - (pc + ps + a + o)) || 0).toFixed(2);
 				mp = (parseFloat(n / 14) || 0).toFixed(2);
 				acc = (parseFloat(n - (p * 14)) ||0).toFixed(2);
 			}
 			commission.val(c).change();
-			max.html(mp);
+			max.html(mp).parent().fadeIn('fast');
 			net.val(n).change();
 			account.val(acc).change();
 		}

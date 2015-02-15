@@ -8,9 +8,9 @@
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <ol class="setlist">
+        <ol>
             {% for song in setsongs %}
-                <li>{% if song.song.display %}{{ song }}{% else %}------------------{% endif %}</li>
+                <li{% if not song.song.display %} class="text-muted"{% endif %}>{{ song }}</li>
             {% endfor %}
         </ol>
     </div>

@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400italic,400,600,700);
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
@@ -7509,6 +7510,7 @@ table.table thead .sorting_desc_disabled:after {
   font-family: FontAwesome;
   position: absolute;
   right: 5px;
+  top: 2px;
 }
 table.table thead .sorting:after {
   content: '\f0dc';
@@ -8708,6 +8710,9 @@ input[type="file"] {
     float: left;
   }
 }
+body {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 .page-header .auto-calc-box {
   margin-top: 39px;
   line-height: 33px;
@@ -8725,6 +8730,34 @@ input[type="file"] {
 }
 #gig_finances p.file-upload .clearable-file-input label {
   font-weight: normal;
+}
+#gig_finances fieldset {
+  margin-bottom: 12px;
+}
+#gig_finances fieldset legend {
+  font-weight: 300;
+  padding-bottom: 5px;
+}
+#gig_finances fieldset#production legend {
+  margin-bottom: 0;
+}
+#gig_finances fieldset#production table#gig_production {
+  margin-bottom: 0;
+}
+#gig_finances fieldset#production table#gig_production > tbody > tr:first-child > td {
+  border-top: none;
+}
+#gig_finances fieldset#production table#gig_production > tbody > tr:last-child {
+  border-bottom: 1px solid #eeeeee;
+}
+#gig_finances fieldset#production table#gig_production > tbody > tr > td {
+  padding-bottom: 3px;
+}
+#gig_finances fieldset#production table#gig_production .form-group {
+  margin-bottom: 5px;
+}
+#gig_finances fieldset#production table#gig_production .checkbox.delete {
+  padding-top: 0;
 }
 fieldset.expenses {
   margin-top: 15px;
@@ -8777,9 +8810,6 @@ fieldset#itemize {
 #payment_check_no {
   margin-top: 10px;
 }
-legend.with-btn {
-  padding-bottom: 5px;
-}
 legend .btn,
 #subs_toggle {
   float: right !important;
@@ -8791,18 +8821,28 @@ legend .btn.active:focus,
 #subs_toggle.active:focus {
   outline: none;
 }
-i.expense-detail-toggle {
+i.expense-detail-toggle,
+i.address-toggle,
+i.payout-notes-toggle {
   color: #999999;
   cursor: pointer;
   float: right;
   margin-top: 3px;
 }
-i.expense-detail-toggle:hover {
+i.expense-detail-toggle:hover,
+i.address-toggle:hover,
+i.payout-notes-toggle:hover {
   color: #555555;
 }
 table.table.expense-details {
-  font-size: 85%;
   margin-top: 6px;
+}
+.payout-notes {
+  font-size: 85%;
+  background: #FFFACD;
+  padding: 4px;
+  line-height: 1.1em;
+  margin: 6px -8px 0 -8px;
 }
 .gig-meta table {
   margin-bottom: 0;
@@ -8810,4 +8850,353 @@ table.table.expense-details {
 .gig-meta table > tbody > tr:first-child th,
 .gig-meta table > tbody > tr:first-child td {
   border-top: none;
+}
+#payout_notes textarea {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  height: 80px;
+}
+select#payout_notes textarea {
+  height: 30px;
+  line-height: 30px;
+}
+textarea#payout_notes textarea,
+select[multiple]#payout_notes textarea {
+  height: auto;
+}
+/* Finance Reports */
+#report_dates {
+  margin-bottom: 20px;
+}
+#report_dates button[type="submit"] {
+  margin-top: 0;
+}
+#report_dates .help-block {
+  display: none !important;
+}
+#report_dates .has-error .help-block {
+  display: block !important;
+  margin-bottom: 0;
+}
+#report_dates .form-group {
+  margin-bottom: 0;
+}
+i.payment-detail-toggle {
+  color: #999999;
+  cursor: pointer;
+  float: right;
+  margin-top: 3px;
+}
+i.payment-detail-toggle:hover {
+  color: #555555;
+}
+table.table.payment-details {
+  font-size: 85%;
+  margin-top: 6px;
+}
+table.table.payment-details.table-striped > tbody > tr:nth-child(odd) > td,
+table.table.payment-details.table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: #f5f5f5;
+}
+.modal.payment-details .modal-header {
+  border-bottom: none;
+}
+.modal.payment-details .modal-body {
+  padding: 0;
+}
+.modal.payment-details .modal-body table.table.payment-details {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.modal.payment-details .modal-body table.table.payment-details > tbody > tr > td {
+  padding: 5px 20px;
+}
+.modal.payment-details .modal-footer {
+  margin-top: 0;
+}
+#payment_formset > tbody > tr td:nth-of-type(1):before,
+#sub_payment_formset > tbody > tr td:nth-of-type(1):before {
+  content: "";
+}
+#payment_formset > tbody > tr td:nth-of-type(2):before,
+#sub_payment_formset > tbody > tr td:nth-of-type(2):before {
+  content: "";
+}
+#payment_formset > tbody > tr td:nth-of-type(3):before,
+#sub_payment_formset > tbody > tr td:nth-of-type(3):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(1):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(2):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(3):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(4):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(5):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(6):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(7):before {
+  content: "";
+}
+#expenses_formset > tbody > tr td:nth-of-type(8):before {
+  content: "";
+}
+#expenses_formset .payee select {
+  width: auto;
+}
+body.tax-report h3 i.popover-trigger {
+  font-size: 16px;
+  color: #999999;
+  vertical-align: super;
+  cursor: pointer;
+}
+body.tax-report h3 .popover {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 20px;
+}
+body.tax-report table.table > tfoot > tr > td {
+  padding: 8px;
+  font-weight: bold;
+}
+.tab-pane#expenses h3 {
+  margin-bottom: 20px;
+}
+.tab-pane#expenses h4 {
+  padding-top: 20px;
+  margin-top: 20px;
+  margin-bottom: -25px;
+  border-top: 1px solid #eeeeee;
+}
+.tab-pane#expenses .dataTables_filter label {
+  margin-bottom: 10px;
+}
+blockquote.qotd {
+  background-color: #f8f8f8;
+  margin-bottom: 0;
+  position: relative;
+}
+blockquote.qotd p {
+  line-height: 1.34em;
+  margin-bottom: 5px;
+}
+blockquote.qotd p > span {
+  font-size: 28px;
+  color: #999999;
+  vertical-align: middle;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .navbar-default .navbar-nav > li > a {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+@media (max-width: 991px) {
+  .table-responsive,
+  .dataTables_wrapper {
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    min-height: .01%;
+    overflow-x: auto;
+  }
+  .table-responsive table.table.datatable,
+  .dataTables_wrapper table.table.datatable {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+@media (max-width: 767px) {
+  .page-header .auto-calc-box {
+    margin-top: 12px;
+  }
+  #subs_toggle {
+    margin-bottom: 12px;
+  }
+  table.table > thead > tr > th,
+  table.table > tbody > tr > th,
+  table.table > tfoot > tr > th,
+  table.table > thead > tr > td,
+  table.table > tbody > tr > td,
+  table.table > tfoot > tr > td {
+    padding: 5px;
+  }
+  table.table > thead > tr > th .input-group,
+  table.table > tbody > tr > th .input-group,
+  table.table > tfoot > tr > th .input-group,
+  table.table > thead > tr > td .input-group,
+  table.table > tbody > tr > td .input-group,
+  table.table > tfoot > tr > td .input-group {
+    width: 100%;
+  }
+  table.table > thead > tr > th .input-group .form-control,
+  table.table > tbody > tr > th .input-group .form-control,
+  table.table > tfoot > tr > th .input-group .form-control,
+  table.table > thead > tr > td .input-group .form-control,
+  table.table > tbody > tr > td .input-group .form-control,
+  table.table > tfoot > tr > td .input-group .form-control {
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  table.table > thead > tr > th .input-group-addon,
+  table.table > tbody > tr > th .input-group-addon,
+  table.table > tfoot > tr > th .input-group-addon,
+  table.table > thead > tr > td .input-group-addon,
+  table.table > tbody > tr > td .input-group-addon,
+  table.table > tfoot > tr > td .input-group-addon {
+    display: none !important;
+  }
+  .input-sm {
+    padding: 5px 7px;
+  }
+  #payment,
+  #sub_payment,
+  #itemize {
+    /* Force table to not be like tables anymore */
+    /* Hide table headers (but not display: none;, for accessibility) */
+    /*
+        Label the data
+        */
+  }
+  #payment table,
+  #sub_payment table,
+  #itemize table,
+  #payment thead,
+  #sub_payment thead,
+  #itemize thead,
+  #payment tbody,
+  #sub_payment tbody,
+  #itemize tbody,
+  #payment th,
+  #sub_payment th,
+  #itemize th,
+  #payment td,
+  #sub_payment td,
+  #itemize td,
+  #payment tr,
+  #sub_payment tr,
+  #itemize tr {
+    display: block;
+  }
+  #payment table.table,
+  #sub_payment table.table,
+  #itemize table.table {
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+  }
+  #payment table.table > tbody > tr,
+  #sub_payment table.table > tbody > tr,
+  #itemize table.table > tbody > tr {
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+  }
+  #payment table.table > tbody > tr td,
+  #sub_payment table.table > tbody > tr td,
+  #itemize table.table > tbody > tr td {
+    border: none;
+    position: relative;
+    padding-left: 25%;
+    text-align: left;
+    min-height: 40px;
+  }
+  #payment table.table > tbody > tr td:before,
+  #sub_payment table.table > tbody > tr td:before,
+  #itemize table.table > tbody > tr td:before {
+    position: absolute;
+    top: 0;
+    left: 7px;
+    width: 25%;
+    white-space: nowrap;
+    font-size: 12px;
+    bottom: 0;
+    line-height: 40px;
+  }
+  #payment table.table > tbody > tr td.paid input[type="checkbox"],
+  #sub_payment table.table > tbody > tr td.paid input[type="checkbox"],
+  #itemize table.table > tbody > tr td.paid input[type="checkbox"] {
+    margin: 7px 0 0 10px;
+  }
+  #payment table.table > tbody > tr td > a.thumb,
+  #sub_payment table.table > tbody > tr td > a.thumb,
+  #itemize table.table > tbody > tr td > a.thumb {
+    display: block;
+  }
+  #payment table.table > tbody > tr td > a.thumb img,
+  #sub_payment table.table > tbody > tr td > a.thumb img,
+  #itemize table.table > tbody > tr td > a.thumb img {
+    max-width: 100%;
+    margin-bottom: 5px;
+  }
+  #payment table.table > tbody > tr td > p.file-upload input,
+  #sub_payment table.table > tbody > tr td > p.file-upload input,
+  #itemize table.table > tbody > tr td > p.file-upload input {
+    margin-top: 5px;
+  }
+  #payment_formset > tbody > tr td:nth-of-type(1):before,
+  #sub_payment_formset > tbody > tr td:nth-of-type(1):before {
+    content: "Player";
+  }
+  #payment_formset > tbody > tr td:nth-of-type(2):before,
+  #sub_payment_formset > tbody > tr td:nth-of-type(2):before {
+    content: "Amount";
+  }
+  #payment_formset > tbody > tr td:nth-of-type(3):before,
+  #sub_payment_formset > tbody > tr td:nth-of-type(3):before {
+    content: "Paid?";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(1):before {
+    content: "Date";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(2):before {
+    content: "Payee";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(3):before {
+    content: "Category";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(4):before {
+    content: "Amount";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(5):before {
+    content: "Check #";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(6):before {
+    content: "Notes";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(7):before {
+    content: "Receipt";
+  }
+  #expenses_formset > tbody > tr td:nth-of-type(8):before {
+    content: "Delete?";
+  }
+  #expenses_formset .payee select {
+    width: 100%;
+  }
+}
+@media (max-width: 767px) and (max-width: 767px) {
+  #payment thead tr,
+  #sub_payment thead tr,
+  #itemize thead tr {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) {
+  table.table.datatable {
+    table-layout: fixed;
+  }
 }

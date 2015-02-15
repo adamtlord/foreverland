@@ -10,13 +10,13 @@ Highcharts.theme = {
     ],
     chart: {
         style: {
-            fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+            fontFamily: '"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif',
         },
         height: 250
     },
     title: {
         style: {
-            fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+            fontFamily: '"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif',
             color: '#666',
             fontWeight: 'bold'
         }
@@ -27,7 +27,7 @@ Highcharts.theme = {
     xAxis: {
         labels: {
             style: {
-                fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+                fontFamily: '"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif',
                 color: '#666'
             }
         }
@@ -35,13 +35,13 @@ Highcharts.theme = {
     yAxis: {
         title: {
             style: {
-                fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+                fontFamily: '"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif',
                 color: '#999'
             }
         },
         labels: {
             style: {
-                fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+                fontFamily: '"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif',
                 color: '#999'
             }
         }

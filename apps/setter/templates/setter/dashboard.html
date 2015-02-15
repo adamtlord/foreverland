@@ -10,7 +10,7 @@
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Songs <span class="text-muted">{{ songs|length }}</span></h3>
+                <h3 class="panel-title">Songs</h3>
             </div>
             <div class="panel-body">
                 <ul>
@@ -29,7 +29,7 @@
             <div class="panel-body">
                 <ul>
                     {% for setlist in setlists %}
-                        <li><a href="{% url 'view_setlist' setlist.show.id %}">{{ setlist }}</a> <small>{{ setlist.songs.all|length }} songs</small> <a class="btn btn-default btn-sm" href="{% url 'edit_setlist' setlist.show.id %}">edit</a></li>
+                        <li><a href="{% url 'view_setlist' setlist.show.id %}">{{ setlist }}</a> <small>{{ setlist.songs.all|length }} songs</small></li>
                     {% endfor %}
                 </ul>
             </div>

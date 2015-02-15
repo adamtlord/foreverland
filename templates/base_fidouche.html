@@ -15,7 +15,7 @@
         <link href="{{ STATIC_URL }}global/css/fidouche.css" rel="stylesheet">
 
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/modernizr.js"></script>
-        
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -50,8 +50,21 @@
                                     <li><a href="{% url 'gigs_year_over_year' %}">All years</a></li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="{% url 'expenses_list' %}">Expenses</a>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Expenses <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    {% for year in active_years %}
+                                        <li><a href="{% url 'expenses_list' year %}">{{ year }}</a></li>
+                                    {% endfor %}
+                                    <li><a href="{% url 'all_expenses_list' %}">All years</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'finance_reports' %}">Financial Reports</a></li>
+                                    <li><a href="{% url 'tax_reports' %}">Tax Reports</a></li>
+                                </ul>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -67,6 +80,7 @@
         <div class="container">
             {% block content %}{% endblock %}
         </div>
+        {% block modals %}{% endblock %}
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/underscore.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/jquery.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/bootstrap.js"></script>
@@ -79,6 +93,6 @@
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/bootstrap-switch.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/magnific-popup.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/apps/fidouche.js"></script>
-        {% block js %}{% endblock %}    
+        {% block js %}{% endblock %}
     </body>
 </html>

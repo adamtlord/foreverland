@@ -75,28 +75,46 @@
 		<tr>
 			<td>{{ gig.date|date:"Ymd" }}</td>
 			<td><a href="{% if request.user.is_staff %}{% url 'gig_finances' gig.id %}{% else %}{% url 'gig_finances_view' gig.id %}{% endif %}">{{ gig.date|date:"n/j/y" }}</a></td>
-			<td><a href="{% if request.user.is_staff %}{% url 'gig_finances' gig.id %}{% else %}{% url 'gig_finances_view' gig.id %}{% endif %}">{{ gig.venue }}</a> {% if not gig.public %}<span class="label label-success">private</span>{% endif %}{% if request.user.is_staff %}<a href="{% url 'gig_finances_view' gig.id %}" class="pull-right">view</a>{% endif %}</td>
-			<td>{% if gig.attendance %}{{ gig.attendance|intcomma }}{% else %}--{% endif %}</td>
+			<td><a href="{% if request.user.is_staff %}{% url 'gig_finances' gig.id %}{% else %}{% url 'gig_finances_view' gig.id %}{% endif %}">{{ gig.venue }}</a> {% if not gig.public %}<span class="label label-success">private</span>{% endif %}{% if request.user.is_staff %}<a href="{% url 'gig_finances_view' gig.id %}" class="pull-right"><i class="fa fa-eye"></i></a>{% endif %}</td>
+			<td>{% if gig.attendance %}{{ gig.attendance }}{% endif %}</td>
 			<td>{% if gig.gross %}${{ gig.gross|intcomma }}{% else %}--{% endif %}</td>
 			<td>{% if gig.commission %}${{ gig.commission|intcomma }} <small>({{ gig.commission_percentage }}%)</small>{% else %}0{% endif %}</td>
-			<td>{% if gig.total_expenses > 0 %}${{ gig.total_expenses }} <i class="fa fa-list-ul expense-detail-toggle" data-toggle="collapse" data-target="#gig{{ gig.id }}_expenses"></i>
+			<td>{% if gig.total_expenses %}${{ gig.total_expenses|intcomma}} <i class="fa fa-list-ul expense-detail-toggle" data-toggle="collapse" data-target="#gig{{ gig.id }}_expenses"></i>
 				<div id="gig{{ gig.id }}_expenses" class="collapse">
 					<table class="table table-condensed expense-details">
-						<tr><th>Sound:</th><td>${{gig.sound_cost|intcomma}}</td></tr>
-						<tr><th>Ears:</th><td>${% if gig.in_ears_cost %}{{gig.in_ears_cost|intcomma}}{% else %}0{% endif %}</td></tr>
-						<tr><th>Print/Ship:</th><td>${{gig.print_ship_cost|intcomma}}</td></tr>
-						<tr><th>Ads:</th><td>${{gig.ads_cost|intcomma}}</td></tr>
-						<tr><th>Other:</th><td>${{gig.other_cost|intcomma}}</td></tr>
+						{% for k, v in gig.production_costs.items %}
+							{% if v > 0 %}
+								<tr><th>{{k}}:</th><td>${{v|intcomma}}</td></tr>
+							{% endif %}
+						{% endfor %}
+						{% for k, v in gig.expenses.items %}
+							{% if v > 0 %}
+								<tr><th>{{k|title}}:</th><td>${{v|intcomma}}</td></tr>
+							{% endif %}
+						{% endfor %}
 					</table>
-				</div>
-				{% else %}0{% endif %}
+				</div>{% endif %}
 			</td>
 			<td>{% if gig.net %}${{ gig.net|intcomma }}{% else %}--{% endif %}</td>
-			<td>{% if gig.payout %}${{ gig.payout|intcomma }}{% else %}--{% endif %}</td>
+			<td>{% if gig.payout %}${{ gig.payout|intcomma }}{% else %}--{% endif %}{% if gig.payout_notes %}<i class="fa fa-comment payout-notes-toggle" data-toggle="collapse" data-target="#gig{{ gig.id }}_notes"></i>{% endif %}
+				{% if gig.payout_notes %}
+					<div id="gig{{ gig.id }}_notes" class="collapse payout-notes">
+						{{ gig.payout_notes }}
+					</div>
+				{% endif %}
+			</td>
 		</tr>
 	{% endfor %}
 	</tbody>
 </table>
+<blockquote class="qotd">
+	<p><span>&ldquo;</span> {{ quote.quote|safe }} <span>&rdquo;</span></p>
+	{% if quote.source or quote.occasion %}
+		<footer>
+			{% if quote.source %}{{ quote.source }}{% endif %}{% if quote.occasion %}, <cite>{{ quote.occasion }}</cite>{% endif %}
+		</footer>
+	{% endif %}
+</blockquote>
 {% endblock %}
 {% block js %}
 <script>
@@ -109,7 +127,7 @@
 				{"bVisible": false, "aTargets": [0]},
 				{"asSorting": ["asc"], "aTargets": [0]},
 				{"iDataSort": 0, "aTargets": [1]},
-				{"sType": "currency", "aTargets": [4,5,6,7,8]}
+				{"sType": "currency", "aTargets": [4,5,6,7,8]},
 			],
 		});
 		$('#gSearch').keyup(function(){

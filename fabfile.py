@@ -92,9 +92,7 @@ def ssh():
 def migrate():
     """Does a syncdb, a dry run of migrate and a real migration if that suceeds."""
     with cd(env.CODE_DIR):
-        _run_in_ve('python manage.py syncdb --noinput')
-        _run_in_ve('python manage.py migrate --db-dry-run --noinput')
-        _run_in_ve('python manage.py migrate --noinput')
+        _run_in_ve('python manage.py syncdb --noinput; python manage.py migrate --db-dry-run --noinput; python manage.py migrate --noinput')
 
 
 def bounce():
@@ -128,6 +126,21 @@ def syncdb():
         freshdb()
         local('%s %s < %s' % (MYSQL_USER_PASSWD, DEFAULT_DB_SETTINGS['NAME'], DUMP_FILENAME_SQL))
         local('rm %s' % DUMP_FILENAME_SQL)
+
+
+def slurpdb():
+    """Gets a copy of the remote db and puts it into dev environment"""
+    DUMP_FILENAME = 'dump-2015-01-24-11-15-41.sql'
+
+    if confirm('This may replace your db (you will get opportunity to specify which one). You sure?'):
+    #     run('mysqldump --host=%s -u%s %s %s | gzip > /tmp/%s' % (
+    #         env.database['HOST'], env.database['USER'], env.remote_mysql_pw_arg, env.database['NAME'],
+    #         DUMP_FILENAME))
+    #     get('/tmp/%s' % DUMP_FILENAME, os.path.basename(DUMP_FILENAME))  # download db
+    #     local('gzip -d %s' % os.path.basename(DUMP_FILENAME))  # ungzip
+        freshdb()
+        local('%s %s < %s' % (MYSQL_USER_PASSWD, DEFAULT_DB_SETTINGS['NAME'], DUMP_FILENAME))
+        # local('rm %s' % DUMP_FILENAME_SQL)
 
 
 @runs_once

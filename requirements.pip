@@ -16,7 +16,6 @@ django-storages==1.1.4
 django-userswitch==0.2.2
 django-common-helpers==0.6
 django-ical==1.2
-djangorestframework==2.3.14
 
 -e hg+http://bitbucket.org/ubernostrum/django-registration@8f242e35ef#egg=registration
 -e git+http://github.com/yourcelf/django-registration-defaults.git#egg=registration_defaults

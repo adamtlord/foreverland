@@ -1,7 +1,7 @@
-from django.forms import ModelForm, DecimalField
+from django import forms
 from fidouche.widgets import AdminImageWidget
 from shows.models import Show
-from fidouche.models import Payment, SubPayment, Expense
+from fidouche.models import Payment, SubPayment, Expense, ProductionPayment
 
 
 FINANCIAL_FIELDS = (
@@ -17,9 +17,11 @@ FINANCIAL_FIELDS = (
 	'lodging_buyout',
 	'other_buyout',
 	'commission',
+	'agent',
 	'commission_percentage',
 	'commission_withheld',
 	'commission_check_no',
+	'commission_paid',
 	'sound_cost',
 	'in_ears_cost',
 	'in_ears_check_no',
@@ -29,20 +31,28 @@ FINANCIAL_FIELDS = (
 	'net',
 	'payout',
 	'to_account',
-	'subs', 
+	'subs',
 	'costs_itemized',
-	'settlement_sheet'
+	'settlement_sheet',
+	'payout_notes'
 )
 EXPENSE_FIELDS = (
 	'date',
 	'payee',
-	'category',
+	'new_category',
 	'amount',
 	'check_no',
 	'notes'
 )
 
-class GigFinanceForm(ModelForm):
+PRODUCTION_FIELDS = (
+	'company',
+	'amount',
+	'check_no',
+	'category',
+)
+
+class GigFinanceForm(forms.ModelForm):
 	class Meta:
 		model = Show
 		fields = FINANCIAL_FIELDS
@@ -53,11 +63,11 @@ class GigFinanceForm(ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(GigFinanceForm, self).__init__(*args, **kwargs)
 		for field in FINANCIAL_FIELDS:
-			if field != 'settlement_sheet':
+			if field not in ['settlement_sheet', 'commission_paid']:
 				self.fields[field].widget.attrs['class'] = 'form-control'
 
 
-class ExpenseForm(ModelForm):
+class ExpenseForm(forms.ModelForm):
 	class Meta:
 		model = Expense
 		widgets = {
@@ -71,7 +81,7 @@ class ExpenseForm(ModelForm):
 		self.fields['date'].widget.attrs['data-format'] = 'YYYY-MM-DD'
 
 
-class PaymentForm(ModelForm):
+class PaymentForm(forms.ModelForm):
 	class Meta:
 		model = Payment
 	def __init__(self, *args, **kwargs):
@@ -80,11 +90,24 @@ class PaymentForm(ModelForm):
 		self.fields['amount'].widget.attrs['class'] = 'form-control input-sm'
 
 
-class SubPaymentForm(ModelForm):
+class SubPaymentForm(forms.ModelForm):
 	class Meta:
 		model = SubPayment
 	def __init__(self, *args, **kwargs):
 		super(SubPaymentForm, self).__init__(*args, **kwargs)
 		self.fields['sub'].widget.attrs['class'] = 'form-control input-sm'
 		self.fields['amount'].widget.attrs['class'] = 'form-control input-sm'
+
+
+class ProductionPaymentForm(forms.ModelForm):
+	class Meta:
+		model = ProductionPayment
+
+	def __init__(self, *args, **kwargs):
+		super(ProductionPaymentForm, self).__init__(*args, **kwargs)
+		for field in PRODUCTION_FIELDS:
+			if field == 'amount':
+				self.fields[field].widget.attrs['class'] = 'form-control input-sm production-cost'
+			else:
+				self.fields[field].widget.attrs['class'] = 'form-control input-sm'
 

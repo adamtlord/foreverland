@@ -5,17 +5,50 @@
 	<h2>Gigs in {{ year }}</h2>
 	<p><em>There are {{ this_years_gigs|length }} gigs in the database for this year.</em></p>
 	<div class="row">
-		<div class="col-md-4">
-			<div id="net_by_month"></div>
-		</div>
-		<div class="col-md-4">
-			<div id="year_pie"></div>
-		</div>
-		<div class="col-md-4">
-			<div id="year_expenses"></div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{ year }} Summary</h3>
+				</div>
+				<div class="panel-body panel-no-pad">
+					<table class="table table-striped">
+						<tr>
+							<td>Gigs played:</td><td>{{ gigs_played }}</td>
+						</tr>
+						{% if gross > 0 %}
+						<tr>
+							<td>Gross:</td><td>${{ gross|intcomma }} </td>
+						</tr>
+						{% endif %}
+						{% if net > 0 %}
+						<tr>
+							<td>Net:</td><td>${{ net|intcomma }}</td>
+						</tr>
+						{% endif %}
+						{% if payout > 0 %}
+						<tr>
+							<td>Per player:</td><td>${{ payout|intcomma }}</td>
+						</tr>
+						{% endif %}
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
-	<hr> 
+	{% if gross %}
+		<div class="row">
+				<div class="col-md-4">
+					<div id="net_by_month"></div>
+				</div>
+			<div class="col-md-4">
+				<div id="year_pie"></div>
+			</div>
+			<div class="col-md-4">
+				<div id="year_expenses"></div>
+			</div>
+		</div>
+	{% endif %}
+	<hr>
 	<table class="table table-striped table-bordered datatable">
 		<thead>
 			<tr>
@@ -34,25 +67,35 @@
 		{% for gig in this_years_gigs %}
 			<tr>
 				<td>{{ gig.date|date:"Ymd" }}</td>
-				<td>{% if request.user.is_staff %}<a href="{% url 'gig_finances' gig.id %}">{% endif %}{{ gig.date|date:"n/j/y" }}{% if request.user.is_staff %}</a>{% endif %}</td>
-				<td>{% if request.user.is_staff %}<a href="{% url 'gig_finances' gig.id %}">{% endif %}{{ gig.venue }}{% if request.user.is_staff %}</a>{% endif %} {% if not gig.public %}<span class="label label-success">private</span>{% endif %}</td>
-				<td>{% if gig.attendance %}{{ gig.attendance|intcomma }}{% else %}--{% endif %}</td>
+				<td><a href="{% if request.user.is_staff %}{% url 'gig_finances' gig.id %}{% else %}{% url 'gig_finances_view' gig.id %}{% endif %}">{{ gig.date|date:"n/j/y" }}</a></td>
+				<td><a href="{% if request.user.is_staff %}{% url 'gig_finances' gig.id %}{% else %}{% url 'gig_finances_view' gig.id %}{% endif %}">{{ gig.venue }}</a> {% if not gig.public %}<span class="label label-success">private</span>{% endif %}{% if request.user.is_staff %}<a href="{% url 'gig_finances_view' gig.id %}" class="pull-right"><i class="fa fa-eye"></i></a>{% endif %}</td>
+				<td>{% if gig.attendance %}{{ gig.attendance }}{% endif %}</td>
 				<td>{% if gig.gross %}${{ gig.gross|intcomma }}{% else %}--{% endif %}</td>
 				<td>{% if gig.commission %}${{ gig.commission|intcomma }} <small>({{ gig.commission_percentage }}%)</small>{% else %}0{% endif %}</td>
-				<td>{% if gig.total_expenses > 0 %}${{ gig.total_expenses }} <i class="fa fa-list-ul expense-detail-toggle" data-toggle="collapse" data-target="#gig{{ gig.id }}_expenses"></i>
+				<td>{% if gig.total_expenses %}${{ gig.total_expenses|intcomma}} <i class="fa fa-list-ul expense-detail-toggle" data-toggle="collapse" data-target="#gig{{ gig.id }}_expenses"></i>
 					<div id="gig{{ gig.id }}_expenses" class="collapse">
 						<table class="table table-condensed expense-details">
-							<tr><th>Sound:</th><td>${{gig.sound_cost|intcomma}}</td></tr>
-							<tr><th>Ears:</th><td>${% if gig.in_ears_cost %}{{gig.in_ears_cost|intcomma}}{% else %}0{% endif %}</td></tr>
-							<tr><th>Print/Ship:</th><td>${{gig.print_ship_cost|intcomma}}</td></tr>
-							<tr><th>Ads:</th><td>${{gig.ads_cost|intcomma}}</td></tr>
-							<tr><th>Other:</th><td>${{gig.other_cost|intcomma}}</td></tr>
+							{% for k, v in gig.production_costs.items %}
+								{% if v > 0 %}
+									<tr><th>{{k}}:</th><td>${{v|intcomma}}</td></tr>
+								{% endif %}
+							{% endfor %}
+							{% for k, v in gig.expenses.items %}
+								{% if v > 0 %}
+									<tr><th>{{k|title}}:</th><td>${{v|intcomma}}</td></tr>
+								{% endif %}
+							{% endfor %}
 						</table>
-					</div>
-					{% else %}0{% endif %}
+					</div>{% endif %}
 				</td>
 				<td>{% if gig.net %}${{ gig.net|intcomma }}{% else %}--{% endif %}</td>
-				<td>{% if gig.payout %}${{ gig.payout|intcomma }}{% else %}--{% endif %}</td>
+				<td>{% if gig.payout %}${{ gig.payout|intcomma }}{% else %}--{% endif %}{% if gig.payout_notes %}<i class="fa fa-comment payout-notes-toggle" data-toggle="collapse" data-target="#gig{{ gig.id }}_notes"></i>{% endif %}
+					{% if gig.payout_notes %}
+						<div id="gig{{ gig.id }}_notes" class="collapse payout-notes">
+							{{ gig.payout_notes }}
+						</div>
+					{% endif %}
+				</td>
 			</tr>
 		{% endfor %}
 		</tbody>
@@ -71,11 +114,11 @@
 			],
 		});
 		$('#net_by_month').highcharts({
-			chart: { 
+			chart: {
 				type: 'column',
 			},
 			legend: { enabled: false },
-			title: { 
+			title: {
 				text: 'Gross by Month',
 			},
 			xAxis: {
@@ -111,7 +154,7 @@
 			}
 		});
 		$('#year_pie').highcharts({
-			title: { 
+			title: {
 				text: "{{ year }} at a glance{% if current %} (to date){% endif %}"
 			},
 			series: [{
@@ -119,12 +162,12 @@
 				data: [
 					['Players' , {{ players }}],
 					['Commission', {{ commission }}],
-					['Expenses', {{ all_expenses }}],
+					['Expenses', {{ total_expenses }}],
 					['To Account', {{ to_account }}]
 				]
 			}],
 			tooltip: {
-				enabled: false 
+				enabled: false
 			},
 			plotOptions: {
 				pie: {
@@ -145,15 +188,15 @@
 			series: [{
 				type: 'pie',
 				data: [
-					['In-Ears', {{ iem }}],
-					['Print/Ship', {{ printship }}],
-					['Ads', {{ ads }}],
-					['Sound', {{ sound }}],
-					['Other', {{ other }}]
+				{% for k, v in all_expenses.items %}
+					{% if v > 0 %}
+						['{{ k|title }}', {{ v }}],
+					{% endif %}
+				{% endfor %}
 				]
 			}],
 			tooltip: {
-				enabled: false 
+				enabled: false
 			},
 			plotOptions: {
 				pie: {

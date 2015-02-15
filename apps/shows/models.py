@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 
@@ -36,12 +37,21 @@ class Venue(models.Model):
         return self.venue_name
 
 
+class Tour(models.Model):
+    """ A collection of shows, ie, Speed of Sound """
+    name = models.CharField(max_length=200, blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Show(models.Model):
     # Open to the public/Display on public calendar?
     public = models.BooleanField(default=True)
     # Public Information
     venue = models.ForeignKey(Venue, related_name='venue')
     date = models.DateTimeField()
+    tour = models.ForeignKey(Tour, related_name='show_in_tour', blank=True, null=True)
     doors_time = models.TimeField(blank=True, null=True)
     ticket_price = models.CharField(max_length=100, blank=True, null=True)
     ticket_url = models.URLField(max_length=200, blank=True, null=True)
@@ -51,13 +61,13 @@ class Show(models.Model):
     poster = models.FileField(upload_to='posters/', blank=True, null=True)
     fb_event = models.CharField(max_length=200, blank=True, null=True)
     # Financial Information
-    AGENT = 'DS'
+    AGENT = 'agent'
     CLIENT = 'client'
     CASH = 'cash'
     CHECK = 'check'
-    PAYEE_CHOICES = (
+    PAYER_CHOICES = (
         (CLIENT, 'Client'),
-        (AGENT, 'Swan Entertainment'),
+        (AGENT, 'Agent'),
     )
     METHOD_CHOICES = (
         (CASH, 'Cash'),
@@ -76,12 +86,14 @@ class Show(models.Model):
     lodging_buyout = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     other_buyout = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     gross_method = models.CharField(max_length=100, blank=True, null=True, choices=METHOD_CHOICES, default=CASH)
-    payer = models.CharField(max_length=100, blank=True, null=True, choices=PAYEE_CHOICES, default=CLIENT)
+    payer = models.CharField(max_length=100, blank=True, null=True, choices=PAYER_CHOICES, default=CLIENT)
     payee_check_no = models.IntegerField(blank=True, null=True)
     commission = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    agent = models.ForeignKey('fidouche.Agent', related_name="gig_agent", blank=True, null=True)
+    commission_withheld = models.BooleanField(default=True)
     commission_percentage = models.IntegerField(default=10, blank=True, null=True)
-    commission_withheld = models.BooleanField(default=False)
     commission_check_no = models.IntegerField(blank=True, null=True)
+    commission_paid = models.BooleanField(default=False)
     sound_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     sound_check_no = models.IntegerField(blank=True, null=True)
     in_ears_cost = models.IntegerField(blank=True, null=True, choices=IEM_CHOICES, default=130)
@@ -95,10 +107,67 @@ class Show(models.Model):
     to_account = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     subs = models.BooleanField(default=False)
     settlement_sheet = ImageField(upload_to="receipts/", blank=True, null=True)
+    payout_notes = models.TextField(null=True, blank=True)
 
+    def get_production_costs(self):
+        d = {}
+        from fidouche.models import ProductionPayment, ProductionCategory
+        production_expenses = list(ProductionPayment.objects.filter(show=self))
+        production_categories = ProductionCategory.objects.all()
+        if production_expenses:
+            for category in production_categories:
+                d[category.name] = []
+            for expense in production_expenses:
+                    d[expense.category.name].append(expense.amount)
+            for k in d:
+                d[k] = sum(d[k])
+        else:
+            sound = self.sound_cost or 0
+            iem = self.in_ears_cost or 0
+            d['Sound'] = sound
+            d['IEM'] = iem
+        return d
+
+    def get_expenses(self):
+        d = {}
+        from fidouche.models import Expense, ExpenseCategory
+        expenses = list(Expense.objects.filter(show=self))
+        expense_categories = ExpenseCategory.objects.all()
+        for category in expense_categories:
+            d[category.category] = []
+        if expenses:
+            for expense in expenses:
+                d[expense.new_category.category].append(expense.amount)
+        else:
+            d['printing'] = self.print_ship_cost or 0
+            d['ads'] = self.ads_cost or 0
+            d['other'] = self.other_cost or 0
+        for k in d:
+            if type(d[k]) is list:
+                d[k] = sum(d[k])
+        return d
+
+    def get_total_costs(self):
+        production_costs = self.get_production_costs()
+        production = []
+        for k in production_costs:
+            production.append(production_costs[k])
+        production = sum(production)
+        expense_costs = self.get_expenses()
+        expenses = []
+        for k in expense_costs:
+            if type(expense_costs[k]) is list:
+                expenses.append(sum(expense_costs[k]))
+            else:
+                expenses.append(expense_costs[k])
+        expenses = sum(expenses)
+
+        return production + expenses
 
     class Meta:
         ordering = ['date']
 
     def __unicode__(self):
         return '%s %s' % (self.date.strftime('%m/%d/%y'), self.venue)
+
+

@@ -1,14 +1,10 @@
 from django.contrib import admin
-from shows.models import Venue, Show
+from shows.models import Venue, Show, Tour
 from fidouche.models import Expense
 from sorl.thumbnail.admin import AdminImageMixin
 
 
-class VenueAdmin(admin.ModelAdmin):
-    pass
-
-admin.site.register(Venue, VenueAdmin)
-
+admin.site.register(Venue)
 
 class ExpenseAdmin(AdminImageMixin, admin.ModelAdmin):
     pass
@@ -28,5 +24,7 @@ class ShowAdmin(admin.ModelAdmin):
         if db_field.name == "venue":
             kwargs["queryset"] = Venue.objects.order_by('venue_name')
         return super(ShowAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
-        
+
 admin.site.register(Show, ShowAdmin)
+
+admin.site.register(Tour)

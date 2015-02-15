@@ -6,8 +6,6 @@ $(function ($) {
 			var gross = $('#id_gross');
 			var fee = $('#id_fee');
 			var commission = $('#id_commission');
-			var sound = $('#id_sound_cost');
-			var inears = $('#id_in_ears_cost').find('option:selected');
 			var print = $('#id_print_ship_cost');
 			var ads = $('#id_ads_cost');
 			var other = $('#id_other_cost');
@@ -15,11 +13,14 @@ $(function ($) {
 			var max = $('#max_payout');
 			var payout = $('#id_payout');
 			var account = $('#id_to_account');
+			var production_cost = 0;
+			$('.production-cost').each(function(i,n){
+				production_cost += parseFloat($(n).val() || 0);
+			});
 			// payable
 			var g = parseFloat(gross.val()) || 0;
 			var cp = parseFloat(commissionField.val()) || 0;
-			var sc = parseFloat(sound.val()) || 0;
-			var iem = parseFloat(inears.val()) || 0;
+			var pc = production_cost;
 			var ps = parseFloat(print.val()) || 0;
 			var a = parseFloat(ads.val()) || 0;
 			var o = parseFloat(other.val()) || 0;
@@ -34,19 +35,19 @@ $(function ($) {
 				} else {
 					cb = g;
 				}
-				c = (parseFloat((cb - sc) * (cp/100)) || 0).toFixed(2);
-				n = (parseFloat(g - c - (sc + iem + ps + a + o)) || 0).toFixed(2);
+				c = (parseFloat((cb - pc) * (cp/100)) || 0).toFixed(2);
+				n = (parseFloat(g - c - (pc + ps + a + o)) || 0).toFixed(2);
 				mp = (parseFloat(n / 14) || 0).toFixed(2);
 				acc = (parseFloat(n - (p * 14)) ||0).toFixed(2);
 			}
 			commission.val(c).change();
-			max.html(mp);
+			max.html(mp).parent().fadeIn('fast');
 			net.val(n).change();
 			account.val(acc).change();
 		}
 	}
 	var _updateFields = _.throttle(updateFields, 500);
-	
+
 	function processItemized(){
 		var printCosts = 0;
 		var shipCosts = 0;
@@ -95,13 +96,6 @@ $(function ($) {
 	// Handlers //
 	$('.factor').on('blur', 'input, select', function(){
 		_updateFields();
-	});
-	$('.set-payer').on('change', '#id_payer', function(){
-		if($(this).find('option:selected').val() == 'DS'){
-			$('#commission_withheld').fadeIn('fast');
-		}else {
-			$('#commission_withheld').fadeOut('fast');
-		}
 	});
 	$('#commission_withheld').on('change', '#id_commission_withheld', function(){
 		if($(this).is(':checked')){
@@ -162,6 +156,9 @@ $(function ($) {
 	$('#add_expense_rows').click(function(){
 		cloneMore('#expenses_formset tr:last', 'expense');
 	});
+	$('#add_production_payments').click(function(){
+		cloneMore('#gig_production tr:last', 'production_payment');
+	})
 	$('#payment_check_all').change(function(){
 		if($(this).prop('checked')){
 			$('.paid input').prop('checked', true);
@@ -181,4 +178,3 @@ $(function ($) {
 	}
 	$('#auto_calc').bootstrapSwitch();
 });
-	

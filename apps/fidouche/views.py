@@ -202,6 +202,7 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 	gig_id = int(gig_id)
 	gig = get_object_or_404(Show, pk=gig_id)
 	active_members = Member.objects.filter(active=True)
+	iem_cat = ProductionCategory.objects.filter(name__icontains="iem")[0]
 
 	ExpenseFormSet = inlineformset_factory(Show, Expense, form=ExpenseForm)
 	PaymentFormSet = inlineformset_factory(Show, Payment, form=PaymentForm, extra=len(active_members), max_num=14, can_delete=False)
@@ -252,7 +253,8 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
 		'payment_formset': payment_formset,
 		'sub_payment_formset': sub_payment_formset,
 		'production_payment_formset': production_payment_formset,
-		'gig': gig
+		'gig': gig,
+		'iem_cat': iem_cat.id
 	}
 
 	return render(request, template, d)

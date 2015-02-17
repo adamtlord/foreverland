@@ -1,6 +1,8 @@
 {% extends 'base_fidouche.html' %}
 {% load custom_tags %}
-
+{% block header_includes %}
+<script>var FL = {VARS:{}};</script>
+{% endblock %}
 {% block content %}
 <div class="page-header">
 	<div class="row">
@@ -409,8 +411,11 @@
 	</fieldset>
 	<button type="submit" class="btn btn-block btn-lg btn-primary">Save</button>
 </form>
-
+<script>
+	FL.VARS.iem_cat = String({{ iem_cat }});
+</script>
 {% endblock %}
+
 {% block js %}
 <script>
 	$(function(){

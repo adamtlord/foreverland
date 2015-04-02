@@ -83,6 +83,13 @@ class Expense(models.Model):
 	notes = models.TextField(blank=True, null=True)
 	receipt_img = models.FileField(upload_to="receipts/", blank=True, null=True)
 
+	@property
+	def filetype(self):
+		if self.receipt_img:
+			return self.receipt_img.name[-3:]
+		else:
+			return None
+
 	def __unicode__(self):
 		safedate = ''
 		if self.date:

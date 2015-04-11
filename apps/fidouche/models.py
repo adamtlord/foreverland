@@ -2,9 +2,8 @@ from django.db import models
 
 from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 
-from sorl.thumbnail import ImageField
 from members.models import Member, Sub
-from shows.models import Show
+from shows.models import Show, Tour
 
 
 class Payment(models.Model):
@@ -78,6 +77,31 @@ class Expense(models.Model):
 	date = models.DateField(blank=True, null=True)
 	payee = models.ForeignKey(Payee, related_name="expense", blank=True, null=True)
 	new_category = models.ForeignKey(ExpenseCategory, related_name="expense_category", blank=True, null=True, verbose_name="Category")
+	amount = models.DecimalField(max_digits=10, decimal_places=2)
+	check_no = models.CharField(max_length=100, blank=True, null=True, verbose_name="Check #")
+	notes = models.TextField(blank=True, null=True)
+	receipt_img = models.FileField(upload_to="receipts/", blank=True, null=True)
+
+	@property
+	def filetype(self):
+		if self.receipt_img:
+			return self.receipt_img.name[-3:]
+		else:
+			return None
+
+	def __unicode__(self):
+		safedate = ''
+		if self.date:
+			safedate = self.date.strftime('%m/%d/%y') + ', '
+		return '%s$%s to %s' % (safedate, self.amount, self.payee)
+
+
+class TourExpense(models.Model):
+
+	tour = models.ForeignKey(Tour, blank=True, null=True)
+	date = models.DateField(blank=True, null=True, verbose_name="Expense Date")
+	payee = models.ForeignKey(Payee, blank=True, null=True)
+	category = models.ForeignKey(ExpenseCategory, blank=True, null=True)
 	amount = models.DecimalField(max_digits=10, decimal_places=2)
 	check_no = models.CharField(max_length=100, blank=True, null=True, verbose_name="Check #")
 	notes = models.TextField(blank=True, null=True)

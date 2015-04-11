@@ -41,6 +41,33 @@ class Tour(models.Model):
     """ A collection of shows, ie, Speed of Sound """
     name = models.CharField(max_length=200, blank=True, null=True)
 
+    @property
+    def shows(self):
+        return self.show_in_tour.all()
+
+    @property
+    def cities(self):
+        shows = self.shows
+        if shows:
+            cities = []
+            for show in shows:
+                location = show.venue.city + ' ' + show.venue.state
+                if location not in cities:
+                    cities.append(location)
+            return cities
+        else:
+            return []
+
+    @property
+    def date_range(self):
+        shows = self.shows
+        if shows:
+            first_date = min([show.date for show in shows])
+            last_date = max([show.date for show in shows])
+            return '%s - %s' % (first_date.strftime('%m/%d/%y'), last_date.strftime('%m/%d/%y'))
+        else:
+            return None
+
     def __unicode__(self):
         return self.name
 

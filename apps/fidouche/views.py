@@ -9,10 +9,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
 from members.models import Member, Sub
-from shows.models import Show
-from fidouche.models import Payment, SubPayment, Expense, Quote, CommissionPayment, \
-	 ProductionPayment, ProductionCategory, ExpenseCategory
-from fidouche.forms import GigFinanceForm, ExpenseForm, PaymentForm, SubPaymentForm, \
+from shows.models import Show, Tour
+from fidouche.models import Payment, SubPayment, Expense, TourExpense, Quote, CommissionPayment, \
+	 ProductionPayment, ProductionCategory
+from fidouche.forms import GigFinanceForm, ExpenseForm, TourExpenseForm, PaymentForm, SubPaymentForm, \
 	ProductionPaymentForm
 
 current_year = date.today().year
@@ -642,4 +642,28 @@ def sub_payments(request, sub_id=None,  template='fidouche/payments.html'):
 
 	return render(request, template, d)
 
+@login_required
+def tour_list(request, template='fidouche/tour_list.html'):
+	"""View all tours"""
+	d = {}
+	tours = Tour.objects.all()
+	d['tours'] = tours
 
+	return render(request, template, d)
+
+@login_required
+def tour_detail(request, tour_id=None, template='fidouche/tour_detail.html'):
+	"""View tour"""
+	ExpenseFormSet = inlineformset_factory(Tour, TourExpense, form=TourExpenseForm)
+	d = {}
+	tour = get_object_or_404(Tour, pk=tour_id)
+	if request.method == "POST":
+		pass
+	else:
+		expense_formset = ExpenseFormSet(instance=tour)
+
+	d = {
+		'tour': tour,
+		'expense_formset': expense_formset
+	}
+	return render(request, template, d)

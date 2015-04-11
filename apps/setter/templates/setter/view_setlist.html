@@ -8,11 +8,11 @@
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <ol>
+        <ul>
             {% for song in setsongs %}
                 <li{% if not song.song.display %} class="text-muted"{% endif %}>{{ song }}</li>
             {% endfor %}
-        </ol>
+        </ul>
     </div>
 </div>
 {% endblock %}

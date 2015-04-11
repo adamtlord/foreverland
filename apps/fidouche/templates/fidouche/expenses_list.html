@@ -42,11 +42,17 @@
 				<td>{% if expense.check_no %}{{ expense.check_no }}{% endif %}</td>
 				<td>{% if expense.notes %}{{ expense.notes }}{% endif %}</td>
 				<td>
-					{% thumbnail expense.receipt_img "60x60" crop="center" as im %}
-					<a href="{{ MEDIA_URL }}{{ expense.receipt_img.name }}" class="thumb">
-						<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-					</a>
-					{% endthumbnail %}
+					{% if expense.receipt_img %}
+						{% if expense.filetype == 'pdf' %}
+							<a href="{{ MEDIA_URL }}{{ expense.receipt_img.name }}" target="_blank"><i class="fa fa-file-pdf-o"></i> view</a>
+						{% else %}
+							{% thumbnail expense.receipt_img "60x60" crop="center" as im %}
+							<a href="{{ MEDIA_URL }}{{ expense.receipt_img.name }}" class="thumb">
+								<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+							</a>
+							{% endthumbnail %}
+						{% endif %}
+					{% endif %}
 				</td>
 			{% if request.user.is_staff %}
 				<td>

@@ -13,7 +13,7 @@
     <ul class="shows">
     {% for show in shows %}
         <li>
-        	{% if show.venue.website %}<a href="{{ show.venue.website }}" target="_blank" class="tl">{% else %}<span class="tl">{% endif %}<img src="{{ MEDIA_URL }}{% if show.venue.venue_image != 'venues/' %}{{show.venue.venue_image}}{% else %}venues/blank-venue.jpg{% endif %}">{% if show.venue.website %}</a>{% else %}</span>{% endif %}
+        	{% if show.venue.website %}<a href="{{ show.venue.website }}" target="_blank" class="tl">{% else %}<span class="tl">{% endif %}<img src="{{ MEDIA_URL }}{% if show.venue.venue_image and show.venue.venue_image != 'venues/' %}{{show.venue.venue_image}}{% else %}venues/blank-venue.jpg{% endif %}">{% if show.venue.website %}</a>{% else %}</span>{% endif %}
         	<div class="show">
         		<h4>
                     <span class="title">

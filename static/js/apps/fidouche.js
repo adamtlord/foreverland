@@ -13,6 +13,7 @@ $(function ($) {
 			var max = $('#max_payout');
 			var payout = $('#id_payout');
 			var account = $('#id_to_account');
+			var tourExpense = $('#tour_expense_share');
 			var production_cost = 0;
 			var iem_cost = 0;
 			$('.production-cost').each(function(i,n){
@@ -32,6 +33,7 @@ $(function ($) {
 			var a = parseFloat(ads.val()) || 0;
 			var o = parseFloat(other.val()) || 0;
 			var p = parseFloat(payout.val()) || 0;
+			var t = parseFloat(tourExpense.val()) || 0;
 			// receiveable
 			var c, n, acc, mp = '';
 			var cb;
@@ -43,7 +45,7 @@ $(function ($) {
 					cb = g;
 				}
 				c = (parseFloat((cb - pc) * (cp/100)) || 0).toFixed(2);
-				n = (parseFloat(g - c - (pc + iem + ps + a + o)) || 0).toFixed(2);
+				n = (parseFloat(g - c - (pc + iem + ps + a + o + t)) || 0).toFixed(2);
 				mp = (parseFloat(n / 14) || 0).toFixed(2);
 				acc = (parseFloat(n - (p * 14)) ||0).toFixed(2);
 			}
@@ -184,4 +186,6 @@ $(function ($) {
 		$('#buyouts_toggle').click();
 	}
 	$('#auto_calc').bootstrapSwitch();
+
+	$(document).ready(_updateFields());
 });

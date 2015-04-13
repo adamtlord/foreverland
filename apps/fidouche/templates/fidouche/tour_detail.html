@@ -28,7 +28,7 @@
         data-toggle="popover"
         data-content="Expenses related to the whole tour, not a particular show. Tour expenses will be distributed evenly among shows for reporting purposes.">
     </i></h3>
-    <form>
+    <form method="post" action="{{ request.path }}" role="form" id="gig_finances" enctype="multipart/form-data">{% csrf_token %}
         <fieldset>
             {{ expense_formset.management_form }}
             {{ expense_formset.non_form_errors.as_ul }}

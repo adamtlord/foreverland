@@ -1,10 +1,12 @@
 import datetime
+from decimal import *
 from django.db import models
 from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 
 from sorl.thumbnail import ImageField
 
 from common.utils import get_lat_lng
+
 
 class Venue(models.Model):
     venue_name = models.CharField(max_length=200, blank=True, null=True)
@@ -79,6 +81,24 @@ class Tour(models.Model):
             return '%s - %s' % (first_date.strftime('%m/%d/%y'), last_date.strftime('%m/%d/%y'))
         else:
             return None
+
+    @property
+    def expenses(self):
+        from fidouche.models import TourExpense
+        expenses = TourExpense.objects.filter(tour=self)
+        if expenses:
+            return Decimal(sum([expense.amount for expense in expenses]))
+        else:
+            return 0
+
+    @property
+    def expense_share(self):
+        shows = self.shows
+        expenses = self.expenses
+        if shows and expenses:
+            return Decimal(round((expenses / len(shows)), 2))
+        else:
+            return 0
 
     def __unicode__(self):
         return self.name
@@ -200,13 +220,18 @@ class Show(models.Model):
             else:
                 expenses.append(expense_costs[k])
         expenses = sum(expenses)
+        tour_costs = self.tour.expense_share if self.tour else 0
 
-        return production + expenses
+        return production + expenses + tour_costs
+
+    def get_tour_costs(self):
+        d = {}
+        if self.tour:
+            d['Tour Costs'] = self.tour.expense_share
+        return d
 
     class Meta:
         ordering = ['date']
 
     def __unicode__(self):
         return '%s %s' % (self.date.strftime('%m/%d/%y'), self.venue)
-
-

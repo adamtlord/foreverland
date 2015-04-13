@@ -1,6 +1,7 @@
 from datetime import date
 import random
 import datetime
+from itertools import chain
 from django.forms.models import inlineformset_factory
 from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404, redirect
@@ -97,6 +98,7 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
     for gig in gigs:
         gig.production_costs = gig.get_production_costs()
         gig.expenses = gig.get_expenses()
+        gig.tour_costs = gig.get_tour_costs()
         gig.total_expenses = gig.get_total_costs()
         all_total_expenses.append(gig.total_expenses)
         gig.payments = Payment.objects.filter(show=gig)
@@ -118,7 +120,7 @@ def gigs_by_year(request, year=current_year, template='fidouche/gigs_by_year.htm
             net.append(gig.net)
         if gig.payout:
             payout.append(gig.payout)
-        gig.all_expenses = dict(gig.production_costs.items() + gig.expenses.items())
+        gig.all_expenses = dict(gig.production_costs.items() + gig.expenses.items() + gig.tour_costs.items())
         sum_all_expenses.append(gig.all_expenses)
 
     # http://stackoverflow.com/questions/19461747/sum-corresponding-elements-of-multiple-python-dictionaries
@@ -196,7 +198,6 @@ def gigs_year_over_year(request, template='fidouche/gigs_year_over_year.html'):
         sum_all_expenses.append(gig.all_expenses)
 
     d['all_gigs'] = gigs
-    print d
     return render(request, template, d)
 
 
@@ -294,8 +295,10 @@ def gig_finances_view(request, gig_id=None, template='fidouche/gig_finances_view
 def expenses_list(request, year=current_year, template='fidouche/expenses_list.html'):
     """Show non-gig expenses"""
     expenses = Expense.objects.filter(show__isnull=True, date__year=year)
+    tour_expenses = TourExpense.objects.filter(date__year=year)
+    all_expenses = list(chain(expenses, tour_expenses))
     d = {
-        'expenses': expenses
+        'expenses': all_expenses
     }
 
     return render(request, template, d)
@@ -305,8 +308,10 @@ def expenses_list(request, year=current_year, template='fidouche/expenses_list.h
 def all_expenses_list(request, template='fidouche/expenses_list.html'):
     """Show non-gig expenses"""
     expenses = Expense.objects.filter(show__isnull=True)
+    tour_expenses = TourExpense.objects.all()
+    all_expenses = list(chain(expenses, tour_expenses))
     d = {
-        'expenses': expenses
+        'expenses': all_expenses
     }
 
     return render(request, template, d)
@@ -669,7 +674,14 @@ def tour_detail(request, tour_id=None, template='fidouche/tour_detail.html'):
     d = {}
     tour = get_object_or_404(Tour, pk=tour_id)
     if request.method == "POST":
-        pass
+
+        expense_formset = ExpenseFormSet(request.POST, request.FILES, instance=tour)
+        if expense_formset.is_valid():
+            expense_formset.save()
+            messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>NICE.</strong> Tour finances updated!')
+            return redirect(request.path)
+        else:
+            messages.add_message(request, messages.ERROR, '<i class="fa fa-wrench"></i> <strong>Aw, damnit.</strong> Something\'s fucked up.')
     else:
         expense_formset = ExpenseFormSet(instance=tour)
 

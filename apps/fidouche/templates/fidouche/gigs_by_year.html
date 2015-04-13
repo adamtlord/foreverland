@@ -85,6 +85,9 @@
 									<tr><th>{{k|title}}:</th><td>${{v|intcomma}}</td></tr>
 								{% endif %}
 							{% endfor %}
+							{% if gig.tour.expenses %}
+								<tr><th>Tour:</th><td>${{ gig.tour.expense_share|intcomma }}</td></tr>
+							{% endif %}
 						</table>
 					</div>{% endif %}
 				</td>

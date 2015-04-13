@@ -43,7 +43,7 @@ class Tour(models.Model):
 
     @property
     def shows(self):
-        return self.show_in_tour.all()
+        return self.show_in_tour.all().order_by('date')
 
     @property
     def cities(self):
@@ -55,6 +55,18 @@ class Tour(models.Model):
                 if location not in cities:
                     cities.append(location)
             return cities
+        else:
+            return []
+
+    @property
+    def venue_ltlngs(self):
+        shows = self.shows
+        if shows:
+            points = []
+            for show in shows:
+                if show.venue.ltlng not in points:
+                    points.append(show.venue.ltlng)
+            return points
         else:
             return []
 

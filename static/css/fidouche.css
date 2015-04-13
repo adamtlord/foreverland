@@ -8723,6 +8723,9 @@ table > tbody > tr > td.no-pad {
 table > tbody > tr > td.no-pad > table > tbody > tr:first-child > td {
   border-top: none;
 }
+table > tbody > tr > td small {
+  line-height: 1.2em;
+}
 blockquote.qotd {
   background-color: #f8f8f8;
   margin-bottom: 0;

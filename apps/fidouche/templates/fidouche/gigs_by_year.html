@@ -55,6 +55,7 @@
 				<th>Sort Date</th>
 				<th>Date</th>
 				<th>Venue</th>
+				<th>Tour</th>
 				<th>Attendance</th>
 				<th>Gross</th>
 				<th>Commission</th>
@@ -68,7 +69,15 @@
 			<tr>
 				<td>{{ gig.date|date:"Ymd" }}</td>
 				<td><a href="{% if request.user.is_staff %}{% url 'gig_finances' gig.id %}{% else %}{% url 'gig_finances_view' gig.id %}{% endif %}">{{ gig.date|date:"n/j/y" }}</a></td>
-				<td><a href="{% if request.user.is_staff %}{% url 'gig_finances' gig.id %}{% else %}{% url 'gig_finances_view' gig.id %}{% endif %}">{{ gig.venue }}</a> {% if not gig.public %}<span class="label label-success">private</span>{% endif %}{% if request.user.is_staff %}<a href="{% url 'gig_finances_view' gig.id %}" class="pull-right"><i class="fa fa-eye"></i></a>{% endif %}</td>
+				<td><a href="{% if request.user.is_staff %}{% url 'gig_finances' gig.id %}{% else %}{% url 'gig_finances_view' gig.id %}{% endif %}">{{ gig.venue }}</a>
+					{% if not gig.public %}
+					<span class="label label-success">private</span>
+					{% endif %}
+					{% if request.user.is_staff %}
+						<a href="{% url 'gig_finances_view' gig.id %}" class="pull-right"><i class="fa fa-eye"></i></a>
+					{% endif %}
+				</td>
+				<td>{% if gig.tour %}<a href="{% url 'tour_detail' gig.tour.id %}">{{ gig.tour }}</a>{% endif %}</td>
 				<td>{% if gig.attendance %}{{ gig.attendance }}{% endif %}</td>
 				<td>{% if gig.gross %}${{ gig.gross|intcomma }}{% else %}--{% endif %}</td>
 				<td>{% if gig.commission %}${{ gig.commission|intcomma }} <small>({{ gig.commission_percentage }}%)</small>{% else %}0{% endif %}</td>
@@ -113,7 +122,7 @@
 				{"bVisible": false, "aTargets": [0]},
 				{"asSorting": ["asc"], "aTargets": [0]},
 				{"iDataSort": 0, "aTargets": [1]},
-				{"sType": "currency", "aTargets": [4,5,6,7,8]}
+				{"sType": "currency", "aTargets": [5,6,7,8,9]}
 			],
 		});
 		$('#net_by_month').highcharts({

@@ -182,6 +182,7 @@ def gigs_year_over_year(request, template='fidouche/gigs_year_over_year.html'):
     for gig in gigs:
         gig.production_costs = gig.get_production_costs()
         gig.expenses = gig.get_expenses()
+        gig.tour_costs = gig.get_tour_costs()
         gig.total_expenses = gig.get_total_costs()
         all_total_expenses.append(gig.total_expenses)
         gig.payments = Payment.objects.filter(show=gig)
@@ -194,7 +195,7 @@ def gigs_year_over_year(request, template='fidouche/gigs_year_over_year.html'):
                 players.append(gig.payout * 14)
         if gig.commission:
             commission.append(gig.commission)
-        gig.all_expenses = dict(gig.production_costs.items() + gig.expenses.items())
+        gig.all_expenses = dict(gig.production_costs.items() + gig.expenses.items() + gig.tour_costs.items())
         sum_all_expenses.append(gig.all_expenses)
 
     d['all_gigs'] = gigs

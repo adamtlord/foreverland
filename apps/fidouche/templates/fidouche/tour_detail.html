@@ -8,15 +8,40 @@
         <div class="col-sm-6">
             <h3>Shows</h3>
             <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Show</th>
+                        <th>Gross</th>
+                        <th>Expenses</th>
+                        <th>Net</th>
+                    </tr>
+                </thead>
                 <tbody>
                 {% for show in tour.shows %}
                     <tr>
                         <td>
                             <a href="{% url 'gig_finances' show.id %}">{{ show }}</a>
                         </td>
+                        <td>{% if show.gross %}${{ show.gross|intcomma }}{% endif %}</td>
+                        <td>${{ show.get_show_costs|intcomma }}</td>
+                        <td>{% if show.net %}${{ show.net|intcomma }}{% endif %}</td>
                     </tr>
                 {% endfor %}
+                    <tr>
+                        <td>Tour Expenses</td>
+                        <td></td>
+                        <td>${{ tour.expenses|intcomma }}</td>
+                        <td></td>
+                    </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>${{ tour.gross|intcomma }}</th>
+                        <th>${{ tour.all_expenses|intcomma }}</th>
+                        <th class="text-{% if tour.net > 0 %}success{% else %}danger{% endif %}">${{ tour.net|intcomma }}</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <div class="col-sm-6">

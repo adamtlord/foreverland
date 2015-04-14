@@ -73,6 +73,15 @@ class Tour(models.Model):
             return []
 
     @property
+    def gross(self):
+        return sum([show.gross for show in self.shows if show.gross])
+
+    @property
+    def net(self):
+        show_net = sum([show.net for show in self.shows if show.net])
+        return show_net - self.expenses
+
+    @property
     def date_range(self):
         shows = self.shows
         if shows:
@@ -87,16 +96,20 @@ class Tour(models.Model):
         from fidouche.models import TourExpense
         expenses = TourExpense.objects.filter(tour=self)
         if expenses:
-            return Decimal(sum([expense.amount for expense in expenses]))
+            return sum([expense.amount for expense in expenses])
         else:
             return 0
+
+    @property
+    def all_expenses(self):
+        return Decimal(sum([show.get_show_costs() for show in self.shows]))
 
     @property
     def expense_share(self):
         shows = self.shows
         expenses = self.expenses
         if shows and expenses:
-            return Decimal(round((expenses / len(shows)), 2))
+            return expenses / len(shows)
         else:
             return 0
 
@@ -206,7 +219,7 @@ class Show(models.Model):
                 d[k] = sum(d[k])
         return d
 
-    def get_total_costs(self):
+    def get_show_costs(self):
         production_costs = self.get_production_costs()
         production = []
         for k in production_costs:
@@ -220,9 +233,12 @@ class Show(models.Model):
             else:
                 expenses.append(expense_costs[k])
         expenses = sum(expenses)
+        return production + expenses
+
+    def get_total_costs(self):
         tour_costs = self.tour.expense_share if self.tour else 0
 
-        return production + expenses + tour_costs
+        return self.get_show_costs() + tour_costs
 
     def get_tour_costs(self):
         d = {}

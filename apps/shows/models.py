@@ -78,8 +78,7 @@ class Tour(models.Model):
 
     @property
     def net(self):
-        show_net = sum([show.net for show in self.shows if show.net])
-        return show_net - self.expenses
+        return self.gross - self.all_expenses
 
     @property
     def date_range(self):
@@ -102,7 +101,8 @@ class Tour(models.Model):
 
     @property
     def all_expenses(self):
-        return Decimal(sum([show.get_show_costs() for show in self.shows]))
+        show_costs = sum([show.get_show_costs() for show in self.shows])
+        return show_costs + self.expenses
 
     @property
     def expense_share(self):

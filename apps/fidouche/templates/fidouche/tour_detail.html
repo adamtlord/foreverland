@@ -38,7 +38,7 @@
                     <tr>
                         <th></th>
                         <th>${{ tour.gross|intcomma }}</th>
-                        <th>${{ tour.all_expenses|intcomma }}</th>
+                        <th class="text-danger">${{ tour.all_expenses|intcomma }}</th>
                         <th class="text-{% if tour.net > 0 %}success{% else %}danger{% endif %}">${{ tour.net|intcomma }}</th>
                     </tr>
                 </tfoot>

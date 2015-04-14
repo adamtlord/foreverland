@@ -9006,6 +9006,7 @@ fieldset#itemize {
 #expenses_formset textarea.form-control {
   height: 36px;
   line-height: 1.2em;
+  padding: 5px;
 }
 #expenses_formset td:last-child {
   text-align: center;

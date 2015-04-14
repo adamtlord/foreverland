@@ -162,6 +162,8 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc_'
 
+GOOGLE_MAPS_API_KEY = 'AIzaSyDf0TeojAvLH_Xne55O7jcVtTfusoIhkrs'
+
 if 'test' in sys.argv:
     DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3', 'PASSWORD': '', 'USER': ''}
 

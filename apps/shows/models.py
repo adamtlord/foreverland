@@ -1,10 +1,12 @@
 import datetime
+from decimal import *
 from django.db import models
 from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 
 from sorl.thumbnail import ImageField
 
 from common.utils import get_lat_lng
+
 
 class Venue(models.Model):
     venue_name = models.CharField(max_length=200, blank=True, null=True)
@@ -40,6 +42,76 @@ class Venue(models.Model):
 class Tour(models.Model):
     """ A collection of shows, ie, Speed of Sound """
     name = models.CharField(max_length=200, blank=True, null=True)
+
+    @property
+    def shows(self):
+        return self.show_in_tour.all().order_by('date')
+
+    @property
+    def cities(self):
+        shows = self.shows
+        if shows:
+            cities = []
+            for show in shows:
+                location = show.venue.city + ' ' + show.venue.state
+                if location not in cities:
+                    cities.append(location)
+            return cities
+        else:
+            return []
+
+    @property
+    def venue_ltlngs(self):
+        shows = self.shows
+        if shows:
+            points = []
+            for show in shows:
+                if show.venue.ltlng not in points:
+                    points.append(show.venue.ltlng)
+            return points
+        else:
+            return []
+
+    @property
+    def gross(self):
+        return sum([show.gross for show in self.shows if show.gross])
+
+    @property
+    def net(self):
+        return self.gross - self.all_expenses
+
+    @property
+    def date_range(self):
+        shows = self.shows
+        if shows:
+            first_date = min([show.date for show in shows])
+            last_date = max([show.date for show in shows])
+            return '%s - %s' % (first_date.strftime('%m/%d/%y'), last_date.strftime('%m/%d/%y'))
+        else:
+            return None
+
+    @property
+    def expenses(self):
+        from fidouche.models import TourExpense
+        expenses = TourExpense.objects.filter(tour=self)
+        if expenses:
+            return sum([expense.amount for expense in expenses])
+        else:
+            return 0
+
+    @property
+    def all_expenses(self):
+        show_costs = sum([show.get_show_costs() for show in self.shows])
+        return show_costs + self.expenses
+
+    @property
+    def expense_share(self):
+        shows = self.shows
+        expenses = self.expenses
+        if shows and expenses:
+            return expenses / len(shows)
+        else:
+            return 0
 
     def __unicode__(self):
         return self.name
@@ -147,7 +219,7 @@ class Show(models.Model):
                 d[k] = sum(d[k])
         return d
 
-    def get_total_costs(self):
+    def get_show_costs(self):
         production_costs = self.get_production_costs()
         production = []
         for k in production_costs:
@@ -161,13 +233,21 @@ class Show(models.Model):
             else:
                 expenses.append(expense_costs[k])
         expenses = sum(expenses)
-
         return production + expenses
+
+    def get_total_costs(self):
+        tour_costs = self.tour.expense_share if self.tour else 0
+
+        return self.get_show_costs() + tour_costs
+
+    def get_tour_costs(self):
+        d = {}
+        if self.tour:
+            d['Tour Costs'] = self.tour.expense_share
+        return d
 
     class Meta:
         ordering = ['date']
 
     def __unicode__(self):
         return '%s %s' % (self.date.strftime('%m/%d/%y'), self.venue)
-
-

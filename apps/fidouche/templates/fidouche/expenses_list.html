@@ -37,7 +37,7 @@
 			<tr>
 				<td>{{ expense.date|date:"n/j/y" }}</td>
 				<td>{% if expense.amount %}${{ expense.amount|intcomma }}{% endif %}</td>
-				<td>{% if expense.payee %}{{ expense.payee }}{% endif %}</td>
+				<td>{% if expense.payee %}{{ expense.payee }}{% endif %}{% if expense.tour %}<br><small><a href="{% url 'tour_detail' expense.tour.id %}"><i class="fa fa-road"></i> {{ expense.tour }}</a></small>{% endif %}</td>
 				<td>{% if expense.new_category %}{{ expense.new_category }}{% endif %}</td>
 				<td>{% if expense.check_no %}{{ expense.check_no }}{% endif %}</td>
 				<td>{% if expense.notes %}{{ expense.notes }}{% endif %}</td>
@@ -56,8 +56,12 @@
 				</td>
 			{% if request.user.is_staff %}
 				<td>
+					{% if expense.tour %}
+					<a href="{% url 'tour_detail' expense.tour.id %}" class="btn btn-sm btn-default">edit</a>
+					{% else %}
 					<a href="{% url 'expense_details' expense.id %}" class="btn btn-sm btn-default">edit</a>
 					<a href="{% url 'expense_delete' expense.id %}" class="btn btn-sm btn-danger">delete</a>
+					{% endif %}
 				</td>
 			{% endif %}
 			</tr>

@@ -3,6 +3,7 @@ from random import randint
 from marketing.models import Testimonial
 from common.utils import years_with_gigs
 
+
 def random_quote(request):
     quote_count = Testimonial.objects.filter(featured=True).count()
     if quote_count:
@@ -11,5 +12,6 @@ def random_quote(request):
         random_quote = None
     return {'random_quote': random_quote}
 
+
 def list_years_with_gigs(request):
-	return {'active_years': years_with_gigs}
+    return {'active_years': years_with_gigs}

@@ -1,16 +1,16 @@
 {% extends 'base_fidouche.html' %}
-{% load custom_tags %}
+{% load custom_tags humanize %}
 {% block header_includes %}
 <script>var FL = {VARS:{}};</script>
 {% endblock %}
 {% block content %}
 <div class="page-header">
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-8">
 			<h4>Gig Financials</h4>
-			<h2>{{ gig }}</h2>
+			<h2>{{ gig }} {% if gig.tour %}<small>{{ gig.tour }} Tour</small>{% endif %}</h2>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<div class="pull-right auto-calc-box">
 				Auto-calculations <input type="checkbox" id="auto_calc" data-on-color="success" checked>
 			</div>
@@ -240,6 +240,16 @@
 						{{ form.other_cost }}
 					</div>
 				</div>
+				{% if gig.tour and gig.tour.expenses %}
+					<div class="form-group">
+						<label for="tour_costs" class="control-label"><a href="{% url 'tour_detail' gig.tour.id %}" target="_blank" class="pull-right">Tour expenses <i class="fa fa-external-link-square"></i></a></label>
+						<div class="input-group">
+							<span class="input-group-addon">$</span>
+							<input id="tour_expense_share" class="form-control" value="{{ gig.tour.expense_share|intcomma }}" readonly />
+						</div>
+						<div class="help-block"><em>${{ gig.tour.expenses|intcomma }} in expenses &divide; {{ gig.tour.shows.count }} shows in the tour</em></div>
+					</div>
+				{% endif %}
 			</fieldset>
 		</div>
 		<div class="col-md-6 col-sm-6">

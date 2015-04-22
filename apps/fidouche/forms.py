@@ -1,7 +1,7 @@
 from django import forms
 from fidouche.widgets import AdminImageWidget
 from shows.models import Show
-from fidouche.models import Payment, SubPayment, Expense, ProductionPayment
+from fidouche.models import Payment, SubPayment, Expense, TourExpense, ProductionPayment
 
 
 FINANCIAL_FIELDS = (
@@ -44,7 +44,14 @@ EXPENSE_FIELDS = (
 	'check_no',
 	'notes'
 )
-
+TOUR_EXPENSE_FIELDS = (
+	'date',
+	'payee',
+	'category',
+	'amount',
+	'check_no',
+	'notes'
+)
 PRODUCTION_FIELDS = (
 	'company',
 	'amount',
@@ -77,6 +84,20 @@ class ExpenseForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(ExpenseForm, self).__init__(*args, **kwargs)
 		for field in EXPENSE_FIELDS:
+			self.fields[field].widget.attrs['class'] = 'form-control input-sm'
+		self.fields['date'].widget.attrs['data-format'] = 'YYYY-MM-DD'
+
+
+class TourExpenseForm(forms.ModelForm):
+	class Meta:
+		model = TourExpense
+		widgets = {
+			'receipt_img': AdminImageWidget()
+		}
+
+	def __init__(self, *args, **kwargs):
+		super(TourExpenseForm, self).__init__(*args, **kwargs)
+		for field in TOUR_EXPENSE_FIELDS:
 			self.fields[field].widget.attrs['class'] = 'form-control input-sm'
 		self.fields['date'].widget.attrs['data-format'] = 'YYYY-MM-DD'
 

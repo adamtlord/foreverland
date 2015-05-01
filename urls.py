@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     (r'^setter/', include('setter.urls')),
     (r'^downloads/', 'media.views.downloads'),
     (r'^behind-the-music/', 'media.views.behind_the_music'),
+    (r'^api/', include('api.urls')),
     # Legacy redirects
     (r'^upcoming-shows/', RedirectView.as_view(url='/shows', permanent=True)),
     (r'^past-shows/', RedirectView.as_view(url='/shows/past', permanent=True)),
@@ -26,6 +27,9 @@ urlpatterns = patterns('',
     (r'^quotes/', RedirectView.as_view(url='/about#quotes', permanent=True)),
     (r'^catalog/', RedirectView.as_view(url='http://v2.foreverland.com/catalog/', permanent=True)),
     (r'^theworks/', RedirectView.as_view(url='http://v2.foreverland.com/theworks/', permanent=True)),
+
+    (r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+
 )
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

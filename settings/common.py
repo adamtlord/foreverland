@@ -127,6 +127,7 @@ INSTALLED_APPS = [
     'django_common',
     'storages',
     'sorl.thumbnail',
+    'rest_framework',
 
     'marketing',
     'members',
@@ -138,6 +139,7 @@ INSTALLED_APPS = [
     'legacy',
     'fidouche',
     'setter',
+    'api',
 ]
 
 TEMPLATE_LOADERS = [
@@ -234,4 +236,12 @@ LOGGING = {
             'propagate': False,
         },
     }
+}
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
 }

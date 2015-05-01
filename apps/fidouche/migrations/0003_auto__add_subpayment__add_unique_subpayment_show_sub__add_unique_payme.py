@@ -8,58 +8,51 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Song'
-        db.create_table(u'songs_song', (
+        # Adding model 'SubPayment'
+        db.create_table(u'fidouche_subpayment', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
-            ('original_artist', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
-            ('original_album', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
-            ('release_year', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
-            ('foh_notes', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
+            ('show', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='subpayment', null=True, to=orm['shows.Show'])),
+            ('sub', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='sub', null=True, to=orm['members.Sub'])),
+            ('amount', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=10, decimal_places=2, blank=True)),
+            ('paid', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
-        db.send_create_signal(u'songs', ['Song'])
+        db.send_create_signal(u'fidouche', ['SubPayment'])
 
-        # Adding M2M table for field singer on 'Song'
-        m2m_table_name = db.shorten_name(u'songs_song_singer')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('song', models.ForeignKey(orm[u'songs.song'], null=False)),
-            ('member', models.ForeignKey(orm[u'members.member'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['song_id', 'member_id'])
+        # Adding unique constraint on 'SubPayment', fields ['show', 'sub']
+        db.create_unique(u'fidouche_subpayment', ['show_id', 'sub_id'])
 
-        # Adding model 'Setlist'
-        db.create_table(u'songs_setlist', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('show', self.gf('django.db.models.fields.related.ForeignKey')(related_name='setlist', to=orm['shows.Show'])),
-        ))
-        db.send_create_signal(u'songs', ['Setlist'])
-
-        # Adding model 'SetlistSong'
-        db.create_table(u'songs_setlistsong', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('song', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['songs.Song'])),
-            ('setlist', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['songs.Setlist'])),
-            ('order', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-        ))
-        db.send_create_signal(u'songs', ['SetlistSong'])
+        # Adding unique constraint on 'Payment', fields ['member', 'show']
+        db.create_unique(u'fidouche_payment', ['member_id', 'show_id'])
 
 
     def backwards(self, orm):
-        # Deleting model 'Song'
-        db.delete_table(u'songs_song')
+        # Removing unique constraint on 'Payment', fields ['member', 'show']
+        db.delete_unique(u'fidouche_payment', ['member_id', 'show_id'])
 
-        # Removing M2M table for field singer on 'Song'
-        db.delete_table(db.shorten_name(u'songs_song_singer'))
+        # Removing unique constraint on 'SubPayment', fields ['show', 'sub']
+        db.delete_unique(u'fidouche_subpayment', ['show_id', 'sub_id'])
 
-        # Deleting model 'Setlist'
-        db.delete_table(u'songs_setlist')
-
-        # Deleting model 'SetlistSong'
-        db.delete_table(u'songs_setlistsong')
+        # Deleting model 'SubPayment'
+        db.delete_table(u'fidouche_subpayment')
 
 
     models = {
+        u'fidouche.payment': {
+            'Meta': {'unique_together': "(('show', 'member'),)", 'object_name': 'Payment'},
+            'amount': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'member': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'payment'", 'null': 'True', 'to': u"orm['members.Member']"}),
+            'paid': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'show': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'payment'", 'null': 'True', 'to': u"orm['shows.Show']"})
+        },
+        u'fidouche.subpayment': {
+            'Meta': {'unique_together': "(('show', 'sub'),)", 'object_name': 'SubPayment'},
+            'amount': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'paid': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'show': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'subpayment'", 'null': 'True', 'to': u"orm['shows.Show']"}),
+            'sub': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'sub'", 'null': 'True', 'to': u"orm['members.Sub']"})
+        },
         u'members.member': {
             'Meta': {'object_name': 'Member'},
             'active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -75,24 +68,41 @@ class Migration(SchemaMigration):
             'middle_name': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'section': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'})
         },
+        u'members.sub': {
+            'Meta': {'object_name': 'Sub'},
+            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'instrument': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'})
+        },
         u'shows.show': {
             'Meta': {'ordering': "['date']", 'object_name': 'Show'},
             'ads_cost': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
             'ages': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'attendance': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'commission': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
+            'commission_check_no': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'commission_withheld': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'costs_itemized': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'date': ('django.db.models.fields.DateTimeField', [], {}),
             'doors_time': ('django.db.models.fields.TimeField', [], {'null': 'True', 'blank': 'True'}),
+            'fb_event': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'gross': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
+            'gross_method': ('django.db.models.fields.CharField', [], {'default': "'cash'", 'max_length': '100', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'in_ears_cost': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
+            'in_ears_check_no': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'in_ears_cost': ('django.db.models.fields.DecimalField', [], {'default': '130', 'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
             'net': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
             'notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'opener': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'other_cost': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
+            'payee_check_no': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'payer': ('django.db.models.fields.CharField', [], {'default': "'client'", 'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'payout': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
             'poster': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'print_ship_cost': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
             'public': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'sound_check_no': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'sound_cost': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
             'ticket_price': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'ticket_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
@@ -115,30 +125,7 @@ class Migration(SchemaMigration):
             'venue_name': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'website': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'zip_code': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'})
-        },
-        u'songs.setlist': {
-            'Meta': {'object_name': 'Setlist'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'show': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'setlist'", 'to': u"orm['shows.Show']"}),
-            'songs': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['songs.Song']", 'through': u"orm['songs.SetlistSong']", 'symmetrical': 'False'})
-        },
-        u'songs.setlistsong': {
-            'Meta': {'object_name': 'SetlistSong'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'order': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'setlist': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['songs.Setlist']"}),
-            'song': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['songs.Song']"})
-        },
-        u'songs.song': {
-            'Meta': {'object_name': 'Song'},
-            'foh_notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'original_album': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'original_artist': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'release_year': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'singer': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'singer'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['members.Member']"})
         }
     }
 
-    complete_apps = ['songs']
+    complete_apps = ['fidouche']

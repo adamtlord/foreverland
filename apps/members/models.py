@@ -1,5 +1,5 @@
 from django.db import models
-from localflavor.us.models import PhoneNumberField, USStateField
+from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 
 SECTIONS = (
     ('v', 'Vocal'),

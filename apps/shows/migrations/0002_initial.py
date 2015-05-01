@@ -23,7 +23,6 @@ class Migration(SchemaMigration):
             ('website', self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True)),
             ('contact', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
             ('notes', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('ltlng', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
         ))
         db.send_create_signal(u'shows', ['Venue'])
 
@@ -93,7 +92,6 @@ class Migration(SchemaMigration):
             'contact': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'country': ('django.db.models.fields.CharField', [], {'default': "'U.S.A.'", 'max_length': '100', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'ltlng': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'phone': ('django.contrib.localflavor.us.models.PhoneNumberField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
             'state': ('django.contrib.localflavor.us.models.USStateField', [], {'max_length': '2', 'null': 'True', 'blank': 'True'}),

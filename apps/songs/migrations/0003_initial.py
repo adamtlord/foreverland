@@ -15,6 +15,7 @@ class Migration(SchemaMigration):
             ('original_artist', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
             ('original_album', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
             ('release_year', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
+            ('display', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('foh_notes', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
         ))
         db.send_create_signal(u'songs', ['Song'])
@@ -82,6 +83,7 @@ class Migration(SchemaMigration):
             'commission': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
             'date': ('django.db.models.fields.DateTimeField', [], {}),
             'doors_time': ('django.db.models.fields.TimeField', [], {'null': 'True', 'blank': 'True'}),
+            'fb_event': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'gross': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'in_ears_cost': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '2', 'blank': 'True'}),
@@ -131,6 +133,7 @@ class Migration(SchemaMigration):
         },
         u'songs.song': {
             'Meta': {'object_name': 'Song'},
+            'display': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'foh_notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),

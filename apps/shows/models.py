@@ -1,7 +1,7 @@
 import datetime
 from decimal import *
 from django.db import models
-from localflavor.us.models import PhoneNumberField, USStateField
+from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 
 from sorl.thumbnail import ImageField
 

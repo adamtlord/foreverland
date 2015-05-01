@@ -8,15 +8,6 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'AccountsUserprofile'
-        db.create_table(u'accounts_userprofile', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.AuthUser'], unique=True)),
-            ('newsletter_subscribe', self.gf('django.db.models.fields.IntegerField')()),
-            ('picture', self.gf('django.db.models.fields.CharField')(max_length=100L)),
-        ))
-        db.send_create_signal(u'legacy', ['AccountsUserprofile'])
-
         # Adding model 'AhmFiles'
         db.create_table(u'ahm_files', (
             ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
@@ -30,316 +21,6 @@ class Migration(SchemaMigration):
             ('link_label', self.gf('django.db.models.fields.CharField')(max_length=255L)),
         ))
         db.send_create_signal(u'legacy', ['AhmFiles'])
-
-        # Adding model 'AuthGroup'
-        db.create_table(u'auth_group', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=80L)),
-        ))
-        db.send_create_signal(u'legacy', ['AuthGroup'])
-
-        # Adding model 'AuthGroupPermissions'
-        db.create_table(u'auth_group_permissions', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('group', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.AuthGroup'])),
-            ('permission', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.AuthPermission'])),
-        ))
-        db.send_create_signal(u'legacy', ['AuthGroupPermissions'])
-
-        # Adding model 'AuthPermission'
-        db.create_table(u'auth_permission', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=50L)),
-            ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.DjangoContentType'])),
-            ('codename', self.gf('django.db.models.fields.CharField')(max_length=100L)),
-        ))
-        db.send_create_signal(u'legacy', ['AuthPermission'])
-
-        # Adding model 'AuthUser'
-        db.create_table(u'auth_user', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('password', self.gf('django.db.models.fields.CharField')(max_length=128L)),
-            ('last_login', self.gf('django.db.models.fields.DateTimeField')()),
-            ('is_superuser', self.gf('django.db.models.fields.IntegerField')()),
-            ('username', self.gf('django.db.models.fields.CharField')(unique=True, max_length=30L)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30L)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30L)),
-            ('email', self.gf('django.db.models.fields.CharField')(max_length=75L)),
-            ('is_staff', self.gf('django.db.models.fields.IntegerField')()),
-            ('is_active', self.gf('django.db.models.fields.IntegerField')()),
-            ('date_joined', self.gf('django.db.models.fields.DateTimeField')()),
-        ))
-        db.send_create_signal(u'legacy', ['AuthUser'])
-
-        # Adding model 'AuthUserGroups'
-        db.create_table(u'auth_user_groups', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.AuthUser'])),
-            ('group', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.AuthGroup'])),
-        ))
-        db.send_create_signal(u'legacy', ['AuthUserGroups'])
-
-        # Adding model 'AuthUserUserPermissions'
-        db.create_table(u'auth_user_user_permissions', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.AuthUser'])),
-            ('permission', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.AuthPermission'])),
-        ))
-        db.send_create_signal(u'legacy', ['AuthUserUserPermissions'])
-
-        # Adding model 'DjangoAdminLog'
-        db.create_table(u'django_admin_log', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('action_time', self.gf('django.db.models.fields.DateTimeField')()),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.AuthUser'])),
-            ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.DjangoContentType'], null=True, blank=True)),
-            ('object_id', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('object_repr', self.gf('django.db.models.fields.CharField')(max_length=200L)),
-            ('action_flag', self.gf('django.db.models.fields.IntegerField')()),
-            ('change_message', self.gf('django.db.models.fields.TextField')()),
-        ))
-        db.send_create_signal(u'legacy', ['DjangoAdminLog'])
-
-        # Adding model 'DjangoContentType'
-        db.create_table(u'django_content_type', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100L)),
-            ('app_label', self.gf('django.db.models.fields.CharField')(max_length=100L)),
-            ('model', self.gf('django.db.models.fields.CharField')(max_length=100L)),
-        ))
-        db.send_create_signal(u'legacy', ['DjangoContentType'])
-
-        # Adding model 'DjangoSession'
-        db.create_table(u'django_session', (
-            ('session_key', self.gf('django.db.models.fields.CharField')(max_length=40L, primary_key=True)),
-            ('session_data', self.gf('django.db.models.fields.TextField')()),
-            ('expire_date', self.gf('django.db.models.fields.DateTimeField')()),
-        ))
-        db.send_create_signal(u'legacy', ['DjangoSession'])
-
-        # Adding model 'DjangoSite'
-        db.create_table(u'django_site', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('domain', self.gf('django.db.models.fields.CharField')(max_length=100L)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=50L)),
-        ))
-        db.send_create_signal(u'legacy', ['DjangoSite'])
-
-        # Adding model 'MarketingTestimonial'
-        db.create_table(u'marketing_testimonial', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('quote', self.gf('django.db.models.fields.TextField')()),
-            ('source', self.gf('django.db.models.fields.CharField')(max_length=100L, blank=True)),
-            ('show', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.ShowsShow'], null=True, blank=True)),
-            ('featured', self.gf('django.db.models.fields.IntegerField')()),
-        ))
-        db.send_create_signal(u'legacy', ['MarketingTestimonial'])
-
-        # Adding model 'MediaAlbum'
-        db.create_table(u'media_album', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100L)),
-            ('public', self.gf('django.db.models.fields.IntegerField')()),
-        ))
-        db.send_create_signal(u'legacy', ['MediaAlbum'])
-
-        # Adding model 'MediaAlbumShow'
-        db.create_table(u'media_album_show', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('album', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.MediaAlbum'])),
-            ('show', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.ShowsShow'])),
-        ))
-        db.send_create_signal(u'legacy', ['MediaAlbumShow'])
-
-        # Adding model 'MediaImage'
-        db.create_table(u'media_image', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=60L, blank=True)),
-            ('image', self.gf('django.db.models.fields.CharField')(max_length=100L)),
-            ('thumbnail', self.gf('django.db.models.fields.CharField')(max_length=100L, blank=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')()),
-            ('width', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('height', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('thumbnail2', self.gf('django.db.models.fields.CharField')(max_length=100L, blank=True)),
-        ))
-        db.send_create_signal(u'legacy', ['MediaImage'])
-
-        # Adding model 'MediaImageAlbums'
-        db.create_table(u'media_image_albums', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('image', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.MediaImage'])),
-            ('album', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.MediaAlbum'])),
-        ))
-        db.send_create_signal(u'legacy', ['MediaImageAlbums'])
-
-        # Adding model 'MediaImageShow'
-        db.create_table(u'media_image_show', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('image', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.MediaImage'])),
-            ('show', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.ShowsShow'])),
-        ))
-        db.send_create_signal(u'legacy', ['MediaImageShow'])
-
-        # Adding model 'MediaImageTags'
-        db.create_table(u'media_image_tags', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('image', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.MediaImage'])),
-            ('tag', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.MediaTag'])),
-        ))
-        db.send_create_signal(u'legacy', ['MediaImageTags'])
-
-        # Adding model 'MediaTag'
-        db.create_table(u'media_tag', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('tag', self.gf('django.db.models.fields.CharField')(max_length=50L)),
-        ))
-        db.send_create_signal(u'legacy', ['MediaTag'])
-
-        # Adding model 'MediaVideo'
-        db.create_table(u'media_video', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=60L, blank=True)),
-            ('url', self.gf('django.db.models.fields.CharField')(max_length=200L)),
-            ('embed_type', self.gf('django.db.models.fields.CharField')(max_length=10L, blank=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')()),
-        ))
-        db.send_create_signal(u'legacy', ['MediaVideo'])
-
-        # Adding model 'MediaVideoAlbums'
-        db.create_table(u'media_video_albums', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('video', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.MediaVideo'])),
-            ('album', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.MediaAlbum'])),
-        ))
-        db.send_create_signal(u'legacy', ['MediaVideoAlbums'])
-
-        # Adding model 'MediaVideoShow'
-        db.create_table(u'media_video_show', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('video', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.MediaVideo'])),
-            ('show', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.ShowsShow'])),
-        ))
-        db.send_create_signal(u'legacy', ['MediaVideoShow'])
-
-        # Adding model 'MediaVideoTags'
-        db.create_table(u'media_video_tags', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('video', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.MediaVideo'])),
-            ('tag', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.MediaTag'])),
-        ))
-        db.send_create_signal(u'legacy', ['MediaVideoTags'])
-
-        # Adding model 'MembersMember'
-        db.create_table(u'members_member', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=50L, blank=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=50L, blank=True)),
-            ('middle_name', self.gf('django.db.models.fields.CharField')(max_length=50L, blank=True)),
-            ('display_first', self.gf('django.db.models.fields.CharField')(max_length=50L, blank=True)),
-            ('display_last', self.gf('django.db.models.fields.CharField')(max_length=50L, blank=True)),
-            ('instrument', self.gf('django.db.models.fields.CharField')(max_length=100L, blank=True)),
-            ('section', self.gf('django.db.models.fields.CharField')(max_length=100L, blank=True)),
-            ('dob', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('join_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('bio', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('active', self.gf('django.db.models.fields.IntegerField')()),
-        ))
-        db.send_create_signal(u'legacy', ['MembersMember'])
-
-        # Adding model 'RegistrationRegistrationprofile'
-        db.create_table(u'registration_registrationprofile', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.AuthUser'], unique=True)),
-            ('activation_key', self.gf('django.db.models.fields.CharField')(max_length=40L)),
-        ))
-        db.send_create_signal(u'legacy', ['RegistrationRegistrationprofile'])
-
-        # Adding model 'ShowsShow'
-        db.create_table(u'shows_show', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('public', self.gf('django.db.models.fields.IntegerField')()),
-            ('venue', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.ShowsVenue'])),
-            ('date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('doors_time', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('ticket_price', self.gf('django.db.models.fields.CharField')(max_length=100L, blank=True)),
-            ('ticket_url', self.gf('django.db.models.fields.CharField')(max_length=200L, blank=True)),
-            ('ages', self.gf('django.db.models.fields.CharField')(max_length=100L, blank=True)),
-            ('opener', self.gf('django.db.models.fields.CharField')(max_length=200L, blank=True)),
-            ('notes', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('gross', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=12, decimal_places=2, blank=True)),
-            ('commission', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=12, decimal_places=2, blank=True)),
-            ('sound_cost', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=12, decimal_places=2, blank=True)),
-            ('in_ears_cost', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=12, decimal_places=2, blank=True)),
-            ('print_ship_cost', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=12, decimal_places=2, blank=True)),
-            ('ads_cost', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=12, decimal_places=2, blank=True)),
-            ('other_cost', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=12, decimal_places=2, blank=True)),
-            ('net', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=12, decimal_places=2, blank=True)),
-            ('payout', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=12, decimal_places=2, blank=True)),
-            ('to_account', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=12, decimal_places=2, blank=True)),
-        ))
-        db.send_create_signal(u'legacy', ['ShowsShow'])
-
-        # Adding model 'ShowsVenue'
-        db.create_table(u'shows_venue', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('venue_name', self.gf('django.db.models.fields.CharField')(max_length=200L, blank=True)),
-            ('venue_image', self.gf('django.db.models.fields.CharField')(max_length=100L)),
-            ('address1', self.gf('django.db.models.fields.CharField')(max_length=100L, blank=True)),
-            ('address2', self.gf('django.db.models.fields.CharField')(max_length=100L, blank=True)),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=100L, blank=True)),
-            ('state', self.gf('django.db.models.fields.CharField')(max_length=2L, blank=True)),
-            ('zip_code', self.gf('django.db.models.fields.CharField')(max_length=20L, blank=True)),
-            ('country', self.gf('django.db.models.fields.CharField')(max_length=100L, blank=True)),
-            ('phone', self.gf('django.db.models.fields.CharField')(max_length=20L, blank=True)),
-            ('website', self.gf('django.db.models.fields.CharField')(max_length=200L, blank=True)),
-            ('contact', self.gf('django.db.models.fields.CharField')(max_length=100L, blank=True)),
-            ('notes', self.gf('django.db.models.fields.TextField')(blank=True)),
-        ))
-        db.send_create_signal(u'legacy', ['ShowsVenue'])
-
-        # Adding model 'SongsSetlist'
-        db.create_table(u'songs_setlist', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('show', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.ShowsShow'])),
-        ))
-        db.send_create_signal(u'legacy', ['SongsSetlist'])
-
-        # Adding model 'SongsSetlistsong'
-        db.create_table(u'songs_setlistsong', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('song', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.SongsSong'])),
-            ('setlist', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.SongsSetlist'])),
-            ('order', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-        ))
-        db.send_create_signal(u'legacy', ['SongsSetlistsong'])
-
-        # Adding model 'SongsSong'
-        db.create_table(u'songs_song', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=200L, blank=True)),
-            ('original_artist', self.gf('django.db.models.fields.CharField')(max_length=200L, blank=True)),
-            ('original_album', self.gf('django.db.models.fields.CharField')(max_length=200L, blank=True)),
-            ('release_year', self.gf('django.db.models.fields.CharField')(max_length=200L, blank=True)),
-            ('foh_notes', self.gf('django.db.models.fields.TextField')(blank=True)),
-        ))
-        db.send_create_signal(u'legacy', ['SongsSong'])
-
-        # Adding model 'SongsSongSinger'
-        db.create_table(u'songs_song_singer', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('song', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.SongsSong'])),
-            ('member', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legacy.MembersMember'])),
-        ))
-        db.send_create_signal(u'legacy', ['SongsSongSinger'])
-
-        # Adding model 'SouthMigrationhistory'
-        db.create_table(u'south_migrationhistory', (
-            ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('app_name', self.gf('django.db.models.fields.CharField')(max_length=255L)),
-            ('migration', self.gf('django.db.models.fields.CharField')(max_length=255L)),
-            ('applied', self.gf('django.db.models.fields.DateTimeField')()),
-        ))
-        db.send_create_signal(u'legacy', ['SouthMigrationhistory'])
 
         # Adding model 'WpBwbpsCategories'
         db.create_table(u'wp_bwbps_categories', (
@@ -712,7 +393,6 @@ class Migration(SchemaMigration):
         # Adding model 'WpNggcfFieldValues'
         db.create_table(u'wp_nggcf_field_values', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('sid', self.gf('django.db.models.fields.BigIntegerField')(unique=True)),
             ('pid', self.gf('django.db.models.fields.BigIntegerField')()),
             ('fid', self.gf('django.db.models.fields.BigIntegerField')()),
             ('field_value', self.gf('django.db.models.fields.TextField')(blank=True)),
@@ -724,7 +404,6 @@ class Migration(SchemaMigration):
         # Adding model 'WpNggcfFields'
         db.create_table(u'wp_nggcf_fields', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('sid', self.gf('django.db.models.fields.BigIntegerField')(unique=True)),
             ('field_name', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('field_type', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('ngg_type', self.gf('django.db.models.fields.IntegerField')()),
@@ -736,7 +415,6 @@ class Migration(SchemaMigration):
         # Adding model 'WpNggcfFieldsLink'
         db.create_table(u'wp_nggcf_fields_link', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('sid', self.gf('django.db.models.fields.BigIntegerField')(unique=True)),
             ('field_id', self.gf('django.db.models.fields.BigIntegerField')()),
             ('gid', self.gf('django.db.models.fields.BigIntegerField')()),
         ))
@@ -887,104 +565,8 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
-        # Deleting model 'AccountsUserprofile'
-        db.delete_table(u'accounts_userprofile')
-
         # Deleting model 'AhmFiles'
         db.delete_table(u'ahm_files')
-
-        # Deleting model 'AuthGroup'
-        db.delete_table(u'auth_group')
-
-        # Deleting model 'AuthGroupPermissions'
-        db.delete_table(u'auth_group_permissions')
-
-        # Deleting model 'AuthPermission'
-        db.delete_table(u'auth_permission')
-
-        # Deleting model 'AuthUser'
-        db.delete_table(u'auth_user')
-
-        # Deleting model 'AuthUserGroups'
-        db.delete_table(u'auth_user_groups')
-
-        # Deleting model 'AuthUserUserPermissions'
-        db.delete_table(u'auth_user_user_permissions')
-
-        # Deleting model 'DjangoAdminLog'
-        db.delete_table(u'django_admin_log')
-
-        # Deleting model 'DjangoContentType'
-        db.delete_table(u'django_content_type')
-
-        # Deleting model 'DjangoSession'
-        db.delete_table(u'django_session')
-
-        # Deleting model 'DjangoSite'
-        db.delete_table(u'django_site')
-
-        # Deleting model 'MarketingTestimonial'
-        db.delete_table(u'marketing_testimonial')
-
-        # Deleting model 'MediaAlbum'
-        db.delete_table(u'media_album')
-
-        # Deleting model 'MediaAlbumShow'
-        db.delete_table(u'media_album_show')
-
-        # Deleting model 'MediaImage'
-        db.delete_table(u'media_image')
-
-        # Deleting model 'MediaImageAlbums'
-        db.delete_table(u'media_image_albums')
-
-        # Deleting model 'MediaImageShow'
-        db.delete_table(u'media_image_show')
-
-        # Deleting model 'MediaImageTags'
-        db.delete_table(u'media_image_tags')
-
-        # Deleting model 'MediaTag'
-        db.delete_table(u'media_tag')
-
-        # Deleting model 'MediaVideo'
-        db.delete_table(u'media_video')
-
-        # Deleting model 'MediaVideoAlbums'
-        db.delete_table(u'media_video_albums')
-
-        # Deleting model 'MediaVideoShow'
-        db.delete_table(u'media_video_show')
-
-        # Deleting model 'MediaVideoTags'
-        db.delete_table(u'media_video_tags')
-
-        # Deleting model 'MembersMember'
-        db.delete_table(u'members_member')
-
-        # Deleting model 'RegistrationRegistrationprofile'
-        db.delete_table(u'registration_registrationprofile')
-
-        # Deleting model 'ShowsShow'
-        db.delete_table(u'shows_show')
-
-        # Deleting model 'ShowsVenue'
-        db.delete_table(u'shows_venue')
-
-        # Deleting model 'SongsSetlist'
-        db.delete_table(u'songs_setlist')
-
-        # Deleting model 'SongsSetlistsong'
-        db.delete_table(u'songs_setlistsong')
-
-        # Deleting model 'SongsSong'
-        db.delete_table(u'songs_song')
-
-        # Deleting model 'SongsSongSinger'
-        db.delete_table(u'songs_song_singer')
-
-        # Deleting model 'SouthMigrationhistory'
-        db.delete_table(u'south_migrationhistory')
 
         # Deleting model 'WpBwbpsCategories'
         db.delete_table(u'wp_bwbps_categories')
@@ -1102,13 +684,6 @@ class Migration(SchemaMigration):
 
 
     models = {
-        u'legacy.accountsuserprofile': {
-            'Meta': {'object_name': 'AccountsUserprofile', 'db_table': "u'accounts_userprofile'"},
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'newsletter_subscribe': ('django.db.models.fields.IntegerField', [], {}),
-            'picture': ('django.db.models.fields.CharField', [], {'max_length': '100L'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.AuthUser']", 'unique': 'True'})
-        },
         u'legacy.ahmfiles': {
             'Meta': {'object_name': 'AhmFiles', 'db_table': "u'ahm_files'"},
             'access': ('django.db.models.fields.CharField', [], {'max_length': '6L'}),
@@ -1120,254 +695,6 @@ class Migration(SchemaMigration):
             'password': ('django.db.models.fields.CharField', [], {'max_length': '40L'}),
             'show_counter': ('django.db.models.fields.IntegerField', [], {}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255L'})
-        },
-        u'legacy.authgroup': {
-            'Meta': {'object_name': 'AuthGroup', 'db_table': "u'auth_group'"},
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80L'})
-        },
-        u'legacy.authgrouppermissions': {
-            'Meta': {'object_name': 'AuthGroupPermissions', 'db_table': "u'auth_group_permissions'"},
-            'group': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.AuthGroup']"}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'permission': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.AuthPermission']"})
-        },
-        u'legacy.authpermission': {
-            'Meta': {'object_name': 'AuthPermission', 'db_table': "u'auth_permission'"},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100L'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.DjangoContentType']"}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50L'})
-        },
-        u'legacy.authuser': {
-            'Meta': {'object_name': 'AuthUser', 'db_table': "u'auth_user'"},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {}),
-            'email': ('django.db.models.fields.CharField', [], {'max_length': '75L'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30L'}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.IntegerField', [], {}),
-            'is_staff': ('django.db.models.fields.IntegerField', [], {}),
-            'is_superuser': ('django.db.models.fields.IntegerField', [], {}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30L'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128L'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30L'})
-        },
-        u'legacy.authusergroups': {
-            'Meta': {'object_name': 'AuthUserGroups', 'db_table': "u'auth_user_groups'"},
-            'group': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.AuthGroup']"}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.AuthUser']"})
-        },
-        u'legacy.authuseruserpermissions': {
-            'Meta': {'object_name': 'AuthUserUserPermissions', 'db_table': "u'auth_user_user_permissions'"},
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'permission': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.AuthPermission']"}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.AuthUser']"})
-        },
-        u'legacy.djangoadminlog': {
-            'Meta': {'object_name': 'DjangoAdminLog', 'db_table': "u'django_admin_log'"},
-            'action_flag': ('django.db.models.fields.IntegerField', [], {}),
-            'action_time': ('django.db.models.fields.DateTimeField', [], {}),
-            'change_message': ('django.db.models.fields.TextField', [], {}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.DjangoContentType']", 'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'object_id': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'object_repr': ('django.db.models.fields.CharField', [], {'max_length': '200L'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.AuthUser']"})
-        },
-        u'legacy.djangocontenttype': {
-            'Meta': {'object_name': 'DjangoContentType', 'db_table': "u'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100L'}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100L'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100L'})
-        },
-        u'legacy.djangosession': {
-            'Meta': {'object_name': 'DjangoSession', 'db_table': "u'django_session'"},
-            'expire_date': ('django.db.models.fields.DateTimeField', [], {}),
-            'session_data': ('django.db.models.fields.TextField', [], {}),
-            'session_key': ('django.db.models.fields.CharField', [], {'max_length': '40L', 'primary_key': 'True'})
-        },
-        u'legacy.djangosite': {
-            'Meta': {'object_name': 'DjangoSite', 'db_table': "u'django_site'"},
-            'domain': ('django.db.models.fields.CharField', [], {'max_length': '100L'}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50L'})
-        },
-        u'legacy.marketingtestimonial': {
-            'Meta': {'object_name': 'MarketingTestimonial', 'db_table': "u'marketing_testimonial'"},
-            'featured': ('django.db.models.fields.IntegerField', [], {}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'quote': ('django.db.models.fields.TextField', [], {}),
-            'show': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.ShowsShow']", 'null': 'True', 'blank': 'True'}),
-            'source': ('django.db.models.fields.CharField', [], {'max_length': '100L', 'blank': 'True'})
-        },
-        u'legacy.mediaalbum': {
-            'Meta': {'object_name': 'MediaAlbum', 'db_table': "u'media_album'"},
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'public': ('django.db.models.fields.IntegerField', [], {}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100L'})
-        },
-        u'legacy.mediaalbumshow': {
-            'Meta': {'object_name': 'MediaAlbumShow', 'db_table': "u'media_album_show'"},
-            'album': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.MediaAlbum']"}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'show': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.ShowsShow']"})
-        },
-        u'legacy.mediaimage': {
-            'Meta': {'object_name': 'MediaImage', 'db_table': "u'media_image'"},
-            'created': ('django.db.models.fields.DateTimeField', [], {}),
-            'height': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.CharField', [], {'max_length': '100L'}),
-            'thumbnail': ('django.db.models.fields.CharField', [], {'max_length': '100L', 'blank': 'True'}),
-            'thumbnail2': ('django.db.models.fields.CharField', [], {'max_length': '100L', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '60L', 'blank': 'True'}),
-            'width': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
-        },
-        u'legacy.mediaimagealbums': {
-            'Meta': {'object_name': 'MediaImageAlbums', 'db_table': "u'media_image_albums'"},
-            'album': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.MediaAlbum']"}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.MediaImage']"})
-        },
-        u'legacy.mediaimageshow': {
-            'Meta': {'object_name': 'MediaImageShow', 'db_table': "u'media_image_show'"},
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.MediaImage']"}),
-            'show': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.ShowsShow']"})
-        },
-        u'legacy.mediaimagetags': {
-            'Meta': {'object_name': 'MediaImageTags', 'db_table': "u'media_image_tags'"},
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.MediaImage']"}),
-            'tag': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.MediaTag']"})
-        },
-        u'legacy.mediatag': {
-            'Meta': {'object_name': 'MediaTag', 'db_table': "u'media_tag'"},
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'tag': ('django.db.models.fields.CharField', [], {'max_length': '50L'})
-        },
-        u'legacy.mediavideo': {
-            'Meta': {'object_name': 'MediaVideo', 'db_table': "u'media_video'"},
-            'created': ('django.db.models.fields.DateTimeField', [], {}),
-            'embed_type': ('django.db.models.fields.CharField', [], {'max_length': '10L', 'blank': 'True'}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '60L', 'blank': 'True'}),
-            'url': ('django.db.models.fields.CharField', [], {'max_length': '200L'})
-        },
-        u'legacy.mediavideoalbums': {
-            'Meta': {'object_name': 'MediaVideoAlbums', 'db_table': "u'media_video_albums'"},
-            'album': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.MediaAlbum']"}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'video': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.MediaVideo']"})
-        },
-        u'legacy.mediavideoshow': {
-            'Meta': {'object_name': 'MediaVideoShow', 'db_table': "u'media_video_show'"},
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'show': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.ShowsShow']"}),
-            'video': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.MediaVideo']"})
-        },
-        u'legacy.mediavideotags': {
-            'Meta': {'object_name': 'MediaVideoTags', 'db_table': "u'media_video_tags'"},
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'tag': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.MediaTag']"}),
-            'video': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.MediaVideo']"})
-        },
-        u'legacy.membersmember': {
-            'Meta': {'object_name': 'MembersMember', 'db_table': "u'members_member'"},
-            'active': ('django.db.models.fields.IntegerField', [], {}),
-            'bio': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'display_first': ('django.db.models.fields.CharField', [], {'max_length': '50L', 'blank': 'True'}),
-            'display_last': ('django.db.models.fields.CharField', [], {'max_length': '50L', 'blank': 'True'}),
-            'dob': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '50L', 'blank': 'True'}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'instrument': ('django.db.models.fields.CharField', [], {'max_length': '100L', 'blank': 'True'}),
-            'join_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '50L', 'blank': 'True'}),
-            'middle_name': ('django.db.models.fields.CharField', [], {'max_length': '50L', 'blank': 'True'}),
-            'section': ('django.db.models.fields.CharField', [], {'max_length': '100L', 'blank': 'True'})
-        },
-        u'legacy.registrationregistrationprofile': {
-            'Meta': {'object_name': 'RegistrationRegistrationprofile', 'db_table': "u'registration_registrationprofile'"},
-            'activation_key': ('django.db.models.fields.CharField', [], {'max_length': '40L'}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.AuthUser']", 'unique': 'True'})
-        },
-        u'legacy.showsshow': {
-            'Meta': {'object_name': 'ShowsShow', 'db_table': "u'shows_show'"},
-            'ads_cost': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
-            'ages': ('django.db.models.fields.CharField', [], {'max_length': '100L', 'blank': 'True'}),
-            'commission': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
-            'date': ('django.db.models.fields.DateTimeField', [], {}),
-            'doors_time': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'gross': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'in_ears_cost': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
-            'net': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
-            'notes': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'opener': ('django.db.models.fields.CharField', [], {'max_length': '200L', 'blank': 'True'}),
-            'other_cost': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
-            'payout': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
-            'print_ship_cost': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
-            'public': ('django.db.models.fields.IntegerField', [], {}),
-            'sound_cost': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
-            'ticket_price': ('django.db.models.fields.CharField', [], {'max_length': '100L', 'blank': 'True'}),
-            'ticket_url': ('django.db.models.fields.CharField', [], {'max_length': '200L', 'blank': 'True'}),
-            'to_account': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
-            'venue': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.ShowsVenue']"})
-        },
-        u'legacy.showsvenue': {
-            'Meta': {'object_name': 'ShowsVenue', 'db_table': "u'shows_venue'"},
-            'address1': ('django.db.models.fields.CharField', [], {'max_length': '100L', 'blank': 'True'}),
-            'address2': ('django.db.models.fields.CharField', [], {'max_length': '100L', 'blank': 'True'}),
-            'city': ('django.db.models.fields.CharField', [], {'max_length': '100L', 'blank': 'True'}),
-            'contact': ('django.db.models.fields.CharField', [], {'max_length': '100L', 'blank': 'True'}),
-            'country': ('django.db.models.fields.CharField', [], {'max_length': '100L', 'blank': 'True'}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'notes': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'phone': ('django.db.models.fields.CharField', [], {'max_length': '20L', 'blank': 'True'}),
-            'state': ('django.db.models.fields.CharField', [], {'max_length': '2L', 'blank': 'True'}),
-            'venue_image': ('django.db.models.fields.CharField', [], {'max_length': '100L'}),
-            'venue_name': ('django.db.models.fields.CharField', [], {'max_length': '200L', 'blank': 'True'}),
-            'website': ('django.db.models.fields.CharField', [], {'max_length': '200L', 'blank': 'True'}),
-            'zip_code': ('django.db.models.fields.CharField', [], {'max_length': '20L', 'blank': 'True'})
-        },
-        u'legacy.songssetlist': {
-            'Meta': {'object_name': 'SongsSetlist', 'db_table': "u'songs_setlist'"},
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'show': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.ShowsShow']"})
-        },
-        u'legacy.songssetlistsong': {
-            'Meta': {'object_name': 'SongsSetlistsong', 'db_table': "u'songs_setlistsong'"},
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'order': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'setlist': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.SongsSetlist']"}),
-            'song': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.SongsSong']"})
-        },
-        u'legacy.songssong': {
-            'Meta': {'object_name': 'SongsSong', 'db_table': "u'songs_song'"},
-            'foh_notes': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '200L', 'blank': 'True'}),
-            'original_album': ('django.db.models.fields.CharField', [], {'max_length': '200L', 'blank': 'True'}),
-            'original_artist': ('django.db.models.fields.CharField', [], {'max_length': '200L', 'blank': 'True'}),
-            'release_year': ('django.db.models.fields.CharField', [], {'max_length': '200L', 'blank': 'True'})
-        },
-        u'legacy.songssongsinger': {
-            'Meta': {'object_name': 'SongsSongSinger', 'db_table': "u'songs_song_singer'"},
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'member': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.MembersMember']"}),
-            'song': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['legacy.SongsSong']"})
-        },
-        u'legacy.southmigrationhistory': {
-            'Meta': {'object_name': 'SouthMigrationhistory', 'db_table': "u'south_migrationhistory'"},
-            'app_name': ('django.db.models.fields.CharField', [], {'max_length': '255L'}),
-            'applied': ('django.db.models.fields.DateTimeField', [], {}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'migration': ('django.db.models.fields.CharField', [], {'max_length': '255L'})
         },
         u'legacy.wpbwbpscategories': {
             'Meta': {'object_name': 'WpBwbpsCategories', 'db_table': "u'wp_bwbps_categories'"},
@@ -1674,15 +1001,13 @@ class Migration(SchemaMigration):
             'field_name': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'field_type': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'ngg_type': ('django.db.models.fields.IntegerField', [], {}),
-            'sid': ('django.db.models.fields.BigIntegerField', [], {'unique': 'True'})
+            'ngg_type': ('django.db.models.fields.IntegerField', [], {})
         },
         u'legacy.wpnggcffieldslink': {
             'Meta': {'object_name': 'WpNggcfFieldsLink', 'db_table': "u'wp_nggcf_fields_link'"},
             'field_id': ('django.db.models.fields.BigIntegerField', [], {}),
             'gid': ('django.db.models.fields.BigIntegerField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'sid': ('django.db.models.fields.BigIntegerField', [], {'unique': 'True'})
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
         u'legacy.wpnggcffieldvalues': {
             'Meta': {'object_name': 'WpNggcfFieldValues', 'db_table': "u'wp_nggcf_field_values'"},
@@ -1691,8 +1016,7 @@ class Migration(SchemaMigration):
             'field_value': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'ngg_type': ('django.db.models.fields.IntegerField', [], {}),
-            'pid': ('django.db.models.fields.BigIntegerField', [], {}),
-            'sid': ('django.db.models.fields.BigIntegerField', [], {'unique': 'True'})
+            'pid': ('django.db.models.fields.BigIntegerField', [], {})
         },
         u'legacy.wpngggallery': {
             'Meta': {'object_name': 'WpNggGallery', 'db_table': "u'wp_ngg_gallery'"},

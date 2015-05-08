@@ -114,6 +114,10 @@ class TourExpense(models.Model):
         else:
             return None
 
+    @property
+    def new_category(self):
+        return self.category
+
     def __unicode__(self):
         safedate = ''
         if self.date:

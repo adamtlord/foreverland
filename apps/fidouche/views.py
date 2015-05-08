@@ -296,10 +296,10 @@ def gig_finances_view(request, gig_id=None, template='fidouche/gig_finances_view
 def expenses_list(request, year=current_year, template='fidouche/expenses_list.html'):
     """Show non-gig expenses"""
     expenses = Expense.objects.filter(show__isnull=True, date__year=year)
-    tour_expenses = TourExpense.objects.filter(date__year=year)
-    all_expenses = list(chain(expenses, tour_expenses))
+    # tour_expenses = TourExpense.objects.filter(date__year=year)
+    # all_expenses = list(chain(expenses, tour_expenses))
     d = {
-        'expenses': all_expenses
+        'expenses': expenses
     }
 
     return render(request, template, d)
@@ -431,7 +431,9 @@ def finance_reports(request, template='fidouche/finance_reports.html'):
 
         expense_payments = {}
         expensePayments = Expense.objects.filter(date__range=(start_date, end_date)).filter(amount__gt=0)
-        for payment in expensePayments:
+        tourExpensePayments = TourExpense.objects.filter(date__range=(start_date, end_date)).filter(amount__gt=0)
+        allExpenses = list(chain(expensePayments, tourExpensePayments))
+        for payment in allExpenses:
             if payment.payee in expense_payments:
                 expense_payments[payment.payee]['total'].append(payment.amount)
                 expense_payments[payment.payee]['payments'].append(payment)
@@ -442,11 +444,11 @@ def finance_reports(request, template='fidouche/finance_reports.html'):
                 }
         for payee in expense_payments:
             expense_payments[payee]['total'] = sum(expense_payments[payee]['total'])
+
         d.update({'expense_payments': expense_payments})
 
     else:
         d['no_dates'] = True
-
     return render(request, template, d)
 
 
@@ -536,7 +538,9 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
 
         expense_payments = {}
         expensePayments = Expense.objects.filter(date__range=(start_date, end_date)).filter(amount__gt=0)
-        for payment in expensePayments:
+        tourExpensePayments = TourExpense.objects.filter(date__range=(start_date, end_date)).filter(amount__gt=0)
+        allExpenses = list(chain(expensePayments, tourExpensePayments))
+        for payment in allExpenses:
             if payment.new_category.tax_category.name in expense_payments:
                 expense_payments[payment.new_category.tax_category.name]['total'].append(payment.amount)
                 expense_payments[payment.new_category.tax_category.name]['payments'].append(payment)

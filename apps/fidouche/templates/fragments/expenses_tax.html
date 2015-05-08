@@ -33,7 +33,13 @@
                     <td><a href="{% url 'expense_details' payment.id %}">{{ payment.date|date:"n/j/y" }}</a></td>
                     <td>${{ payment.amount|intcomma }}</td>
                     <td>{{ payment.payee }}</td>
-                    <td>{% if payment.show %}<a href="{% url 'gig_finances' payment.show.id %}">{{ payment.show }}</a>{% endif %}</td>
+                    <td>
+                        {% if payment.show %}
+                            <a href="{% url 'gig_finances' payment.show.id %}">{{ payment.show }}</a>
+                        {% elif payment.tour %}
+                            <a href="{% url 'tour_detail' payment.tour.id %}"><i class="fa fa-road"></i> {{ payment.tour }}</a>
+                        {% endif %}
+                    </td>
                     <td>{{ payment.notes }}</td>
                 </tr>
             {% endfor %}

@@ -212,8 +212,8 @@
 							<tbody>
 								{% for payment in payments.payments %}
 								<tr>
-									<td>{{payment.date }}</td>
-									<td>{{payment.new_category }}</td>
+									<td>{{payment.date }}{% if payment.tour %} <a href="{% url 'tour_detail' payment.tour.id %}"><i class="fa fa-road"></i></a>{% endif %}</td>
+									<td>{% if payment.tour %}{{ payment.category }}{% else %}{{payment.new_category }}{% endif %}</td>
 									<td>${{payment.amount|intcomma }}</td>
 								</tr>
 								{% endfor %}

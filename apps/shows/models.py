@@ -109,7 +109,7 @@ class Tour(models.Model):
         shows = self.shows
         expenses = self.expenses
         if shows and expenses:
-            return expenses / len(shows)
+            return Decimal('%.2f' % (expenses / len(shows)))
         else:
             return 0
 

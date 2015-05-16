@@ -20,7 +20,11 @@ class Song(models.Model):
 
 class Setlist(models.Model):
     show = models.ForeignKey(Show, related_name='setlist')
-    songs = models.ManyToManyField(Song, through='SetlistSong')
+    # songs = models.ManyToManyField(Song, through='SetlistSong')
+
+    @property
+    def songs(self):
+        return self.setlistsong_set.all()
 
     def __unicode__(self):
         return '%s %s' % (self.show.date.strftime('%d/%m/%y'), self.show.venue)
@@ -30,6 +34,10 @@ class SetlistSong(models.Model):
     song = models.ForeignKey(Song)
     setlist = models.ForeignKey(Setlist)
     order = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        unique_together = ('song', 'setlist', 'order')
+        ordering = ['order']
 
     def __unicode__(self):
         return '%s' % self.song

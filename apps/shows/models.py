@@ -246,6 +246,14 @@ class Show(models.Model):
             d['Tour Costs'] = self.tour.expense_share
         return d
 
+    @property
+    def get_setlist(self):
+        setlists = self.setlist.all()
+        if setlists:
+            return setlists[0]
+        else:
+            return None
+
     class Meta:
         ordering = ['date']
 

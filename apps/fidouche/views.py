@@ -225,31 +225,35 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
         sub_payment_formset = SubPaymentFormSet(request.POST, instance=gig)
         production_payment_formset = ProductionPaymentFormSet(request.POST, instance=gig)
         if form.is_valid() and \
-            expense_formset.is_valid() and \
-            payment_formset.is_valid() and \
-            sub_payment_formset.is_valid() and \
-            production_payment_formset.is_valid():
-            form.save()
-            expense_formset.save()
-            payment_formset.save()
-            sub_payment_formset.save()
-            production_payment_formset.save()
+           expense_formset.is_valid() and \
+           payment_formset.is_valid() and \
+           sub_payment_formset.is_valid() and \
+           production_payment_formset.is_valid():
+                form.save()
+                expense_formset.save()
+                payment_formset.save()
+                sub_payment_formset.save()
+                production_payment_formset.save()
 
-            cdata = form.cleaned_data
-            if not cdata['commission_withheld']:
-                commission_payment, created = CommissionPayment.objects.get_or_create(show=gig)
-                commission_payment.agent = cdata['agent']
-                commission_payment.amount = cdata['commission']
-                commission_payment.paid = cdata['commission_paid']
-                commission_payment.check_no = cdata['commission_check_no']
-                commission_payment.save()
+                cdata = form.cleaned_data
+                if not cdata['commission_withheld']:
+                    commission_payment, created = CommissionPayment.objects.get_or_create(show=gig)
+                    commission_payment.agent = cdata['agent']
+                    commission_payment.amount = cdata['commission']
+                    commission_payment.paid = cdata['commission_paid']
+                    commission_payment.check_no = cdata['commission_check_no']
+                    commission_payment.save()
 
-            messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>NICE.</strong> Gig finances updated!')
-            return redirect(request.path)
+                    messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>NICE.</strong> Gig finances updated!')
+                    return redirect(request.path)
         else:
             messages.add_message(request, messages.ERROR, '<i class="fa fa-wrench"></i> <strong>Aw, damnit.</strong> Something\'s fucked up.')
     else:
-        form = GigFinanceForm(instance=gig, initial={'agent': 1})
+        initial_data = {}
+        if not gig.agent:
+            initial_data['agent'] = 1
+
+        form = GigFinanceForm(instance=gig, initial=initial_data)
         expense_formset = ExpenseFormSet(instance=gig)
         payment_formset = PaymentFormSet(instance=gig)
         sub_payment_formset = SubPaymentFormSet(instance=gig)

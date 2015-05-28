@@ -185,7 +185,15 @@ $(function ($) {
 	if($('#id_gross_itemized').val() == 'True'){
 		$('#buyouts_toggle').click();
 	}
-	$('#auto_calc').bootstrapSwitch();
+	var autoCalcState = Cookies.get('autoCalc') === 'false' ? false : true;
+	$('#auto_calc').attr('checked', autoCalcState);
+	$('#auto_calc').bootstrapSwitch({
+		onSwitchChange: function(event, state){
+			Cookies.set('autoCalc', state);
+			if(state){
+				_updateFields();
+			}
+		},
+	}).trigger('change');
 
-	$(document).ready(_updateFields());
 });

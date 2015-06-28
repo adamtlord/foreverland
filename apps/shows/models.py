@@ -121,7 +121,7 @@ class Show(models.Model):
     # Open to the public/Display on public calendar?
     public = models.BooleanField(default=True)
     # Public Information
-    venue = models.ForeignKey(Venue, related_name='venue')
+    venue = models.ForeignKey(Venue, related_name='shows')
     date = models.DateTimeField()
     tour = models.ForeignKey(Tour, related_name='show_in_tour', blank=True, null=True)
     doors_time = models.TimeField(blank=True, null=True)

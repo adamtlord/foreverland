@@ -12,7 +12,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from settings import GOOGLE_MAPS_API_KEY
 
 from members.models import Member, Sub
-from shows.models import Show, Tour
+from shows.models import Show, Tour, Venue
 from fidouche.models import Payment, SubPayment, Expense, TourExpense, Quote, CommissionPayment, \
     ProductionPayment, ProductionCategory
 from fidouche.forms import GigFinanceForm, ExpenseForm, TourExpenseForm, PaymentForm, SubPaymentForm, \
@@ -698,5 +698,14 @@ def tour_detail(request, tour_id=None, template='fidouche/tour_detail.html'):
         'tour': tour,
         'expense_formset': expense_formset,
         'maps_key': GOOGLE_MAPS_API_KEY
+    }
+    return render(request, template, d)
+
+
+@login_required
+def venue_map(request, template='fidouche/venue_map.html'):
+
+    d = {
+        'venues': Venue.objects.all()
     }
     return render(request, template, d)

@@ -4,7 +4,12 @@ from fidouche.models import Expense
 from sorl.thumbnail.admin import AdminImageMixin
 
 
-admin.site.register(Venue)
+class VenueAdmin(admin.ModelAdmin):
+    list_display = ('venue_name', 'city', 'state')
+    search_fields = ['venue_name']
+
+admin.site.register(Venue, VenueAdmin)
+
 
 class ExpenseAdmin(AdminImageMixin, admin.ModelAdmin):
     pass

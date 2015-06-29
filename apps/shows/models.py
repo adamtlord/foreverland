@@ -24,6 +24,9 @@ class Venue(models.Model):
     ltlng = models.CharField(max_length=100, blank=True, null=True)
     capacity = models.IntegerField(blank=True, null=True)
 
+    class Meta:
+        ordering = ['venue_name']
+
     def save(self, *args, **kwargs):
         """ Let's get the latlng before we save"""
         super(Venue, self).save(*args, **kwargs)

@@ -39,7 +39,7 @@
             var venues = [];
             var venuePoints = []
             {% for venue in venues %}
-                venues.push(['<img src="/uploads/{{ venue.venue_image }}" width="36" /><br><strong>{{ venue }}</strong><br>{{ venue.city }}, {{ venue.state }}<br><strong>{{ venue.shows.all|length }}</strong> show{{ venue.shows.all|pluralize }}<br><small>{% for show in venue.shows.all %}{{ show.date|date:"m/d/y" }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>',
+                venues.push(['{% if venue.venue_image %}<img src="/uploads/{{ venue.venue_image }}" width="36" /><br>{% endif %}<strong>{{ venue }}</strong><br>{{ venue.city }}, {{ venue.state }}<br><strong>{{ venue.shows.all|length }}</strong> show{{ venue.shows.all|pluralize }}<br><small>{% for show in venue.shows.all %}{{ show.date|date:"m/d/y" }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>',
                     {{ venue.ltlng}}, {{ forloop.counter }}]);
             {% endfor %}
             var mapOptions = {

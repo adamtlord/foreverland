@@ -1,4 +1,3 @@
-import datetime
 from decimal import *
 from django.db import models
 from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
@@ -31,7 +30,7 @@ class Venue(models.Model):
         """ Let's get the latlng before we save"""
         super(Venue, self).save(*args, **kwargs)
         if not self.ltlng:
-            address = '%s %s %s' % (self.address1, self.address2, self.zip_code)
+            address = '%s %s %s %s %s %s' % (self.venue_name, self.address1, self.address2, self.city, self.state, self.zip_code)
             try:
                 self.ltlng = get_lat_lng(address)
             except Exception:

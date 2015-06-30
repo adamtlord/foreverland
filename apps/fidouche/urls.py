@@ -25,4 +25,5 @@ urlpatterns = patterns(
     url(r'^sub-payments/(?P<sub_id>\d+)$', 'sub_payments', {}, name='sub_payments'),
 
     url(r'^map/$', 'venue_map', {}, name='venue_map'),
+    url(r'^map-data/$', 'venue_map_data', {}, name='venue_map_data'),
 )

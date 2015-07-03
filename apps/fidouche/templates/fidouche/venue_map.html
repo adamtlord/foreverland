@@ -73,7 +73,7 @@
             }
             function windowContent(i){
                 var v = venues[i];
-                var img = v.image ? '<img src="/uploads/' + v.image + '" width="36" /><br>' : '';
+                var img = v.image ? '<img src="' + v.image + '" width="36" /><br>' : '';
                 var show_str = v.shows.length > 1 ? 'shows' : 'show';
                 return img + '<strong>' + v.name + '</strong><br>' + v.city + ', ' + v.state + '<br><strong>' + v.shows.length + '</strong> ' + show_str + ' — $' + v.net_display + '<br><small>' + v.shows.join(', ') + '</small>';
             }

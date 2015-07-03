@@ -1,4 +1,5 @@
 from datetime import date
+from time import strftime
 import random
 import datetime
 import json
@@ -7,6 +8,7 @@ from django.forms.models import inlineformset_factory
 from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse
@@ -715,28 +717,23 @@ def venue_map(request, template='fidouche/venue_map.html'):
 
 
 def venue_map_data(request):
-    venues = Venue.objects.all()
-    venue_data = {}
-    venue_data['type'] = 'FeatureCollection'
-    venue_data['features'] = []
+    venues = Venue.objects.exclude(ltlng='')
+    venue_data = []
     for venue in venues:
-        if venue.ltlng:
-            venue_image_url = None
-            venue_ltlng = list(reversed([float(x) for x in venue.ltlng.split(',')]))
-            if venue.venue_image:
-                venue_image_url = venue.venue_image.url
-            venue_data['features'].append({
-                'type': 'Feature',
-                'geometry': {
-                    'type': 'Point',
-                    'coordinates': venue_ltlng
-                },
-                'properties': {
-                    'venueName': venue.venue_name,
-                    'venueCity': venue.city,
-                    'venueState': venue.state,
-                    'venueImage': venue_image_url
-                }
-            })
+        venue_ltlng = list([float(x) for x in venue.ltlng.split(',')])
+        venue_image_url = None
+        shows = venue.shows.all()
+        if venue.venue_image:
+            venue_image_url = venue.venue_image.url
+        venue_data.append({
+            'coordinates': venue_ltlng,
+            'name': venue.venue_name,
+            'city': venue.city,
+            'state': venue.state,
+            'image': venue_image_url,
+            'shows': [show.date.strftime('%m/%d/%Y') for show in shows],
+            'net_display': intcomma(sum([show.net for show in shows if show.net])),
+            'net': int(sum([show.net for show in shows if show.net]))
+        })
 
     return HttpResponse(json.dumps(venue_data), content_type="application/json")

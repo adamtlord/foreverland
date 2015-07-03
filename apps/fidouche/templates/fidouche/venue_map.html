@@ -17,7 +17,7 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-
+        <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/jquery.js"></script>
         <style>
             html, body, #venue_map {
                 height: 100%;
@@ -31,29 +31,52 @@
                 margin-left: -135px;
                 z-index: 5;
                 background-color: rgba(255,255,255,.8);
-                padding: 15px;
+                padding: 5px 10px;
             }
         </style>
 
     </head>
     <body>
-        <div id="panel">
-            <button onclick="toggleHeatmap()" class="btn btn-default">Toggle Heatmap</button>
-            <button onclick="toggleMarkers()" class="btn btn-default">Toggle Markers</button>
+        <div id="panel" class="form-inline">
+            <div class="checkbox">
+                <label for="markers">
+                    <input id="markers" type="checkbox" checked="checked"> Markers
+                </label>
+            </div>
+            <div class="checkbox">
+                <label for="heatmap">
+                    <input id="heatmap" type="checkbox"> Heatmap
+                </label>
+            </div>
         </div>
         <div id="venue_map"></div>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ maps_key }}&libraries=visualization&sensor=false"></script>
         <script>
-            var map, pointArray, heatmap;
-            var venues = [];
+            var map, heatmap, venues;
             var venuePoints = [];
-            var markers = []
-            {% for venue in venues %}
-                venues.push(['{% if venue.venue_image %}<img src="/uploads/{{ venue.venue_image }}" width="36" /><br>{% endif %}<strong>{{ venue }}</strong><br>{{ venue.city }}, {{ venue.state }}<br><strong>{{ venue.shows.all|length }}</strong> show{{ venue.shows.all|pluralize }}<br><small>{% for show in venue.shows.all %}{{ show.date|date:"m/d/y" }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>',
-                    {{ venue.ltlng}}
-                ]);
-            {% endfor %}
-
+            var markers = [];
+            var netData = [];
+            function fetchVenueData(){
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'venue_map_data' %}",
+                    dataType: 'json',
+                    cache: true,
+                    success: function(data) {
+                        venues = data;
+                        initialize();
+                    },
+                    error: function(xhr, status, err) {
+                        console.error(xhr, status, err);
+                    }
+                });
+            }
+            function windowContent(i){
+                var v = venues[i];
+                var img = v.image ? '<img src="/uploads/' + v.image + '" width="36" /><br>' : '';
+                var show_str = v.shows.length > 1 ? 'shows' : 'show';
+                return img + '<strong>' + v.name + '</strong><br>' + v.city + ', ' + v.state + '<br><strong>' + v.shows.length + '</strong> ' + show_str + ' — $' + v.net_display + '<br><small>' + v.shows.join(', ') + '</small>';
+            }
             function initialize() {
                 var mapOptions = {
                     zoom: 5,
@@ -65,7 +88,7 @@
                 var marker, i;
                 for (i = 0; i < venues.length; i++) {
                     var venue = venues[i];
-                    var point = new google.maps.LatLng(venue[1], venue[2]);
+                    var point = new google.maps.LatLng(venue.coordinates[0], venue.coordinates[1]);
                     venuePoints.push(point);
                     marker = new google.maps.Marker({
                         position: point,
@@ -73,22 +96,31 @@
                     });
                     google.maps.event.addListener(marker, 'click', (function(marker, i) {
                         return function() {
-                            infowindow.setContent(venues[i][0]);
+                            infowindow.setContent(windowContent(i));
                             infowindow.open(map, marker);
                         }
                     })(marker, i));
+                    weightedLocation = {
+                        location: point,
+                        weight: venue.net >= 0 ? venue.net : 0
+                    }
                     markers.push(marker);
+                    netData.push(weightedLocation);
                 }
                 pointArray = new google.maps.MVCArray(venuePoints);
                 heatmap = new google.maps.visualization.HeatmapLayer({
-                  data: pointArray
+                  data: netData,
+                  maxIntensity: 60000,
+                  radius:20,
+                  opacity:.9
                 });
             }
-            function toggleHeatmap() {
-                heatmap.setMap(heatmap.getMap() ? null : map);
+            function toggleHeatmap(state) {
+                var mapstate = state ? map : null;
+                heatmap.setMap(mapstate);
             }
-            function toggleMarkers() {
-                if(markers[0].getMap() === null){
+            function toggleMarkers(state) {
+                if(state){
                     for( var i = 0, n = markers.length; i < n; ++i ) {
                         markers[i].setMap(map);
                     }
@@ -98,7 +130,14 @@
                     }
                 }
             }
-            google.maps.event.addDomListener(window, 'load', initialize);
+            $('#panel #markers').on('change', function(e){
+                toggleMarkers($(this).is(':checked'));
+            });
+            $('#panel #heatmap').on('change', function(e){
+                toggleHeatmap($(this).is(':checked'));
+            });
+            $(window).load(fetchVenueData());
+
 
         </script>
     </body>

@@ -722,9 +722,15 @@ def venue_map_data(request):
     for venue in venues:
         venue_ltlng = list([float(x) for x in venue.ltlng.split(',')])
         venue_image_url = None
+        venue_net = 0
+        venue_average = 0
         shows = venue.shows.all()
+        net_shows = [show for show in shows if show.net]
         if venue.venue_image:
             venue_image_url = venue.venue_image.url
+        if net_shows:
+            venue_net = int(sum([show.net for show in net_shows]))
+            venue_average = int(sum([show.net for show in net_shows])) / len(net_shows)
         venue_data.append({
             'coordinates': venue_ltlng,
             'name': venue.venue_name,
@@ -732,8 +738,11 @@ def venue_map_data(request):
             'state': venue.state,
             'image': venue_image_url,
             'shows': [show.date.strftime('%m/%d/%Y') for show in shows],
-            'net_display': intcomma(sum([show.net for show in shows if show.net])),
-            'net': int(sum([show.net for show in shows if show.net]))
+            'net_display': intcomma(venue_net),
+            'net': max(venue_net, 0),
+            'average': max(venue_average, 0),
+            'average_display': intcomma(venue_average),
+            'num_shows': len(shows)
         })
 
     return HttpResponse(json.dumps(venue_data), content_type="application/json")

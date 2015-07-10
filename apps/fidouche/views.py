@@ -717,7 +717,9 @@ def venue_map(request, template='fidouche/venue_map.html'):
 
 
 def venue_map_data(request):
-    venues = Venue.objects.exclude(ltlng='')
+    venue_set = Venue.objects.exclude(ltlng='')
+    venue_set = [v for v in venue_set if v.shows.all()]
+    venues = sorted(venue_set, key=lambda v: v.first_show)
     venue_data = []
     for venue in venues:
         venue_ltlng = list([float(x) for x in venue.ltlng.split(',')])
@@ -742,7 +744,8 @@ def venue_map_data(request):
             'net': max(venue_net, 0),
             'average': max(venue_average, 0),
             'average_display': intcomma(venue_average),
-            'num_shows': len(shows)
+            'num_shows': len(shows),
+            'first_show_year': venue.first_show_year
         })
 
     return HttpResponse(json.dumps(venue_data), content_type="application/json")

@@ -21,7 +21,7 @@
 
 <div class="container">
   <div id="video_wrap" class="video-wrap">
-    <iframe  src="//www.youtube.com/embed/1MbDSSEUCZg?rel=0" width="100%" height="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <div id="video_player"></div>
   </div>
 </div>
 
@@ -71,7 +71,7 @@
   <h3>Follow Us</h3>
   <div class="row hidden-xs">
     <div class="col-md-6 col-sm-6">
-      <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FForeverlandSF&colorscheme=dark&show_faces=true&header=true&stream=true&show_border=false&appId=247646052052822" scrolling="no" frameborder="0" style="border:none;" width="100%" height="480"></iframe>
+      <div class="fb-page" data-href="https://www.facebook.com/ForeverlandSF" data-width="500" data-height="480" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/ForeverlandSF"><a href="https://www.facebook.com/ForeverlandSF">Foreverland...A 14 Piece tribute to Michael Jackson</a></blockquote></div></div>
     </div>
     <div class="col-md-6 col-sm-6">
       <a class="twitter-timeline" href="https://twitter.com/ForeverlandBand" data-widget-id="385831208401137664">Tweets by @ForeverlandBand</a>
@@ -121,5 +121,24 @@
 	    require(['{{ STATIC_URL }}global/js/common.js'], function () {
 	        require(['homepage']);
 	    });
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('video_player', {
+          title: 'Foreverland',
+          height: '100%',
+          width: '100%',
+          videoId: '1MbDSSEUCZg',
+          playerVars: {
+            modestbranding: 1,
+            rel: 0,
+            showinfo: 0,
+            theme: 'dark'
+          }
+        });
+      }
 	</script>
 {% endblock %}

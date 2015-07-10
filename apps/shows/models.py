@@ -37,6 +37,16 @@ class Venue(models.Model):
                 raise Exception
             super(Venue, self).save(*args, **kwargs)
 
+    @property
+    def first_show(self):
+        shows = self.shows.all().order_by('date')
+        return int(shows[0].date.strftime('%s'))
+
+    @property
+    def first_show_year(self):
+        shows = self.shows.all().order_by('date')
+        return shows[0].date.strftime('%Y')
+
     def __unicode__(self):
         return self.venue_name
 

@@ -44,11 +44,11 @@
         </footer>
         <div id="fb-root"></div>
         <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=247646052052822";
-          fjs.parentNode.insertBefore(js, fjs);
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=247646052052822";
+            fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/require-jquery.js"></script>
         <script>
@@ -56,7 +56,7 @@
                 require(['sitewide']);
             });
         </script>
-        {% block require_js %}{% endblock %}    
+        {% block require_js %}{% endblock %}
         {% block modals %}{% endblock %}
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

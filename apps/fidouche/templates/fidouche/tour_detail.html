@@ -101,9 +101,9 @@
 <script type="text/javascript">
     function initialize() {
         var venues = [];
-        var venuePoints = []
+        var venuePoints = [];
         {% for show in tour.shows %}
-            venues.push('<strong>{{ show.date|date:"m/d/y" }}</strong><br>{{ show.venue }}<br>{{ show.venue.address1 }}<br>{{ show.venue.city }}, {{ show.venue.state }}', {{ show.venue.ltlng}}, {{ forloop.counter }}]);
+            venues.push('<strong>{{ show.date|date:"m/d/y" }}</strong><br>{{ show.venue }}<br>{{ show.venue.address1 }}<br>{{ show.venue.city }}, {{ show.venue.state }}',{{ show.venue.ltlng}},{{ forloop.counter }});
         {% endfor %}
         var mapOptions = {
             zoom: 10,

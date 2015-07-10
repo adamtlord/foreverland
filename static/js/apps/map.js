@@ -3,6 +3,8 @@ var venuePoints = [];
 var markers = [];
 var heatData = [];
 var dataUrl = $('#venue_map').data('url');
+var infowindow = new google.maps.InfoWindow({maxWidth: 300});
+
 function fetchVenueData() {
     $.ajax({
         type: "GET",
@@ -35,15 +37,20 @@ function initialize(){
     };
     map = new google.maps.Map(document.getElementById('venue_map'), mapOptions);
     heatmap = new google.maps.visualization.HeatmapLayer({radius: 20, opacity: .9, data: heatData});
-    var infowindow = new google.maps.InfoWindow({maxWidth: 300});
     var marker, i;
     for (i = 0; i < venues.length; i++) {
         var venue = venues[i];
         var point = new google.maps.LatLng(venue.coordinates[0], venue.coordinates[1]);
         venuePoints.push(point);
+    }
+}
+
+function addMarkerWithTimeout(point, i, timeout, animation){
+    window.setTimeout(function(){
         marker = new google.maps.Marker({
             position: point,
-            map: map
+            map: map,
+            animation: animation
         });
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
@@ -52,8 +59,25 @@ function initialize(){
             }
         })(marker, i));
         markers.push(marker);
+        $('#year').text(venues[i].first_show_year);
+    }, timeout);
+}
+
+function dropMarkers(timer, animate){
+    clearMarkers();
+    $('#panel #markers').attr('checked','checked');
+    var animation = animate ? google.maps.Animation.DROP : null;
+    for (i = 0; i < venuePoints.length; i++) {
+        addMarkerWithTimeout(venuePoints[i], i, i * timer, animation);
     }
-    pointArray = new google.maps.MVCArray(venuePoints);
+    $('#year').text('');
+}
+
+function clearMarkers(){
+    $('#year').text('');
+    for (var i = 0, n = markers.length; i < n; ++i) {
+        markers[i].setMap(null);
+    }
 }
 
 function toggleHeatmap(state, param) {
@@ -78,13 +102,9 @@ function toggleHeatmap(state, param) {
 
 function toggleMarkers(state) {
     if (state) {
-        for (var i = 0, n = markers.length; i < n; ++i) {
-            markers[i].setMap(map);
-        }
+        dropMarkers(0, false);
     } else {
-        for (var i = 0, n = markers.length; i < n; ++i) {
-            markers[i].setMap(null);
-        }
+        clearMarkers();
     }
 }
 

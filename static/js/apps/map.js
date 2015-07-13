@@ -59,7 +59,9 @@ function addMarkerWithTimeout(point, i, timeout, animation){
             }
         })(marker, i));
         markers.push(marker);
-        $('#year').text(venues[i].first_show_year);
+        if(timeout){
+            $('#year').text(venues[i].first_show_year);
+        }
     }, timeout);
 }
 
@@ -70,7 +72,6 @@ function dropMarkers(timer, animate){
     for (i = 0; i < venuePoints.length; i++) {
         addMarkerWithTimeout(venuePoints[i], i, i * timer, animation);
     }
-    $('#year').text('');
 }
 
 function clearMarkers(){

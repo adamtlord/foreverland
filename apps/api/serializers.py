@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from rest_framework import serializers
 from members.models import Member
 from shows.models import Show, Venue, Tour
@@ -29,11 +30,12 @@ class SongSerializer(serializers.ModelSerializer):
 
 
 class SetlistSongSerializer(serializers.HyperlinkedModelSerializer):
+    song_id = serializers.IntegerField(read_only=False)
     song = SongSerializer()
 
     class Meta:
         model = SetlistSong
-        fields = ('song', 'order')
+        fields = ('song', 'song_id', 'order')
 
 
 class SetlistSerializer(serializers.HyperlinkedModelSerializer):
@@ -43,3 +45,28 @@ class SetlistSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Setlist
         fields = ('show', 'songs',)
+
+    def validate_songs(self, data):
+        order_list = []
+        for item in data:
+            if item['order'] in order_list:
+                item['order'] += 1
+            order_list.append(item['order'])
+        songs = sorted(data, key=lambda x: x['order'])
+        for idx, song in enumerate(songs):
+            song['order'] = idx
+        return data
+
+    def update(self, instance, validated_data):
+        instance.setlistsong_set.all().delete()
+        for song in validated_data['songs']:
+            song_reference = Song.objects.get(pk=song['song_id'])
+            song_order = song['order']
+            new_song = SetlistSong(
+                setlist=instance,
+                song=song_reference,
+                order=song_order,
+            )
+            new_song.save()
+        instance.save()
+        return instance

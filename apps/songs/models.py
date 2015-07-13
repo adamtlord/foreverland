@@ -29,6 +29,9 @@ class Setlist(models.Model):
     def __unicode__(self):
         return '%s %s' % (self.show.date.strftime('%d/%m/%y'), self.show.venue)
 
+    def save(self, *args, **kwargs):
+        pass
+
 
 class SetlistSong(models.Model):
     song = models.ForeignKey(Song)

@@ -38,7 +38,7 @@ def behind_the_music(request, template="media/behind_the_music.html"):
     album = Album.objects.get(pk=3)
     album.images = album.image_set.all()
     album.videos = album.video_set.all()
-    
+
     d = {
         'album': album
     }
@@ -53,8 +53,10 @@ def list(request, template="media/list.html"):
         albums = albums.filter(public=True)
 
     paginator = Paginator(albums, 10)
-    try: page = int(request.GET.get("page", '1'))
-    except ValueError: page = 1
+    try:
+        page = int(request.GET.get("page", '1'))
+    except ValueError:
+        page = 1
 
     try:
         albums = paginator.page(page)
@@ -72,13 +74,16 @@ def list(request, template="media/list.html"):
 def album(request, pk, view="thumbnails", template="media/album.html"):
     """Album listing."""
     num_images = 30
-    if view == "full": num_images = 10
+    if view == "full":
+        num_images = 10
 
     album = Album.objects.get(pk=pk)
     images = album.image_set.all()
     paginator = Paginator(images, num_images)
-    try: page = int(request.GET.get("page", '1'))
-    except ValueError: page = 1
+    try:
+        page = int(request.GET.get("page", '1'))
+    except ValueError:
+        page = 1
 
     try:
         images = paginator.page(page)
@@ -150,8 +155,10 @@ def update(request):
 
 def search(request, template="media/search.html"):
     """Search, filter, sort images."""
-    try: page = int(request.GET.get("page", '1'))
-    except ValueError: page = 1
+    try:
+        page = int(request.GET.get("page", '1'))
+    except ValueError:
+        page = 1
 
     p = request.POST
     images = defaultdict(dict)
@@ -198,8 +205,7 @@ def search(request, template="media/search.html"):
         img.tag_lst = join(tags, ', ')
         img.album_lst = [x[1] for x in img.albums.values_list()]
 
-    d = dict(results=results, user=request.user, albums=Album.objects.all(), prm=parameters,
-        media_url=MEDIA_URL)
+    d = dict(results=results, user=request.user, albums=Album.objects.all(), prm=parameters, media_url=MEDIA_URL)
     d.update(csrf(request))
 
     return render(request, template, d)
@@ -217,7 +223,8 @@ def update_and_filter(images, p):
         tags = d["tags"].split(', ')
         lst = []
         for t in tags:
-            if t: lst.append(Tag.objects.get_or_create(tag=t)[0])
+            if t:
+                lst.append(Tag.objects.get_or_create(tag=t)[0])
         image.tags = lst
 
         if "albums" in d:

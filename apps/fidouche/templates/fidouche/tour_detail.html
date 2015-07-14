@@ -103,7 +103,7 @@
         var venues = [];
         var venuePoints = [];
         {% for show in tour.shows %}
-            venues.push('<strong>{{ show.date|date:"m/d/y" }}</strong><br>{{ show.venue }}<br>{{ show.venue.address1 }}<br>{{ show.venue.city }}, {{ show.venue.state }}',{{ show.venue.ltlng}},{{ forloop.counter }});
+            venues.push(['<strong>{{ show.date|date:"m/d/y" }}</strong><br>{{ show.venue }}<br>{{ show.venue.address1 }}<br>{{ show.venue.city }}, {{ show.venue.state }}', {{ show.venue.ltlng}}, {{ forloop.counter }}]);
         {% endfor %}
         var mapOptions = {
             zoom: 10,
@@ -115,6 +115,7 @@
         var bounds = new google.maps.LatLngBounds();
         var marker, i;
         for (i = 0; i < venues.length; i++) {
+            debugger;
             var venue = venues[i];
             var point = new google.maps.LatLng(venue[1], venue[2]);
             venuePoints.push(point);

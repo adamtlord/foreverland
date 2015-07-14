@@ -245,7 +245,8 @@ class Show(models.Model):
             else:
                 expenses.append(expense_costs[k])
         expenses = sum(expenses)
-        return production + expenses
+        commission = self.commission
+        return production + expenses + commission
 
     def get_total_costs(self):
         tour_costs = self.tour.expense_share if self.tour else 0

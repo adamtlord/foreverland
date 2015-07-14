@@ -245,7 +245,7 @@
 						<label for="tour_costs" class="control-label"><a href="{% url 'tour_detail' gig.tour.id %}" target="_blank" class="pull-right">Tour expenses <i class="fa fa-external-link-square"></i></a></label>
 						<div class="input-group">
 							<span class="input-group-addon">$</span>
-							<input id="tour_expense_share" class="form-control" value="{{ gig.tour.expense_share|intcomma }}" readonly />
+							<input id="tour_expense_share" class="form-control" value="{{ gig.tour.expense_share|floatformat:2|intcomma }}" readonly />
 						</div>
 						<div class="help-block"><em>${{ gig.tour.expenses|intcomma }} in expenses &divide; {{ gig.tour.shows.count }} shows in the tour</em></div>
 					</div>

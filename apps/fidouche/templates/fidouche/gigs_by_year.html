@@ -214,7 +214,6 @@
 				pie: {
 					dataLabels: {
 						formatter: function(){
-							console.log(this)
 							return '<strong>' + this.key + '</strong>:<br>$' + parseInt(this.y, 10).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' (' + Math.floor(this.percentage) + '%)';
 						},
 						distance: 10,

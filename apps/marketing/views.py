@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect
 
 from members.models import Member
 from shows.models import Show
-from songs.models import Song
 from media.models import Video
 from marketing.models import Testimonial
 
@@ -23,26 +22,27 @@ def homepage(request, template='marketing/homepage.html'):
     horns = members.filter(active=True, section='h')
     rhythm = members.filter(active=True, section='r')
     tonight = datetime.datetime.date(next_show.date) == datetime.datetime.today().date()
-    
+
     d = {}
     d['next_show'] = next_show
     d['vocals'] = vocals
     d['horns'] = horns
     d['rhythm'] = rhythm
     d['tonight'] = tonight
-    
+
     return render(request, template, d)
 
 
 def about(request, template='marketing/about.html'):
     """Featured Testimonials"""
-    testimonials = Testimonial.objects.filter(featured=True)
+    testimonials = Testimonial.objects.all().order_by('?')
 
     d = {
         'quotes': testimonials
     }
 
     return render(request, template, d)
+
 
 def faq(request, template='marketing/faq.html'):
     """FAQ page"""

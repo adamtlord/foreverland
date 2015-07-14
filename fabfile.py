@@ -111,6 +111,7 @@ def bounce():
 
     # sudo('/etc/init.d/memcached restart', pty=False)
 
+# rsync -rva adamlord@adamlord.webfactional.com:/home/adamlord/webapps/foreverland_python/src/foreverland/uploads/ /Users/adamlord/work/foreverland/src/foreverland/uploads
 
 def syncdb():
     """Gets a copy of the remote db and puts it into dev environment"""

@@ -2,21 +2,15 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from shows.models import Show
-from songs.models import Song, Setlist, SetlistSong
+from songs.models import Song, Setlist
 
 
 @login_required
-def setter_dashboard(request, template='setter/dashboard.html'):
+def setter_dashboard(request, template='setter/setter_app.html'):
     """"""
-    
-    songs = Song.objects.filter(display=True)
-    setlists = Setlist.objects.all()
 
-    d = {
-        'songs': songs,
-        'setlists': setlists,
-    }
-    return render(request, template, d)
+    return render(request, template)
+
 
 @login_required
 def view_setlist(request, gig_id=None, template='setter/view_setlist.html'):
@@ -24,12 +18,10 @@ def view_setlist(request, gig_id=None, template='setter/view_setlist.html'):
 
     gig_id = int(gig_id)
     gig = get_object_or_404(Show, pk=gig_id)
-    setlist = gig.setlist.all()[:1].get()
-    setsongs = SetlistSong.objects.filter(setlist=setlist).order_by('order')
 
     d = {
         'gig': gig,
-        'setsongs': setsongs
     }
+
     return render(request, template, d)
 

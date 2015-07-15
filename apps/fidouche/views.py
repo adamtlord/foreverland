@@ -675,7 +675,6 @@ def tour_detail(request, tour_id=None, template='fidouche/tour_detail.html'):
     d = {}
     tour = get_object_or_404(Tour, pk=tour_id)
     if request.method == "POST":
-
         expense_formset = ExpenseFormSet(request.POST, request.FILES, instance=tour)
         if expense_formset.is_valid():
             expense_formset.save()

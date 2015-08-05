@@ -12,9 +12,11 @@ class MemberSerializer(serializers.ModelSerializer):
 
 
 class ShowSerializer(serializers.ModelSerializer):
+    venue = serializers.StringRelatedField()
 
     class Meta:
         model = Show
+        fields = ('venue', 'date', 'id')
 
 
 class VenueSerializer(serializers.HyperlinkedModelSerializer):
@@ -35,16 +37,17 @@ class SetlistSongSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = SetlistSong
-        fields = ('song', 'song_id', 'order')
+        fields = ('song', 'song_id', 'order', 'transition')
 
 
 class SetlistSerializer(serializers.HyperlinkedModelSerializer):
     show = serializers.StringRelatedField()
+    show_id = serializers.IntegerField(read_only=True)
     songs = SetlistSongSerializer(many=True)
 
     class Meta:
         model = Setlist
-        fields = ('show', 'songs',)
+        fields = ('show', 'show_id', 'songs',)
 
     def validate_songs(self, data):
         order_list = []
@@ -66,6 +69,7 @@ class SetlistSerializer(serializers.HyperlinkedModelSerializer):
                 setlist=instance,
                 song=song_reference,
                 order=song_order,
+                transition=song.transition
             )
             new_song.save()
         instance.save()

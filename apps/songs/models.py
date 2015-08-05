@@ -13,6 +13,11 @@ class Song(models.Model):
     # Foreverland info
     singer = models.ManyToManyField(Member, related_name='singer', blank=True, null=True)
     foh_notes = models.TextField(verbose_name="Notes for FOH", blank=True, null=True)
+    bpm = models.IntegerField(blank=True, null=True, max_length=16)
+    duration = models.CharField(max_length=32, blank=True, null=True, help_text="Please use the format mm:ss")
+    short_name = models.CharField(max_length=32, blank=True, null=True, help_text="To use on setlists")
+    is_break = models.BooleanField(default=False)
+    is_encore = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.name
@@ -29,14 +34,12 @@ class Setlist(models.Model):
     def __unicode__(self):
         return '%s %s' % (self.show.date.strftime('%d/%m/%y'), self.show.venue)
 
-    def save(self, *args, **kwargs):
-        pass
-
 
 class SetlistSong(models.Model):
     song = models.ForeignKey(Song)
     setlist = models.ForeignKey(Setlist)
     order = models.IntegerField(blank=True, null=True)
+    transition = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ('song', 'setlist', 'order')

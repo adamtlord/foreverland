@@ -33,6 +33,6 @@ class SetlistSongViewSet(viewsets.ModelViewSet):
 
 
 class SetlistViewSet(viewsets.ModelViewSet):
-    queryset = Setlist.objects.all()
+    queryset = Setlist.objects.all().order_by('-show__date')
     serializer_class = SetlistSerializer
     lookup_field = 'show_id'

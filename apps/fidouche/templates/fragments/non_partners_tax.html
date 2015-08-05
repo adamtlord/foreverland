@@ -23,7 +23,7 @@
     <tbody>
         {% for sub, payments in non_partner_payments.items %}
             <tr>
-                <td>{{ sub }} <i class="fa fa-home address-toggle" data-toggle="collapse" data-target="#{{ sub.type }}{{ sub.id }}_address"></i>
+                <td>{{ sub.first_name }} {{ sub.last_name }} <i class="fa fa-home address-toggle" data-toggle="collapse" data-target="#{{ sub.type }}{{ sub.id }}_address"></i>
                     <div id="{{ sub.type }}{{ sub.id }}_address" class="collapse">
                         {% if sub.address %}
                             {{ sub.address }}<br>

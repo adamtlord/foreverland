@@ -47,6 +47,8 @@ class Sub(models.Model):
     phone = PhoneNumberField(blank=True, null=True)
     ssn = models.CharField(verbose_name="SSN#", max_length=16, blank=True, null=True)
 
+    class Meta:
+        ordering = ['first_name']
+
     def __unicode__(self):
         return '%s %s' % (self.first_name, self.last_name)
-

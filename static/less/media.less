@@ -22,6 +22,8 @@ form.img-edit {
 		padding:2px;
 		background:fadeout(@gray-lighter, 10%);
 		margin:0 5px 5px 0;
+		width:132px;
+		height:auto;
 	}
 	&.album-with-captions {
 		padding-bottom:20px;
@@ -34,12 +36,34 @@ form.img-edit {
 				display:block;
 				margin:auto;
 				margin-bottom:5px;
-				
+
 			}
 			&:hover {
 				background:@black;
 				color:@white;
 			}
+		}
+	}
+}
+#instafeed {
+	#instafeed_spinner {
+		.bg-texture;
+		padding:20px;
+		margin:15px auto;
+	}
+	.thumb {
+		.bg-texture;
+		display:inline-block;
+		text-align:center;
+		padding:15px;
+		margin:0 15px 10px 0;
+		img {
+			display:block;
+			margin:auto;
+		}
+		&:hover {
+			background:@black;
+			color:@white;
 		}
 	}
 }
@@ -70,4 +94,13 @@ form.img-edit {
 		padding:0;
 		.box-shadow(0 0 20px @white);
 	}
+}
+.mfp-bottom-bar {
+	margin-top:-40px;
+	padding:5px;
+	.bg-texture;
+}
+.mfp-title {
+	font-size:13px;
+	line-height:16px;
 }

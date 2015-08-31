@@ -3,6 +3,9 @@
 {% block title %} | Photos{% endblock %}
 {% block body %}
 <div class="container interior">
+    <h3><i class="fa fa-instagram"></i> Instagram Feed <small id="instafeed_spinner">Loading <i class="fa fa-spinner fa-spin"></i></small></h3>
+    <p>Follow us at <a href="https://instagram.com/foreverland/">instagram.com/foreverland</a>
+    <div id="instafeed" class="album album-with-captions"></div>
 	<h3>Promotional Photos</h3>
     <div class="row album album-with-captions">
     	<div class="col-md-3">
@@ -12,19 +15,19 @@
 	        </a>
 	    </div>
 	    <div class="col-md-3">
-	        <a href="{{ MEDIA_URL }}images/Foreverland-8x10-bw.jpg"class="thumb">
+	        <a href="{{ MEDIA_URL }}images/Foreverland-8x10-bw.jpg" class="thumb">
 	            <img border="0" alt="" src="{{ MEDIA_URL }}images/Foreverland-8x10-bw-thumb2.jpg" />
 	            B&amp;W 8&times;10 with text
 	        </a>
         </div>
 	    <div class="col-md-3">
-	        <a href="{{ MEDIA_URL }}images/Foreverland-8x10-no-text.jpg"class="thumb">
+	        <a href="{{ MEDIA_URL }}images/Foreverland-8x10-no-text.jpg" class="thumb">
 	            <img border="0" alt="" src="{{ MEDIA_URL }}images/Foreverland-8x10-no-text-thumb2.jpg" />
 	            Color 8&times;10 without text
 	        </a>
         </div>
 	    <div class="col-md-3">
-	        <a href="{{ MEDIA_URL }}images/Foreverland-8x10-bw-no-text.jpg"class="thumb">
+	        <a href="{{ MEDIA_URL }}images/Foreverland-8x10-bw-no-text.jpg" class="thumb">
 	            <img border="0" alt="" src="{{ MEDIA_URL }}images/Foreverland-8x10-bw-no-text-thumb2.jpg" />
 	            B&amp;W 8&times;10 without text
 	        </a>
@@ -46,5 +49,11 @@
         </div>
     </div>
 </div>
-
+{% endblock %}
+{% block require_js %}
+     <script type="text/javascript">
+        require(['{{ STATIC_URL }}global/js/common.js'], function () {
+            require(['photos']);
+        });
+    </script>
 {% endblock %}

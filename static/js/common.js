@@ -18,6 +18,7 @@ require.config({
         'datatables': 'lib/jquery.dataTables.min',
         'datatables_plugins': 'lib/datatables_plugins',
         'magnific-popup': 'lib/magnific-popup.min',
+        'instafeed': 'lib/instafeed.min',
 
         // apps - one page applications, each requires a separate build file
         'sitewide': 'apps/sitewide',
@@ -27,6 +28,7 @@ require.config({
         'show': 'apps/show',
         'past': 'apps/past',
         'media': 'apps/media',
+        'photos': 'apps/photos',
         'videopage': 'apps/videopage',
         'fidouche': 'apps/fidouche',
     },

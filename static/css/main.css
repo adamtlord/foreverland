@@ -8953,6 +8953,14 @@ form.img-edit table {
   background: #121212;
   color: #ffffff;
 }
+@media (max-width: 767px) {
+  #instafeed .thumb {
+    padding: 5px;
+  }
+  #instafeed .thumb img {
+    width: 120px;
+  }
+}
 .modal.lightbox .solo-close {
   position: absolute;
   right: 10px;

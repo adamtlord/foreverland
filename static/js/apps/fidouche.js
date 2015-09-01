@@ -82,7 +82,7 @@ $(function ($) {
 		});
 		if(printCosts + shipCosts !== 0){$('#id_print_ship_cost').val(printCosts + shipCosts).change();}
 		if(adCosts !== 0){$('#id_ads_cost').val(adCosts).change();}
-		if(otherCosts !== 0){$('#id_other_cost').val(otherCosts).change();}
+		if(otherCosts !== 0){$('#id_other_cost').val(otherCosts.toFixed(2)).change();}
 		_updateFields();
 	}
 	function cloneMore(selector, type) {

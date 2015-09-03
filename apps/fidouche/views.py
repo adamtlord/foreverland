@@ -248,8 +248,8 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
                     commission_payment.check_no = cdata['commission_check_no']
                     commission_payment.save()
 
-                    messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>NICE.</strong> Gig finances updated!')
-                    return redirect(request.path)
+                messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>NICE.</strong> Gig finances updated!')
+                return redirect(request.path)
         else:
             messages.add_message(request, messages.ERROR, '<i class="fa fa-wrench"></i> <strong>Aw, damnit.</strong> Something\'s fucked up.')
     else:

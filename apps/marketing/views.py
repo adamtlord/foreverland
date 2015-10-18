@@ -22,6 +22,8 @@ def homepage(request, template='marketing/homepage.html'):
     horns = members.filter(active=True, section='h')
     rhythm = members.filter(active=True, section='r')
     tonight = datetime.datetime.date(next_show.date) == datetime.datetime.today().date()
+    if tonight:
+        tonight = 'tonight' if next_show.date.hour >= 17 else 'today'
 
     d = {}
     d['next_show'] = next_show

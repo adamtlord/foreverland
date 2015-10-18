@@ -8883,7 +8883,10 @@ i.popover-trigger {
   }
   #payment table.table > tbody > tr td.paid input[type="checkbox"],
   #sub_payment table.table > tbody > tr td.paid input[type="checkbox"],
-  #itemize table.table > tbody > tr td.paid input[type="checkbox"] {
+  #itemize table.table > tbody > tr td.paid input[type="checkbox"],
+  #payment table.table > tbody > tr td.delete input[type="checkbox"],
+  #sub_payment table.table > tbody > tr td.delete input[type="checkbox"],
+  #itemize table.table > tbody > tr td.delete input[type="checkbox"] {
     margin: 7px 0 0 10px;
   }
   #payment table.table > tbody > tr td > a.thumb,
@@ -9041,7 +9044,9 @@ fieldset#itemize {
   vertical-align: middle;
 }
 #payment_formset .paid,
-#sub_payment_formset .paid {
+#sub_payment_formset .paid,
+#payment_formset .delete,
+#sub_payment_formset .delete {
   text-align: center;
 }
 #commission_other,

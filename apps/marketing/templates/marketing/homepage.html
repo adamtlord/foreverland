@@ -2,7 +2,7 @@
 {% block bodyclass %}home{% endblock %}
 {% block topnav %}
 <div id="next_show">
-	<h4><span>Next Show:</span> <a href="{% url 'upcoming_shows' %}">{% if tonight %}TONIGHT{% else %}{{ next_show.date|date:"M. j" }}{% endif %} at {{ next_show.venue }}</a></h4>
+	<h4><span>Next Show:</span> <a href="{% url 'upcoming_shows' %}">{% if tonight %}{{ tonight|upper }}{% else %}{{ next_show.date|date:"M. j" }}{% endif %} at {{ next_show.venue }}</a></h4>
 </div>
 
 <div id="top_brand">

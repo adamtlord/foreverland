@@ -309,8 +309,9 @@
 					<thead>
 						<tr>
 							<th width="40%">Member</th>
-							<th width="40%">Amount</th>
+							<th width="30%">Amount</th>
 							<th>Paid? <input type="checkbox" id="payment_check_all"></th>
+							<th>Delete</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -330,8 +331,11 @@
 							<td class="paid">
 								{{ form.paid }}
 							</td>
+							<td class="delete">
+								{{ form.DELETE }}
+							</td>
 						</tr>
-						{% endfor %}
+					{% endfor %}
 					</tbody>
 				</table>
 			</fieldset>
@@ -345,8 +349,9 @@
 					<thead>
 						<tr>
 							<th width="40%">Sub</th>
-							<th width="50%">Amount</th>
+							<th width="30%">Amount</th>
 							<th>Paid?</th>
+							<th>Delete</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -364,6 +369,9 @@
 							</td>
 							<td class="paid">
 								{{ form.paid }}
+							</td>
+							<td class="delete">
+								{{ form.DELETE }}
 							</td>
 						</tr>
 					{% endfor %}

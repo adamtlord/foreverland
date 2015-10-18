@@ -7,13 +7,13 @@ from shows.models import Show, Tour
 
 
 class Payment(models.Model):
-    show = models.ForeignKey(Show, related_name="payment", blank=True, null=True)
-    member = models.ForeignKey(Member, related_name="payment", blank=True, null=True)
+    show = models.ForeignKey(Show, related_name="payment")
+    member = models.ForeignKey(Member, related_name="payment")
     amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     paid = models.BooleanField(default=False)
 
     class Meta:
-        unique_together = (('show','member'),)
+        unique_together = (('show', 'member'),)
         ordering = ['show__date']
 
     def __unicode__(self):
@@ -23,7 +23,6 @@ class Payment(models.Model):
         return '%s for %s on %s' % (payee[0], show[0], date[0])
 
 
-
 class SubPayment(models.Model):
     show = models.ForeignKey(Show, related_name="subpayment", blank=True, null=True)
     sub = models.ForeignKey(Sub, related_name="sub", blank=True, null=True)
@@ -31,9 +30,9 @@ class SubPayment(models.Model):
     paid = models.BooleanField(default=False)
 
     class Meta:
-        unique_together = (('show','sub'),)
+        unique_together = (('show', 'sub'),)
 
-    def  __unicode__(self):
+    def __unicode__(self):
         return '%s for %s on %s' % (self.sub.first_name, self.show.venue, self.show.date.strftime('%m/%d/%y'))
 
 

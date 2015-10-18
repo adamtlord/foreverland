@@ -216,9 +216,11 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
     active_members = Member.objects.filter(active=True)
     iem_cat = ProductionCategory.objects.filter(name__icontains="iem")[0]
 
+    members_to_pay = [member for member in active_members]
+
     ExpenseFormSet = inlineformset_factory(Show, Expense, form=ExpenseForm)
-    PaymentFormSet = inlineformset_factory(Show, Payment, form=PaymentForm, extra=len(active_members), max_num=14, can_delete=False)
-    SubPaymentFormSet = inlineformset_factory(Show, SubPayment, form=SubPaymentForm)
+    PaymentFormSet = inlineformset_factory(Show, Payment, form=PaymentForm, extra=len(active_members), max_num=14)
+    SubPaymentFormSet = inlineformset_factory(Show, SubPayment, form=SubPaymentForm, extra=1)
     ProductionPaymentFormSet = inlineformset_factory(Show, ProductionPayment, extra=1, form=ProductionPaymentForm)
 
     if request.method == "POST":
@@ -262,6 +264,10 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
         payment_formset = PaymentFormSet(instance=gig)
         sub_payment_formset = SubPaymentFormSet(instance=gig)
         production_payment_formset = ProductionPaymentFormSet(instance=gig)
+
+        if all(v is None for v in [sf['member'].value() for sf in payment_formset.forms]):
+            for subform, data in zip(payment_formset.forms, members_to_pay):
+                subform.initial['member'] = data
 
     d = {
         'form': form,

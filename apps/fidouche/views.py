@@ -269,6 +269,12 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
             for subform, data in zip(payment_formset.forms, members_to_pay):
                 subform.initial['member'] = data
 
+    next_shows = Show.objects.filter(date__gt=gig.date).order_by('date')
+    if next_shows:
+        next_show = next_shows[0]
+    else:
+        next_show = None
+
     d = {
         'form': form,
         'expense_formset': expense_formset,
@@ -276,7 +282,8 @@ def gig_finances(request, gig_id=None, template='fidouche/gig_finances.html'):
         'sub_payment_formset': sub_payment_formset,
         'production_payment_formset': production_payment_formset,
         'gig': gig,
-        'iem_cat': iem_cat.id
+        'iem_cat': iem_cat.id,
+        'next_show': next_show
     }
 
     return render(request, template, d)

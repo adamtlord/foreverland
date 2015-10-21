@@ -11,6 +11,9 @@
 			<h2>{{ gig }} {% if gig.tour %}<small>{{ gig.tour }} Tour</small>{% endif %}</h2>
 		</div>
 		<div class="col-md-4">
+			<div class="next-gig-link">
+				<a {% if next_show %}href="{% url 'gig_finances' next_show.id %}"{% else %}disabled{% endif %} class="btn btn-default btn-sm" >Next gig <i class="fa fa-arrow-circle-o-right"></i></a>
+			</div>
 			<div class="pull-right auto-calc-box">
 				Auto-calculations <input type="checkbox" id="auto_calc" data-on-color="success">
 			</div>

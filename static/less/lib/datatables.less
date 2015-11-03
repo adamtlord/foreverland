@@ -1,4 +1,5 @@
 
+
 div.dataTables_length label {
 	float: left;
 	text-align: left;
@@ -215,4 +216,17 @@ div.DTFC_LeftBodyWrapper tbody tr:first-child td {
 
 div.DTFC_LeftFootWrapper table {
 	border-top: none;
+}
+
+
+// Responsive
+@media (max-width:@screen-xs-max){
+    .dataTables_filter {
+        float:left;
+        text-align:left;
+    }
+    div.dataTables_paginate {
+        float:none;
+        text-align:center;
+    }
 }

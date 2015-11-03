@@ -7,9 +7,9 @@
 </div>
 <form id="report_dates" role="form" action="">
 	<div class="row">
-		<div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+		<div class="col-sm-4 col-md-3 col-lg-2">
 			<div class="form-group">
-				<label class="sr-only" for="startDate">Start Date</label>
+				<label class="visible-xs" for="startDate">Start Date</label>
 				<div class="input-group startDate">
 					<input class="form-control" data-format="YYYY-MM-DD" id="start_date" name="start_date" type="text" placeholder="YYYY-MM-DD" {% if request.GET.start_date %}value="{{ request.GET.start_date }}"{% endif %}>
 					<span class="input-group-addon">
@@ -19,9 +19,9 @@
 				<span class="help-block">Need this.</span>
 			</div>
 		</div>
-		<div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+		<div class="col-sm-4 col-md-3 col-lg-2">
 			<div class="form-group">
-				<label class="sr-only" for="endDate">End Date</label>
+				<label class="visible-xs" for="endDate">End Date</label>
 				<div class="input-group endDate">
 					<input class="form-control" data-format="YYYY-MM-DD" id="end_date" name="end_date" type="text" placeholder="YYYY-MM-DD" {% if request.GET.end_date %}value="{{ request.GET.end_date }}"{% endif %}>
 					<span class="input-group-addon">
@@ -31,7 +31,7 @@
 				<span class="help-block">Need this.</span>
 			</div>
 		</div>
-		<div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+		<div class="col-sm-4 col-md-3 col-lg-2">
 			<button type="submit" class="btn btn-primary">Generate<span class="hidden-xs"> Reports</span></button>
 		</div>
 	</div>

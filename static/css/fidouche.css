@@ -7643,6 +7643,16 @@ div.DTFC_LeftBodyWrapper tbody tr:first-child td {
 div.DTFC_LeftFootWrapper table {
   border-top: none;
 }
+@media (max-width: 767px) {
+  .dataTables_filter {
+    float: left;
+    text-align: left;
+  }
+  div.dataTables_paginate {
+    float: none;
+    text-align: center;
+  }
+}
 /*!
  * Datetimepicker for Bootstrap v3
  * https://github.com/Eonasdan/bootstrap-datetimepicker/
@@ -8923,6 +8933,10 @@ i.popover-trigger {
   #sub_payment_formset > tbody > tr td:nth-of-type(3):before {
     content: "Paid?";
   }
+  #payment_formset > tbody > tr td:nth-of-type(4):before,
+  #sub_payment_formset > tbody > tr td:nth-of-type(4):before {
+    content: "Delete?";
+  }
   #expenses_formset > tbody > tr td:nth-of-type(1):before {
     content: "Date";
   }
@@ -9123,6 +9137,15 @@ select[multiple]#payout_notes textarea {
 #report_dates button[type="submit"] {
   margin-top: 0;
 }
+@media (max-width: 767px) {
+  #report_dates button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 12px;
+  }
+}
 #report_dates .help-block {
   display: none !important;
 }
@@ -9132,6 +9155,50 @@ select[multiple]#payout_notes textarea {
 }
 #report_dates .form-group {
   margin-bottom: 0;
+}
+@media (max-width: 767px) {
+  #report_dates .form-group {
+    margin-bottom: 6px;
+  }
+}
+#report_dates #payment_formset > tbody > tr td:nth-of-type(1):before,
+#report_dates #sub_payment_formset > tbody > tr td:nth-of-type(1):before {
+  content: "";
+}
+#report_dates #payment_formset > tbody > tr td:nth-of-type(2):before,
+#report_dates #sub_payment_formset > tbody > tr td:nth-of-type(2):before {
+  content: "";
+}
+#report_dates #payment_formset > tbody > tr td:nth-of-type(3):before,
+#report_dates #sub_payment_formset > tbody > tr td:nth-of-type(3):before {
+  content: "";
+}
+#report_dates #expenses_formset > tbody > tr td:nth-of-type(1):before {
+  content: "";
+}
+#report_dates #expenses_formset > tbody > tr td:nth-of-type(2):before {
+  content: "";
+}
+#report_dates #expenses_formset > tbody > tr td:nth-of-type(3):before {
+  content: "";
+}
+#report_dates #expenses_formset > tbody > tr td:nth-of-type(4):before {
+  content: "";
+}
+#report_dates #expenses_formset > tbody > tr td:nth-of-type(5):before {
+  content: "";
+}
+#report_dates #expenses_formset > tbody > tr td:nth-of-type(6):before {
+  content: "";
+}
+#report_dates #expenses_formset > tbody > tr td:nth-of-type(7):before {
+  content: "";
+}
+#report_dates #expenses_formset > tbody > tr td:nth-of-type(8):before {
+  content: "";
+}
+#report_dates #expenses_formset .payee select {
+  width: auto;
 }
 i.payment-detail-toggle {
   color: #999999;
@@ -9166,45 +9233,6 @@ table.table.payment-details.table-striped > tbody > tr:nth-child(odd) > th {
 .modal.payment-details .modal-footer {
   margin-top: 0;
 }
-#payment_formset > tbody > tr td:nth-of-type(1):before,
-#sub_payment_formset > tbody > tr td:nth-of-type(1):before {
-  content: "";
-}
-#payment_formset > tbody > tr td:nth-of-type(2):before,
-#sub_payment_formset > tbody > tr td:nth-of-type(2):before {
-  content: "";
-}
-#payment_formset > tbody > tr td:nth-of-type(3):before,
-#sub_payment_formset > tbody > tr td:nth-of-type(3):before {
-  content: "";
-}
-#expenses_formset > tbody > tr td:nth-of-type(1):before {
-  content: "";
-}
-#expenses_formset > tbody > tr td:nth-of-type(2):before {
-  content: "";
-}
-#expenses_formset > tbody > tr td:nth-of-type(3):before {
-  content: "";
-}
-#expenses_formset > tbody > tr td:nth-of-type(4):before {
-  content: "";
-}
-#expenses_formset > tbody > tr td:nth-of-type(5):before {
-  content: "";
-}
-#expenses_formset > tbody > tr td:nth-of-type(6):before {
-  content: "";
-}
-#expenses_formset > tbody > tr td:nth-of-type(7):before {
-  content: "";
-}
-#expenses_formset > tbody > tr td:nth-of-type(8):before {
-  content: "";
-}
-#expenses_formset .payee select {
-  width: auto;
-}
 body.tax-report table.table > tfoot > tr > td {
   padding: 8px;
   font-weight: bold;
@@ -9221,3 +9249,4 @@ body.tax-report table.table > tfoot > tr > td {
 .tab-pane#expenses .dataTables_filter label {
   margin-bottom: 10px;
 }
+/*# sourceMappingURL=fidouche.css.map */

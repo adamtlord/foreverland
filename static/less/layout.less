@@ -3,7 +3,7 @@ html, body {
 	min-height:100%;
 }
 body {
-	background: url(../images/starfield.jpg) no-repeat center center fixed; 
+	background: url(../images/starfield.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -25,10 +25,11 @@ body {
 #iw {
 	position: relative;
 	width: 100%;
+	margin-bottom:20px;
 }
 .navbar {
 	padding-left:15px;
-	padding-right:15px;	
+	padding-right:15px;
 }
 .navbar-inverse {
 	.bg-texture;
@@ -63,9 +64,8 @@ footer {
 	height:60px;
 	text-align:center;
 	color:@gray-light;
-	.container {
-		padding:20px 0;
-	}
+	position:relative;
+	z-index:1;
 	p {
 		margin-bottom:0;
 		font-size:@font-size-small;
@@ -117,7 +117,7 @@ footer {
 		overflow-x:hidden;
 	}
 	#iw {
-		background: url(../images/starfield-m2.jpg); 
+		background: url(../images/starfield-m2.jpg);
 		background-size:240px;
 		min-height:568px;
 	}

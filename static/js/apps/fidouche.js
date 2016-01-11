@@ -167,7 +167,7 @@ $(function ($) {
 	});
 	$('#add_production_payments').click(function(){
 		cloneMore('#gig_production tr:last', 'production_payment');
-	})
+	});
 	$('#payment_check_all').change(function(){
 		if($(this).prop('checked')){
 			$('.paid input').prop('checked', true);
@@ -195,5 +195,7 @@ $(function ($) {
 			}
 		},
 	}).trigger('change');
-
+	$(document).ready(function(){
+		_updateFields();
+	});
 });

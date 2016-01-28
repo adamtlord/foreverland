@@ -39,11 +39,12 @@
 	<hr />
 </form>
 {% if no_dates %}
-	<p>Choose a date range</p>
+	<p><a href="?start_date={% now "Y" %}-01-01&end_date={% now "Y" %}-12-31">Calendar year {% now "Y" %}</a> | <a href="?start_date={{ last_year }}-01-01&end_date={{ last_year }}-12-31">Calendar year {{ last_year }}</a> | Choose a date range above</p>
 {% else %}
 	<ul class="nav nav-tabs">
 		<li role="presentation" class="active"><a href="#partners" data-toggle="tab">Partners</a></li>
 		<li role="presentation"><a href="#nonpartners" data-toggle="tab">Non-partners</a></li>
+		<li role="presentation"><a href="#vendors" data-toggle="tab">Vendors</a></li>
 		<li role="presentation"><a href="#expenses" data-toggle="tab">Expenses & Services</a></li>
 		<li role="presentation"><a href="#commissions" data-toggle="tab">Commission Payments</a></li>
 		<li role="presentation"><a href="#income" data-toggle="tab">Income</a></li>
@@ -54,6 +55,9 @@
 		</div>
 		<div class="tab-pane" id="nonpartners">
 			{% include 'fragments/non_partners_tax.html' %}
+		</div>
+		<div class="tab-pane" id="vendors">
+			{% include 'fragments/vendors_tax.html' %}
 		</div>
 		<div class="tab-pane" id="expenses">
 			{% include 'fragments/expenses_tax.html' %}
@@ -123,6 +127,40 @@
 								{% for payment in payments.payments %}
 								<tr>
 									<td>{{ payment.show }}</td>
+									<td>${{payment.amount|intcomma }}</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	{% for vendor, data in vendor_payments.items %}
+		<div id="vendor{{ vendor.id }}_payments" class="modal payment-details fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">
+							{{ vendor }} - ${{ data.total|intcomma }}
+							<a href="{% url 'vendor_payments' vendor.id %}?start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}" target="_blank">
+							<i class="fa fa-external-link-square"></i></a><br>
+							<small>{{ start_date }} - {{ end_date }}</small>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<table class="table table-condensed table-striped payment-details" id="member{{ member.id }}_payments">
+							<tbody>
+								{% for payment in data.payments %}
+								<tr>
+									<td>{{ payment.new_category.tax_category.name }}</td>
+									<td>{% if payment.show %}{{ payment.show }}{% endif %}</td>
+									<td>{{ payment.date }}</td>
 									<td>${{payment.amount|intcomma }}</td>
 								</tr>
 								{% endfor %}

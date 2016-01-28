@@ -38,7 +38,7 @@
 	<hr />
 </form>
 {% if no_dates %}
-	<p>Choose a date range</p>
+	<p><a href="?start_date={% now "Y" %}-01-01&end_date={% now "Y" %}-12-31">Calendar year {% now "Y" %}</a> | <a href="?start_date={{ last_year }}-01-01&end_date={{ last_year }}-12-31">Calendar year {{ last_year }}</a> | Choose a date range above</p>
 {% else %}
 	<ul class="nav nav-tabs">
 		<li role="presentation" class="active"><a href="#members" data-toggle="tab">Members</a></li>

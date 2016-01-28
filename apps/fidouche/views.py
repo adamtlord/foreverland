@@ -4,6 +4,7 @@ import random
 import datetime
 import json
 from itertools import chain
+from collections import defaultdict
 from django.forms.models import inlineformset_factory
 from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404, redirect
@@ -18,7 +19,7 @@ from settings import GOOGLE_MAPS_API_KEY
 from members.models import Member, Sub
 from shows.models import Show, Tour, Venue
 from fidouche.models import Payment, SubPayment, Expense, TourExpense, Quote, CommissionPayment, \
-    ProductionPayment, ProductionCategory
+    ProductionPayment, ProductionCategory, Payee
 from fidouche.forms import GigFinanceForm, ExpenseForm, TourExpenseForm, PaymentForm, SubPaymentForm, \
     ProductionPaymentForm
 
@@ -470,6 +471,8 @@ def finance_reports(request, template='fidouche/finance_reports.html'):
 
     else:
         d['no_dates'] = True
+        d['last_year'] = date.today().year - 1
+
     return render(request, template, d)
 
 
@@ -485,6 +488,7 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
     if start and end:
         start_date = datetime.datetime.strptime(start, "%Y-%m-%d").date()
         end_date = datetime.datetime.strptime(end, "%Y-%m-%d").date()
+
         d['start_date'] = start_date
         d['end_date'] = end_date
         # All payments for the date range
@@ -578,6 +582,44 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
             'expense_payments': expense_payments
         })
 
+        # this is the data structure we're going for here.
+        # vendors = {
+        #     payee: {
+        #         total: [1, 2, 3],
+        #         categories: {
+        #             category: [1,2,3]
+        #         },
+        #         payments: [<payment>, <payment>]
+        #     }
+        # }
+        vendors = {}
+        vendors_total = []
+        for expense in allExpenses:
+            vendors_total.append(expense.amount)
+            if expense.payee in vendors:
+                vendors[expense.payee]['total'].append(expense.amount)
+            else:
+                vendors[expense.payee] = {
+                    'total': [expense.amount],
+                    'categories': {},
+                    'payments': []
+                }
+            if expense.new_category.tax_category.name in vendors[expense.payee]['categories']:
+                vendors[expense.payee]['categories'][expense.new_category.tax_category.name].append(expense.amount)
+                vendors[expense.payee]['payments'].append(expense)
+            else:
+                vendors[expense.payee]['categories'][expense.new_category.tax_category.name] = [expense.amount]
+                vendors[expense.payee]['payments'] = [expense]
+        for vendor in vendors:
+            vendors[vendor]['total'] = sum(vendors[vendor]['total'])
+            for category in vendors[vendor]['categories']:
+                vendors[vendor]['categories'][category] = sum(vendors[vendor]['categories'][category])
+
+        d.update({
+            'vendor_payments': vendors,
+            'all_vendors_total': sum(vendors_total)
+        })
+
         production_payments = ProductionPayment.objects.filter(show__date__range=(start_date, end_date)).filter(paid=True).filter(amount__gt=0).order_by('show__date')
         total_production_payments = []
         for payment in production_payments:
@@ -621,6 +663,7 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
 
     else:
         d['no_dates'] = True
+        d['last_year'] = date.today().year - 1
 
     return render(request, template, d)
 
@@ -646,7 +689,7 @@ def member_payments(request, member_id=None,  template='fidouche/payments.html')
         for payment in payments:
             payment_totals.append(payment.amount)
         d['payments'] = payments
-        d['member'] = member
+        d['payee'] = member
         d['total'] = sum(payment_totals)
     else:
         d['no_dates'] = True
@@ -675,7 +718,38 @@ def sub_payments(request, sub_id=None,  template='fidouche/payments.html'):
         for payment in payments:
             payment_totals.append(payment.amount)
         d['payments'] = payments
-        d['sub'] = sub
+        d['payee'] = sub
+        d['total'] = sum(payment_totals)
+    else:
+        d['no_dates'] = True
+
+    return render(request, template, d)
+
+
+@login_required
+def vendor_payments(request, vendor_id=None,  template='fidouche/vendor_payments.html'):
+    """View finance reports for a given timeframe/member"""
+    vendor_id = int(vendor_id)
+    vendor = Payee.objects.get(pk=vendor_id)
+    d = {
+        'no_dates': False
+    }
+    start = request.GET.get('start_date', None)
+    end = request.GET.get('end_date', None)
+    if start and end:
+        start_date = datetime.datetime.strptime(start, "%Y-%m-%d").date()
+        end_date = datetime.datetime.strptime(end, "%Y-%m-%d").date()
+        d['start_date'] = start_date
+        d['end_date'] = end_date
+        # All payments for the date range
+        payment_totals = []
+        expense_payments = Expense.objects.filter(date__range=(start_date, end_date)).filter(payee=vendor, amount__gt=0)
+        tour_payments = TourExpense.objects.filter(date__range=(start_date, end_date)).filter(payee=vendor, amount__gt=0)
+        payments = list(chain(expense_payments, tour_payments))
+        for payment in payments:
+            payment_totals.append(payment.amount)
+        d['payments'] = payments
+        d['payee'] = vendor
         d['total'] = sum(payment_totals)
     else:
         d['no_dates'] = True

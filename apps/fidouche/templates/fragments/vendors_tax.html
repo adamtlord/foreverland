@@ -18,8 +18,8 @@
         {% for vendor, data in vendor_payments.items %}
             <tr>
                 <td>{{ vendor.name }}</td>
-                <td><strong>${{ data.total|intcomma }}</strong> <i class="fa fa-list-ul expense-detail-toggle" data-toggle="collapse" data-target="#vendor{{ vendor.id }}_expenses"></i>
-                    <div id="vendor{{ vendor.id }}_expenses" class="collapse">
+                <td><strong>${{ data.total|intcomma }}</strong> <i class="fa fa-list-ul expense-detail-toggle" data-toggle="collapse" data-target="#vendor{{ forloop.counter }}_expenses"></i>
+                    <div id="vendor{{ forloop.counter }}_expenses" class="collapse">
                         <table class="table table-condensed">
                             <tbody class="text-small">
                                 {% for category, amount in data.categories.items %}
@@ -31,7 +31,7 @@
                 </td>
                 <td>{{ data.payments|length }}
                     {% if data.payments %}
-                        <i class="fa fa-list-ul payment-detail-toggle" data-toggle="modal" data-target="#vendor{{ vendor.id }}_payments"></i>
+                        <i class="fa fa-list-alt payment-detail-toggle" data-toggle="modal" data-target="#vendor{{ forloop.counter }}_payments"></i>
                     {% endif %}
                 </td>
             </tr>

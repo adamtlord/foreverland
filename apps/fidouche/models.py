@@ -158,7 +158,7 @@ class CommissionPayment(models.Model):
     paid = models.BooleanField(default=False)
 
     class Meta:
-        unique_together = (('show','agent'),)
+        unique_together = (('show', 'agent'),)
         ordering = ['-show__date']
 
     def __unicode__(self):
@@ -213,3 +213,10 @@ class ProductionPayment(models.Model):
         cat = self.category
         return '%s for %s (%s)' % (company, show, cat)
 
+    @property
+    def payee(self):
+        return self.company
+
+    @property
+    def new_category(self):
+        return self.category

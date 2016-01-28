@@ -142,14 +142,18 @@
 		</div>
 	{% endfor %}
 	{% for vendor, data in vendor_payments.items %}
-		<div id="vendor{{ vendor.id }}_payments" class="modal payment-details fade">
+		<div id="vendor{{ forloop.counter }}_payments" class="modal payment-details fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						<h4 class="modal-title">
 							{{ vendor }} - ${{ data.total|intcomma }}
-							<a href="{% url 'vendor_payments' vendor.id %}?start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}" target="_blank">
+							{% if data.type == 'ProductionCompany' %}
+								<a href="{% url 'production_payments' vendor.id %}?start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}" target="_blank">
+							{% else %}
+								<a href="{% url 'vendor_payments' vendor.id %}?start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}" target="_blank">
+							{% endif %}
 							<i class="fa fa-external-link-square"></i></a><br>
 							<small>{{ start_date }} - {{ end_date }}</small>
 						</h4>

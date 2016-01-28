@@ -8975,6 +8975,9 @@ i.popover-trigger {
 .text-small {
   font-size: 12px;
 }
+.table td .table {
+  margin-bottom: 0;
+}
 @media (min-width: 992px) {
   table.table.datatable {
     table-layout: fixed;

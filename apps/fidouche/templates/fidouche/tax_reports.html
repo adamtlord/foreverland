@@ -7,6 +7,7 @@
 	<h2>Tax Reports</h2>
 </div>
 <form id="report_dates" role="form" action="">
+	<p><a href="?start_date={% now "Y" %}-01-01&end_date={% now "Y" %}-12-31">Calendar year {% now "Y" %}</a> | <a href="?start_date={{ last_year }}-01-01&end_date={{ last_year }}-12-31">Calendar year {{ last_year }}</a> | Choose a date range:</p>
 	<div class="row">
 		<div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
 			<div class="form-group">
@@ -39,7 +40,7 @@
 	<hr />
 </form>
 {% if no_dates %}
-	<p><a href="?start_date={% now "Y" %}-01-01&end_date={% now "Y" %}-12-31">Calendar year {% now "Y" %}</a> | <a href="?start_date={{ last_year }}-01-01&end_date={{ last_year }}-12-31">Calendar year {{ last_year }}</a> | Choose a date range above</p>
+	<p><em>Choose a date range for which to view reports.</em></p>
 {% else %}
 	<ul class="nav nav-tabs">
 		<li role="presentation" class="active"><a href="#partners" data-toggle="tab">Partners</a></li>

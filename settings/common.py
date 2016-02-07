@@ -118,7 +118,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
 
-    # 'south',
     'registration',
     'compressor',
     'imagekit',

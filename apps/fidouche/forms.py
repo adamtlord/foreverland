@@ -81,6 +81,7 @@ class ExpenseForm(forms.ModelForm):
         widgets = {
             'receipt_img': AdminImageWidget()
         }
+        fields = EXPENSE_FIELDS
 
     def __init__(self, *args, **kwargs):
         super(ExpenseForm, self).__init__(*args, **kwargs)
@@ -95,6 +96,7 @@ class TourExpenseForm(forms.ModelForm):
         widgets = {
             'receipt_img': AdminImageWidget()
         }
+        fields = TOUR_EXPENSE_FIELDS
 
     def __init__(self, *args, **kwargs):
         super(TourExpenseForm, self).__init__(*args, **kwargs)
@@ -106,6 +108,7 @@ class TourExpenseForm(forms.ModelForm):
 class PaymentForm(forms.ModelForm):
     class Meta:
         model = Payment
+        exclude = []
     def __init__(self, *args, **kwargs):
         super(PaymentForm, self).__init__(*args, **kwargs)
         self.fields['member'].widget.attrs['class'] = 'form-control input-sm'
@@ -115,6 +118,7 @@ class PaymentForm(forms.ModelForm):
 class SubPaymentForm(forms.ModelForm):
     class Meta:
         model = SubPayment
+        exclude = []
     def __init__(self, *args, **kwargs):
         super(SubPaymentForm, self).__init__(*args, **kwargs)
         self.fields['sub'].widget.attrs['class'] = 'form-control input-sm'
@@ -124,6 +128,7 @@ class SubPaymentForm(forms.ModelForm):
 class ProductionPaymentForm(forms.ModelForm):
     class Meta:
         model = ProductionPayment
+        exclude = []
 
     def __init__(self, *args, **kwargs):
         super(ProductionPaymentForm, self).__init__(*args, **kwargs)

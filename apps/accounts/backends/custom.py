@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.conf import settings
 from django.template.loader import render_to_string
-from django.contrib.sites.models import RequestSite
+from django.contrib.sites.requests import RequestSite
 from django.contrib.sites.models import Site
 
 from registration.backends.default.views import RegistrationView, ActivationView

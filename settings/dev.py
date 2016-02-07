@@ -16,15 +16,6 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 FIXTURE_DIRS = '%s/fixtures/auth' % PROJECT_ROOT
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-
-CACHES = {
-    'default': {
-        'BACKEND': 'johnny.backends.locmem.LocMemCache',
-        'TIMEOUT': 1800,
-        'JOHNNY_CACHE': True,
-    }
-}
-
 # change logging level to debug
 LOGGING['loggers']['']['level'] = 'DEBUG'
 LOGGING['loggers']['django.request']['level'] = 'DEBUG'

@@ -6,7 +6,7 @@ from imagekit.processors import ResizeToFill
 
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, unique=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     newsletter_subscribe = models.BooleanField(default=False)
     picture = models.ImageField(upload_to='user_pics/', blank=True)
     picture_thumbnail = ImageSpecField(source='picture',

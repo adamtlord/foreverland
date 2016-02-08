@@ -11,7 +11,7 @@ class Song(models.Model):
     release_year = models.CharField(max_length=200, blank=True, null=True)
     display = models.BooleanField(default=True)
     # Foreverland info
-    singer = models.ManyToManyField(Member, related_name='singer', blank=True, null=True)
+    singer = models.ManyToManyField(Member, related_name='singer', blank=True)
     foh_notes = models.TextField(verbose_name="Notes for FOH", blank=True, null=True)
 
     def __unicode__(self):

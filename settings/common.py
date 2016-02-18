@@ -80,12 +80,15 @@ DATABASES = {
 }
 
 MIDDLEWARE_CLASSES = [
+ #   'johnny.middleware.LocalStoreClearMiddleware',
+ #   'johnny.middleware.QueryCacheMiddleware',
 
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.transaction.TransactionMiddleware',
 
 ]
 
@@ -118,6 +121,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
 
+    'south',
     'registration',
     'compressor',
     'imagekit',
@@ -156,6 +160,8 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
+JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc_'
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyDf0TeojAvLH_Xne55O7jcVtTfusoIhkrs'
 

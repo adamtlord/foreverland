@@ -17,7 +17,7 @@ django-userswitch==0.2.2
 django-common-helpers==0.6
 django-ical==1.2
 
--e hg+http://bitbucket.org/ubernostrum/django-registration@8f242e35ef#egg=registration
+-e git+http://github.com/ubernostrum/django-registration@8611c1d#egg=registration
 -e git+http://github.com/yourcelf/django-registration-defaults.git#egg=registration_defaults
 
 # Git version of johnny-cache is needed because of "empty_iter dependency" bug:

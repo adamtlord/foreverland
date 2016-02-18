@@ -102,8 +102,8 @@ TEMPLATE_CONTEXT_PROCESSORS = [
 
     'django_common.context_processors.common_settings',
 
-    'common.context_processors.random_quote',
-    'common.context_processors.list_years_with_gigs',
+    'apps.common.context_processors.random_quote',
+    'apps.common.context_processors.list_years_with_gigs',
 ]
 
 TEMPLATE_DIRS = (

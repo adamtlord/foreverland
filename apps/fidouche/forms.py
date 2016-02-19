@@ -1,7 +1,8 @@
 from django import forms
 from fidouche.widgets import AdminImageWidget
 from shows.models import Show
-from fidouche.models import Payment, SubPayment, Expense, TourExpense, ProductionPayment
+from fidouche.models import Payment, SubPayment, Expense, TourExpense, \
+    ProductionPayment, Income
 
 
 FINANCIAL_FIELDS = (
@@ -44,6 +45,13 @@ EXPENSE_FIELDS = (
     'check_no',
     'notes'
 )
+INCOME_FIELDS = (
+    'date',
+    'payer',
+    'amount',
+    'check_no',
+    'notes'
+)
 TOUR_EXPENSE_FIELDS = (
     'date',
     'payee',
@@ -73,6 +81,20 @@ class GigFinanceForm(forms.ModelForm):
         for field in FINANCIAL_FIELDS:
             if field not in ['settlement_sheet', 'commission_paid']:
                 self.fields[field].widget.attrs['class'] = 'form-control'
+
+
+class IncomeForm(forms.ModelForm):
+    class Meta:
+        model = Income
+        # widgets = {
+        #     'receipt_img': AdminImageWidget()
+        # }
+
+    def __init__(self, *args, **kwargs):
+        super(IncomeForm, self).__init__(*args, **kwargs)
+        for field in INCOME_FIELDS:
+            self.fields[field].widget.attrs['class'] = 'form-control input-sm'
+        self.fields['date'].widget.attrs['data-format'] = 'YYYY-MM-DD'
 
 
 class ExpenseForm(forms.ModelForm):

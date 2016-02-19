@@ -762,6 +762,12 @@ def tax_reports(request, template='fidouche/tax_reports.html'):
         d['paid_by_agent'] = paid_by_agent
         d['paid_by_agent_total_gross'] = sum(paid_by_agent_total_gross)
 
+        other_income = Income.objects.filter(date__range=(start_date, end_date))
+        d['other_income'] = other_income
+        d['total_other_income'] = sum([income.amount for income in other_income])
+
+        d['total_income'] = sum(paid_by_agent_total_gross) + sum(paid_by_client_total_gross) + sum([income.amount for income in other_income])
+
     else:
         d['no_dates'] = True
 

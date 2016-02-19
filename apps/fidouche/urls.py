@@ -19,6 +19,12 @@ urlpatterns = patterns(
     url(r'^expenses/create/$', 'expense_create', {}, name='expense_create'),
     url(r'^expenses/delete/(?P<expense_id>\d+)/$', 'expense_delete', {}, name='expense_delete'),
 
+    url(r'^income/year/(?P<year>\d{4})/', 'income_list', {}, name='income_list'),
+    url(r'^income/$', 'all_income_list', {}, name='all_income_list'),
+    url(r'^income/(?P<income_id>\d+)/$', 'income_details', {}, name='income_details'),
+    url(r'^income/create/$', 'income_create', {}, name='income_create'),
+    url(r'^income/delete/(?P<income_id>\d+)/$', 'income_delete', {}, name='income_delete'),
+
     url(r'^reports/$', 'finance_reports', {}, name='finance_reports'),
     url(r'^tax-reports/$', 'tax_reports', {}, name='tax_reports'),
     url(r'^member-payments/(?P<member_id>\d+)$', 'member_payments', {}, name='member_payments'),

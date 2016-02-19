@@ -19,9 +19,9 @@ from settings import GOOGLE_MAPS_API_KEY
 from members.models import Member, Sub
 from shows.models import Show, Tour, Venue
 from fidouche.models import Payment, SubPayment, Expense, TourExpense, Quote, CommissionPayment, \
-    ProductionPayment, ProductionCategory, Payee, ProductionCompany
+    ProductionPayment, ProductionCategory, Payee, ProductionCompany, Income
 from fidouche.forms import GigFinanceForm, ExpenseForm, TourExpenseForm, PaymentForm, SubPaymentForm, \
-    ProductionPaymentForm
+    ProductionPaymentForm, IncomeForm
 
 current_year = date.today().year
 
@@ -373,6 +373,9 @@ def expense_create(request, template='fidouche/expense_create.html'):
         form = ExpenseForm(request.POST, request.FILES)
         form.save()
         messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>KA-CHING.</strong> Expense added.')
+        if request.POST.get('date'):
+            year = datetime.datetime.strptime(request.POST.get('date'), '%Y-%m-%d').year
+            return redirect(expenses_list, year)
         return redirect(all_expenses_list)
 
     else:
@@ -393,15 +396,112 @@ def expense_delete(request, expense_id=None):
     """Delete an expense record"""
     expense_id = int(expense_id)
     expense = get_object_or_404(Expense, pk=expense_id)
-    expense_date = expense.date or expense.show.date
-    expense_year = expense_date.year
+    expense_date = None
+    if expense.show:
+        expense_date = expense.show.date
+    if expense.date:
+        expense_date = expense.date
     if expense_id:
         expense.delete()
         messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>Toast.</strong> Expense deleted.')
     else:
         messages.add_message(request, messages.WARNING, '<i class="fa fa-warning"></i> <strong>HUH?</strong> That\'s not a thing.')
+    if expense_date:
+        return redirect(expenses_list, expense_date.year)
+    else:
+        return redirect(all_expenses_list)
 
-    return redirect(expenses_list, expense_year)
+@login_required
+def income_list(request, year=current_year, template='fidouche/income_list.html'):
+    """Show non-gig income"""
+    incomes = Income.objects.filter(date__year=year)
+    d = {
+        'incomes': incomes
+    }
+
+    return render(request, template, d)
+
+
+@login_required
+def all_income_list(request, template='fidouche/income_list.html'):
+    """Show non-gig expenses"""
+    incomes = Income.objects.all()
+
+    d = {
+        'incomes': incomes
+    }
+
+    return render(request, template, d)
+
+
+@login_required
+@staff_member_required
+def income_details(request, income_id=None, template='fidouche/income_details.html'):
+    """Show/edit single income"""
+    income_id = int(income_id)
+    income = get_object_or_404(Income, pk=income_id)
+
+    if request.method == "POST":
+        form = IncomeForm(request.POST, request.FILES, instance=income)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>KA-CHING.</strong> Income edited.')
+            return redirect(request.path)
+    else:
+        form = IncomeForm(instance=income)
+
+    d = {
+        'form': form,
+        'income': income
+    }
+
+    return render(request, template, d)
+
+
+@login_required
+@staff_member_required
+def income_create(request, template='fidouche/income_create.html'):
+    """Create a new income record"""
+
+    if request.method == "POST":
+        form = IncomeForm(request.POST, request.FILES)
+        form.save()
+        messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>KA-CHING.</strong> Income added.')
+        if request.POST.get('date'):
+            year = datetime.datetime.strptime(request.POST.get('date'), '%Y-%m-%d').year
+            return redirect(income_list, year)
+        return redirect(all_income_list)
+
+    else:
+        form = IncomeForm()
+        income = None
+
+    d = {
+        'form': form,
+        'income': income
+    }
+
+    return render(request, template, d)
+
+
+@login_required
+@staff_member_required
+def income_delete(request, income_id=None):
+    """Delete an income record"""
+    income_id = int(income_id)
+    income = get_object_or_404(Income, pk=income_id)
+    income_date = None
+    if income.date:
+        income_date = income.date
+    if income_id:
+        income.delete()
+        messages.add_message(request, messages.SUCCESS, '<i class="fa fa-beer"></i> <strong>Toast.</strong> Income deleted.')
+    else:
+        messages.add_message(request, messages.WARNING, '<i class="fa fa-warning"></i> <strong>HUH?</strong> That\'s not a thing.')
+    if income_date:
+        return redirect(income_list, income_date.year)
+    else:
+        return redirect(all_income_list)
 
 
 @login_required

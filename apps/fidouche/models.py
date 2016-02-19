@@ -7,8 +7,8 @@ from shows.models import Show, Tour
 
 
 class Payment(models.Model):
-    show = models.ForeignKey(Show, related_name="payment")
-    member = models.ForeignKey(Member, related_name="payment")
+    show = models.ForeignKey(Show, related_name="payment", null=True)
+    member = models.ForeignKey(Member, related_name="payment", null=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     paid = models.BooleanField(default=False)
 
@@ -116,6 +116,21 @@ class TourExpense(models.Model):
     @property
     def new_category(self):
         return self.category
+
+    def __unicode__(self):
+        safedate = ''
+        if self.date:
+            safedate = self.date.strftime('%m/%d/%y') + ', '
+        return '%s$%s to %s' % (safedate, self.amount, self.payee)
+
+
+class Income(models.Model):
+
+    date = models.DateField(blank=True, null=True)
+    payer = models.CharField(blank=True, null=True, max_length=255)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    check_no = models.CharField(max_length=100, blank=True, null=True, verbose_name="Check #")
+    notes = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
         safedate = ''

@@ -81,17 +81,30 @@
                                 </ul>
                             </li>
                             <li class="dropdown {% active_starts request '/fidouche/reports' %}{% active_starts request '/fidouche/tax-reports' %}">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'finance_reports' %}">Financial Reports</a></li>
                                     <li><a href="{% url 'tax_reports' %}">Tax Reports</a></li>
                                 </ul>
                             </li>
                         </ul>
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right hidden-sm hidden-md">
                             {% if request.user.is_staff %}<li><a href="/admin">DB Admin</a></li>{% endif %}
                             <li><a href="{% url 'homepage' %}">Foreverland.com</a></li>
                             <li><a href="{% url 'auth_logout' %}">Log out</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right hidden-lg">
+                            <li class="dropdown">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-user"></i>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    {% if request.user.is_staff %}<li><a href="/admin">DB Admin</a></li>{% endif %}
+                                    <li><a href="{% url 'homepage' %}">Foreverland.com</a></li>
+                                    <li><a href="{% url 'auth_logout' %}">Log out</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>

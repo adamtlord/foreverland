@@ -2,6 +2,7 @@ import os
 from string import join
 
 from django.db import models
+from django.conf import settings
 from sorl.thumbnail import ImageField
 
 from shows.models import Show
@@ -17,13 +18,13 @@ class Album(models.Model):
 
     def images(self):
         lst = [x.image.name for x in self.image_set.all()]
-        lst = ["<a href='%s/%s'>%s</a>" % (MEDIA_URL, x, x.split('/')[-1]) for x in lst]
+        lst = ["<a href='%s/%s'>%s</a>" % (settings.MEDIA_URL, x, x.split('/')[-1]) for x in lst]
         return join(lst, ', ')
     images.allow_tags = True
 
     def videos(self):
         lst = [x.video.name for x in self.image_set.all()]
-        lst = ["<a href='%s/%s'>%s</a>" % (MEDIA_URL, x, x.split('/')[-1]) for x in lst]
+        lst = ["<a href='%s/%s'>%s</a>" % (settings.MEDIA_URL, x, x.split('/')[-1]) for x in lst]
         return join(lst, ', ')
     images.allow_tags = True
 
@@ -61,7 +62,7 @@ class Image(models.Model):
 
     def thumbnail_(self):
         return "<img border='0' alt='' src='%s/%s' height='40' />" % (
-                                                                        (MEDIA_URL, self.image.name))
+                                                                        (settings.MEDIA_URL, self.image.name))
     thumbnail_.allow_tags = True
 
 

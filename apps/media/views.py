@@ -12,8 +12,14 @@ from media.models import *
 
 def photos(request, template="media/photos.html"):
     """Photos page"""
+    promo_album = Album.objects.get(title="Promotional Photos")
+    promo_photos = Image.objects.filter(albums__in=[promo_album]).order_by('id')
 
-    return render(request, template)
+    d = {
+        'promo_photos': promo_photos
+    }
+
+    return render(request, template, d)
 
 
 def downloads(request, template="media/downloads.html"):

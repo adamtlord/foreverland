@@ -20,7 +20,7 @@ function ($) {
         });
         feed.run();
 
-		$('.album').magnificPopup({
+		$('.album-popup').magnificPopup({
 			delegate: 'a',
 			type:'image',
 			gallery: {

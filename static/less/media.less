@@ -18,12 +18,16 @@ form.img-edit {
 	}
 }
 .album {
-	.thumb img {
-		padding:2px;
-		background:fadeout(@gray-lighter, 10%);
-		margin:0 5px 5px 0;
-		width:132px;
-		height:auto;
+	.thumb {
+		display:inline-block;
+		margin:0 5px 10px 0;
+
+		img {
+			padding:2px;
+			background:fadeout(@gray-lighter, 10%);
+			width:100px;
+			height:auto;
+		}
 	}
 	&.album-with-captions {
 		padding-bottom:20px;

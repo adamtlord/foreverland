@@ -31,6 +31,7 @@ class Album(models.Model):
 
 class Tag(models.Model):
     tag = models.CharField(max_length=50)
+
     def __unicode__(self):
         return self.tag
 
@@ -62,7 +63,7 @@ class Image(models.Model):
 
     def thumbnail_(self):
         return "<img border='0' alt='' src='%s/%s' height='40' />" % (
-                                                                        (settings.MEDIA_URL, self.image.name))
+            (settings.MEDIA_URL, self.image.name))
     thumbnail_.allow_tags = True
 
 
@@ -111,4 +112,3 @@ class Download(models.Model):
     def extension(self):
         name, extension = os.path.splitext(self.downloadable.name)
         return extension
-

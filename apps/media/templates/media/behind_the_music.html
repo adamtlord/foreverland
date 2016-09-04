@@ -10,7 +10,7 @@
 			<h3>Photos</h3>
 		    <div class="album">
 		    {% for img in album.images %}
-		    	{% thumbnail img.image "100x100" crop="center" as im %}
+		    	{% thumbnail img.image "200x200" crop="center" as im %}
 		    		<a href="{{ MEDIA_URL }}{{ img.image.name }}" class="thumb">
 		    			<img src="{{ MEDIA_URL }}{{ im }}" width="{{ im.width }}" height="{{ im.height }}">
 		        	</a>

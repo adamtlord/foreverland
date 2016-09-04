@@ -8,6 +8,7 @@ from django.forms import ModelForm
 from django.db.models import Q
 
 from media.models import *
+from media.forms import ImageUploadForm
 
 
 def photos(request, template="media/photos.html"):
@@ -39,6 +40,7 @@ def downloads(request, template="media/downloads.html"):
     return render(request, template, d)
 
 
+@login_required
 def behind_the_music(request, template="media/behind_the_music.html"):
     """Behind the music page"""
     album = Album.objects.get(pk=3)
@@ -49,6 +51,25 @@ def behind_the_music(request, template="media/behind_the_music.html"):
         'album': album
     }
 
+    return render(request, template, d)
+
+
+@login_required
+def upload(request, template="media/upload.html"):
+    """(bulk) upload of images"""
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            for image in request.FILES.getlist('image'):
+                new_file = Image(image=image)
+                new_file.save()
+                new_file.albums = form.cleaned_data['albums']
+                new_file.save()
+    else:
+        form = ImageUploadForm(initial={'albums': [3, ]})
+
+    d = {'form': form}
     return render(request, template, d)
 
 

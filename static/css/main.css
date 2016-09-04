@@ -8905,11 +8905,14 @@ form.img-edit {
 form.img-edit table {
   background: #121212;
 }
+.album .thumb {
+  display: inline-block;
+  margin: 0 5px 10px 0;
+}
 .album .thumb img {
   padding: 2px;
   background: rgba(238, 238, 238, 0.9);
-  margin: 0 5px 5px 0;
-  width: 132px;
+  width: 100px;
   height: auto;
 }
 .album.album-with-captions {

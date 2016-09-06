@@ -40,7 +40,6 @@ def downloads(request, template="media/downloads.html"):
     return render(request, template, d)
 
 
-@login_required
 def behind_the_music(request, template="media/behind_the_music.html"):
     """Behind the music page"""
     album = Album.objects.get(pk=3)

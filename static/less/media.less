@@ -21,11 +21,10 @@ form.img-edit {
 	.thumb {
 		display:inline-block;
 		margin:0 5px 10px 0;
-
 		img {
 			padding:2px;
 			background:fadeout(@gray-lighter, 10%);
-			width:100px;
+			width:109px;
 			height:auto;
 		}
 	}
@@ -40,7 +39,6 @@ form.img-edit {
 				display:block;
 				margin:auto;
 				margin-bottom:5px;
-
 			}
 			&:hover {
 				background:@black;
@@ -118,3 +116,20 @@ form.img-edit {
 	font-size:13px;
 	line-height:16px;
 }
+.btm-photos .album {
+	@media (max-width: 767px) {
+		.thumb:nth-child(3n){
+			margin-right:0;
+		}
+	}
+	img {
+		@media (min-width: 768px) and (max-width: 1199px) {
+			width: 115px;
+		}
+		@media (min-width: 1201px) {
+			width: 117px;
+		}
+	}
+}
+
+

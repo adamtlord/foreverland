@@ -7837,6 +7837,7 @@ img.mfp-img {
   padding-top: 30px;
   height: 0;
   overflow: hidden;
+  margin-bottom: 8px;
 }
 .video-wrap iframe,
 .video-wrap object,
@@ -8912,7 +8913,7 @@ form.img-edit table {
 .album .thumb img {
   padding: 2px;
   background: rgba(238, 238, 238, 0.9);
-  width: 100px;
+  width: 109px;
   height: auto;
 }
 .album.album-with-captions {
@@ -9002,6 +9003,21 @@ form.img-edit table {
 .mfp-title {
   font-size: 13px;
   line-height: 16px;
+}
+@media (max-width: 767px) {
+  .btm-photos .album .thumb:nth-child(3n) {
+    margin-right: 0;
+  }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  .btm-photos .album img {
+    width: 115px;
+  }
+}
+@media (min-width: 1201px) {
+  .btm-photos .album img {
+    width: 117px;
+  }
 }
 .sub-video,
 .featured-video {
